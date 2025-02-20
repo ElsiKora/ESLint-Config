@@ -36,16 +36,9 @@
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
-    },
-    "./cli": {
-      "import": "./dist/esm/cli.js",
-      "require": "./dist/cjs/cli.js"
     }
   },
   "main": "index.js",
-  "bin": {
-    "@elsikora/eslint-config": "./bin/index.js"
-  },
   "files": [
     "./dist",
     "./bin"
@@ -120,5 +113,10 @@
   },
   "dependencies": {
     "commitizen": "^4.3.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   }
 }

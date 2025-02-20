@@ -76,22 +76,4 @@ export default [
 			}),
 		],
 	},
-	{
-		external: ["node:fs/promises", "node:path", "node:url", "node:util", "node:child_process", "@clack/prompts", "picocolors", "inquirer"],
-		input: "src/cli/index.ts",
-		output: [
-			{
-				banner: "#!/usr/bin/env node",
-				file: "bin/index.js",
-				format: "esm",
-			},
-		],
-		plugins: [
-			typescript({
-				declarationDir: "bin",
-				outDir: "bin",
-				tsconfig: "./tsconfig.build.json",
-			}),
-		],
-	},
 ];

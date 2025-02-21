@@ -16,4 +16,5 @@ export interface IConfigOptions {
 	withTypescript?: boolean;
 	withUnicorn?: boolean;
 	withYaml?: boolean;
+	withMarkdown?: boolean;
 }

@@ -32,6 +32,7 @@ export class ConfigFactory {
 		withTypescript: "typescript",
 		withUnicorn: "unicorn",
 		withYaml: "yaml",
+		withMarkdown: "markdown",
 	};
 
 	private static readonly CONFIG_MAPPING: Record<string, TConfigLoader> = {
@@ -52,6 +53,7 @@ export class ConfigFactory {
 		typescript: () => import("../../infrastructure/config/typescript"),
 		unicorn: () => import("../../infrastructure/config/unicorn"),
 		yaml: () => import("../../infrastructure/config/yaml"),
+		markdown: () => import("../../infrastructure/config/markdown"),
 	};
 
 	static async createConfig(options: IConfigOptions): Promise<Array<Linter.Config>> {

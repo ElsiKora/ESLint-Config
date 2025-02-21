@@ -43,8 +43,8 @@ export default tseslint.config({
 					regex: "^match$",
 				},
 				format: null,
-				prefix: ["is", "should", "has", "can", "did", "will", "use", "with", "to"],
-				selector: ["variable", "parameter", "property", "parameterProperty", "accessor", "enumMember", "classProperty"],
+				prefix: ["is", "should", "has", "can", "did", "will", "use", "with", "to", "was"],
+				selector: ["variable", "parameter", "property", "parameterProperty", "accessor", "classProperty"],
 				types: ["boolean"],
 			},
 			{

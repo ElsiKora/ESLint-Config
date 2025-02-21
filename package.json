@@ -66,7 +66,7 @@
 		"@stylistic/eslint-plugin": "^2.9.0",
 		"@types/eslint__js": "^8.42.3",
 		"eslint": "^9.13.0",
-		"eslint-config-prettier": "^9.1.0",
+		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-check-file": "^2.8.0",
 		"eslint-plugin-jsonc": "^2.16.0",
 		"eslint-plugin-n": "^17.12.0",

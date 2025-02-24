@@ -22,7 +22,7 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Remove beta tag from version if on main
         if: github.ref == 'refs/heads/main'

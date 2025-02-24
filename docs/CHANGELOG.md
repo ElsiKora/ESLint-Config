@@ -1,3 +1,12 @@
+# [3.3.0-dev.2](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.0-dev.1...v3.3.0-dev.2) (2025-02-24)
+
+
+### Bug Fixes
+
+* **release.yml:** Update actions and Node.js version in release workflow ([6a70106](https://github.com/ElsiKora/ESLint-Config/commit/6a701068c726087c690b7527bf9035282361e977))
+* **release.yml:** Update release workflow with node version bump and PR sync ([c5891d4](https://github.com/ElsiKora/ESLint-Config/commit/c5891d44463e912e3284428db7e490f17e98134d))
+* **release.yml:** Use `npm install` instead of `npm ci` in release workflow ([88984c4](https://github.com/ElsiKora/ESLint-Config/commit/88984c4c2d44eb823fb7fbb96a1e74795f41ee76))
+
 # [3.3.0-dev.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.2.5...v3.3.0-dev.1) (2025-02-24)
 
 

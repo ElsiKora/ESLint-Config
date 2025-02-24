@@ -11,34 +11,32 @@ export default {
 		provider: "GitHub",
 	},
 	commitlint: {
-		isEnabled: true,
+		isEnabled: false,
 	},
 	eslint: {
 		isEnabled: false,
 	},
 	gitignore: {
-		isEnabled: true,
+		isEnabled: false,
 	},
 	ide: {
 		isEnabled: false,
 	},
 	license: {
-		author: "ElsiKora",
-		isEnabled: true,
-		license: "MIT",
-		year: 2025,
+		isEnabled: false,
 	},
 	"lint-staged": {
-		features: ["eslint", "prettier"],
-		isEnabled: true,
+		isEnabled: false,
 	},
 	prettier: {
 		isEnabled: false,
 	},
 	"semantic-release": {
 		isEnabled: true,
-		isPrereleaseEnabled: false,
+		isPrereleaseEnabled: true,
 		mainBranch: "main",
+		preReleaseBranch: "dev",
+		preReleaseChannel: "beta",
 		repositoryUrl: "https://github.com/ElsiKora/ESLint-Config",
 	},
 	stylelint: {

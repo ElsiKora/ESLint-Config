@@ -1,5 +1,12 @@
 export default {
-	branches: ["main"],
+	branches: [
+		"main",
+		{
+			channel: "beta",
+			name: "dev",
+			prerelease: true,
+		},
+	],
 	plugins: [
 		[
 			"@semantic-release/commit-analyzer",

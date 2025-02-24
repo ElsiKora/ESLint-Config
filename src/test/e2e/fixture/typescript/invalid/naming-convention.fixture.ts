@@ -1,5 +1,5 @@
 export class userService {
-	private Name: string;
+	private readonly Name: string;
 
 	constructor(name: string) {
 		this.Name = name;

@@ -7,11 +7,12 @@ import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default [
 	{
-		...formatConfig([stylistic.configs["recommended-flat"]])[0],
+		...formatConfig([stylistic.configs.recommended])[0],
 		plugins: {
 			"@elsikora-stylistic": stylistic,
 		},
 		rules: {
+			// eslint-disable-next-line @elsikora-typescript/naming-convention
 			[formatRuleName("@stylistic/brace-style")]: ["error", "1tbs", { allowSingleLine: false }], // Enforce "one true brace style" for consistent brace positioning in control statements and functions, disallowing single-line blocks.
 			[formatRuleName("@stylistic/comma-spacing")]: "error", // Require a space after commas for improved readability in lists, object literals, etc.
 			[formatRuleName("@stylistic/function-call-spacing")]: "error", // Enforce no space between the function name and the parentheses when calling a function for consistency.

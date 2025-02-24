@@ -1,11 +1,11 @@
 import { Controller, Get } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 
-@Controller("products")
 @ApiTags("products")
+@Controller("products")
 export class ProductController {
 	@Get()
-	public getProducts(): string[] {
+	public getProducts(): Array<string> {
 		return ["product1", "product2"];
 	}
 }

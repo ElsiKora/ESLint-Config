@@ -1,12 +1,12 @@
 import { Controller, Get } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 
-@Controller("items")
 @ApiTags("items")
+@Controller("items")
 export class ItemController {
+	@ApiResponse({ description: "List of items", status: 200 })
 	@Get()
-	@ApiResponse({ status: 200, description: "List of items" })
-	public getItems(): string[] {
+	public getItems(): Array<string> {
 		return ["item1", "item2"];
 	}
 }

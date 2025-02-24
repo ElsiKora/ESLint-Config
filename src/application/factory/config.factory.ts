@@ -56,8 +56,8 @@ export class ConfigFactory {
 
 	static async createConfig(options: IConfigOptions): Promise<Array<Linter.Config>> {
 		const configPromises: Array<Promise<Array<Linter.Config>>> = Object.entries(options)
-			.filter(([key, value]) => value === true && this.OPTIONS_TO_CONFIG_MAP[key as keyof IConfigOptions])
-			.map(([key]) => {
+			.filter(([key, value]: [string, any]) => value === true && this.OPTIONS_TO_CONFIG_MAP[key as keyof IConfigOptions])
+			.map(([key]: any) => {
 				const configName: string | undefined = this.OPTIONS_TO_CONFIG_MAP[key as keyof IConfigOptions];
 
 				return this.loadConfig(configName);

@@ -1,3 +1,4 @@
+/* eslint-disable @elsikora-typescript/naming-convention */
 import type { Linter } from "eslint";
 
 import tseslint from "typescript-eslint";
@@ -174,7 +175,7 @@ export default tseslint.config({
 		"@elsikora-typescript/no-empty-function": "error", // Disallow empty functions to avoid unintentionally incomplete implementations.
 		"@elsikora-typescript/no-empty-interface": "error", // Prevent the declaration of empty interfaces which can be misleading and unnecessary.
 		"@elsikora-typescript/no-explicit-any": "off", // Allow the use of 'any' type to enable flexibility in cases where strict typing is excessively restrictive.
-		"@elsikora-typescript/ no-extraneous-class": "off", // Allow the use of classes that are not explicitly used in the codebase to enable flexibility in class definitions
+		"@elsikora-typescript/no-extraneous-class": "off", // Allow the use of classes that are not explicitly used in the codebase to enable flexibility in class definitions
 		"@elsikora-typescript/no-floating-promises": "error", // Require handling of promises to avoid uncaught promise rejections and unhandled async operations.
 		"@elsikora-typescript/no-for-in-array": "error", // Disallow for-in loops over arrays because they iterate over object keys, not array elements.
 		"@elsikora-typescript/no-implied-eval": "error", // Disallow methods that can execute code strings, preventing potential security vulnerabilities.

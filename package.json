@@ -1,121 +1,142 @@
 {
-  "name": "@elsikora/eslint-config",
-  "version": "3.2.5",
-  "description": "ESLint configuration vision of ElsiKora",
-  "keywords": [
-    "eslint",
-    "eslint-config",
-    "eslint-plugin",
-    "typescript",
-    "nestjs",
-    "decorator",
-    "sort",
-    "import",
-    "package.json",
-    "perfectionist",
-    "sonarjs",
-    "typeorm",
-    "unicorn",
-    "unused-imports",
-    "yml",
-    "jsonc",
-    "yaml"
-  ],
-  "homepage": "https://github.com/ElsiKora/ESLint-Config#readme",
-  "bugs": {
-    "url": "https://github.com/ElsiKora/ESLint-Config/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ElsiKora/ESLint-Config"
-  },
-  "license": "MIT",
-  "author": "ElsiKora",
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
-    }
-  },
-  "main": "index.js",
-  "files": [
-    "./dist",
-    "./bin"
-  ],
-  "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "npm run prebuild && rollup -c",
-    "build:test": "npm run prebuild && rollup -c rollup.test.config.js",
-    "dev": "rollup -c -w",
-    "format": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "lint": "eslint ./ && prettier --check .",
-    "lint:fix": "eslint ./src --fix && prettier --write .",
-    "patch": "changeset",
-    "release": "npm install && npm run build && changeset publish",
-    "test:unit": "vitest run test/unit --config vitest.config.unit.ts",
-    "test:e2e": "npm run build:test && vitest --config vitest.config.e2e.ts --typecheck.tsconfig tsconfig.json",
-    "test:all": "npm run test:unit && npm run test:e2e",
-    "prepare": "husky"
-  },
-  "devDependencies": {
-    "@changesets/cli": "^2.27.11",
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
-    "@commitlint/cz-commitlint": "^19.6.1",
-    "@commitlint/format": "^19.5.0",
-    "@commitlint/types": "^19.5.0",
-    "@elsikora/eslint-plugin-nestjs-typed": "^3.0.1",
-    "@eslint-react/eslint-plugin": "^1.26.2",
-    "@eslint/compat": "^1.2.6",
-    "@eslint/js": "^9.19.0",
-    "@rollup/plugin-typescript": "^12.1.2",
-    "@stylistic/eslint-plugin": "^2.13.0",
-    "@types/eslint__js": "^8.42.3",
-    "@typescript-eslint/eslint-plugin": "^8.23.0",
-    "@typescript-eslint/parser": "^8.23.0",
-    "@typescript-eslint/utils": "^8.20.0",
-    "@vitest/coverage-v8": "2.1.4",
-    "eslint": "^9.20.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-check-file": "^2.8.0",
-    "eslint-plugin-jsonc": "^2.19.1",
-    "eslint-plugin-n": "^17.15.1",
-    "eslint-plugin-ng-module-sort": "^1.3.1",
-    "eslint-plugin-package-json": "^0.19.0",
-    "eslint-plugin-perfectionist": "^4.8.0",
-    "eslint-plugin-prettier": "^5.2.3",
-    "eslint-plugin-regexp": "^2.7.0",
-    "eslint-plugin-sonarjs": "^3.0.1",
-    "eslint-plugin-typeorm-typescript": "^0.5.0",
-    "eslint-plugin-unicorn": "^56.0.1",
-    "eslint-plugin-yml": "^1.16.0",
-    "husky": "^9.1.7",
-    "memfs": "^4.17.0",
-    "prettier": "^3.4.2",
-    "rimraf": "^6.0.1",
-    "rollup": "^4.30.1",
-    "stylelint": "^16.13.1",
-    "stylelint-config-css-modules": "^4.4.0",
-    "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-standard-scss": "^14.0.0",
-    "stylelint-order": "^6.0.4",
-    "stylelint-prettier": "^5.0.2",
-    "tslib": "^2.8.1",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.23.0",
-    "vitest": "^2.1.4"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "dependencies": {
-    "commitizen": "^4.3.1"
-  },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
-    }
-  }
+	"name": "@elsikora/eslint-config",
+	"version": "3.2.5",
+	"description": "ESLint configuration vision of ElsiKora",
+	"keywords": [
+		"eslint",
+		"eslint-config",
+		"eslint-plugin",
+		"typescript",
+		"nestjs",
+		"decorator",
+		"sort",
+		"import",
+		"package.json",
+		"perfectionist",
+		"sonarjs",
+		"typeorm",
+		"unicorn",
+		"unused-imports",
+		"yml",
+		"jsonc",
+		"yaml"
+	],
+	"homepage": "https://github.com/ElsiKora/ESLint-Config#readme",
+	"bugs": {
+		"url": "https://github.com/ElsiKora/ESLint-Config/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ElsiKora/ESLint-Config"
+	},
+	"license": "MIT",
+	"author": "ElsiKora",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js"
+		}
+	},
+	"main": "index.js",
+	"files": [
+		"./dist"
+	],
+	"scripts": {
+		"prebuild": "rimraf dist",
+		"build": "npm run prebuild && rollup -c",
+		"build:test": "npm run prebuild && rollup -c rollup.test.config.js",
+		"ci": "npm run test && npm run build && npm run semantic-release",
+		"commit": "cz",
+		"dev": "rollup -c -w",
+		"format": "prettier --check .",
+		"format:fix": "prettier --write .",
+		"lint": "eslint ./",
+		"lint:fix": "eslint ./ --fix",
+		"prepare": "husky install",
+		"release": "semantic-release",
+		"semantic-release": "semantic-release",
+		"test:all": "npm run test:unit && npm run test:e2e",
+		"test:e2e": "npm run build:test && vitest --config vitest.config.e2e.ts --typecheck.tsconfig tsconfig.json",
+		"test:unit": "vitest run test/unit --config vitest.config.unit.ts"
+	},
+	"config": {
+		"commitizen": {
+			"path": "@commitlint/cz-commitlint"
+		}
+	},
+	"dependencies": {
+		"@eslint/compat": "^1.2.7",
+		"@eslint/js": "^9.21.0",
+		"@stylistic/eslint-plugin": "^4.0.1",
+		"@typescript-eslint/eslint-plugin": "^8.25.0",
+		"@typescript-eslint/parser": "^8.25.0",
+		"eslint-config-prettier": "^10.0.1",
+		"eslint-plugin-check-file": "^3.1.0",
+		"eslint-plugin-jsonc": "^2.19.1",
+		"eslint-plugin-package-json": "^0.26.0",
+		"eslint-plugin-perfectionist": "^4.9.0",
+		"eslint-plugin-prettier": "^5.2.3",
+		"eslint-plugin-regexp": "^2.7.0",
+		"eslint-plugin-sonarjs": "^3.0.2",
+		"eslint-plugin-unicorn": "^57.0.0",
+		"eslint-plugin-yml": "^1.17.0",
+		"typescript-eslint": "^8.25.0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^19.7.1",
+		"@commitlint/config-conventional": "^19.7.1",
+		"@commitlint/cz-commitlint": "^19.6.1",
+		"@commitlint/format": "^19.5.0",
+		"@commitlint/types": "^19.5.0",
+		"@rollup/plugin-typescript": "^12.1.2",
+		"@semantic-release/changelog": "^6.0.3",
+		"@semantic-release/commit-analyzer": "^13.0.1",
+		"@semantic-release/git": "^10.0.1",
+		"@semantic-release/github": "^11.0.1",
+		"@semantic-release/npm": "^12.0.1",
+		"@semantic-release/release-notes-generator": "^14.0.3",
+		"@typescript-eslint/utils": "^8.25.0",
+		"@vitest/coverage-v8": "2.1.4",
+		"commitizen": "^4.3.1",
+		"conventional-changelog-conventionalcommits": "^8.0.0",
+		"eslint": "^9.21.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.4.3",
+		"memfs": "^4.17.0",
+		"prettier": "^3.5.2",
+		"rimraf": "^6.0.1",
+		"rollup": "^4.34.8",
+		"semantic-release": "^24.2.3",
+		"tslib": "^2.8.1",
+		"typescript": "^5.7.3",
+		"vitest": "^2.1.4"
+	},
+	"peerDependencies": {
+		"@elsikora/eslint-plugin-nestjs-typed": "^3.0.1",
+		"@eslint-react/eslint-plugin": "^1.27.0",
+		"eslint-plugin-n": "^17.15.1",
+		"eslint-plugin-ng-module-sort": "^1.3.1",
+		"eslint-plugin-typeorm-typescript": "^0.5.0"
+	},
+	"peerDependenciesMeta": {
+		"eslint-plugin-n": {
+			"optional": true
+		},
+		"@elsikora/eslint-plugin-nestjs-typed": {
+			"optional": true
+		},
+		"eslint-plugin-typeorm-typescript": {
+			"optional": true
+		},
+		"@eslint-react/eslint-plugin": {
+			"optional": true
+		},
+		"eslint-plugin-ng-module-sort": {
+			"optional": true
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

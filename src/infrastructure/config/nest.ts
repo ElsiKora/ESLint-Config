@@ -3,8 +3,10 @@ import type { Linter } from "eslint";
 // @ts-expect-error
 import nestJsTyped from "@elsikora/eslint-plugin-nestjs-typed";
 import { fixupPluginRules } from "@eslint/compat";
+// @ts-ignore
 import ngModuleSort from "eslint-plugin-ng-module-sort";
 import tseslint from "typescript-eslint";
+
 import { formatConfig } from "../utility/format-config.utility";
 
 export default [
@@ -18,9 +20,10 @@ export default [
 			},
 		},
 		plugins: {
+			// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument
 			"@elsikora/nest/1": fixupPluginRules(ngModuleSort),
 
-			// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument
+			// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument,@elsikora-typescript/no-unsafe-member-access
 			"@elsikora/nest/2": formatConfig([nestJsTyped.plugin])[0],
 		},
 		rules: {

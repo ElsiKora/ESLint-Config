@@ -18,9 +18,11 @@ export default [
 					},
 					environment: "node",
 					groups: ["builtin-type", "type", "external-type", "internal-type", "parent-type", "sibling-type", "index-type", "builtin", "external", "internal", "parent", "sibling", "index", "object", "style", "side-effect", "unknown"],
+					// eslint-disable-next-line @elsikora-typescript/naming-convention
 					ignoreCase: false,
 					newlinesBetween: "always",
 					order: "asc",
+					// eslint-disable-next-line @elsikora-typescript/naming-convention
 					sortSideEffects: true,
 					specialCharacters: "keep",
 					type: "alphabetical",

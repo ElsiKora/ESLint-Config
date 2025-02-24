@@ -6,7 +6,7 @@ export default [
 	js.configs.recommended,
 	{
 		rules: {
-			"no-await-in-loop": "off",
+			"no-await-in-loop": "error",
 			"no-compare-neg-zero": "error",
 			"no-constructor-return": "error",
 			"no-duplicate-imports": "error",

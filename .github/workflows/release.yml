@@ -55,11 +55,17 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Ensure release label exists
+        run: |
+          gh label list | grep -q "release" || gh label create "release" --color "#0E8A16" --description "Release related changes"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Pull Request directly from dev to main
         run: |
           gh pr create --base main --head dev \
             --title "chore(release): sync dev to main" \
             --body "This PR syncs changes from dev to main branch, including version updates and CHANGELOG." \
-            --label "release"
+            --label "release" || echo "PR may already exist"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

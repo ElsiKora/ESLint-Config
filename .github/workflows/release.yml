@@ -1,7 +1,7 @@
 name: Release And Publish
 
 env:
-  PRERELEASE_TAG: "beta"
+  PRERELEASE_TAG: "dev"
   NODE_VERSION: "20"
   TEMP_BRANCH_PREFIX: "temp-release-"
   PR_TITLE_PREFIX: "chore(release): release version"

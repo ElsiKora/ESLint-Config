@@ -1,3 +1,5 @@
+import process from "node:process";
+
 export default {
 	branches: [
 		"main",
@@ -45,21 +47,17 @@ export default {
 				access: "public",
 			},
 		],
-		(context) => {
-			if (context.branch.name === 'main') {
-				return [];
-			}
-
-			return [
-				[
-					"@semantic-release/git",
-					{
-						assets: ["CHANGELOG.md", "package.json"],
-						message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
-					},
-				],
-			];
-		},
+		...(process.env.BRANCH === "main"
+			? []
+			: [
+					[
+						"@semantic-release/git",
+						{
+							assets: ["CHANGELOG.md", "package.json"],
+							message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+						},
+					],
+				]),
 	],
 	repositoryUrl: "https://github.com/ElsiKora/ESLint-Config",
 };

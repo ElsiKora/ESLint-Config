@@ -1,7 +1,6 @@
 name: Mirror to CodeCommit
 
 env:
-  RUNNER_OS: ubuntu-latest
   CHECKOUT_DEPTH: 0
 
 on: push
@@ -9,7 +8,7 @@ on: push
 jobs:
   mirror_to_codecommit:
     name: Mirror to CodeCommit
-    runs-on: ${{ env.RUNNER_OS }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code

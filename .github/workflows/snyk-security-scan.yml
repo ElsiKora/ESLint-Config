@@ -2,7 +2,6 @@ name: Snyk Security Scan
 
 env:
   NODE_VERSION: 20
-  RUNNER_OS: ubuntu-latest
   SNYK_GLOBAL_PACKAGES: snyk snyk-to-html
 
 on: push
@@ -10,7 +9,7 @@ on: push
 jobs:
   snyk_security_scan:
     name: Snyk Security Scan
-    runs-on: ${{ env.RUNNER_OS }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code

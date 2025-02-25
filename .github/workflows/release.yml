@@ -1,7 +1,7 @@
 name: Release And Publish
 
 env:
-  PRERELEASE_BRANCH_NAME: "dev"
+  PRERELEASE_TAG: "beta"
   NODE_VERSION: "20"
   TEMP_BRANCH_PREFIX: "temp-release-"
   PR_TITLE_PREFIX: "chore(release): release version"
@@ -65,11 +65,11 @@ jobs:
           
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           
-          if [[ $CURRENT_VERSION == *-${{ env.PRERELEASE_BRANCH_NAME }}* ]]; then
+          if [[ $CURRENT_VERSION == *-${{ env.PRERELEASE_TAG }}* ]]; then
             TEMP_BRANCH="${{ env.TEMP_BRANCH_PREFIX }}${CURRENT_VERSION}"
             git checkout -b $TEMP_BRANCH
           
-            CLEAN_VERSION=$(echo $CURRENT_VERSION | sed 's/-${{ env.PRERELEASE_BRANCH_NAME }}\.[0-9]*//')
+            CLEAN_VERSION=$(echo $CURRENT_VERSION | sed 's/-${{ env.PRERELEASE_TAG }}\.[0-9]*//')
             npm version $CLEAN_VERSION --no-git-tag-version
           
             git add package.json
@@ -82,45 +82,6 @@ jobs:
               --title "${{ env.PR_TITLE_PREFIX }} ${CLEAN_VERSION}" \
               --body "$PR_BODY" \
               --label "${{ env.PR_LABEL }}" || echo "Failed to create PR"
-          else
-            echo "Current version is not a prerelease, no action needed"
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  merge-to-main:
-    needs: create-temp-branch-and-pr
-    if: github.ref == 'refs/heads/dev'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Merge temp branch to main
-        run: |
-          CURRENT_VERSION=$(node -p "require('./package.json').version")
-          
-          if [[ $CURRENT_VERSION == *-${{ env.PRERELEASE_BRANCH_NAME }}* ]]; then
-            TEMP_BRANCH="${{ env.TEMP_BRANCH_PREFIX }}${CURRENT_VERSION}"
-          
-            PR_NUMBER=$(gh pr list --head $TEMP_BRANCH --json number -q ".[0].number")
-          
-            if [ -n "$PR_NUMBER" ]; then
-              echo "Found PR #$PR_NUMBER for branch $TEMP_BRANCH"
-          
-              gh pr merge $PR_NUMBER --admin --merge
-            else
-              echo "No PR found for branch $TEMP_BRANCH"
-          
-              git fetch origin main
-              git checkout main
-              MERGE_MSG=$(echo "${{ env.MERGE_COMMIT_MESSAGE }}" | sed "s/BRANCH/$TEMP_BRANCH/")
-              git merge --no-ff origin/$TEMP_BRANCH -m "$MERGE_MSG"
-              git push origin main
-            fi
           else
             echo "Current version is not a prerelease, no action needed"
           fi

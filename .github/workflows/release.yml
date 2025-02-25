@@ -24,48 +24,89 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Remove beta tag from version if on main
-        if: github.ref == 'refs/heads/main'
-        run: |
-          CURRENT_VERSION=$(node -p "require('./package.json').version")
-          if [[ $CURRENT_VERSION == *-beta* ]]; then
-            CLEAN_VERSION=$(echo $CURRENT_VERSION | sed 's/-beta\.[0-9]*//')
-            npm version $CLEAN_VERSION --no-git-tag-version
-            git config --global user.name 'GitHub Action'
-            git config --global user.email 'action@github.com'
-            git add package.json
-            git commit -m "chore: remove beta tag from version"
-            git push
-          fi
-
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
 
-  create-pr-to-main:
+  create-temp-branch-and-pr:
     needs: release
     if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Ensure release label exists
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Create temp branch from dev with regular version
         run: |
-          gh label list | grep -q "release" || gh label create "release" --color "#0E8A16" --description "Release related changes"
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+
+          # Get current version from package.json
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+
+          # Check if it's a prerelease version
+          if [[ $CURRENT_VERSION == *-beta* ]]; then
+            # Create a temp branch
+            TEMP_BRANCH="temp-release-${CURRENT_VERSION}"
+            git checkout -b $TEMP_BRANCH
+
+            # Convert prerelease version to regular version
+            CLEAN_VERSION=$(echo $CURRENT_VERSION | sed 's/-beta\.[0-9]*//')
+            npm version $CLEAN_VERSION --no-git-tag-version
+
+            # Commit and push the temp branch
+            git add package.json
+            git commit -m "chore: convert prerelease to regular version"
+            git push --set-upstream origin $TEMP_BRANCH
+
+            # Create a PR from temp branch to main
+            gh pr create --base main --head $TEMP_BRANCH \
+              --title "chore(release): release version ${CLEAN_VERSION}" \
+              --body "This PR releases version ${CLEAN_VERSION} to main branch." \
+              --label "release" || echo "Failed to create PR"
+          else
+            echo "Current version is not a prerelease, no action needed"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Pull Request directly from dev to main
+  merge-to-main:
+    needs: create-temp-branch-and-pr
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge temp branch to main
         run: |
-          gh pr create --base main --head dev \
-            --title "chore(release): sync dev to main" \
-            --body "This PR syncs changes from dev to main branch, including version updates and CHANGELOG." \
-            --label "release" || echo "PR may already exist"
+          # Get current version from package.json
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+
+          # Only proceed if it's a prerelease version
+          if [[ $CURRENT_VERSION == *-beta* ]]; then
+            TEMP_BRANCH="temp-release-${CURRENT_VERSION}"
+
+            # Wait for checks to pass
+            gh pr checks $TEMP_BRANCH --watch
+
+            # Merge the PR
+            gh pr merge $TEMP_BRANCH --admin --merge
+          else
+            echo "Current version is not a prerelease, no action needed"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

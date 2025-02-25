@@ -1,3 +1,5 @@
+# [3.3.0-dev.9](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.0-dev.8...v3.3.0-dev.9) (2025-02-25)
+
 # @elsikora/eslint-config-elsikora
 
 ## 3.2.5

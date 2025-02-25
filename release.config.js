@@ -35,7 +35,7 @@ export default {
 		[
 			"@semantic-release/changelog",
 			{
-				changelogFile: "docs/CHANGELOG.md",
+				changelogFile: "CHANGELOG.md",
 			},
 		],
 		"@semantic-release/github",
@@ -45,16 +45,21 @@ export default {
 				access: "public",
 			},
 		],
-		[
-			"semantic-release-github-pullrequest",
-			{
-				assets: ["docs", "package.json"],
-				baseRef: "dev",
-				branch: "release-pr-${nextRelease.version}",
-				pullrequestTitle: "chore(release): update release ${nextRelease.version}",
-				labels: ["release"]
-			},
-		],
+		(context) => {
+			if (context.branch.name === 'main') {
+				return [];
+			}
+
+			return [
+				[
+					"@semantic-release/git",
+					{
+						assets: ["CHANGELOG.md", "package.json"],
+						message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+					},
+				],
+			];
+		},
 	],
 	repositoryUrl: "https://github.com/ElsiKora/ESLint-Config",
 };

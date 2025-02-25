@@ -1,4 +1,17 @@
 name: Release And Publish
+
+env:
+  PRERELEASE_BRANCH_NAME: "dev"
+  NODE_VERSION: "20"
+  TEMP_BRANCH_PREFIX: "temp-release-"
+  PR_TITLE_PREFIX: "chore(release): release version"
+  PR_LABEL: "release"
+  GIT_USER_NAME: "GitHub Action"
+  GIT_USER_EMAIL: "action@github.com"
+  PR_BODY_TEMPLATE: "This PR releases version VERSION to main branch."
+  COMMIT_MESSAGE: "chore: convert prerelease to regular version"
+  MERGE_COMMIT_MESSAGE: "chore(release): merge release version from BRANCH"
+
 on:
   push:
     branches:
@@ -7,24 +20,109 @@ on:
 
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
+
+  create-temp-branch-and-pr:
+    needs: release
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Create temp branch from dev with regular version
+        run: |
+          git config --global user.name '${{ env.GIT_USER_NAME }}'
+          git config --global user.email '${{ env.GIT_USER_EMAIL }}'
+          
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          
+          if [[ $CURRENT_VERSION == *-${{ env.PRERELEASE_BRANCH_NAME }}* ]]; then
+            TEMP_BRANCH="${{ env.TEMP_BRANCH_PREFIX }}${CURRENT_VERSION}"
+            git checkout -b $TEMP_BRANCH
+          
+            CLEAN_VERSION=$(echo $CURRENT_VERSION | sed 's/-${{ env.PRERELEASE_BRANCH_NAME }}\.[0-9]*//')
+            npm version $CLEAN_VERSION --no-git-tag-version
+          
+            git add package.json
+            git commit -m "${{ env.COMMIT_MESSAGE }}"
+            git push --set-upstream origin $TEMP_BRANCH
+          
+            PR_BODY=$(echo "${{ env.PR_BODY_TEMPLATE }}" | sed "s/VERSION/${CLEAN_VERSION}/")
+          
+            gh pr create --base main --head $TEMP_BRANCH \
+              --title "${{ env.PR_TITLE_PREFIX }} ${CLEAN_VERSION}" \
+              --body "$PR_BODY" \
+              --label "${{ env.PR_LABEL }}" || echo "Failed to create PR"
+          else
+            echo "Current version is not a prerelease, no action needed"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  merge-to-main:
+    needs: create-temp-branch-and-pr
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge temp branch to main
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          
+          if [[ $CURRENT_VERSION == *-${{ env.PRERELEASE_BRANCH_NAME }}* ]]; then
+            TEMP_BRANCH="${{ env.TEMP_BRANCH_PREFIX }}${CURRENT_VERSION}"
+          
+            PR_NUMBER=$(gh pr list --head $TEMP_BRANCH --json number -q ".[0].number")
+          
+            if [ -n "$PR_NUMBER" ]; then
+              echo "Found PR #$PR_NUMBER for branch $TEMP_BRANCH"
+          
+              gh pr merge $PR_NUMBER --admin --merge
+            else
+              echo "No PR found for branch $TEMP_BRANCH"
+          
+              git fetch origin main
+              git checkout main
+              MERGE_MSG=$(echo "${{ env.MERGE_COMMIT_MESSAGE }}" | sed "s/BRANCH/$TEMP_BRANCH/")
+              git merge --no-ff origin/$TEMP_BRANCH -m "$MERGE_MSG"
+              git push origin main
+            fi
+          else
+            echo "Current version is not a prerelease, no action needed"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

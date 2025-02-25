@@ -65,7 +65,8 @@ jobs:
           git config --global user.email '${{ env.GIT_USER_EMAIL }}'
           
           CURRENT_VERSION=$(node -p "require('./package.json').version")
-          
+          echo "Current version is $CURRENT_VERSION"
+          echo "PRERELEASE_TAG is ${{ env.PRERELEASE_TAG }}"
           if [[ $CURRENT_VERSION == *-${{ env.PRERELEASE_TAG }}* ]]; then
             TEMP_BRANCH="${{ env.TEMP_BRANCH_PREFIX }}${CURRENT_VERSION}"
             git checkout -b $TEMP_BRANCH

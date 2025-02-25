@@ -110,7 +110,7 @@
 		"semantic-release": "^24.2.3",
 		"tslib": "^2.8.1",
 		"typescript": "^5.7.3",
-		"vitest": "^2.1.4"
+		"vitest": "^3.0.7"
 	},
 	"peerDependencies": {
 		"@elsikora/eslint-plugin-nestjs-typed": "^3.0.1",

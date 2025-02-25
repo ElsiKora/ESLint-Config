@@ -2,7 +2,6 @@ name: Qodana Quality Scan
 
 env:
   NODE_VERSION: 20
-  RUNNER_OS: ubuntu-latest
   CHECKOUT_DEPTH: 0
 
 on: push
@@ -10,7 +9,7 @@ on: push
 jobs:
   qodana_quality_scan:
     name: Qodana Quality Scan
-    runs-on: ${{ env.RUNNER_OS }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code

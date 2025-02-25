@@ -55,13 +55,13 @@ jobs:
           CURRENT_VERSION=$(node -p "require('./package.json').version")
 
           # Check if it's a prerelease version
-          if [[ $CURRENT_VERSION == *-beta* ]]; then
+          if [[ $CURRENT_VERSION == *-dev* ]]; then
             # Create a temp branch
             TEMP_BRANCH="temp-release-${CURRENT_VERSION}"
             git checkout -b $TEMP_BRANCH
 
             # Convert prerelease version to regular version
-            CLEAN_VERSION=$(echo $CURRENT_VERSION | sed 's/-beta\.[0-9]*//')
+            CLEAN_VERSION=$(echo $CURRENT_VERSION | sed 's/-dev\.[0-9]*//')
             npm version $CLEAN_VERSION --no-git-tag-version
 
             # Commit and push the temp branch
@@ -97,7 +97,7 @@ jobs:
           CURRENT_VERSION=$(node -p "require('./package.json').version")
 
           # Only proceed if it's a prerelease version
-          if [[ $CURRENT_VERSION == *-beta* ]]; then
+          if [[ $CURRENT_VERSION == *-dev* ]]; then
             TEMP_BRANCH="temp-release-${CURRENT_VERSION}"
 
             # Wait for checks to pass

@@ -20,7 +20,6 @@ export default [
 			},
 		},
 		plugins: {
-			// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument
 			"@elsikora/nest/1": fixupPluginRules(ngModuleSort),
 
 			// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument,@elsikora-typescript/no-unsafe-member-access

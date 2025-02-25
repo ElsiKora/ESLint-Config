@@ -5,7 +5,6 @@
 <h1 align="center">ESLint-Config 🎯</h1>
 <p align="center"><em>Comprehensive ESLint configuration with TypeScript, React, and NestJS support using ESLint Flat config</em></p>
 
-
 <p align="center">
     <a aria-label="ElsiKora logo" href="https://elsikora.com">
   <img src="https://img.shields.io/badge/MADE%20BY%20ElsiKora-333333.svg?style=for-the-badge" alt="ElsiKora">

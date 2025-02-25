@@ -1,15 +1,20 @@
 name: Mirror to CodeCommit
+
+env:
+  CHECKOUT_DEPTH: 0
+
 on: push
 
 jobs:
   mirror_to_codecommit:
     name: Mirror to CodeCommit
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: ${{ env.CHECKOUT_DEPTH }}
 
       - name: Mirror to CodeCommit
         uses: pixta-dev/repository-mirroring-action@v1

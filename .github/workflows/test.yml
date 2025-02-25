@@ -1,20 +1,17 @@
 name: Run Tests
 
-on:
-  push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
+on: push
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: 20
 
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Node.js

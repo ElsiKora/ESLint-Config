@@ -1,6 +1,9 @@
 import process from "node:process";
 
-export default {
+const reference = process.env.GITHUB_REF;
+const branch = reference ? reference.split("/").pop() : process.env.BRANCH || "unknown";
+
+const config = {
 	branches: [
 		"main",
 		{
@@ -34,12 +37,6 @@ export default {
 			},
 		],
 		"@semantic-release/release-notes-generator",
-		[
-			"@semantic-release/changelog",
-			{
-				changelogFile: "CHANGELOG.md",
-			},
-		],
 		"@semantic-release/github",
 		[
 			"@semantic-release/npm",
@@ -47,17 +44,36 @@ export default {
 				access: "public",
 			},
 		],
-		...(process.env.BRANCH === "main"
-			? []
-			: [
-					[
-						"@semantic-release/git",
-						{
-							assets: ["CHANGELOG.md", "package.json"],
-							message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
-						},
-					],
-				]),
 	],
 	repositoryUrl: "https://github.com/ElsiKora/ESLint-Config",
 };
+
+const isPrereleaseBranch = config.branches.some((b) => typeof b === "object" && branch.includes(b.name) && b.prerelease);
+
+if (isPrereleaseBranch) {
+	config.plugins.push([
+		"@semantic-release/git",
+		{
+			assets: ["package.json"],
+			message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+		},
+	]);
+} else {
+	config.plugins.push(
+		[
+			"@semantic-release/changelog",
+			{
+				changelogFile: "CHANGELOG.md",
+			},
+		],
+		[
+			"@semantic-release/git",
+			{
+				assets: ["package.json", "CHANGELOG.md"],
+				message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+			},
+		],
+	);
+}
+
+export default config;

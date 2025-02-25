@@ -1,14 +1,6 @@
 export default {
 	ci: {
-		isEnabled: true,
-		isNpmPackage: true,
-		moduleProperties: {
-			dependabot: {
-				devBranchName: "dev",
-			},
-		},
-		modules: ["codecommit-sync", "dependabot", "qodana", "release-npm", "snyk"],
-		provider: "GitHub",
+		isEnabled: false,
 	},
 	commitlint: {
 		isEnabled: false,
@@ -26,18 +18,14 @@ export default {
 		isEnabled: false,
 	},
 	"lint-staged": {
-		isEnabled: false,
+		features: ["eslint", "prettier"],
+		isEnabled: true,
 	},
 	prettier: {
 		isEnabled: false,
 	},
 	"semantic-release": {
-		isEnabled: true,
-		isPrereleaseEnabled: true,
-		mainBranch: "main",
-		preReleaseBranch: "dev",
-		preReleaseChannel: "beta",
-		repositoryUrl: "https://github.com/ElsiKora/ESLint-Config",
+		isEnabled: false,
 	},
 	stylelint: {
 		isEnabled: false,

@@ -1,6 +1,4 @@
-# [3.3.0-dev.11](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.0-dev.10...v3.3.0-dev.11) (2025-02-25)
-
-# [3.3.0-dev.10](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.0-dev.9...v3.3.0-dev.10) (2025-02-25)
+## [3.3.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.0...v3.3.1) (2025-02-25)
 
 # [3.3.0-dev.9](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.0-dev.8...v3.3.0-dev.9) (2025-02-25)
 

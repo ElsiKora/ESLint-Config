@@ -46,10 +46,13 @@ export default {
 			},
 		],
 		[
-			"@semantic-release/git",
+			"semantic-release-github-pullrequest",
 			{
 				assets: ["docs", "package.json"],
-				message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+				baseRef: "dev",
+				branch: "release-pr-${nextRelease.version}",
+				pullrequestTitle: "chore(release): update release ${nextRelease.version}",
+				labels: ["release"]
 			},
 		],
 	],

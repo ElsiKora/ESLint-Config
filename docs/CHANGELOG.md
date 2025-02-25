@@ -1,3 +1,16 @@
+# [3.3.0-dev.2](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.0-dev.1...v3.3.0-dev.2) (2025-02-25)
+
+
+### chore
+
+* **package.json:** Update package version to 3.2.5 ([9057044](https://github.com/ElsiKora/ESLint-Config/commit/905704437d673c5f04f33c0476256c23b5b08cbe))
+
+
+### BREAKING CHANGES
+
+* **package.json:** Revert the version to a stable release (3.2.5) from a development version. This
+ensures compatibility and aligns with the current publishing strategy.
+
 # [3.3.0-dev.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.2.5...v3.3.0-dev.1) (2025-02-25)
 
 

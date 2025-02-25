@@ -1,20 +1,18 @@
 name: Run Tests
 
-on:
-  push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
+on: push
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: 20
+  RUNNER_OS: ubuntu-latest
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    name: Test
+    runs-on: ${{ env.RUNNER_OS }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Node.js

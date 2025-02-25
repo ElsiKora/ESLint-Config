@@ -38,7 +38,6 @@
 			"require": "./dist/cjs/index.js"
 		}
 	},
-	"main": "index.js",
 	"files": [
 		"./dist"
 	],
@@ -55,7 +54,6 @@
 		"lint:fix": "eslint ./ --fix",
 		"prepare": "husky install",
 		"release": "semantic-release",
-		"semantic-release": "semantic-release",
 		"test:all": "npm run test:unit && npm run test:e2e",
 		"test:e2e": "npm run build:test && vitest --config vitest.config.e2e.ts --typecheck.tsconfig tsconfig.json",
 		"test:unit": "vitest run test/unit --config vitest.config.unit.ts"

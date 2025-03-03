@@ -1,5 +1,6 @@
 # Compiled output
 /dist/
+/bin/
 /build/
 /out/
 /tmp/
@@ -121,9 +122,6 @@ Gemfile.lock
 *.pid.db
 pids/
 *.pid
-
-# System Files
-.git-rewrite/
 
 # Process Managers
 .pm2/

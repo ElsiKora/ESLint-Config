@@ -21,6 +21,7 @@ const config = {
 				},
 				preset: "conventionalcommits",
 				releaseRules: [
+					{ breaking: true, release: "major" },
 					{ release: "minor", type: "feat" },
 					{ release: "patch", type: "fix" },
 					{ release: "patch", type: "docs" },
@@ -55,7 +56,7 @@ if (isPrereleaseBranch) {
 		"@semantic-release/git",
 		{
 			assets: ["package.json"],
-			message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+			message: "chore(release): ${nextRelease.version} [skip ci]",
 		},
 	]);
 } else {
@@ -70,7 +71,15 @@ if (isPrereleaseBranch) {
 			"@semantic-release/git",
 			{
 				assets: ["package.json", "CHANGELOG.md"],
-				message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+				message: "chore(release): ${nextRelease.version} [skip ci]",
+			},
+		],
+		[
+			"@saithodev/semantic-release-backmerge",
+			{
+				backmergeBranches: ["dev"],
+				backmergeStrategy: "rebase",
+				message: "chore(release): synchronization [skip ci]",
 			},
 		],
 	);

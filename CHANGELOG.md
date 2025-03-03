@@ -1,3 +1,10 @@
+## [3.3.5](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.4...v3.3.5) (2025-03-03)
+
+
+### Bug Fixes
+
+* **config:** javascript and typescript configs push ([b4d52fa](https://github.com/ElsiKora/ESLint-Config/commit/b4d52fa0c5f6288c95671a65bed5655d790dd0ba))
+
 ## [3.3.4](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.3...v3.3.4) (2025-03-01)
 
 ## [3.3.3](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.2...v3.3.3) (2025-02-25)

@@ -6,13 +6,13 @@ export default [
 	js.configs.recommended,
 	{
 		rules: {
-			"no-await-in-loop": "off",
-			"no-compare-neg-zero": "error",
-			"no-constructor-return": "error",
-			"no-duplicate-imports": "error",
-			"no-inner-declarations": "error",
-			"no-promise-executor-return": "error",
-			"no-self-compare": "error",
+			"no-await-in-loop": "off", // Allow await in loops
+			"no-compare-neg-zero": "error", // Disallow comparing against -0
+			"no-constructor-return": "error", // Disallow returning values from constructors
+			"no-duplicate-imports": "off", // Disallow duplicate module imports
+			"no-inner-declarations": "error", // Disallow variable or function declarations in nested blocks
+			"no-promise-executor-return": "error", // Disallow returning values from Promise executor functions
+			"no-self-compare": "error", // Disallow comparisons where both sides are exactly the same
 		},
 	},
 ] as Array<Linter.Config>;

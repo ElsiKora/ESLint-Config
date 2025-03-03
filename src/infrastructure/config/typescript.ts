@@ -174,6 +174,7 @@ export default tseslint.config({
 		"@elsikora-typescript/no-duplicate-type-constituents": "error", // Disallow duplicate type constituents in unions and intersections to maintain clean and understandable type definitions.
 		"@elsikora-typescript/no-empty-function": "error", // Disallow empty functions to avoid unintentionally incomplete implementations.
 		"@elsikora-typescript/no-empty-interface": "error", // Prevent the declaration of empty interfaces which can be misleading and unnecessary.
+		"@elsikora-typescript/no-empty-object-type": "off", // Allow empty object types to be defined, providing flexibility for future use or debugging.
 		"@elsikora-typescript/no-explicit-any": "off", // Allow the use of 'any' type to enable flexibility in cases where strict typing is excessively restrictive.
 		"@elsikora-typescript/no-extraneous-class": "off", // Allow the use of classes that are not explicitly used in the codebase to enable flexibility in class definitions
 		"@elsikora-typescript/no-floating-promises": "error", // Require handling of promises to avoid uncaught promise rejections and unhandled async operations.

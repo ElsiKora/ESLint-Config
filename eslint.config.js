@@ -1,16 +1,17 @@
-import { createConfig } from "./dist/esm/index.js";
+import { createConfig } from "@elsikora/eslint-config";
 
 const config = {
 	ignores: [
-		".next/**/*",
-		"**/*.d.ts",
-		"src/test/**/*",
-		"public/**/*",
 		"package-lock.json",
+		"src/test",
+		"rollup.test.config.js",
+		"vitest.config.e2e.ts",
+		"vitest.config.unit.ts",
 		"yarn.lock",
 		"bun.lock",
 		"pnpm-lock.yaml",
 		"dist",
+		"bin",
 		"build",
 		"out",
 		"www",
@@ -44,6 +45,7 @@ const config = {
 		"__tests__",
 		"test",
 		"tests",
+		".rollup.cache",
 	],
 };
 

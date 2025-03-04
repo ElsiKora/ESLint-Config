@@ -16,9 +16,14 @@ import type { TConfigModule } from "../../domain/type/config-module.type";
 export class ConfigFactory {
 	static readonly OPTIONS_TO_CONFIG_MAP: Record<keyof IConfigOptions, string> = {
 		withCheckFile: "check-file",
+		withCss: "css",
 		withJavascript: "javascript",
+		withJsDoc: "jsdoc",
 		withJson: "json",
+		withJsx: "jsx",
+		withMarkdown: "markdown",
 		withNest: "nest",
+		withNext: "next",
 		withNode: "node",
 		withPackageJson: "package-json",
 		withPerfectionist: "perfectionist",
@@ -36,9 +41,14 @@ export class ConfigFactory {
 
 	private static readonly CONFIG_MAPPING: Record<string, TConfigLoader> = {
 		"check-file": () => import("../../infrastructure/config/check-file"),
+		css: () => import("../../infrastructure/config/css"),
 		javascript: () => import("../../infrastructure/config/javascript"),
+		jsdoc: () => import("../../infrastructure/config/jsdoc"),
 		json: () => import("../../infrastructure/config/json"),
+		jsx: () => import("../../infrastructure/config/jsx"),
+		markdown: () => import("../../infrastructure/config/markdown"),
 		nest: () => import("../../infrastructure/config/nest"),
+		next: () => import("../../infrastructure/config/next"),
 		node: () => import("../../infrastructure/config/node"),
 		"package-json": () => import("../../infrastructure/config/package-json"),
 		perfectionist: () => import("../../infrastructure/config/perfectionist"),

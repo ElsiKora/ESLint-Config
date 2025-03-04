@@ -63,6 +63,19 @@ function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
 			newConfig.rules = newRules;
 		}
 
+		if (config.language) {
+			for (const [oldName, newName] of Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length)) {
+				// eslint-disable-next-line @elsikora-sonar/no-all-duplicated-branches
+				const oldPrefix: string = oldName.startsWith("@") ? `${oldName}/` : `${oldName}/`;
+
+				if (config.language.startsWith(oldPrefix)) {
+					newConfig.language = config.language.replace(oldPrefix, `${newName}/`);
+
+					break;
+				}
+			}
+		}
+
 		formattedConfigs.push(newConfig);
 	}
 

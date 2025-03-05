@@ -97,7 +97,7 @@ describe("ConfigFactory", () => {
 	// Handles missing or uninstalled optional dependencies gracefully
 	it("should return an empty array when optional dependency is missing", async () => {
 		const options: IConfigOptions = {
-			withTailwindCss: true,
+			withTypeorm: true,
 		};
 
 		const originalWarn: {
@@ -110,7 +110,7 @@ describe("ConfigFactory", () => {
 
 		expect(Array.isArray(config)).toBe(true);
 		expect(config.length).toBe(0);
-		expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("Optional dependency for tailwind-css config is not installed:"), expect.any(Error));
+		expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("Optional dependency for typeorm config is not installed:"), expect.any(Error));
 
 		console.warn = originalWarn;
 	});

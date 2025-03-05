@@ -1,8 +1,7 @@
 import type { Linter } from "eslint";
+import { ESLint } from "eslint";
 
 import type { IConfigOptions } from "../../../domain/interface/config-options.interface";
-
-import { ESLint } from "eslint";
 
 import createConfig from "../../../../dist/esm/index";
 

@@ -3,7 +3,10 @@ import type { Linter } from "eslint";
 import js from "@eslint/js";
 
 export default [
-	js.configs.recommended,
+	{
+		...js.configs.recommended,
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+	},
 	{
 		rules: {
 			"no-await-in-loop": "off", // Allow await in loops

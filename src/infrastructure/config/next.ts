@@ -32,6 +32,7 @@ export default [
 		},
 	},
 	{
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 		plugins: {
 			// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument,@elsikora-sonar/no-duplicate-string
 			[formatPluginName("@next/next")]: fixupPluginRules(next),
@@ -61,6 +62,7 @@ export default [
 		},
 	},
 	{
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 		rules: {
 			[`${formatPluginName("jsx-a11y")}/alt-text`]: "off",
 			[`${formatPluginName("react")}/prop-types`]: "off",

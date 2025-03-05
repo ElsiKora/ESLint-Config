@@ -88,6 +88,11 @@
 		"eslint-plugin-tailwindcss": "^3.18.0",
 		"eslint-plugin-unicorn": "^57.0.0",
 		"eslint-plugin-yml": "^1.17.0",
+		"next": "^15.2.1",
+		"nextra": "^4.2.14",
+		"nextra-theme-docs": "^4.2.14",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"typescript-eslint": "^8.26.0"
 	},
 	"devDependencies": {

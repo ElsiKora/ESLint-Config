@@ -1,4 +1,4 @@
-import { createConfig } from "@elsikora/eslint-config";
+import { createConfig } from "./dist/esm/index.js";
 
 const config = {
 	ignores: [

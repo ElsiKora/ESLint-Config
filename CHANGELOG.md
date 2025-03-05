@@ -1,3 +1,10 @@
+# [3.5.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.4.4...v3.5.0) (2025-03-05)
+
+
+### Features
+
+* **eslint:** disable tailwindcss custom classname rule ([229a77a](https://github.com/ElsiKora/ESLint-Config/commit/229a77a5103d038d3720c8fb8a12b03903a14024))
+
 ## [3.4.4](https://github.com/ElsiKora/ESLint-Config/compare/v3.4.3...v3.4.4) (2025-03-05)
 
 ## [3.4.3](https://github.com/ElsiKora/ESLint-Config/compare/v3.4.2...v3.4.3) (2025-03-05)

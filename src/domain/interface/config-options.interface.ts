@@ -1,8 +1,13 @@
 export interface IConfigOptions {
 	withCheckFile?: boolean;
+	withCss?: boolean;
 	withJavascript?: boolean;
+	withJsDoc?: boolean;
 	withJson?: boolean;
+	withJsx?: boolean;
+	withMarkdown?: boolean;
 	withNest?: boolean;
+	withNext?: boolean;
 	withNode?: boolean;
 	withPackageJson?: boolean;
 	withPerfectionist?: boolean;

@@ -19,6 +19,7 @@ export const PLUGIN_MAP: Record<string, string> = {
 	prettier: "@elsikora-prettier",
 	react: "@elsikora/react/2",
 	sonarjs: "@elsikora-sonar",
+	tailwindcss: "@elsikora/tailwindcss",
 	unicorn: "@elsikora-unicorn",
 };
 

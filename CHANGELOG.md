@@ -1,3 +1,15 @@
+# [3.4.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.5...v3.4.0) (2025-03-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependencies and improve test file filtering ([e07cbc0](https://github.com/ElsiKora/ESLint-Config/commit/e07cbc04dc8518b33356ca9bc788354c203657da))
+
+
+### Features
+
+* **eslint:** add support for css, jsx, markdown, jsdoc and next.js plugins ([bca5dfb](https://github.com/ElsiKora/ESLint-Config/commit/bca5dfb5d6fefcf8ef28aba11251aa6c27191573))
+
 ## [3.3.5](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.4...v3.3.5) (2025-03-03)
 
 

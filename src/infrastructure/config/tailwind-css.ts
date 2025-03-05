@@ -4,6 +4,14 @@ import type { Linter } from "eslint";
 import tailwind from "eslint-plugin-tailwindcss";
 
 import { formatConfig } from "../utility/format-config.utility";
+import { formatPluginName } from "../utility/format-plugin-name.utility";
 
-// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument,@elsikora-typescript/no-unsafe-member-access,@elsikora-typescript/no-unsafe-assignment
-export default [...formatConfig([...tailwind.configs["flat/recommended"]])] as Array<Linter.Config>;
+export default [
+	// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument,@elsikora-typescript/no-unsafe-member-access,@elsikora-typescript/no-unsafe-assignment
+	...formatConfig([...tailwind.configs["flat/recommended"]]),
+	{
+		rules: {
+			[`${formatPluginName("tailwindcss")}/no-custom-classname`]: "off",
+		},
+	},
+] as Array<Linter.Config>;

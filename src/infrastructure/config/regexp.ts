@@ -4,4 +4,9 @@ import * as regexpPlugin from "eslint-plugin-regexp";
 
 import { formatConfig } from "../utility/format-config.utility";
 
-export default [...formatConfig([regexpPlugin.configs["flat/recommended"]])] as Array<Linter.Config>;
+export default [
+	{
+		...formatConfig([regexpPlugin.configs["flat/recommended"]])[0],
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+	},
+] as Array<Linter.Config>;

@@ -70,6 +70,7 @@ describe("ESLint Config E2E Tests", () => {
 			const eslint: ESLint = await createEsLintInstance({
 				withNest: true,
 				withTypescript: true,
+				withSonar: true,
 			});
 
 			const results = await eslint.lintFiles([getFixturePath("nest/valid/clean.controller.fixture.ts")]);

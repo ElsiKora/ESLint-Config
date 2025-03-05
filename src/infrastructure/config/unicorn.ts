@@ -6,8 +6,12 @@ import { formatConfig } from "../utility/format-config.utility";
 import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default [
-	...formatConfig([unicorn.configs.recommended]),
 	{
+		...formatConfig([unicorn.configs.recommended])[0],
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+	},
+	{
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 		rules: {
 			[formatRuleName("n/no-process-exit")]: "off", // Allow process.exit to be used in code, as it is a valid way to exit a Node.js process.
 			[formatRuleName("unicorn/filename-case")]: "off", // Disable filename casing rules to allow flexibility in project naming conventions.

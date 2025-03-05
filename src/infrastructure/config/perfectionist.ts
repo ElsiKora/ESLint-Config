@@ -6,8 +6,12 @@ import { formatConfig } from "../utility/format-config.utility";
 import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default [
-	...formatConfig([perfectionist.configs["recommended-alphabetical"]]),
 	{
+		...formatConfig([perfectionist.configs["recommended-alphabetical"]])[0],
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+	},
+	{
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 		rules: {
 			[formatRuleName("perfectionist/sort-imports")]: [
 				"error",

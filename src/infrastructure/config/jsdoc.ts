@@ -6,9 +6,12 @@ import { formatConfig } from "../utility/format-config.utility";
 import { formatPluginName } from "../utility/format-plugin-name.utility";
 
 export default [
-	formatConfig([jsdoc.configs["flat/recommended"]])[0],
 	{
-		files: ["**/*.js"],
+		...formatConfig([jsdoc.configs["flat/recommended"]])[0],
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+	},
+	{
+		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 		plugins: {
 			[formatPluginName("jsdoc")]: jsdoc,
 		},

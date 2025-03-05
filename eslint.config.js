@@ -1,4 +1,4 @@
-import { createConfig } from "@elsikora/eslint-config";
+import { createConfig } from "./dist/esm/index.js";
 
 const config = {
 	ignores: [
@@ -59,6 +59,7 @@ export default [
 		withPackageJson: true,
 		withPerfectionist: true,
 		withPrettier: true,
+		withReact: true,
 		withRegexp: true,
 		withSonar: true,
 		withStylistic: true,

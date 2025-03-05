@@ -67,6 +67,7 @@ export default [
 			[`${formatPluginName("jsx-a11y")}/alt-text`]: "off",
 			[`${formatPluginName("react")}/prop-types`]: "off",
 			[`${formatPluginName("react")}/react-in-jsx-scope`]: "off",
+			[formatRuleName(`${formatPluginName("@eslint-react/naming-convention")}/filename`)]: "off",
 		},
 	},
 ] as Array<Linter.Config>;

@@ -1,3 +1,11 @@
+# [3.6.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.5.0...v3.6.0) (2025-03-05)
+
+
+### Features
+
+* **react-config:** add support for conditional react config with next.js integration ([b28a1d3](https://github.com/ElsiKora/ESLint-Config/commit/b28a1d34fb40dc93e62575fc84d25b5a106eb051))
+* **react:** implement support for nextjs configuration in react rules ([c516839](https://github.com/ElsiKora/ESLint-Config/commit/c5168393d496a9dddd3299af1fe3aab21255bcab))
+
 # [3.5.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.4.4...v3.5.0) (2025-03-05)
 
 

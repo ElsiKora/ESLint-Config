@@ -4,6 +4,8 @@ import type { IConfigOptions } from "../../domain/interface/config-options.inter
 import type { TConfigLoader } from "../../domain/type/config-loader.type";
 import type { TConfigModule } from "../../domain/type/config-module.type";
 
+import loadConfig from "../../infrastructure/config/react";
+
 /**
  * Factory class for generating ESLint configurations based on provided options.
  * Maps configuration flags to their respective module loaders and dynamically imports
@@ -64,7 +66,11 @@ export class ConfigFactory {
 		yaml: () => import("../../infrastructure/config/yaml"),
 	};
 
+	private static currentOptions: IConfigOptions | null = null;
+
 	static async createConfig(options: IConfigOptions): Promise<Array<Linter.Config>> {
+		this.currentOptions = options;
+
 		const configPromises: Array<Promise<Array<Linter.Config>>> = Object.entries(options)
 			.filter(([key, value]: [string, any]) => value === true && this.OPTIONS_TO_CONFIG_MAP[key as keyof IConfigOptions])
 			.map(([key]: any) => {
@@ -75,14 +81,27 @@ export class ConfigFactory {
 
 		const config: Array<Awaited<Array<Linter.Config>>> = await Promise.all(configPromises);
 
+		this.currentOptions = null;
+
 		return config.flat();
 	}
 
 	private static async loadConfig(name: string): Promise<Array<Linter.Config>> {
 		try {
 			const module: TConfigModule = await this.CONFIG_MAPPING[name]();
+			const defaultExport: ((options?: any) => Array<Linter.Config>) | Array<Linter.Config> = module.default;
 
-			return module.default;
+			// Check if the default export is a function or an array
+			if (typeof defaultExport === "function") {
+				// For react config, pass the withNext option
+				if (name === "react") {
+					return loadConfig(this.currentOptions?.withNext ?? false);
+				}
+
+				return defaultExport();
+			}
+
+			return defaultExport;
 		} catch (error) {
 			console.warn(`Optional dependency for ${name} config is not installed:`, error);
 

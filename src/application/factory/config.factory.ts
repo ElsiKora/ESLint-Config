@@ -4,6 +4,8 @@ import type { IConfigOptions } from "../../domain/interface/config-options.inter
 import type { TConfigLoader } from "../../domain/type/config-loader.type";
 import type { TConfigModule } from "../../domain/type/config-module.type";
 
+import loadConfig from "../../infrastructure/config/react";
+
 /**
  * Factory class for generating ESLint configurations based on provided options.
  * Maps configuration flags to their respective module loaders and dynamically imports
@@ -92,6 +94,10 @@ export class ConfigFactory {
 			// Check if the default export is a function or an array
 			if (typeof defaultExport === "function") {
 				// For react config, pass the withNext option
+				if (name === "react") {
+					return loadConfig(this.currentOptions?.withNext ?? false);
+				}
+
 				return defaultExport();
 			}
 

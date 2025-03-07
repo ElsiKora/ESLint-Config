@@ -11,7 +11,7 @@ function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
 	const formattedConfigs: Array<Linter.Config> = [];
 
 	for (const config of configs) {
-		// eslint-disable-next-line @elsikora-typescript/naming-convention,@elsikora-sonar/no-unused-vars
+		// eslint-disable-next-line @elsikora/sonar/no-unused-vars,@elsikora/typescript/naming-convention
 		const { plugins: __, rules: _, ...restConfig }: Linter.Config = config;
 		const newConfig: Linter.Config = { ...restConfig };
 
@@ -19,11 +19,8 @@ function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
 			const newPlugins: Record<string, ESLint.Plugin> = {};
 
 			for (const [oldName, newName] of Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length)) {
-				// eslint-disable-next-line @elsikora-sonar/no-all-duplicated-branches
-				const pluginKey: string = oldName.startsWith("@") ? oldName : oldName;
-
-				if (config.plugins[pluginKey]) {
-					newPlugins[newName] = config.plugins[pluginKey];
+				if (config.plugins[oldName]) {
+					newPlugins[newName] = config.plugins[oldName];
 				}
 			}
 
@@ -43,8 +40,7 @@ function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
 				let isReplaced: boolean = false;
 
 				for (const [oldName, newName] of Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length)) {
-					// eslint-disable-next-line @elsikora-sonar/no-all-duplicated-branches
-					const oldPrefix: string = oldName.startsWith("@") ? `${oldName}/` : `${oldName}/`;
+					const oldPrefix: string = `${oldName}/`;
 
 					if (rule.startsWith(oldPrefix) && !isReplaced) {
 						const newRule: string = rule.replace(oldPrefix, `${newName}/`);
@@ -65,8 +61,7 @@ function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
 
 		if (config.language) {
 			for (const [oldName, newName] of Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length)) {
-				// eslint-disable-next-line @elsikora-sonar/no-all-duplicated-branches
-				const oldPrefix: string = oldName.startsWith("@") ? `${oldName}/` : `${oldName}/`;
+				const oldPrefix: string = `${oldName}/`;
 
 				if (config.language.startsWith(oldPrefix)) {
 					newConfig.language = config.language.replace(oldPrefix, `${newName}/`);

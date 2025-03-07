@@ -4,8 +4,6 @@ import type { IConfigOptions } from "../../domain/interface/config-options.inter
 import type { TConfigLoader } from "../../domain/type/config-loader.type";
 import type { TConfigModule } from "../../domain/type/config-module.type";
 
-import loadConfig from "../../infrastructure/config/react";
-
 /**
  * Factory class for generating ESLint configurations based on provided options.
  * Maps configuration flags to their respective module loaders and dynamically imports
@@ -89,17 +87,8 @@ export class ConfigFactory {
 	private static async loadConfig(name: string): Promise<Array<Linter.Config>> {
 		try {
 			const module: TConfigModule = await this.CONFIG_MAPPING[name]();
-			const defaultExport: ((options?: any) => Array<Linter.Config>) | Array<Linter.Config> = module.default;
-
-			// Check if the default export is a function or an array
-			if (typeof defaultExport === "function") {
-				// For react config, pass the withNext option
-				if (name === "react") {
-					return loadConfig(this.currentOptions?.withNext ?? false);
-				}
-
-				return defaultExport();
-			}
+			const defaultExport: (() => Array<Linter.Config>) | Array<Linter.Config> = module.default(this.currentOptions);
+			console.log("PRIVATE");
 
 			return defaultExport;
 		} catch (error) {

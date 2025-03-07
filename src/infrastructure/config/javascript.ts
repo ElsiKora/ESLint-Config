@@ -1,21 +1,34 @@
 import type { Linter } from "eslint";
 
-import js from "@eslint/js";
+import type { IConfigOptions } from "../../domain/interface/config-options.interface";
 
-export default [
-	{
-		...js.configs.recommended,
-		files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
-	},
-	{
-		rules: {
-			"no-await-in-loop": "off", // Allow await in loops
-			"no-compare-neg-zero": "error", // Disallow comparing against -0
-			"no-constructor-return": "error", // Disallow returning values from constructors
-			"no-duplicate-imports": "off", // Disallow duplicate module imports
-			"no-inner-declarations": "error", // Disallow variable or function declarations in nested blocks
-			"no-promise-executor-return": "error", // Disallow returning values from Promise executor functions
-			"no-self-compare": "error", // Disallow comparisons where both sides are exactly the same
-		},
-	},
-] as Array<Linter.Config>;
+import js from "@eslint/js";
+import globals from "globals";
+
+import { createVirtualEslintPlugin } from "../utility/create-virtual-eslint-plugin.utility";
+
+export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
+	return [
+		...createVirtualEslintPlugin(
+			[
+				{
+					...js.configs.recommended,
+					files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+					languageOptions: {
+						globals: {
+							...globals.node,
+						},
+					},
+				},
+				{
+					rules: {
+						"no-await-in-loop": "off",
+						"no-compare-neg-zero": "error",
+						"no-unused-vars": config.withSonar ? "off" : "error",
+					},
+				},
+			],
+			"@elsikora/javascript",
+		),
+	];
+}

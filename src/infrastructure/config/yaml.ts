@@ -4,4 +4,6 @@ import eslintPluginYml from "eslint-plugin-yml";
 
 import { formatConfig } from "../utility/format-config.utility";
 
-export default [...formatConfig([...eslintPluginYml.configs["flat/recommended"]])] as Array<Linter.Config>;
+export default function loadConfig(): Array<Linter.Config> {
+	return [...formatConfig([...eslintPluginYml.configs["flat/recommended"]])] as Array<Linter.Config>;
+}

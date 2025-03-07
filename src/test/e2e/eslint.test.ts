@@ -7,6 +7,19 @@ import { formatPluginName } from "../../infrastructure/utility/format-plugin-nam
 import { formatRuleName } from "../../infrastructure/utility/format-rule-name.utility";
 
 describe("ESLint Config E2E Tests", () => {
+	describe("JavaScript Configuration", () => {
+		it("should pass valid JavaScript code", async () => {
+			let eslint: ESLint = await createEsLintInstance({
+				withJavascript: true,
+			});
+
+			const results = await eslint.lintFiles([getFixturePath("javascript/valid/clean.fixture.js")]);
+
+			expect(results[0].errorCount).toBe(0);
+			expect(results[0].messages).toHaveLength(0);
+		});
+	});
+
 	describe("TypeScript Configuration", () => {
 		it("should pass valid TypeScript code", async () => {
 			let eslint: ESLint = await createEsLintInstance({
@@ -27,7 +40,7 @@ describe("ESLint Config E2E Tests", () => {
 			const results = await eslint.lintFiles([getFixturePath("typescript/invalid/naming-convention.fixture.ts")]);
 
 			expect(results[0].errorCount).toBeGreaterThan(0);
-			expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora-typescript/naming-convention")).toBe(true);
+			expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@typescript-eslint/naming-convention"))).toBe(true);
 		});
 
 		it("should enforce function return types", async () => {
@@ -37,7 +50,7 @@ describe("ESLint Config E2E Tests", () => {
 
 			const results = await eslint.lintFiles([getFixturePath("typescript/invalid/explicit-function-return-type.fixture.ts")]);
 
-			expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora-typescript/explicit-function-return-type")).toBe(true);
+			expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@typescript-eslint/explicit-function-return-type"))).toBe(true);
 		});
 	});
 

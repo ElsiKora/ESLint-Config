@@ -5,6 +5,7 @@
 /out/
 /tmp/
 /temp/
+/nextra/*
 
 # Dependency directories
 /node_modules/

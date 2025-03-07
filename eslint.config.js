@@ -46,6 +46,7 @@ const config = {
 		"test",
 		"tests",
 		".rollup.cache",
+		"nextra",
 	],
 };
 
@@ -59,7 +60,6 @@ export default [
 		withPackageJson: true,
 		withPerfectionist: true,
 		withPrettier: true,
-		withReact: true,
 		withRegexp: true,
 		withSonar: true,
 		withStylistic: true,

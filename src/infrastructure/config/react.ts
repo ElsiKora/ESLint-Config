@@ -1,4 +1,7 @@
+/* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
+
+import type { IConfigOptions } from "../../domain/interface/config-options.interface";
 
 import react from "@eslint-react/eslint-plugin";
 import react2 from "eslint-plugin-react";
@@ -8,7 +11,7 @@ import { formatConfig } from "../utility/format-config.utility";
 import { formatPluginName } from "../utility/format-plugin-name.utility";
 import { formatRuleName } from "../utility/format-rule-name.utility";
 
-export default function loadConfig(withNext: boolean = false): Array<Linter.Config> {
+export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [
 		{
 			settings: {
@@ -29,7 +32,6 @@ export default function loadConfig(withNext: boolean = false): Array<Linter.Conf
 			languageOptions: {
 				parserOptions: {
 					ecmaFeatures: {
-						// eslint-disable-next-line @elsikora-typescript/naming-convention
 						jsx: true,
 					},
 					ecmaVersion: "latest",
@@ -39,19 +41,19 @@ export default function loadConfig(withNext: boolean = false): Array<Linter.Conf
 		{
 			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 			rules: {
-				[formatRuleName(`${formatPluginName("@eslint-react/hooks-extra")}/no-direct-set-state-in-use-effect`)]: "error",
-				[formatRuleName(`${formatPluginName("@eslint-react/naming-convention")}/context-name`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/checked-requires-onchange-or-readonly`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/default-props-match-prop-types`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/function-component-definition`)]: [
+				[formatRuleName("@eslint-react/hooks-extra/no-direct-set-state-in-use-effect")]: "error",
+				[formatRuleName("@eslint-react/naming-convention/context-name")]: "error",
+				[formatRuleName("react/checked-requires-onchange-or-readonly")]: "error",
+				[formatRuleName("react/default-props-match-prop-types")]: config.withNext ? "off" : "error",
+				[formatRuleName("react/function-component-definition")]: [
 					"error",
 					{
 						namedComponents: "arrow-function",
 						unnamedComponents: "arrow-function",
 					},
 				],
-				[formatRuleName(`${formatPluginName("react")}/jsx-closing-bracket-location`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/jsx-curly-brace-presence`)]: [
+				[formatRuleName("react/jsx-closing-bracket-location")]: "error",
+				[formatRuleName("react/jsx-curly-brace-presence")]: [
 					"error",
 					{
 						children: "always",
@@ -59,30 +61,30 @@ export default function loadConfig(withNext: boolean = false): Array<Linter.Conf
 						props: "always",
 					},
 				],
-				[formatRuleName(`${formatPluginName("react")}/jsx-no-bind`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/jsx-no-undef`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/no-deprecated`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/no-invalid-html-attribute`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/no-is-mounted`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/no-this-in-sfc`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/no-typos`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/no-unescaped-entities`)]: "error",
-				// eslint-disable-next-line @elsikora-typescript/naming-convention
-				[formatRuleName(`${formatPluginName("react")}/prefer-stateless-function`)]: ["error", { ignorePureComponents: true }],
-				[formatRuleName(`${formatPluginName("react")}/require-default-props`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/require-render-return`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/self-closing-comp`)]: "error",
-				[formatRuleName(`${formatPluginName("react")}/state-in-constructor`)]: ["error", "never"],
-				[formatRuleName(`${formatPluginName("react")}/style-prop-object`)]: "error",
+				[formatRuleName("react/jsx-no-bind")]: "error",
+				[formatRuleName("react/jsx-no-undef")]: "error",
+				[formatRuleName("react/no-deprecated")]: "error",
+				[formatRuleName("react/no-invalid-html-attribute")]: "error",
+				[formatRuleName("react/no-is-mounted")]: "error",
+				[formatRuleName("react/no-this-in-sfc")]: "error",
+				[formatRuleName("react/no-typos")]: "error",
+				[formatRuleName("react/no-unescaped-entities")]: "error",
+				[formatRuleName("react/prefer-stateless-function")]: ["error", { ignorePureComponents: true }],
+				[formatRuleName("react/react-in-jsx-scope")]: config.withNext ? "off" : "error",
+				[formatRuleName("react/require-default-props")]: "error",
+				[formatRuleName("react/require-render-return")]: "error",
+				[formatRuleName("react/self-closing-comp")]: "error",
+				[formatRuleName("react/state-in-constructor")]: ["error", "never"],
+				[formatRuleName("react/style-prop-object")]: "error",
 			},
 		},
 		{
 			files: ["**/*.jsx", "**/*.tsx"],
 			rules: {
-				[formatRuleName(`${formatPluginName("@eslint-react/naming-convention")}/component-name`)]: ["error", "PascalCase"],
-				[formatRuleName(`${formatPluginName("@eslint-react/naming-convention")}/filename-extension`)]: ["error", { allow: "as-needed" }],
-				[formatRuleName(`${formatPluginName("@eslint-react/naming-convention")}/filename`)]: withNext ? "off" : "error",
-				[formatRuleName(`${formatPluginName("@eslint-react/naming-convention")}/use-state`)]: "error",
+				[formatRuleName("@eslint-react/naming-convention/component-name")]: ["error", "PascalCase"],
+				[formatRuleName("@eslint-react/naming-convention/filename-extension")]: ["error", { allow: "as-needed" }],
+				[formatRuleName("@eslint-react/naming-convention/filename")]: config.withNext ? "off" : "error",
+				[formatRuleName("@eslint-react/naming-convention/use-state")]: "error",
 			},
 		},
 		{
@@ -92,7 +94,6 @@ export default function loadConfig(withNext: boolean = false): Array<Linter.Conf
 			languageOptions: {
 				parser: tseslint.parser,
 				parserOptions: {
-					// eslint-disable-next-line @elsikora-typescript/naming-convention
 					projectService: true,
 				},
 			},

@@ -1,54 +1,56 @@
+/* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
-// @ts-expect-error
+// @ts-ignore
 import nestJsTyped from "@elsikora/eslint-plugin-nestjs-typed";
 import { fixupPluginRules } from "@eslint/compat";
-// @ts-ignore
 import ngModuleSort from "eslint-plugin-ng-module-sort";
 import tseslint from "typescript-eslint";
 
 import { formatConfig } from "../utility/format-config.utility";
+import { formatPluginName } from "../utility/format-plugin-name.utility";
+import { formatRuleName } from "../utility/format-rule-name.utility";
 
-export default [
-	{
-		files: ["**/*.ts"],
-		languageOptions: {
-			parser: tseslint.parser,
-			parserOptions: {
-				// eslint-disable-next-line @elsikora-typescript/naming-convention
-				projectService: true,
+export default function loadConfig(): Array<Linter.Config> {
+	return [
+		{
+			files: ["**/*.ts"],
+			languageOptions: {
+				parser: tseslint.parser,
+				parserOptions: {
+					projectService: true,
+				},
+			},
+			plugins: {
+				// eslint-disable-next-line @elsikora/typescript/no-unsafe-member-access,@elsikora/typescript/no-unsafe-argument
+				[formatPluginName("nestjs-typed")]: formatConfig([nestJsTyped.plugin])[0],
+
+				[formatPluginName("ng-module-sort")]: fixupPluginRules(ngModuleSort),
+			},
+			rules: {
+				[formatRuleName("nestjs-typed/all-properties-are-whitelisted")]: "error",
+				[formatRuleName("nestjs-typed/all-properties-have-explicit-defined")]: "error",
+				[formatRuleName("nestjs-typed/api-enum-property-best-practices")]: "error",
+				[formatRuleName("nestjs-typed/api-method-should-specify-api-operation")]: "off",
+				[formatRuleName("nestjs-typed/api-method-should-specify-api-response")]: "error",
+				[formatRuleName("nestjs-typed/api-methods-should-be-guarded")]: "off",
+				[formatRuleName("nestjs-typed/api-property-matches-property-optionality")]: "error",
+				[formatRuleName("nestjs-typed/api-property-returning-array-should-set-array")]: "error",
+				[formatRuleName("nestjs-typed/controllers-should-supply-api-tags")]: "error",
+				[formatRuleName("nestjs-typed/no-duplicate-decorators")]: "error",
+				[formatRuleName("nestjs-typed/param-decorator-name-matches-route-param")]: "error",
+				[formatRuleName("nestjs-typed/provided-injected-should-match-factory-parameters")]: "error",
+				[formatRuleName("nestjs-typed/should-specify-forbid-unknown-values")]: "error",
+				[formatRuleName("nestjs-typed/sort-module-metadata-arrays")]: "off",
+				[formatRuleName("nestjs-typed/validate-nested-of-array-should-set-each")]: "error",
+				[formatRuleName("nestjs-typed/validated-non-primitive-property-needs-type-decorator")]: "error",
+				[formatRuleName("ng-module-sort/decorator-array-items")]: [
+					"error",
+					{
+						reverseSort: false,
+					},
+				],
 			},
 		},
-		plugins: {
-			"@elsikora/nest/1": fixupPluginRules(ngModuleSort),
-
-			// eslint-disable-next-line @elsikora-typescript/no-unsafe-argument,@elsikora-typescript/no-unsafe-member-access
-			"@elsikora/nest/2": formatConfig([nestJsTyped.plugin])[0],
-		},
-		rules: {
-			"@elsikora/nest/1/decorator-array-items": [
-				"error",
-				{
-					// eslint-disable-next-line @elsikora-typescript/naming-convention
-					reverseSort: false,
-				},
-			],
-			"@elsikora/nest/2/all-properties-are-whitelisted": "error",
-			"@elsikora/nest/2/all-properties-have-explicit-defined": "error",
-			"@elsikora/nest/2/api-enum-property-best-practices": "error",
-			"@elsikora/nest/2/api-method-should-specify-api-operation": "off",
-			"@elsikora/nest/2/api-method-should-specify-api-response": "error",
-			"@elsikora/nest/2/api-methods-should-be-guarded": "off",
-			"@elsikora/nest/2/api-property-matches-property-optionality": "error",
-			"@elsikora/nest/2/api-property-returning-array-should-set-array": "error",
-			"@elsikora/nest/2/controllers-should-supply-api-tags": "error",
-			"@elsikora/nest/2/no-duplicate-decorators": "error",
-			"@elsikora/nest/2/param-decorator-name-matches-route-param": "error",
-			"@elsikora/nest/2/provided-injected-should-match-factory-parameters": "error",
-			"@elsikora/nest/2/should-specify-forbid-unknown-values": "error",
-			"@elsikora/nest/2/sort-module-metadata-arrays": "off",
-			"@elsikora/nest/2/validate-nested-of-array-should-set-each": "error",
-			"@elsikora/nest/2/validated-non-primitive-property-needs-type-decorator": "error",
-		},
-	},
-] as Array<Linter.Config>;
+	] as Array<Linter.Config>;
+}

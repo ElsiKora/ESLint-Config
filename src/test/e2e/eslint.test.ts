@@ -7,6 +7,20 @@ import { formatPluginName } from "../../infrastructure/utility/format-plugin-nam
 import { formatRuleName } from "../../infrastructure/utility/format-rule-name.utility";
 
 describe("ESLint Config E2E Tests", () => {
+	describe("JavaScript Configuration", () => {
+		it("should pass valid JavaScript code", async () => {
+			let eslint: ESLint = await createEsLintInstance({
+				withJavascript: true,
+			});
+
+			const results = await eslint.lintFiles([getFixturePath("javascript/valid/clean.fixture.js")]);
+
+			console.log("RESULTS", results[0].messages);
+			expect(results[0].errorCount).toBe(0);
+			expect(results[0].messages).toHaveLength(0);
+		});
+	});
+
 	describe("TypeScript Configuration", () => {
 		it("should pass valid TypeScript code", async () => {
 			let eslint: ESLint = await createEsLintInstance({

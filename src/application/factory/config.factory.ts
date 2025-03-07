@@ -87,10 +87,8 @@ export class ConfigFactory {
 	private static async loadConfig(name: string): Promise<Array<Linter.Config>> {
 		try {
 			const module: TConfigModule = await this.CONFIG_MAPPING[name]();
-			const defaultExport: (() => Array<Linter.Config>) | Array<Linter.Config> = module.default(this.currentOptions);
-			console.log("PRIVATE");
 
-			return defaultExport;
+			return module.default(this.currentOptions);
 		} catch (error) {
 			console.warn(`Optional dependency for ${name} config is not installed:`, error);
 

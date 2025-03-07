@@ -15,7 +15,6 @@ describe("ESLint Config E2E Tests", () => {
 
 			const results = await eslint.lintFiles([getFixturePath("javascript/valid/clean.fixture.js")]);
 
-			console.log("RESULTS", results[0].messages);
 			expect(results[0].errorCount).toBe(0);
 			expect(results[0].messages).toHaveLength(0);
 		});
@@ -41,7 +40,7 @@ describe("ESLint Config E2E Tests", () => {
 			const results = await eslint.lintFiles([getFixturePath("typescript/invalid/naming-convention.fixture.ts")]);
 
 			expect(results[0].errorCount).toBeGreaterThan(0);
-			expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora-typescript/naming-convention")).toBe(true);
+			expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@typescript-eslint/naming-convention"))).toBe(true);
 		});
 
 		it("should enforce function return types", async () => {
@@ -51,7 +50,7 @@ describe("ESLint Config E2E Tests", () => {
 
 			const results = await eslint.lintFiles([getFixturePath("typescript/invalid/explicit-function-return-type.fixture.ts")]);
 
-			expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora-typescript/explicit-function-return-type")).toBe(true);
+			expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@typescript-eslint/explicit-function-return-type"))).toBe(true);
 		});
 	});
 

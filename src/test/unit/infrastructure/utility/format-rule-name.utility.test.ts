@@ -196,4 +196,22 @@ describe("FormatRuleNameUtility", () => {
 
 		expect(formatRuleName("i18next/no-literal-string")).toBe("@elsikora/i18next/no-literal-string");
 	});
+	
+	// Test Storybook plugin rule transformation
+	it("should transform Storybook plugin rule names", async () => {
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"storybook": "@elsikora/storybook",
+			},
+		}));
+
+		const module: {
+			formatRuleName(ruleName: string): string;
+		} = await import("../../../../infrastructure/utility/format-rule-name.utility");
+		const formatRuleName: (ruleName: string) => string = module.formatRuleName.bind(module);
+
+		expect(formatRuleName("storybook/default-exports")).toBe("@elsikora/storybook/default-exports");
+		expect(formatRuleName("storybook/hierarchy-separator")).toBe("@elsikora/storybook/hierarchy-separator");
+		expect(formatRuleName("storybook/use-storybook-expect")).toBe("@elsikora/storybook/use-storybook-expect");
+	});
 });

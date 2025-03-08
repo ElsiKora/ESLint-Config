@@ -26,6 +26,9 @@ const external = [
 	"@elsikora/eslint-plugin-css",
 	"eslint-plugin-jsdoc",
 	"@elsikora/eslint-plugin-markdown",
+	"@conarti/eslint-plugin-feature-sliced",
+	"globals",
+	"eslint/use-at-your-own-risk",
 ];
 
 export default [

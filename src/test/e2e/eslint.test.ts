@@ -188,4 +188,28 @@ describe("ESLint Config E2E Tests", () => {
 			expect(results[0].messages.some((msg) => msg.ruleId?.startsWith(formatRuleName("jsdoc/check-param-names")))).toBe(true);
 		});
 	});
+
+	describe("FSD (Feature-Sliced Design) Configuration", () => {
+		it("should pass valid FSD code", async () => {
+			const eslint: ESLint = await createEsLintInstance({
+				withFsd: true,
+				withPerfectionist: true,
+			});
+
+			const results = await eslint.lintFiles([getFixturePath("fsd/valid/clean.fixture.tsx")]);
+
+			expect(results[0].warningCount).toBe(0);
+			expect(results[0].errorCount).toBe(0);
+		});
+
+		it("should enforce public API rules", async () => {
+			const eslint: ESLint = await createEsLintInstance({
+				withFsd: true,
+			});
+
+			const results = await eslint.lintFiles([getFixturePath("fsd/invalid/public-api.fixture.tsx")]);
+
+			expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@conarti/feature-sliced/public-api"))).toBe(true);
+		});
+	});
 });

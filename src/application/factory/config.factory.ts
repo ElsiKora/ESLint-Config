@@ -17,6 +17,7 @@ export class ConfigFactory {
 	static readonly OPTIONS_TO_CONFIG_MAP: Record<keyof IConfigOptions, string> = {
 		withCheckFile: "check-file",
 		withCss: "css",
+		withFsd: "fsd",
 		withJavascript: "javascript",
 		withJsDoc: "jsdoc",
 		withJson: "json",
@@ -42,6 +43,7 @@ export class ConfigFactory {
 	private static readonly CONFIG_MAPPING: Record<string, TConfigLoader> = {
 		"check-file": () => import("../../infrastructure/config/check-file"),
 		css: () => import("../../infrastructure/config/css"),
+		fsd: () => import("../../infrastructure/config/fsd"),
 		javascript: () => import("../../infrastructure/config/javascript"),
 		jsdoc: () => import("../../infrastructure/config/jsdoc"),
 		json: () => import("../../infrastructure/config/json"),

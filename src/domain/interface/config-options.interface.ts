@@ -1,6 +1,7 @@
 export interface IConfigOptions {
 	withCheckFile?: boolean;
 	withCss?: boolean;
+	withFsd?: boolean;
 	withJavascript?: boolean;
 	withJsDoc?: boolean;
 	withJson?: boolean;

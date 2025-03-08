@@ -17,6 +17,7 @@ export interface IConfigOptions {
 	withReact?: boolean;
 	withRegexp?: boolean;
 	withSonar?: boolean;
+	withStorybook?: boolean;
 	withStylistic?: boolean;
 	withTailwindCss?: boolean;
 	withTanstack?: boolean;

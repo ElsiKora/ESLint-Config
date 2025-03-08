@@ -34,7 +34,6 @@ export default function loadConfig(_config: IConfigOptions): Array<Linter.Config
 				[formatRuleName("@tanstack/router/create-route-property-order")]: "error",
 			},
 		},
-
 		{
 			files: ["**/*.ts", "**/*.tsx"],
 			languageOptions: {

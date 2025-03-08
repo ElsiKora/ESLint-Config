@@ -180,4 +180,20 @@ describe("FormatRuleNameUtility", () => {
 		expect(formatRuleName("@tanstack/query/exhaustive-deps")).toBe("@elsikora/tanstack/query/exhaustive-deps");
 		expect(formatRuleName("@tanstack/router/create-route-property-order")).toBe("@elsikora/tanstack/router/create-route-property-order");
 	});
+	
+	// Test i18next plugin rule transformation
+	it("should transform i18next plugin rule names", async () => {
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"i18next": "@elsikora/i18next",
+			},
+		}));
+
+		const module: {
+			formatRuleName(ruleName: string): string;
+		} = await import("../../../../infrastructure/utility/format-rule-name.utility");
+		const formatRuleName: (ruleName: string) => string = module.formatRuleName.bind(module);
+
+		expect(formatRuleName("i18next/no-literal-string")).toBe("@elsikora/i18next/no-literal-string");
+	});
 });

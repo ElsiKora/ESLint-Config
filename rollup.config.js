@@ -31,6 +31,7 @@ const external = [
 	"eslint/use-at-your-own-risk",
 	"@tanstack/eslint-plugin-query",
 	"@tanstack/eslint-plugin-router",
+	"eslint-plugin-i18next",
 ];
 
 export default [

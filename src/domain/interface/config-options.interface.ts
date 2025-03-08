@@ -18,6 +18,7 @@ export interface IConfigOptions {
 	withSonar?: boolean;
 	withStylistic?: boolean;
 	withTailwindCss?: boolean;
+	withTanstack?: boolean;
 	withTypeorm?: boolean;
 	withTypescript?: boolean;
 	withUnicorn?: boolean;

@@ -7,6 +7,8 @@ export const PLUGIN_MAP: Record<string, string> = {
 	"@eslint-react/web-api": "@elsikora/react/1/web-api",
 	"@next/next": "@elsikora/next",
 	"@stylistic": "@elsikora/stylistic",
+	"@tanstack/query": "@elsikora/tanstack/query",
+	"@tanstack/router": "@elsikora/tanstack/router",
 	"@typescript-eslint": "@elsikora/typescript",
 	"check-file": "@elsikora/check-file",
 	css: "@elsikora/css",

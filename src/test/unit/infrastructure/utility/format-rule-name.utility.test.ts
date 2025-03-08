@@ -161,4 +161,23 @@ describe("FormatRuleNameUtility", () => {
 		expect(formatRuleName("@conarti/feature-sliced/absolute-relative")).toBe("@elsikora/fsd/absolute-relative");
 		expect(formatRuleName("@conarti/feature-sliced/public-api")).toBe("@elsikora/fsd/public-api");
 	});
+	
+	// Test TanStack plugin rule transformation
+	it("should transform TanStack plugin rule names", async () => {
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"@tanstack/query": "@elsikora/tanstack/query",
+				"@tanstack/router": "@elsikora/tanstack/router",
+			},
+		}));
+
+		const module: {
+			formatRuleName(ruleName: string): string;
+		} = await import("../../../../infrastructure/utility/format-rule-name.utility");
+		const formatRuleName: (ruleName: string) => string = module.formatRuleName.bind(module);
+
+		expect(formatRuleName("@tanstack/query/prefer-query-object-syntax")).toBe("@elsikora/tanstack/query/prefer-query-object-syntax");
+		expect(formatRuleName("@tanstack/query/exhaustive-deps")).toBe("@elsikora/tanstack/query/exhaustive-deps");
+		expect(formatRuleName("@tanstack/router/create-route-property-order")).toBe("@elsikora/tanstack/router/create-route-property-order");
+	});
 });

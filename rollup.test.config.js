@@ -29,6 +29,8 @@ const external = [
 	"@conarti/eslint-plugin-feature-sliced",
 	"globals",
 	"eslint/use-at-your-own-risk",
+	"@tanstack/eslint-plugin-query",
+	"@tanstack/eslint-plugin-router",
 ];
 
 export default [

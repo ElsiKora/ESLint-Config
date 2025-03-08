@@ -12,6 +12,7 @@ export const PLUGIN_MAP: Record<string, string> = {
 	"@typescript-eslint": "@elsikora/typescript",
 	"check-file": "@elsikora/check-file",
 	css: "@elsikora/css",
+	i18next: "@elsikora/i18next",
 	jsdoc: "@elsikora/jsdoc",
 	jsonc: "elsikora/json",
 	"jsx-a11y": "@elsikora/jsx",

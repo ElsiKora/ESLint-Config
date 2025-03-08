@@ -118,7 +118,7 @@
 		"@tanstack/eslint-plugin-query": "^5.67.2",
 		"@tanstack/eslint-plugin-router": "^1.112.18",
 		"@types/eslint-plugin-jsx-a11y": "^6.10.0",
-		"@vitest/coverage-v8": "3.0.7",
+		"@vitest/coverage-v8": "3.0.8",
 		"commitizen": "^4.3.1",
 		"conventional-changelog-conventionalcommits": "^8.0.0",
 		"esbuild": "^0.25.0",

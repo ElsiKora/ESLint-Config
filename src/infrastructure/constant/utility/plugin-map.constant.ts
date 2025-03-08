@@ -1,4 +1,5 @@
 export const PLUGIN_MAP: Record<string, string> = {
+	"@conarti/feature-sliced": "@elsikora/fsd",
 	"@eslint-react": "@elsikora/react/1",
 	"@eslint-react/dom": "@elsikora/react/1/dom",
 	"@eslint-react/hooks-extra": "@elsikora/react/1/hooks-extra",

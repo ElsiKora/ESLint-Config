@@ -143,4 +143,22 @@ describe("FormatRuleNameUtility", () => {
 
 		expect(formatRuleName("plugin-a/rule/plugin-b/nested")).toBe("renamed-a/rule/plugin-b/nested");
 	});
+
+	// Test Feature-Sliced Design plugin rule transformation
+	it("should transform Feature-Sliced Design plugin rule names", async () => {
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"@conarti/feature-sliced": "@elsikora/fsd",
+			},
+		}));
+
+		const module: {
+			formatRuleName(ruleName: string): string;
+		} = await import("../../../../infrastructure/utility/format-rule-name.utility");
+		const formatRuleName: (ruleName: string) => string = module.formatRuleName.bind(module);
+
+		expect(formatRuleName("@conarti/feature-sliced/layers-slices")).toBe("@elsikora/fsd/layers-slices");
+		expect(formatRuleName("@conarti/feature-sliced/absolute-relative")).toBe("@elsikora/fsd/absolute-relative");
+		expect(formatRuleName("@conarti/feature-sliced/public-api")).toBe("@elsikora/fsd/public-api");
+	});
 });

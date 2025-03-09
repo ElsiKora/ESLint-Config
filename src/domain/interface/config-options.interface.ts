@@ -11,6 +11,7 @@ export interface IConfigOptions {
 	withNest?: boolean;
 	withNext?: boolean;
 	withNode?: boolean;
+	withNoSecrets?: boolean;
 	withPackageJson?: boolean;
 	withPerfectionist?: boolean;
 	withPrettier?: boolean;

@@ -376,4 +376,38 @@ describe("ESLint Config E2E Tests", () => {
 			expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/use-storybook-testing-library"))).toBe(true);
 		});
 	});
+
+	describe("No-Secrets Configuration", () => {
+		it("should pass valid code without secrets", async () => {
+			const eslint: ESLint = await createEsLintInstance({
+				withNoSecrets: true,
+			});
+
+			const results = await eslint.lintFiles([getFixturePath("no-secrets/valid/clean.fixture.js")]);
+			expect(results[0].warningCount).toBe(0);
+			expect(results[0].errorCount).toBe(0);
+		});
+
+		it("should enforce no-secrets rule for high entropy strings", async () => {
+			const eslint: ESLint = await createEsLintInstance({
+				withNoSecrets: true,
+			});
+
+			const results = await eslint.lintFiles([getFixturePath("no-secrets/invalid/high-entropy.fixture.js")]);
+
+			expect(results[0].errorCount).toBeGreaterThan(0);
+			expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("no-secrets/no-secrets"))).toBe(true);
+		});
+
+		it("should enforce no-pattern-match rule for sensitive information patterns", async () => {
+			const eslint: ESLint = await createEsLintInstance({
+				withNoSecrets: true,
+			});
+
+			const results = await eslint.lintFiles([getFixturePath("no-secrets/invalid/pattern-match.fixture.js")]);
+
+			expect(results[0].errorCount).toBeGreaterThan(0);
+			expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("no-secrets/no-pattern-match"))).toBe(true);
+		});
+	});
 });

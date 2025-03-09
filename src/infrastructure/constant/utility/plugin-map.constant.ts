@@ -21,6 +21,7 @@ export const PLUGIN_MAP: Record<string, string> = {
 	"n/no-unsupported-features": "@elsikora/node/no-unsupported-features",
 	"nestjs-typed": "@elsikora/nest/2",
 	"ng-module-sort": "@elsikora/nest/1",
+	"no-secrets": "@elsikora/no-secrets",
 	"package-json": "@elsikora/package-json",
 	perfectionist: "@elsikora/perfectionist",
 	prettier: "@elsikora/prettier",

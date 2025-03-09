@@ -6,7 +6,7 @@
 /tmp/
 /temp/
 /nextra/*
-/tool/
+/tool/*
 
 # Dependency directories
 /node_modules/

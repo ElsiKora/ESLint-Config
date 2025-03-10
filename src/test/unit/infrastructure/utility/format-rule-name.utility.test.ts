@@ -143,4 +143,75 @@ describe("FormatRuleNameUtility", () => {
 
 		expect(formatRuleName("plugin-a/rule/plugin-b/nested")).toBe("renamed-a/rule/plugin-b/nested");
 	});
+
+	// Test Feature-Sliced Design plugin rule transformation
+	it("should transform Feature-Sliced Design plugin rule names", async () => {
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"@conarti/feature-sliced": "@elsikora/fsd",
+			},
+		}));
+
+		const module: {
+			formatRuleName(ruleName: string): string;
+		} = await import("../../../../infrastructure/utility/format-rule-name.utility");
+		const formatRuleName: (ruleName: string) => string = module.formatRuleName.bind(module);
+
+		expect(formatRuleName("@conarti/feature-sliced/layers-slices")).toBe("@elsikora/fsd/layers-slices");
+		expect(formatRuleName("@conarti/feature-sliced/absolute-relative")).toBe("@elsikora/fsd/absolute-relative");
+		expect(formatRuleName("@conarti/feature-sliced/public-api")).toBe("@elsikora/fsd/public-api");
+	});
+	
+	// Test TanStack plugin rule transformation
+	it("should transform TanStack plugin rule names", async () => {
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"@tanstack/query": "@elsikora/tanstack/query",
+				"@tanstack/router": "@elsikora/tanstack/router",
+			},
+		}));
+
+		const module: {
+			formatRuleName(ruleName: string): string;
+		} = await import("../../../../infrastructure/utility/format-rule-name.utility");
+		const formatRuleName: (ruleName: string) => string = module.formatRuleName.bind(module);
+
+		expect(formatRuleName("@tanstack/query/prefer-query-object-syntax")).toBe("@elsikora/tanstack/query/prefer-query-object-syntax");
+		expect(formatRuleName("@tanstack/query/exhaustive-deps")).toBe("@elsikora/tanstack/query/exhaustive-deps");
+		expect(formatRuleName("@tanstack/router/create-route-property-order")).toBe("@elsikora/tanstack/router/create-route-property-order");
+	});
+	
+	// Test i18next plugin rule transformation
+	it("should transform i18next plugin rule names", async () => {
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"i18next": "@elsikora/i18next",
+			},
+		}));
+
+		const module: {
+			formatRuleName(ruleName: string): string;
+		} = await import("../../../../infrastructure/utility/format-rule-name.utility");
+		const formatRuleName: (ruleName: string) => string = module.formatRuleName.bind(module);
+
+		expect(formatRuleName("i18next/no-literal-string")).toBe("@elsikora/i18next/no-literal-string");
+	});
+	
+	// Test Storybook plugin rule transformation
+	it("should transform Storybook plugin rule names", async () => {
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"storybook": "@elsikora/storybook",
+			},
+		}));
+
+		const module: {
+			formatRuleName(ruleName: string): string;
+		} = await import("../../../../infrastructure/utility/format-rule-name.utility");
+		const formatRuleName: (ruleName: string) => string = module.formatRuleName.bind(module);
+
+		expect(formatRuleName("storybook/default-exports")).toBe("@elsikora/storybook/default-exports");
+		expect(formatRuleName("storybook/hierarchy-separator")).toBe("@elsikora/storybook/hierarchy-separator");
+		expect(formatRuleName("storybook/use-storybook-expect")).toBe("@elsikora/storybook/use-storybook-expect");
+	});
 });

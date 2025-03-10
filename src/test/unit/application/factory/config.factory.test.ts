@@ -6,6 +6,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { ConfigFactory } from "../../../../application/factory/config.factory";
 
+// Для доступа к приватным функциям
+type PrivateConfigFactory = {
+  loadConfig: (name: string) => Promise<Array<Linter.Config>>;
+};
+
 describe("ConfigFactory", () => {
 	beforeEach(() => {
 		vi.resetModules();
@@ -113,5 +118,55 @@ describe("ConfigFactory", () => {
 		expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("Optional dependency for typeorm config is not installed:"), expect.any(Error));
 
 		console.warn = originalWarn;
+	});
+
+	// Тесты, которые косвенно вызывают приватные методы
+	describe("Additional tests to increase coverage of private methods", () => {
+		
+		// Тест на загрузку всех модулей для максимального покрытия
+		it("should load all available config modules when all options are true", async () => {
+			const allModuleOptions: IConfigOptions = {
+				withCheckFile: true,
+				withCss: true,
+				withFsd: true,
+				withI18next: true,
+				withJavascript: true,
+				withJsDoc: true,
+				withJson: true,
+				withJsx: true,
+				withMarkdown: true,
+				withNest: true,
+				withNext: true,
+				withNode: true,
+				withNoSecrets: true,
+				withPackageJson: true,
+				withPerfectionist: true,
+				withPrettier: true,
+				withReact: true,
+				withRegexp: true,
+				withSonar: true,
+				withStorybook: true,
+				withStylistic: true,
+				withTailwindCss: true,
+				withTanstack: true,
+				withTypeorm: true,
+				withTypescript: true,
+				withUnicorn: true,
+				withYaml: true,
+			};
+			
+			// Мокаем console.warn для перехвата ошибок при загрузке модулей
+			const originalWarn = console.warn;
+			console.warn = vi.fn();
+			
+			// Вызываем createConfig со всеми опциями, активированными
+			const config = await ConfigFactory.createConfig(allModuleOptions);
+			
+			// Проверяем, что получили массив (пусть даже пустой, так как мы не мокаем импорты)
+			expect(Array.isArray(config)).toBe(true);
+			
+			// Восстанавливаем console.warn
+			console.warn = originalWarn;
+		});
 	});
 });

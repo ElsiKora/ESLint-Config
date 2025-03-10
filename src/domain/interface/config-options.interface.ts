@@ -1,6 +1,8 @@
 export interface IConfigOptions {
 	withCheckFile?: boolean;
 	withCss?: boolean;
+	withFsd?: boolean;
+	withI18next?: boolean;
 	withJavascript?: boolean;
 	withJsDoc?: boolean;
 	withJson?: boolean;
@@ -9,14 +11,17 @@ export interface IConfigOptions {
 	withNest?: boolean;
 	withNext?: boolean;
 	withNode?: boolean;
+	withNoSecrets?: boolean;
 	withPackageJson?: boolean;
 	withPerfectionist?: boolean;
 	withPrettier?: boolean;
 	withReact?: boolean;
 	withRegexp?: boolean;
 	withSonar?: boolean;
+	withStorybook?: boolean;
 	withStylistic?: boolean;
 	withTailwindCss?: boolean;
+	withTanstack?: boolean;
 	withTypeorm?: boolean;
 	withTypescript?: boolean;
 	withUnicorn?: boolean;

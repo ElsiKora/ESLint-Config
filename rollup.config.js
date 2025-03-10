@@ -26,6 +26,14 @@ const external = [
 	"@elsikora/eslint-plugin-css",
 	"eslint-plugin-jsdoc",
 	"@elsikora/eslint-plugin-markdown",
+	"@conarti/eslint-plugin-feature-sliced",
+	"globals",
+	"eslint/use-at-your-own-risk",
+	"@tanstack/eslint-plugin-query",
+	"@tanstack/eslint-plugin-router",
+	"eslint-plugin-i18next",
+	"eslint-plugin-no-secrets",
+	"eslint-plugin-storybook",
 ];
 
 export default [

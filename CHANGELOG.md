@@ -1,3 +1,15 @@
+# [3.7.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.6.1...v3.7.0) (2025-03-10)
+
+
+### Features
+
+* **eslint:** add feature-sliced design plugin integration ([7dc162a](https://github.com/ElsiKora/ESLint-Config/commit/7dc162a8f6291b9f62e82b74f6201f01e3e8fc6e))
+* **eslint:** add no-secrets plugin for detecting sensitive information ([f038080](https://github.com/ElsiKora/ESLint-Config/commit/f0380806afa9f88b1381e84f32db9ae9b425cf69))
+* **eslint:** add no-secrets plugin to detect potential secrets in code ([91f2f7a](https://github.com/ElsiKora/ESLint-Config/commit/91f2f7a5a025cf2090ddb13765d05f469c5b7f8d))
+* **i18next:** add eslint-plugin-i18next integration with tests and configuration ([8478137](https://github.com/ElsiKora/ESLint-Config/commit/8478137aa46fa25f3672625d2139550a459bb702))
+* **storybook:** add storybook linting configuration and rules ([1574fd2](https://github.com/ElsiKora/ESLint-Config/commit/1574fd25f20f6dd1ab76ce8879e236ff365be777))
+* **tanstack:** add tanstack query and router eslint plugin support ([261b72e](https://github.com/ElsiKora/ESLint-Config/commit/261b72eaf96a4f9a285bd41330e3523d3a84aeec))
+
 ## [3.6.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.6.0...v3.6.1) (2025-03-07)
 
 # [3.6.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.5.0...v3.6.0) (2025-03-05)

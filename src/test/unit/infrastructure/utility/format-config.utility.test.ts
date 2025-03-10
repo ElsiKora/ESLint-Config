@@ -327,4 +327,46 @@ describe("FormatConfigUtility", () => {
 			],
 		});
 	});
+	
+	// Test handling of language property
+	it("should remap language property based on PLUGIN_MAP entries", async () => {
+		const mockConfig: Linter.Config = {
+			language: "@typescript-eslint/custom-parser",
+		};
+
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"@typescript-eslint": "typescript",
+			},
+		}));
+
+		const module: {
+			formatConfig(configs: Array<Linter.Config>): Array<Linter.Config>;
+		} = await import("../../../../infrastructure/utility/format-config.utility");
+		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
+		const result: Array<Linter.Config> = formatConfig([mockConfig]);
+
+		expect(result[0].language).toEqual("typescript/custom-parser");
+	});
+	
+	// Test handling of language property that doesn't match any PLUGIN_MAP entry
+	it("should preserve language property when not in PLUGIN_MAP", async () => {
+		const mockConfig: Linter.Config = {
+			language: "custom-language-parser",
+		};
+
+		vi.doMock(MOCK_PATH, () => ({
+			default: {
+				"@typescript-eslint": "typescript",
+			},
+		}));
+
+		const module: {
+			formatConfig(configs: Array<Linter.Config>): Array<Linter.Config>;
+		} = await import("../../../../infrastructure/utility/format-config.utility");
+		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
+		const result: Array<Linter.Config> = formatConfig([mockConfig]);
+
+		expect(result[0].language).toEqual("custom-language-parser");
+	});
 });

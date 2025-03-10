@@ -32,6 +32,8 @@ const external = [
 	"@tanstack/eslint-plugin-query",
 	"@tanstack/eslint-plugin-router",
 	"eslint-plugin-i18next",
+	"eslint-plugin-no-secrets",
+	"eslint-plugin-storybook",
 ];
 
 export default [

@@ -34,8 +34,6 @@ const config = {
 		"*.gif",
 		"*.svg",
 		"*.ico",
-		"*.md",
-		"*.mdx",
 		"tmp",
 		".temp",
 		"**/*.d.ts",

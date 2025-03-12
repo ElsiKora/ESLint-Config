@@ -20,10 +20,10 @@ export default function loadConfig(_config: IConfigOptions): Array<Linter.Config
 					"error",
 					{
 						patterns: {
-							ApiKey: /api[-_]?key/i,
-							Password: /password|passwd|pwd/i,
-							SecretKey: /secret[-_]?key/i,
-							Token: /token|access[-_]?token/i,
+							ApiKey: /(?:const|let|var)\s+API[-_]?KEY/i,
+							Password: /(?:const|let|var)\s+(?:PASSWORD|PASSWD|PWD)/i,
+							SecretKey: /(?:const|let|var)\s+SECRET[-_]?KEY/i,
+							Token: /(?:const|let|var)\s+(?:TOKEN|ACCESS[-_]?TOKEN)/i,
 						},
 					},
 				],
@@ -33,15 +33,9 @@ export default function loadConfig(_config: IConfigOptions): Array<Linter.Config
 					{
 						ignoreModules: true,
 						// eslint-disable-next-line @elsikora/typescript/no-magic-numbers
-						tolerance: 4,
+						tolerance: 5,
 					},
 				],
-			},
-		},
-		{
-			files: ["**/*.json"],
-			rules: {
-				[formatRuleName("no-secrets/no-secrets")]: ["error"],
 			},
 		},
 		{

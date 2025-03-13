@@ -1,3 +1,5 @@
+## [3.7.5](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.4...v3.7.5) (2025-03-13)
+
 ## [3.7.4](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.3...v3.7.4) (2025-03-12)
 
 ## [3.7.3](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.2...v3.7.3) (2025-03-12)

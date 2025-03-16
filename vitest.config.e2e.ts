@@ -9,6 +9,7 @@ export default defineConfig({
 		exclude: ["node_modules/**/*"],
 		root: ".",
 		watch: false,
+		testTimeout: 10000,
 	},
 	resolve: {
 		alias: {

@@ -64,6 +64,7 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 				},
 				{
 					format: ["camelCase"], // Function parameters should always use camelCase.
+					leadingUnderscore: "allow",
 					selector: "parameter",
 				},
 				{

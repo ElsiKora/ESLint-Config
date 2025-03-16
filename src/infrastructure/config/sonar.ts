@@ -21,6 +21,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				[formatRuleName("sonarjs/cognitive-complexity")]: ["error", congnitiveComplexity], // Set a high threshold for cognitive complexity to allow complex but manageable functions.
 				[formatRuleName("sonarjs/no-duplicate-string")]: ["error", { threshold: duplicateStringThreshold }], // Flag strings duplicated more than 10 times to encourage the use of constants for maintainability.
 				[formatRuleName("sonarjs/no-empty-test-file")]: "off", // Prevent empty test files from being committed.
+				[formatRuleName("sonarjs/todo-tag")]: "warn", // Flag to do comments to ensure they are addressed.
 			},
 		},
 	] as Array<Linter.Config>;

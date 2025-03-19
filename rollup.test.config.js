@@ -13,7 +13,7 @@ const external = [
 	"@elsikora/eslint-plugin-nestjs-typed",
 	"typescript-eslint",
 	"eslint-plugin-n",
-	"eslint-plugin-package-json/configs/recommended",
+	"eslint-plugin-package-json",
 	"eslint-plugin-perfectionist",
 	"eslint-plugin-prettier/recommended",
 	"@eslint-react/eslint-plugin",

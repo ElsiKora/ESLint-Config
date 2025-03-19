@@ -1,10 +1,10 @@
-import type { RuleDefinition } from "@eslint/core";
-import type { ESLint, Linter } from "eslint";
+import type { Linter } from "eslint";
 
 import type { IConfigOptions } from "../../domain/interface/config-options.interface";
 
 import nPlugin from "eslint-plugin-n";
 
+import { extractSubPlugin } from "../utility/extract-sub-plugin.utility";
 import { formatConfig } from "../utility/format-config.utility";
 import { formatPluginName } from "../utility/format-plugin-name.utility";
 import { formatRuleName } from "../utility/format-rule-name.utility";
@@ -28,22 +28,4 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			},
 		},
 	] as Array<Linter.Config>;
-}
-
-function extractSubPlugin(plugin: ESLint.Plugin, subPluginName: "no-unsupported-feature"): ESLint.Plugin {
-	const newPlugin: ESLint.Plugin = { ...plugin };
-	const newRules: Record<string, RuleDefinition> = {};
-
-	if (newPlugin.rules) {
-		for (const key of Object.keys(newPlugin.rules)) {
-			if (key.split("/").length > 1 && key.includes(subPluginName)) {
-				// @ts-ignore
-				newRules[key.split("/").slice(1).join("/")] = newPlugin.rules[key];
-			}
-		}
-
-		newPlugin.rules = newRules;
-	}
-
-	return newPlugin;
 }

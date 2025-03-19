@@ -19,7 +19,7 @@ describe("JsonConfig", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		expect(Array.isArray(configs)).toBe(true);
-		expect(configs.length).toBe(5);
+		expect(configs.length).toBe(4);
 	});
 
 	it("should include the recommended JSON config", async () => {

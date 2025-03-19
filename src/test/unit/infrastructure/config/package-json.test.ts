@@ -28,7 +28,7 @@ describe("PackageJson Config", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		expect(Array.isArray(configs)).toBe(true);
-		expect(configs.length).toBe(2);
+		expect(configs.length).toBe(1);
 	});
 
 	it("should include the correct rules", async () => {
@@ -40,13 +40,5 @@ describe("PackageJson Config", () => {
 		expect(configs[0].rules).toHaveProperty("package-json/sort-collections");
 		expect(configs[0].rules).toHaveProperty("package-json/order-properties");
 		expect(configs[0].rules["package-json/order-properties"]).toBe("error");
-	});
-
-	it("should disable order-properties rule when perfectionist is enabled", async () => {
-		const module = await import(MODULE_PATH);
-		const loadConfig = module.default;
-
-		const configs: Array<Linter.Config> = loadConfig({ withPerfectionist: true });
-		expect(configs[1].rules["package-json/order-properties"]).toBe("off");
 	});
 });

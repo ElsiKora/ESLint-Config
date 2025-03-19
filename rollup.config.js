@@ -1,4 +1,5 @@
 import typescript from "@rollup/plugin-typescript";
+import generatePackageJson from "rollup-plugin-generate-package-json";
 
 const external = [
 	"eslint-plugin-react",
@@ -13,7 +14,7 @@ const external = [
 	"@elsikora/eslint-plugin-nestjs-typed",
 	"typescript-eslint",
 	"eslint-plugin-n",
-	"eslint-plugin-package-json/configs/recommended",
+	"eslint-plugin-package-json",
 	"eslint-plugin-perfectionist",
 	"eslint-plugin-prettier/recommended",
 	"@eslint-react/eslint-plugin",
@@ -52,6 +53,10 @@ export default [
 				outDir: "dist/esm",
 				tsconfig: "./tsconfig.build.json",
 			}),
+			generatePackageJson({
+				baseContents: { type: "module" },
+				outputFolder: "dist/esm",
+			}),
 		],
 	},
 	{
@@ -69,6 +74,10 @@ export default [
 				declarationDir: "dist/cjs",
 				outDir: "dist/cjs",
 				tsconfig: "./tsconfig.build.json",
+			}),
+			generatePackageJson({
+				baseContents: { type: "commonjs" },
+				outputFolder: "dist/cjs",
 			}),
 		],
 	},

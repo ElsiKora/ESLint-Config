@@ -10,14 +10,6 @@ import { formatRuleName } from "../utility/format-rule-name.utility";
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{
-			plugins: {
-				[formatPluginName("i18next")]: i18nextPlugin,
-			},
-			rules: {
-				[formatRuleName("i18next/no-literal-string")]: "error",
-			},
-		},
-		{
 			files: ["**/*.ts", "**/*.tsx"],
 			languageOptions: {
 				// @ts-ignore
@@ -25,6 +17,12 @@ export default function loadConfig(): Array<Linter.Config> {
 				parserOptions: {
 					projectService: true,
 				},
+			},
+			plugins: {
+				[formatPluginName("i18next")]: i18nextPlugin,
+			},
+			rules: {
+				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-only" }],
 			},
 		},
 		{
@@ -36,6 +34,12 @@ export default function loadConfig(): Array<Linter.Config> {
 					},
 					ecmaVersion: "latest",
 				},
+			},
+			plugins: {
+				[formatPluginName("i18next")]: i18nextPlugin,
+			},
+			rules: {
+				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-only" }],
 			},
 		},
 	];

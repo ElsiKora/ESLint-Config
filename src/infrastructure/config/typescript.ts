@@ -49,7 +49,7 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 						regex: "^match$",
 					},
 					format: null,
-					prefix: ["is", "should", "has", "can", "did", "will", "use", "with", "to", "was"],
+					prefix: ["is", "should", "has", "can", "did", "will", "use", "with", "to", "was", "IS", "SHOULD", "HAS", "CAN", "DID", "WILL", "USE", "WITH", "TO", "WAS"],
 					selector: ["variable", "parameter", "property", "parameterProperty", "accessor", "classProperty"],
 					types: ["boolean"],
 				},

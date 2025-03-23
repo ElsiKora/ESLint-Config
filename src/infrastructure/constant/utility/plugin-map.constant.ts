@@ -30,6 +30,7 @@ export const PLUGIN_MAP: Record<string, string> = {
 	sonarjs: "@elsikora/sonar",
 	storybook: "@elsikora/storybook",
 	tailwindcss: "@elsikora/tailwindcss",
+	"typeorm-typescript": "@elsikora/typeorm",
 	unicorn: "@elsikora/unicorn",
 };
 

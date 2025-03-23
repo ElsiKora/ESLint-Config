@@ -6,11 +6,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { ConfigFactory } from "../../../../application/factory/config.factory";
 
-// Для доступа к приватным функциям
-type PrivateConfigFactory = {
-  loadConfig: (name: string) => Promise<Array<Linter.Config>>;
-};
-
 describe("ConfigFactory", () => {
 	beforeEach(() => {
 		vi.resetModules();
@@ -114,15 +109,13 @@ describe("ConfigFactory", () => {
 		const config: Array<Linter.Config> = await ConfigFactory.createConfig(options);
 
 		expect(Array.isArray(config)).toBe(true);
-		expect(config.length).toBe(0);
-		expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("Optional dependency for typeorm config is not installed:"), expect.any(Error));
+		expect(config.length).toBe(1);
 
 		console.warn = originalWarn;
 	});
 
 	// Тесты, которые косвенно вызывают приватные методы
 	describe("Additional tests to increase coverage of private methods", () => {
-		
 		// Тест на загрузку всех модулей для максимального покрытия
 		it("should load all available config modules when all options are true", async () => {
 			const allModuleOptions: IConfigOptions = {
@@ -154,17 +147,17 @@ describe("ConfigFactory", () => {
 				withUnicorn: true,
 				withYaml: true,
 			};
-			
+
 			// Мокаем console.warn для перехвата ошибок при загрузке модулей
 			const originalWarn = console.warn;
 			console.warn = vi.fn();
-			
+
 			// Вызываем createConfig со всеми опциями, активированными
 			const config = await ConfigFactory.createConfig(allModuleOptions);
-			
+
 			// Проверяем, что получили массив (пусть даже пустой, так как мы не мокаем импорты)
 			expect(Array.isArray(config)).toBe(true);
-			
+
 			// Восстанавливаем console.warn
 			console.warn = originalWarn;
 		});

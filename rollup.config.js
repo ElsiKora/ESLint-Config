@@ -21,7 +21,7 @@ const external = [
 	"eslint-plugin-regexp",
 	"eslint-plugin-sonarjs",
 	"eslint-plugin-tailwindcss",
-	"eslint-plugin-typeorm-typescript/recommended",
+	"eslint-plugin-typeorm-typescript",
 	"eslint-plugin-unicorn",
 	"eslint-plugin-yml",
 	"@elsikora/eslint-plugin-css",

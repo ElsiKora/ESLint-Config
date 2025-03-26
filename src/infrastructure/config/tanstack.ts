@@ -1,15 +1,17 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
+import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-
+import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tanstackQueryPlugin from "@tanstack/eslint-plugin-query";
 import tanstackRouterPlugin from "@tanstack/eslint-plugin-router";
 import tseslint from "typescript-eslint";
 
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
-
+/**
+ * Loads the ESLint configuration for TanStack Query and Router
+ * @param {IConfigOptions} _config - Configuration options
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for TanStack
+ */
 export default function loadConfig(_config: IConfigOptions): Array<Linter.Config> {
 	return [
 		{

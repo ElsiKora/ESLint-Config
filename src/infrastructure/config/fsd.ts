@@ -1,23 +1,26 @@
-/* eslint-disable @elsikora/typescript/naming-convention */
+/* eslint-disable @elsikora/typescript/no-unsafe-assignment,@elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
 // @ts-ignore
 import featureSlicedPlugin from "@conarti/eslint-plugin-feature-sliced";
+import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
 
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
-
+/**
+ * Loads the ESLint configuration for Feature-Sliced Design architecture
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for FSD
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{
 			plugins: {
-				/* eslint-disable-next-line @elsikora/typescript/no-unsafe-assignment */
 				[formatPluginName("@conarti/feature-sliced")]: featureSlicedPlugin,
 			},
 			rules: {
 				[formatRuleName("@conarti/feature-sliced/absolute-relative")]: "error",
+
 				[formatRuleName("@conarti/feature-sliced/layers-slices")]: "error",
+
 				[formatRuleName("@conarti/feature-sliced/public-api")]: "error",
 			},
 		},

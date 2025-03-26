@@ -53,6 +53,7 @@ export default [
 	...(await createConfig({
 		withCheckFile: true,
 		withJavascript: true,
+		withJsDoc: true,
 		withJson: true,
 		withNode: true,
 		withPackageJson: true,

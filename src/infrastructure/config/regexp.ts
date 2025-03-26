@@ -1,9 +1,12 @@
 import type { Linter } from "eslint";
 
+import { formatConfig } from "@infrastructure/utility";
 import * as regexpPlugin from "eslint-plugin-regexp";
 
-import { formatConfig } from "../utility/format-config.utility";
-
+/**
+ * Loads the ESLint configuration for regular expressions
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for RegExp
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

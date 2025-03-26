@@ -1,15 +1,12 @@
+import type { IConfigOptions } from "@domain/interface";
+import type { TConfigLoader, TConfigModule } from "@domain/type";
 import type { Linter } from "eslint";
-
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-import type { TConfigLoader } from "../../domain/type/config-loader.type";
-import type { TConfigModule } from "../../domain/type/config-module.type";
 
 /**
  * Factory class for generating ESLint configurations based on provided options.
  * Maps configuration flags to their respective module loaders and dynamically imports
  * the required config modules. Handles loading failures gracefully by logging warnings
  * and returning empty configs.
- *
  * @class ConfigFactory
  * @static
  */
@@ -76,6 +73,31 @@ export class ConfigFactory {
 
 	private static currentOptions: IConfigOptions | null = null;
 
+	/**
+	 * Creates ESLint configurations based on the provided options.
+	 *
+	 * This function processes the configuration options and dynamically imports
+	 * the required ESLint configuration modules based on enabled features.
+	 * It filters out disabled options and loads only the necessary configurations.
+	 * @param {IConfigOptions} options - Configuration options that determine which ESLint rules to include
+	 * @returns {Promise<Array<Linter.Config>>} A promise that resolves to an array of ESLint configurations
+	 * @example
+	 * // Basic usage with typescript and react
+	 * const config = await ConfigFactory.createConfig({
+	 *   withTypescript: true,
+	 *   withReact: true
+	 * });
+	 * @example
+	 * // Full-featured configuration for a modern web application
+	 * const fullConfig = await ConfigFactory.createConfig({
+	 *   withTypescript: true,
+	 *   withReact: true,
+	 *   withEslint: true,
+	 *   withPrettier: true,
+	 *   withJsDoc: true,
+	 *   withStylistic: true
+	 * });
+	 */
 	static async createConfig(options: IConfigOptions): Promise<Array<Linter.Config>> {
 		this.currentOptions = options;
 
@@ -94,8 +116,15 @@ export class ConfigFactory {
 		return config.flat();
 	}
 
+	/**
+	 * Loads a specific ESLint configuration module by name
+	 * @param {string} name - The name of the configuration module to load
+	 * @returns {Promise<Array<Linter.Config>>} A promise that resolves to an array of ESLint configurations
+	 * @private
+	 */
 	private static async loadConfig(name: string): Promise<Array<Linter.Config>> {
 		try {
+			// @ts-ignore
 			const module: TConfigModule = await this.CONFIG_MAPPING[name]();
 
 			return module.default(this.currentOptions);

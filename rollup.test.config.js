@@ -1,4 +1,6 @@
 import typescript from "@rollup/plugin-typescript";
+import dtsPathAlias from "rollup-plugin-dts-path-alias";
+import generatePackageJson from "rollup-plugin-generate-package-json";
 
 const external = [
 	"eslint-plugin-react",
@@ -44,13 +46,20 @@ export default [
 			dir: "dist/esm",
 			format: "esm",
 			preserveModules: true,
+			preserveModulesRoot: "src",
+			sourcemap: true,
 		},
 		plugins: [
+			dtsPathAlias(),
 			typescript({
 				declaration: true,
 				declarationDir: "dist/esm",
 				outDir: "dist/esm",
 				tsconfig: "./tsconfig.build.json",
+			}),
+			generatePackageJson({
+				baseContents: { type: "module" },
+				outputFolder: "dist/esm",
 			}),
 		],
 	},

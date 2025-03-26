@@ -1,11 +1,13 @@
 import type { Linter } from "eslint";
 
+import { formatConfig, formatRuleName } from "@infrastructure/utility";
 // @ts-ignore
 import tailwind from "eslint-plugin-tailwindcss";
 
-import { formatConfig } from "../utility/format-config.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
-
+/**
+ * Loads the ESLint configuration for Tailwind CSS
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for Tailwind CSS
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		// eslint-disable-next-line @elsikora/typescript/no-unsafe-member-access,@elsikora/typescript/no-unsafe-argument,@elsikora/typescript/no-unsafe-assignment

@@ -1,14 +1,15 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
+import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-
+import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
 
-import { formatConfig } from "../utility/format-config.utility";
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
-
+/**
+ * Loads the ESLint configuration for TypeScript
+ * @param {IConfigOptions} config - Configuration options
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for TypeScript
+ */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return tseslint.config({
 		// @ts-ignore

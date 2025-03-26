@@ -1,11 +1,14 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
+import { formatConfig } from "@infrastructure/utility";
 import storybook from "eslint-plugin-storybook";
 import tseslint from "typescript-eslint";
 
-import { formatConfig } from "../utility/format-config.utility";
-
+/**
+ * Loads the ESLint configuration for Storybook files
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for Storybook
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		// @ts-ignore

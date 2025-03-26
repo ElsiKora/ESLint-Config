@@ -4,8 +4,8 @@ import PLUGIN_MAP from "../constant/utility/plugin-map.constant";
 
 /**
  * Formats ESLint configurations by remapping plugin names and rule prefixes according to PLUGIN_MAP.
- * @param configs - Array of ESLint flat configurations to process
- * @returns Array of formatted ESLint configurations with updated plugin names and rule prefixes
+ * @param {Array<Linter.Config>} configs - Array of ESLint flat configurations to process
+ * @returns {Array<Linter.Config>} Array of formatted ESLint configurations with updated plugin names and rule prefixes
  */
 export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
 	const formattedConfigs: Array<Linter.Config> = [];

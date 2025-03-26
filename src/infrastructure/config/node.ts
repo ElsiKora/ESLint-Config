@@ -4,6 +4,11 @@ import type { Linter } from "eslint";
 import { extractSubPlugin, formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import nPlugin from "eslint-plugin-n";
 
+/**
+ * Loads the ESLint configuration for Node.js
+ * @param {IConfigOptions} config - Configuration options
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for Node.js
+ */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [
 		{

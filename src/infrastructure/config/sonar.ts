@@ -6,6 +6,10 @@ import sonarjs from "eslint-plugin-sonarjs";
 const congnitiveComplexity: number = 100;
 const duplicateStringThreshold: number = 10;
 
+/**
+ * Loads the ESLint configuration for SonarJS rules
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for SonarJS
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

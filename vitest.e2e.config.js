@@ -9,6 +9,7 @@ export default defineConfig({
 	publicDir: false,
 	resolve: {
 		alias: {
+			// eslint-disable-next-line @elsikora/node/no-unsupported-features/node-builtins
 			"@": path.resolve(import.meta.dirname, "./src"),
 		},
 	},

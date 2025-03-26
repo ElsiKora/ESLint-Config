@@ -3,6 +3,10 @@ import type { Linter } from "eslint";
 import { formatConfig, formatPluginName } from "@infrastructure/utility";
 import jsdoc from "eslint-plugin-jsdoc";
 
+/**
+ * Loads the ESLint configuration for JSDoc comments
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for JSDoc
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

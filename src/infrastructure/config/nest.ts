@@ -8,6 +8,10 @@ import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/
 import ngModuleSort from "eslint-plugin-ng-module-sort";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration for NestJS applications
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for NestJS
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

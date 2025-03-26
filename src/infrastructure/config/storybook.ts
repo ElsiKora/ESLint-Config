@@ -5,6 +5,10 @@ import { formatConfig } from "@infrastructure/utility";
 import storybook from "eslint-plugin-storybook";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration for Storybook files
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for Storybook
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		// @ts-ignore

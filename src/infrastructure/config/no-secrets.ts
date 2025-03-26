@@ -6,6 +6,11 @@ import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import noSecretsPlugin from "eslint-plugin-no-secrets";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration to prevent secrets from being committed
+ * @param {IConfigOptions} _config - Configuration options
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for preventing secrets
+ */
 export default function loadConfig(_config: IConfigOptions): Array<Linter.Config> {
 	return [
 		{

@@ -3,6 +3,10 @@ import type { Linter } from "eslint";
 import { formatConfig, formatRuleName } from "@infrastructure/utility";
 import unicorn from "eslint-plugin-unicorn";
 
+/**
+ * Loads the ESLint configuration for Unicorn plugin
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for Unicorn
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

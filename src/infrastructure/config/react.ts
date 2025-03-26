@@ -7,6 +7,11 @@ import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/
 import react2 from "eslint-plugin-react";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration for React applications
+ * @param {IConfigOptions} config - Configuration options
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for React
+ */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [
 		{

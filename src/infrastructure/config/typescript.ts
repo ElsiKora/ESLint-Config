@@ -5,6 +5,11 @@ import type { Linter } from "eslint";
 import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration for TypeScript
+ * @param {IConfigOptions} config - Configuration options
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for TypeScript
+ */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return tseslint.config({
 		// @ts-ignore

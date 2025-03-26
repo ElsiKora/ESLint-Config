@@ -5,6 +5,10 @@ import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import i18nextPlugin from "eslint-plugin-i18next";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration for i18next internationalization
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for i18next
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

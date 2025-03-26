@@ -6,6 +6,10 @@ import featureSlicedPlugin from "@conarti/eslint-plugin-feature-sliced";
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration for Feature-Sliced Design architecture
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for FSD
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

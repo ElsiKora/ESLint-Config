@@ -7,6 +7,10 @@ import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import next from "@next/eslint-plugin-next";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration for Next.js applications
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for Next.js
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

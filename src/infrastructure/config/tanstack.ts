@@ -7,6 +7,11 @@ import tanstackQueryPlugin from "@tanstack/eslint-plugin-query";
 import tanstackRouterPlugin from "@tanstack/eslint-plugin-router";
 import tseslint from "typescript-eslint";
 
+/**
+ * Loads the ESLint configuration for TanStack Query and Router
+ * @param {IConfigOptions} _config - Configuration options
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for TanStack
+ */
 export default function loadConfig(_config: IConfigOptions): Array<Linter.Config> {
 	return [
 		{

@@ -3,6 +3,10 @@ import type { Linter } from "eslint";
 import css from "@elsikora/eslint-plugin-css";
 import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 
+/**
+ * Loads the ESLint configuration for CSS files
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for CSS
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

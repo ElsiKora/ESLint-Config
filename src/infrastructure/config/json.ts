@@ -4,6 +4,10 @@ import type { Linter } from "eslint";
 import { extractSubPlugin, formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import eslintPluginJsonc from "eslint-plugin-jsonc";
 
+/**
+ * Loads the ESLint configuration for JSON files
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for JSON
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

@@ -3,6 +3,12 @@ import type { ESLint, Linter } from "eslint";
 // eslint-disable-next-line @elsikora/sonar/deprecation
 import { builtinRules } from "eslint/use-at-your-own-risk";
 
+/**
+ * Creates a virtual ESLint plugin from the provided configurations
+ * @param {Array<Linter.Config>} configs - The ESLint configurations to use
+ * @param {string} prefix - The prefix to use for the virtual plugin
+ * @returns {Array<Linter.Config>} An array of ESLint configurations with the virtual plugin
+ */
 export function createVirtualEslintPlugin(configs: Array<Linter.Config>, prefix: string = "@elsikora/javascript"): Array<Linter.Config> {
 	const result: Array<Linter.Config> = [];
 

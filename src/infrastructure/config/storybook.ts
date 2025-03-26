@@ -1,10 +1,9 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
+import { formatConfig } from "@infrastructure/utility";
 import storybook from "eslint-plugin-storybook";
 import tseslint from "typescript-eslint";
-
-import { formatConfig } from "../utility/format-config.utility";
 
 export default function loadConfig(): Array<Linter.Config> {
 	return [

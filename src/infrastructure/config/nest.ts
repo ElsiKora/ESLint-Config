@@ -4,12 +4,9 @@ import type { Linter } from "eslint";
 // @ts-ignore
 import nestJsTyped from "@elsikora/eslint-plugin-nestjs-typed";
 import { fixupPluginRules } from "@eslint/compat";
+import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import ngModuleSort from "eslint-plugin-ng-module-sort";
 import tseslint from "typescript-eslint";
-
-import { formatConfig } from "../utility/format-config.utility";
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default function loadConfig(): Array<Linter.Config> {
 	return [

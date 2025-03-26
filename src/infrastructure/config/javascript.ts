@@ -1,11 +1,9 @@
+import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-
 import js from "@eslint/js";
+import { createVirtualEslintPlugin } from "@infrastructure/utility";
 import globals from "globals";
-
-import { createVirtualEslintPlugin } from "../utility/create-virtual-eslint-plugin.utility";
 
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [

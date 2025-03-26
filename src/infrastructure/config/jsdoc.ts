@@ -1,9 +1,7 @@
 import type { Linter } from "eslint";
 
+import { formatConfig, formatPluginName } from "@infrastructure/utility";
 import jsdoc from "eslint-plugin-jsdoc";
-
-import { formatConfig } from "../utility/format-config.utility";
-import { formatPluginName } from "../utility/format-plugin-name.utility";
 
 export default function loadConfig(): Array<Linter.Config> {
 	return [

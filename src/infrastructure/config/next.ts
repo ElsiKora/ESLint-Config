@@ -2,12 +2,10 @@
 import type { Linter } from "eslint";
 
 import { fixupPluginRules } from "@eslint/compat";
+import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 // @ts-ignore
 import next from "@next/eslint-plugin-next";
 import tseslint from "typescript-eslint";
-
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default function loadConfig(): Array<Linter.Config> {
 	return [

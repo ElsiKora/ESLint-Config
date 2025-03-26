@@ -1,13 +1,8 @@
+import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-
+import { extractSubPlugin, formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import nPlugin from "eslint-plugin-n";
-
-import { extractSubPlugin } from "../utility/extract-sub-plugin.utility";
-import { formatConfig } from "../utility/format-config.utility";
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [

@@ -1,10 +1,8 @@
 import type { Linter } from "eslint";
 
+import { formatConfig, formatRuleName } from "@infrastructure/utility";
 // @ts-ignore
 import tailwind from "eslint-plugin-tailwindcss";
-
-import { formatConfig } from "../utility/format-config.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default function loadConfig(): Array<Linter.Config> {
 	return [

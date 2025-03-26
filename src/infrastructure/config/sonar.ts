@@ -1,9 +1,7 @@
 import type { Linter } from "eslint";
 
+import { formatConfig, formatRuleName } from "@infrastructure/utility";
 import sonarjs from "eslint-plugin-sonarjs";
-
-import { formatConfig } from "../utility/format-config.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 const congnitiveComplexity: number = 100;
 const duplicateStringThreshold: number = 10;

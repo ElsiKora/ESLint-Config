@@ -1,13 +1,9 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
+import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-
+import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
-
-import { formatConfig } from "../utility/format-config.utility";
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return tseslint.config({

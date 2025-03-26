@@ -1,8 +1,6 @@
+import type { IConfigOptions } from "@domain/interface";
+import type { TConfigLoader, TConfigModule } from "@domain/type";
 import type { Linter } from "eslint";
-
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-import type { TConfigLoader } from "../../domain/type/config-loader.type";
-import type { TConfigModule } from "../../domain/type/config-module.type";
 
 /**
  * Factory class for generating ESLint configurations based on provided options.
@@ -96,6 +94,7 @@ export class ConfigFactory {
 
 	private static async loadConfig(name: string): Promise<Array<Linter.Config>> {
 		try {
+			// @ts-ignore
 			const module: TConfigModule = await this.CONFIG_MAPPING[name]();
 
 			return module.default(this.currentOptions);

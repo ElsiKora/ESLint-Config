@@ -1,13 +1,10 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
+import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-
+import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import noSecretsPlugin from "eslint-plugin-no-secrets";
 import tseslint from "typescript-eslint";
-
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default function loadConfig(_config: IConfigOptions): Array<Linter.Config> {
 	return [

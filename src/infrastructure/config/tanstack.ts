@@ -1,14 +1,11 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
+import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
-import type { IConfigOptions } from "../../domain/interface/config-options.interface";
-
+import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tanstackQueryPlugin from "@tanstack/eslint-plugin-query";
 import tanstackRouterPlugin from "@tanstack/eslint-plugin-router";
 import tseslint from "typescript-eslint";
-
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default function loadConfig(_config: IConfigOptions): Array<Linter.Config> {
 	return [

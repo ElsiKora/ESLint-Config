@@ -1,8 +1,7 @@
 import type { Linter } from "eslint";
 
+import { formatConfig } from "@infrastructure/utility";
 import * as regexpPlugin from "eslint-plugin-regexp";
-
-import { formatConfig } from "../utility/format-config.utility";
 
 export default function loadConfig(): Array<Linter.Config> {
 	return [

@@ -7,7 +7,7 @@ import PLUGIN_MAP from "../constant/utility/plugin-map.constant";
  * @param configs - Array of ESLint flat configurations to process
  * @returns Array of formatted ESLint configurations with updated plugin names and rule prefixes
  */
-function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
+export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
 	const formattedConfigs: Array<Linter.Config> = [];
 
 	for (const config of configs) {
@@ -76,5 +76,3 @@ function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config> {
 
 	return formattedConfigs;
 }
-
-export { formatConfig };

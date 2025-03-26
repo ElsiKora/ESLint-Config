@@ -1,11 +1,9 @@
 import type { Linter } from "eslint";
 
+import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 // @ts-ignore
 import typeormTypescript from "eslint-plugin-typeorm-typescript";
 import tseslint from "typescript-eslint";
-
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
 
 export default function loadConfig(): Array<Linter.Config> {
 	return tseslint.config({

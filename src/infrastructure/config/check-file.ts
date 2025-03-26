@@ -1,12 +1,13 @@
-/* eslint-disable @elsikora/typescript/naming-convention */
 import type { ESLint, Linter } from "eslint";
 
+import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 // @ts-ignore
 import checkFile from "eslint-plugin-check-file";
 
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
-
+/**
+ * Loads the ESLint configuration for file checking rules
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for file checking
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{
@@ -25,6 +26,7 @@ export default function loadConfig(): Array<Linter.Config> {
 						"**/*.util.ts": "*.utility.ts",
 					},
 				], // Disallow specific filename patterns to enforce a consistent naming convention across the project. For example, preferring `*.enum.ts` over `*.enums.ts`.
+
 				[formatRuleName("check-file/filename-naming-convention")]: [
 					"error",
 					{
@@ -43,8 +45,10 @@ export default function loadConfig(): Array<Linter.Config> {
 						"**/utility/**/*.{js,ts}": "KEBAB_CASE",
 						"**/validator/**/*.{js,ts}": "KEBAB_CASE",
 					},
+					// eslint-disable-next-line @elsikora/typescript/naming-convention
 					{ ignoreMiddleExtensions: true },
 				], // Enforce a specific naming convention for files in various directories, typically using KEBAB_CASE for clarity and consistency. The `ignoreMiddleExtensions` option allows ignoring file extensions in the middle of filenames, focusing on the final extension for the rule.
+
 				[formatRuleName("check-file/folder-match-with-fex")]: [
 					"error",
 					{
@@ -64,6 +68,7 @@ export default function loadConfig(): Array<Linter.Config> {
 						"*.validator.{js,jsx,ts,tsx}": "**/validator/**",
 					},
 				], // Enforce a naming convention that requires files to be located in folders matching their type (e.g., API files in /api, DTOs in /dto) to ensure a clear and consistent project structure.
+
 				[formatRuleName("check-file/folder-naming-convention")]: [
 					"error",
 					{

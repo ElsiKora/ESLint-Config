@@ -1,12 +1,14 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
+import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import i18nextPlugin from "eslint-plugin-i18next";
 import tseslint from "typescript-eslint";
 
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
-
+/**
+ * Loads the ESLint configuration for i18next internationalization
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for i18next
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

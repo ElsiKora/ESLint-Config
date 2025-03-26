@@ -1,12 +1,13 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
+import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import stylistic from "@stylistic/eslint-plugin";
 
-import { formatConfig } from "../utility/format-config.utility";
-import { formatPluginName } from "../utility/format-plugin-name.utility";
-import { formatRuleName } from "../utility/format-rule-name.utility";
-
+/**
+ * Loads the ESLint configuration for code style and formatting
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for stylistic rules
+ */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{

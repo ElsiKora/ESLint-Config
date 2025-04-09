@@ -72,7 +72,7 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 				[formatRuleName("react/no-unescaped-entities")]: "error", // Disallow unescaped entities
 				[formatRuleName("react/prefer-stateless-function")]: ["error", { ignorePureComponents: true }], // Enforce stateless components to be written as a pure function
 				[formatRuleName("react/react-in-jsx-scope")]: config.withNext ? "off" : "error", // Prevent missing React when using JSX
-				[formatRuleName("react/require-default-props")]: "error", // Enforce a defaultProps definition for every prop that is not a required prop
+				[formatRuleName("react/require-default-props")]: "off", // Enforce a defaultProps definition for every prop that is not a required prop
 				[formatRuleName("react/require-render-return")]: "error", // Enforce ES5 or ES6 class for returning value in render function
 				[formatRuleName("react/self-closing-comp")]: "error", // Prevent extra closing tags for components without children
 				[formatRuleName("react/state-in-constructor")]: ["error", "never"], // Enforce state initialization style

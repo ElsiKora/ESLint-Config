@@ -1,3 +1,10 @@
+# [3.8.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.14...v3.8.0) (2025-04-21)
+
+
+### Features
+
+* **branch-lint:** add git branch linting capability ([271f70d](https://github.com/ElsiKora/ESLint-Config/commit/271f70d56c70e3c01234ba285ed1a7aca7d9bf76))
+
 ## [3.7.14](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.13...v3.7.14) (2025-04-09)
 
 ## [3.7.13](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.12...v3.7.13) (2025-03-26)

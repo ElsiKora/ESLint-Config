@@ -1,4 +1,3 @@
-/* eslint-disable @elsikora/typescript/naming-convention */
 import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
@@ -57,9 +56,9 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 				[formatRuleName("react/jsx-curly-brace-presence")]: [
 					"error",
 					{
-						children: "always",
-						propElementValues: "always",
-						props: "always",
+						children: "ignore",
+						propElementValues: "ignore",
+						props: "ignore",
 					},
 				], // Enforce curly braces or disallow unnecessary curly braces in JSX props and/or children
 				[formatRuleName("react/jsx-no-bind")]: "off", // Prevent usage of Function.prototype.bind and arrow functions in React component props
@@ -83,8 +82,8 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			files: ["**/*.jsx", "**/*.tsx"],
 			rules: {
 				[formatRuleName("@eslint-react/naming-convention/component-name")]: ["error", "PascalCase"], // Enforce component naming conventions
-				[formatRuleName("@eslint-react/naming-convention/filename-extension")]: ["error", { allow: "as-needed" }], // Enforce filename conventions
-				[formatRuleName("@eslint-react/naming-convention/filename")]: config.withNext ? "off" : "error", // Enforce filename conventions
+				// [formatRuleName("@eslint-react/naming-convention/filename-extension")]: ["error", { allow: "as-needed" }], // Enforce filename conventions
+				[formatRuleName("@eslint-react/naming-convention/filename")]: "off", // Enforce filename conventions
 				[formatRuleName("@eslint-react/naming-convention/use-state")]: "error", // Enforce the use of the useState hook
 			},
 		},

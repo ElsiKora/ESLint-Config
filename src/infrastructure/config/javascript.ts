@@ -27,6 +27,7 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 					rules: {
 						"no-await-in-loop": "off",
 						"no-compare-neg-zero": "error",
+						"no-console": ["warn", { allow: ["warn", "error"] }],
 						"no-unused-vars": config.withSonar ? "off" : "error",
 					},
 				},

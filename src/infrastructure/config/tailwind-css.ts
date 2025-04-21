@@ -14,6 +14,7 @@ export default function loadConfig(): Array<Linter.Config> {
 		...formatConfig([...tailwind.configs["flat/recommended"]]),
 		{
 			rules: {
+				[formatRuleName("tailwindcss/enforces-negative-arbitrary-values")]: "off",
 				[formatRuleName("tailwindcss/no-custom-classname")]: "off", // Disable custom classnames to allow for flexibility in project styling.
 			},
 		},

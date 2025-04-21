@@ -73,7 +73,7 @@ describe("I18nextConfig", () => {
 		expect(firstConfig.rules).toHaveProperty("@elsikora/i18next/no-literal-string", [
 			"error",
 			{
-				mode: "jsx-only",
+				mode: "jsx-text-only",
 			},
 		]);
 	});

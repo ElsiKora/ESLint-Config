@@ -1,4 +1,7 @@
 export default {
+	"branch-lint": {
+		isEnabled: true,
+	},
 	ci: {
 		isEnabled: true,
 		isNpmPackage: true,

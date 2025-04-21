@@ -1,4 +1,3 @@
-/* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
@@ -24,7 +23,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				[formatPluginName("i18next")]: i18nextPlugin,
 			},
 			rules: {
-				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-only" }],
+				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-text-only" }],
 			},
 		},
 		{
@@ -41,7 +40,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				[formatPluginName("i18next")]: i18nextPlugin,
 			},
 			rules: {
-				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-only" }],
+				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-text-only" }],
 			},
 		},
 	];

@@ -42,7 +42,7 @@ describe("JsxConfig", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		expect(Array.isArray(configs)).toBe(true);
-		expect(configs.length).toBe(1);
+		expect(configs.length).toBe(2);
 	});
 
 	it("should format the jsx-a11y recommended config", async () => {

@@ -24,6 +24,7 @@ export interface IConfigOptions {
 	withTanstack?: boolean;
 	withTypeorm?: boolean;
 	withTypescript?: boolean;
+	withTypescriptStrict?: boolean;
 	withUnicorn?: boolean;
 	withYaml?: boolean;
 }

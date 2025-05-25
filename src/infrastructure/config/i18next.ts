@@ -1,3 +1,4 @@
+/* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";

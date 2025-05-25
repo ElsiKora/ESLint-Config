@@ -27,6 +27,7 @@ export default function loadConfig(): Array<Linter.Config> {
 			files: ["*.json", "**/*.json", "*.json5", "**/*.json5", "*.jsonc", "**/*.jsonc"],
 
 			// @ts-ignore
+			// eslint-disable-next-line @elsikora/typescript/no-magic-numbers
 			rules: formatConfig([...eslintPluginJsonc.configs["flat/recommended-with-json"]])[2].rules,
 		},
 		{

@@ -1,3 +1,4 @@
+/* eslint-disable @elsikora/typescript/naming-convention */
 import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 

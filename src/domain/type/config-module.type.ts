@@ -1,5 +1,5 @@
 import type { Linter } from "eslint";
 
 export type TConfigModule = {
-	default: (options?: any) => Array<Linter.Config>;
+	default: (options?: unknown) => Array<Linter.Config>;
 };

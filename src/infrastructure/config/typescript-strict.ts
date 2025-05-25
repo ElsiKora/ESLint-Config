@@ -6,9 +6,9 @@ import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/
 import tseslint from "typescript-eslint";
 
 /**
- * Loads the ESLint configuration for TypeScript
+ * Loads the strict ESLint configuration for TypeScript with additional strict rules enabled
  * @param {IConfigOptions} config - Configuration options
- * @returns {Array<Linter.Config>} An array of ESLint configurations for TypeScript
+ * @returns {Array<Linter.Config>} An array of ESLint configurations for TypeScript with strict rules
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return tseslint.config({
@@ -35,146 +35,146 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			[formatRuleName("@typescript-eslint/consistent-type-definitions")]: "off", // Disables the rule that enforces consistent type definitions for variables, parameters, and class members, allowing for more flexibility in type definitions.
 			[formatRuleName("@typescript-eslint/consistent-type-exports")]: "error", // Enforces consistent usage of type exports, promoting clarity and consistency in how types are exported from modules.
 			[formatRuleName("@typescript-eslint/consistent-type-imports")]: "error", // Enforces using the `import type {}` syntax where possible for importing types, which can lead to more efficient bundling by avoiding unnecessary JavaScript execution.
-			// [formatRuleName("@typescript-eslint/explicit-function-return-type")]: "error", // Requires explicit return types on functions and class methods, improving code documentation and maintainability by making the intended return type clear.
-			// [formatRuleName("@typescript-eslint/explicit-module-boundary-types")]: "error", // Enforces explicit return and argument types on exported functions and classes at module boundaries, improving type safety and clarity in module interfaces.
+			[formatRuleName("@typescript-eslint/explicit-function-return-type")]: "error", // Requires explicit return types on functions and class methods, improving code documentation and maintainability by making the intended return type clear.
+			[formatRuleName("@typescript-eslint/explicit-module-boundary-types")]: "error", // Enforces explicit return and argument types on exported functions and classes at module boundaries, improving type safety and clarity in module interfaces.
 			[formatRuleName("@typescript-eslint/interface-name-prefix")]: "off", // Disables the rule that requires interface names to be prefixed with "I", allowing more flexibility in naming interfaces according to project conventions.
-			// [formatRuleName("@typescript-eslint/naming-convention")]: [
-			// 	"error",
-			// 	{
-			// 		format: null, // Disables any format enforcement by default, allowing for flexibility unless specifically overridden.
-			// 		selector: "default",
-			// 	},
-			// 	{
-			// 		filter: {
-			// 			match: false,
-			// 			regex: "^match$",
-			// 		},
-			// 		format: null,
-			// 		prefix: ["is", "should", "has", "can", "did", "will", "use", "with", "to", "was", "IS", "SHOULD", "HAS", "CAN", "DID", "WILL", "USE", "WITH", "TO", "WAS"],
-			// 		selector: ["variable", "parameter", "property", "parameterProperty", "accessor", "classProperty"],
-			// 		types: ["boolean"],
-			// 	},
-			// 	{
-			// 		format: ["PascalCase", "UPPER_CASE"], // Boolean variables should be prefixed with specific keywords and can be in PascalCase or UPPER_CASE.
-			// 		selector: "variable",
-			// 		types: ["boolean"],
-			// 	},
-			// 	{
-			// 		format: ["camelCase", "UPPER_CASE", "PascalCase"], // Variables and variable-like identifiers should use camelCase, UPPER_CASE, or PascalCase, providing flexibility for naming.
-			// 		selector: "variableLike",
-			// 	},
-			// 	{
-			// 		format: ["camelCase"], // Function parameters should always use camelCase.
-			// 		leadingUnderscore: "allow",
-			// 		selector: "parameter",
-			// 	},
-			// 	{
-			// 		format: ["camelCase"], // Class constructor parameters that are also class properties should use camelCase.
-			// 		selector: "parameterProperty",
-			// 	},
-			// 	{
-			// 		format: ["camelCase"], // Private class members should use camelCase and not have a leading underscore.
-			// 		leadingUnderscore: "forbid",
-			// 		modifiers: ["private"],
-			// 		selector: "memberLike",
-			// 	},
-			// 	{
-			// 		format: ["PascalCase"], // Types, interfaces, classes, etc., should use PascalCase.
-			// 		selector: "typeLike",
-			// 	},
-			// 	{
-			// 		format: ["UPPER_CASE"], // Readonly properties should use PascalCase.
-			// 		modifiers: ["readonly"],
-			// 		selector: "property",
-			// 	},
-			// 	{
-			// 		format: ["UPPER_CASE"], // Enum members should be in UPPER_CASE.
-			// 		selector: "enumMember",
-			// 	},
-			// 	{
-			// 		format: ["PascalCase"], // Enums should use PascalCase and be prefixed with 'E'.
-			// 		prefix: ["E"],
-			// 		selector: "enum",
-			// 	},
-			// 	{
-			// 		format: ["StrictPascalCase"], // Interfaces should use StrictPascalCase and be prefixed with 'I'.
-			// 		prefix: ["I"],
-			// 		selector: "interface",
-			// 	},
-			// 	{
-			// 		format: ["StrictPascalCase"], // Type aliases should use StrictPascalCase and be prefixed with 'T'.
-			// 		prefix: ["T"],
-			// 		selector: "typeAlias",
-			// 	},
-			// 	{
-			// 		filter: {
-			// 			match: true,
-			// 			regex: "^[A-Z][A-Z0-9_]*$",
-			// 		},
-			// 		format: ["UPPER_CASE"],
-			// 		modifiers: ["const"],
-			// 		selector: "variable", // Constants should be in UPPER_CASE and use camelCase for variables.
-			// 	},
-			// 	{
-			// 		format: ["PascalCase"],
-			// 		modifiers: ["abstract"],
-			// 		prefix: ["Abstract"],
-			// 		selector: "class", // Abstract classes should use PascalCase and be prefixed with 'Abstract'.
-			// 	},
-			// 	{
-			// 		filter: {
-			// 			match: true,
-			// 			regex: ".*Factory$",
-			// 		},
-			// 		format: ["PascalCase"],
-			// 		selector: "class", // Classes should use PascalCase and be prefixed with 'Base'.
-			// 		suffix: ["Factory"],
-			// 	},
-			// 	{
-			// 		filter: {
-			// 			match: true,
-			// 			regex: ".*Service$",
-			// 		},
-			// 		format: ["PascalCase"],
-			// 		selector: "class", // Classes should use PascalCase and be suffixed with 'Factory'.
-			// 		suffix: ["Service"],
-			// 	},
-			// 	{
-			// 		filter: {
-			// 			match: true,
-			// 			regex: ".*Component$",
-			// 		},
-			// 		format: ["PascalCase"],
-			// 		selector: "class", // Classes should use PascalCase and be suffixed with 'Service'.
-			// 		suffix: ["Component"],
-			// 	},
-			// 	{
-			// 		filter: {
-			// 			match: true,
-			// 			regex: "^use[A-Z]",
-			// 		},
-			// 		format: ["camelCase"],
-			// 		prefix: ["use"],
-			// 		selector: "function", // Functions should use camelCase and be prefixed with 'use'.
-			// 	},
-			// 	{
-			// 		filter: {
-			// 			match: true,
-			// 			regex: "^[A-Z]$",
-			// 		},
-			// 		format: ["PascalCase"],
-			// 		selector: "typeParameter", // Type parameters should use PascalCase.
-			// 	},
-			// 	{
-			// 		filter: {
-			// 			match: true,
-			// 			regex: ".*Event$",
-			// 		},
-			// 		format: ["PascalCase"],
-			// 		selector: "property", // Event properties should use PascalCase and be suffixed with 'Event'.
-			// 		suffix: ["Event"],
-			// 	},
-			// ],
+			[formatRuleName("@typescript-eslint/naming-convention")]: [
+				"error",
+				{
+					format: null, // Disables any format enforcement by default, allowing for flexibility unless specifically overridden.
+					selector: "default",
+				},
+				{
+					filter: {
+						match: false,
+						regex: "^match$",
+					},
+					format: null,
+					prefix: ["is", "should", "has", "can", "did", "will", "use", "with", "to", "was", "IS", "SHOULD", "HAS", "CAN", "DID", "WILL", "USE", "WITH", "TO", "WAS"],
+					selector: ["variable", "parameter", "property", "parameterProperty", "accessor", "classProperty"],
+					types: ["boolean"],
+				},
+				{
+					format: ["PascalCase", "UPPER_CASE"], // Boolean variables should be prefixed with specific keywords and can be in PascalCase or UPPER_CASE.
+					selector: "variable",
+					types: ["boolean"],
+				},
+				{
+					format: ["camelCase", "UPPER_CASE", "PascalCase"], // Variables and variable-like identifiers should use camelCase, UPPER_CASE, or PascalCase, providing flexibility for naming.
+					selector: "variableLike",
+				},
+				{
+					format: ["camelCase"], // Function parameters should always use camelCase.
+					leadingUnderscore: "allow",
+					selector: "parameter",
+				},
+				{
+					format: ["camelCase"], // Class constructor parameters that are also class properties should use camelCase.
+					selector: "parameterProperty",
+				},
+				{
+					format: ["camelCase"], // Private class members should use camelCase and not have a leading underscore.
+					leadingUnderscore: "forbid",
+					modifiers: ["private"],
+					selector: "memberLike",
+				},
+				{
+					format: ["PascalCase"], // Types, interfaces, classes, etc., should use PascalCase.
+					selector: "typeLike",
+				},
+				{
+					format: ["UPPER_CASE"], // Readonly properties should use PascalCase.
+					modifiers: ["readonly"],
+					selector: "property",
+				},
+				{
+					format: ["UPPER_CASE"], // Enum members should be in UPPER_CASE.
+					selector: "enumMember",
+				},
+				{
+					format: ["PascalCase"], // Enums should use PascalCase and be prefixed with 'E'.
+					prefix: ["E"],
+					selector: "enum",
+				},
+				{
+					format: ["StrictPascalCase"], // Interfaces should use StrictPascalCase and be prefixed with 'I'.
+					prefix: ["I"],
+					selector: "interface",
+				},
+				{
+					format: ["StrictPascalCase"], // Type aliases should use StrictPascalCase and be prefixed with 'T'.
+					prefix: ["T"],
+					selector: "typeAlias",
+				},
+				{
+					filter: {
+						match: true,
+						regex: "^[A-Z][A-Z0-9_]*$",
+					},
+					format: ["UPPER_CASE"],
+					modifiers: ["const"],
+					selector: "variable", // Constants should be in UPPER_CASE and use camelCase for variables.
+				},
+				{
+					format: ["PascalCase"],
+					modifiers: ["abstract"],
+					prefix: ["Abstract"],
+					selector: "class", // Abstract classes should use PascalCase and be prefixed with 'Abstract'.
+				},
+				{
+					filter: {
+						match: true,
+						regex: ".*Factory$",
+					},
+					format: ["PascalCase"],
+					selector: "class", // Classes should use PascalCase and be prefixed with 'Base'.
+					suffix: ["Factory"],
+				},
+				{
+					filter: {
+						match: true,
+						regex: ".*Service$",
+					},
+					format: ["PascalCase"],
+					selector: "class", // Classes should use PascalCase and be suffixed with 'Factory'.
+					suffix: ["Service"],
+				},
+				{
+					filter: {
+						match: true,
+						regex: ".*Component$",
+					},
+					format: ["PascalCase"],
+					selector: "class", // Classes should use PascalCase and be suffixed with 'Service'.
+					suffix: ["Component"],
+				},
+				{
+					filter: {
+						match: true,
+						regex: "^use[A-Z]",
+					},
+					format: ["camelCase"],
+					prefix: ["use"],
+					selector: "function", // Functions should use camelCase and be prefixed with 'use'.
+				},
+				{
+					filter: {
+						match: true,
+						regex: "^[A-Z]$",
+					},
+					format: ["PascalCase"],
+					selector: "typeParameter", // Type parameters should use PascalCase.
+				},
+				{
+					filter: {
+						match: true,
+						regex: ".*Event$",
+					},
+					format: ["PascalCase"],
+					selector: "property", // Event properties should use PascalCase and be suffixed with 'Event'.
+					suffix: ["Event"],
+				},
+			],
 			[formatRuleName("@typescript-eslint/no-array-delete")]: "error", // Disallow using delete on arrays because it may lead to unexpected behavior by leaving a 'hole' in the array.
 			[formatRuleName("@typescript-eslint/no-base-to-string")]: "error", // Require explicit toString() method calls on objects which may not safely convert to a string, preventing runtime errors.
 			[formatRuleName("@typescript-eslint/no-deprecated")]: config.withUnicorn ? "off" : "error", // Disallow the use of deprecated TypeScript features to prevent potential issues and ensure code quality.
@@ -191,14 +191,14 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			[formatRuleName("@typescript-eslint/no-import-type-side-effects")]: "error", // Prohibit imports that can have side effects when only importing types, ensuring cleaner and safer code.
 			[formatRuleName("@typescript-eslint/no-inferrable-types")]: "off", // Allow explicit types to be inferred by TypeScript for cleaner and more readable code.
 			[formatRuleName("@typescript-eslint/no-loop-func")]: "error", // Forbid the creation of functions within loops to prevent errors due to the use of loop variables inside closures.
-			// [formatRuleName("@typescript-eslint/no-magic-numbers")]: [
-			// 	"error",
-			// 	{
-			// 		detectObjects: true,
-			// 		ignore: [0, 1, -1],
-			// 		ignoreEnums: true,
-			// 	},
-			// ], // Disallow magic numbers to make code more readable and maintainable, with exceptions for enums and object properties.
+			[formatRuleName("@typescript-eslint/no-magic-numbers")]: [
+				"error",
+				{
+					detectObjects: true,
+					ignore: [0, 1, -1],
+					ignoreEnums: true,
+				},
+			], // Disallow magic numbers to make code more readable and maintainable, with exceptions for enums and object properties.
 			[formatRuleName("@typescript-eslint/no-misused-promises")]: "error", // Ensure promises are used and awaited correctly, preventing logical errors in async operations.
 			[formatRuleName("@typescript-eslint/no-mixed-enums")]: "error", // Prevent enums from being mixed in nonsensical ways, ensuring that they are used as intended.
 			[formatRuleName("@typescript-eslint/no-redeclare")]: "error", // Disallow redeclaration of variables to prevent confusion and potential errors from shadowed variables.
@@ -223,20 +223,20 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			[formatRuleName("@typescript-eslint/restrict-template-expressions")]: ["error", { allowNumber: true }], // Restrict types allowed in template expressions to prevent runtime errors from unexpected type conversions.
 			[formatRuleName("@typescript-eslint/return-await")]: "error", // Enforce returning await in async functions to ensure errors are caught in the try-catch block.
 			[formatRuleName("@typescript-eslint/switch-exhaustiveness-check")]: "error", // Require exhaustive switch statements over union types, ensuring all possible cases are handled.
+			[formatRuleName("@typescript-eslint/typedef")]: [
+				"error",
+				{
+					arrayDestructuring: true,
+					arrowParameter: true,
+					memberVariableDeclaration: true,
+					objectDestructuring: true,
+					parameter: true,
+					propertyDeclaration: true,
+					variableDeclaration: true,
+					variableDeclarationIgnoreFunction: true,
+				},
+			], // Enforce type definitions in various situations to ensure code clarity and maintainability. This includes variables, function parameters, and class members among others, with an exception for functions in variable declarations.
 			[formatRuleName("@typescript-eslint/unbound-method")]: "off",
-			// [formatRuleName("@typescript-eslint/typedef")]: [
-			// 	"error",
-			// 	{
-			// 		arrayDestructuring: true,
-			// 		arrowParameter: true,
-			// 		memberVariableDeclaration: true,
-			// 		objectDestructuring: true,
-			// 		parameter: true,
-			// 		propertyDeclaration: true,
-			// 		variableDeclaration: true,
-			// 		variableDeclarationIgnoreFunction: true,
-			// 	},
-			// ], // Enforce type definitions in various situations to ensure code clarity and maintainability. This includes variables, function parameters, and class members among others, with an exception for functions in variable declarations.
 		},
 	}) as Array<Linter.Config>;
 }

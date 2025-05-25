@@ -1,3 +1,4 @@
+import type { RuleDefinition } from "@eslint/core";
 import type { ESLint, Linter } from "eslint";
 
 // eslint-disable-next-line @elsikora/sonar/deprecation
@@ -12,7 +13,7 @@ import { builtinRules } from "eslint/use-at-your-own-risk";
 export function createVirtualEslintPlugin(configs: Array<Linter.Config>, prefix: string = "@elsikora/javascript"): Array<Linter.Config> {
 	const result: Array<Linter.Config> = [];
 
-	const virtualPluginRules: Record<string, any> = {};
+	const virtualPluginRules: Record<string, RuleDefinition> = {};
 
 	// eslint-disable-next-line @elsikora/sonar/deprecation
 	for (const [ruleName, rule] of builtinRules) {

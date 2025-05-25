@@ -1,3 +1,10 @@
+# [3.9.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.8.1...v3.9.0) (2025-05-25)
+
+
+### Features
+
+* **typescript:** add strict typescript configuration option ([2416e2d](https://github.com/ElsiKora/ESLint-Config/commit/2416e2dc333590e12f7ed9668211c7d7c7594254))
+
 ## [3.8.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.8.0...v3.8.1) (2025-04-21)
 
 # [3.8.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.14...v3.8.0) (2025-04-21)

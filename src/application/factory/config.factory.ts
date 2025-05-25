@@ -37,6 +37,7 @@ export class ConfigFactory {
 		withTanstack: "tanstack",
 		withTypeorm: "typeorm",
 		withTypescript: "typescript",
+		withTypescriptStrict: "typescript-strict",
 		withUnicorn: "unicorn",
 		withYaml: "yaml",
 	};
@@ -67,6 +68,7 @@ export class ConfigFactory {
 		tanstack: () => import("../../infrastructure/config/tanstack"),
 		typeorm: () => import("../../infrastructure/config/typeorm"),
 		typescript: () => import("../../infrastructure/config/typescript"),
+		"typescript-strict": () => import("../../infrastructure/config/typescript-strict"),
 		unicorn: () => import("../../infrastructure/config/unicorn"),
 		yaml: () => import("../../infrastructure/config/yaml"),
 	};
@@ -102,8 +104,9 @@ export class ConfigFactory {
 		this.currentOptions = options;
 
 		const configPromises: Array<Promise<Array<Linter.Config>>> = Object.entries(options)
-			.filter(([key, value]: [string, any]) => value === true && this.OPTIONS_TO_CONFIG_MAP[key as keyof IConfigOptions])
-			.map(([key]: any) => {
+			.filter(([key, value]: [string, unknown]) => value === true && this.OPTIONS_TO_CONFIG_MAP[key as keyof IConfigOptions])
+			// @ts-ignore
+			.map(([key]: unknown) => {
 				const configName: string | undefined = this.OPTIONS_TO_CONFIG_MAP[key as keyof IConfigOptions];
 
 				return this.loadConfig(configName);

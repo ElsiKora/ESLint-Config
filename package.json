@@ -98,7 +98,7 @@
 		"@commitlint/format": "^19.8.1",
 		"@commitlint/types": "^19.8.1",
 		"@conarti/eslint-plugin-feature-sliced": "^1.0.5",
-		"@elsikora/commitizen-plugin-commitlint-ai": "^1.2.0",
+		"@elsikora/commitizen-plugin-commitlint-ai": "^2.0.0",
 		"@elsikora/eslint-plugin-css": "^0.6.3",
 		"@elsikora/eslint-plugin-nestjs-typed": "^3.0.1",
 		"@elsikora/git-branch-lint": "^1.1.0",

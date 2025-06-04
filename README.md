@@ -1,18 +1,18 @@
 <p align="center">
-  <img src="https://6jft62zmy9nx2oea.public.blob.vercel-storage.com/eslintconfig-bXk1q9MhiaTOgJbp6VOt82kSdJYuYG.png" width="500" alt="project-logo">
+  <img src="https://6jft62zmy9nx2oea.public.blob.vercel-storage.com/eslint-config-WPPCbc2Zwdy2RQfrjXbSRHiORNYogb.png" width="500" alt="project-logo">
 </p>
 
 <h1 align="center">🛡️ ESLint-Config</h1>
-<p align="center"><em>ESLint configuration vision of ElsiKora</em></p>
+<p align="center"><em>Enterprise-grade ESLint configuration system with 27+ plugin integrations for modern JavaScript/TypeScript projects</em></p>
 
 <p align="center">
     <a aria-label="ElsiKora logo" href="https://elsikora.com">
   <img src="https://img.shields.io/badge/MADE%20BY%20ElsiKora-333333.svg?style=for-the-badge" alt="ElsiKora">
-</a> <img src="https://img.shields.io/badge/version-blue.svg?style=for-the-badge&logo=npm&logoColor=white" alt="version"> <img src="https://img.shields.io/badge/license-green.svg?style=for-the-badge&logo=license&logoColor=white" alt="license"> <img src="https://img.shields.io/badge/typescript-blue.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="typescript"> <img src="https://img.shields.io/badge/eslint-purple.svg?style=for-the-badge&logo=eslint&logoColor=white" alt="eslint"> <img src="https://img.shields.io/badge/code-coverage-brightgreen.svg?style=for-the-badge&logo=codecov&logoColor=white" alt="code-coverage"> <img src="https://img.shields.io/badge/npm-downloads-orange.svg?style=for-the-badge&logo=npm&logoColor=white" alt="npm-downloads">
+</a> <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint"> <img src="https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js"> <img src="https://img.shields.io/badge/React-61DAFB.svg?style=for-the-badge&logo=react&logoColor=black" alt="React"> <img src="https://img.shields.io/badge/Next.js-000000.svg?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"> <img src="https://img.shields.io/badge/Vue.js-4FC08D.svg?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js"> <img src="https://img.shields.io/badge/NestJS-E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS"> <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black" alt="Prettier"> <img src="https://img.shields.io/badge/Jest-C21325.svg?style=for-the-badge&logo=jest&logoColor=white" alt="Jest"> <img src="https://img.shields.io/badge/Vitest-6E9F18.svg?style=for-the-badge&logo=vitest&logoColor=white" alt="Vitest"> <img src="https://img.shields.io/badge/Rollup-EC4A3F.svg?style=for-the-badge&logo=rollup&logoColor=white" alt="Rollup"> <img src="https://img.shields.io/badge/pnpm-F69220.svg?style=for-the-badge&logo=pnpm&logoColor=white" alt="pnpm"> <img src="https://img.shields.io/badge/npm-CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="npm"> <img src="https://img.shields.io/badge/Yarn-2C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white" alt="Yarn">
 </p>
 
-## 📚 Table of Contents
 
+## 📚 Table of Contents
 - [Description](#-description)
 - [Features](#-features)
 - [Installation](#-installation)
@@ -21,337 +21,352 @@
 - [FAQ](#-faq)
 - [License](#-license)
 
-## 📖 Description
 
-ESLint-Config by ElsiKora is a comprehensive and highly customizable ESLint configuration system designed to enforce
-coding standards across various JavaScript and TypeScript projects. It provides a modular approach to linting with
-support for multiple frameworks including React, Next.js, NestJS, and more. The configuration is built with modern
-JavaScript/TypeScript applications in mind, supporting various file types (JS, TS, JSX, TSX, JSON, YAML, CSS) and
-integrating seamlessly with popular tools like Prettier. By using this configuration, teams can maintain consistent code
-quality, catch potential bugs early, and enforce best practices across their entire codebase.
+## 📖 Description
+ESLint-Config by ElsiKora is a comprehensive, battle-tested ESLint configuration system designed to enforce consistent code quality across enterprise JavaScript and TypeScript applications. Built with modularity at its core, it provides seamless integration with popular frameworks like React, Next.js, Vue.js, and NestJS, while supporting advanced architectural patterns like Feature-Sliced Design. The configuration system goes beyond basic linting by incorporating security scanning for secrets, internationalization enforcement, accessibility checks, and performance optimizations. With support for 27+ carefully curated plugins, it handles everything from CSS-in-JS to GraphQL, from Storybook stories to TanStack Query patterns. Whether you're building a startup MVP or maintaining a large-scale enterprise application, this configuration adapts to your needs while maintaining strict quality standards that catch bugs before they reach production.
 
 ## 🚀 Features
-
-- ✨ **Modular configuration system with support for 27+ different plugins**
-- ✨ **Customizable TypeScript naming conventions and strict type checking**
-- ✨ **Advanced React, Next.js and NestJS rule sets with best practices enforced**
-- ✨ **Secret detection to prevent accidental credential exposure in code**
-- ✨ **Integration with Prettier for consistent code formatting**
-- ✨ **Feature-Sliced Design architectural pattern support**
-- ✨ **TanStack Query and Router optimization rules**
-- ✨ **Internationalization (i18next) support for proper translation usage**
-- ✨ **Storybook testing standards enforcement**
-- ✨ **File and folder naming conventions with automatic enforcement**
-- ✨ **Comprehensive documentation and example configurations**
+- ✨ **🔧 **Modular Architecture** - Pick only what you need with 27+ optional plugins that can be enabled/disabled independently**
+- ✨ **🏗️ **Framework Support** - First-class support for React, Vue.js, Next.js, NestJS, and more with framework-specific best practices**
+- ✨ **🔐 **Security First** - Built-in secret detection prevents accidental credential exposure with customizable pattern matching**
+- ✨ **🌍 **i18n Enforcement** - Automatically detect hardcoded strings that should be internationalized in your React/Vue components**
+- ✨ **♿ **Accessibility Checks** - JSX accessibility rules ensure your applications are usable by everyone**
+- ✨ **🎨 **Style Consistency** - Prettier integration with automatic conflict resolution between formatting and linting rules**
+- ✨ **📁 **File Organization** - Enforce consistent file/folder naming conventions and architectural patterns like Feature-Sliced Design**
+- ✨ **🚀 **Performance Rules** - Catch performance anti-patterns in React hooks, TanStack Query, and other libraries**
+- ✨ **📝 **Documentation Linting** - Validate JSDoc comments, Markdown files, and ensure proper code documentation**
+- ✨ **🧪 **Testing Support** - Special configurations for Storybook, Jest, Vitest, and other testing frameworks**
+- ✨ **🔄 **CI/CD Ready** - GitHub Actions, GitLab CI, and other CI providers supported with semantic versioning**
+- ✨ **🛠️ **Developer Experience** - Extensive TypeScript support with strict type checking and intelligent auto-fixes**
 
 ## 🛠 Installation
-
 ```bash
-## Quick Start
+# Using npm
+npm install --save-dev @elsikora/eslint-config eslint
 
+# Using yarn
+yarn add --dev @elsikora/eslint-config eslint
 
-npm install --save-dev @elsikora/eslint-config
+# Using pnpm
+pnpm add -D @elsikora/eslint-config eslint
 
+# Using bun
+bun add -d @elsikora/eslint-config eslint
 
-Or if you prefer using yarn:
+# Quick setup with all recommended plugins
+npx @elsikora/eslint-config init
 
+# Manual setup - create eslint.config.js
+echo "import { createConfig } from '@elsikora/eslint-config';
 
-yarn add --dev @elsikora/eslint-config
-
-
-Or with pnpm:
-
-
-pnpm add -D @elsikora/eslint-config
-
-
-## Required Dependencies
-
-You'll need to install ESLint:
-
-
-npm install --save-dev eslint
-
-
-## Optional Dependencies
-
-Some configurations require additional dependencies. Install them based on your needs:
-
-
-# For React projects
-npm install --save-dev eslint-plugin-react @eslint-react/eslint-plugin
-
-# For TypeScript projects
-npm install --save-dev typescript typescript-eslint
-
-# For Next.js projects
-npm install --save-dev @next/eslint-plugin-next
-
-# For Prettier integration
-npm install --save-dev eslint-plugin-prettier prettier
+export default await createConfig({
+  withJavascript: true,
+  withTypescript: true,
+  withPrettier: true
+});" > eslint.config.js
 ```
 
 ## 💡 Usage
+## 🚀 Basic Usage
 
-## Basic Configuration
-
-Create an `eslint.config.js` file in the root of your project:
+Create an `eslint.config.js` file in your project root:
 
 ```javascript
 import { createConfig } from '@elsikora/eslint-config';
 
 export default await createConfig({
-	withJavascript: true,
-	withTypescript: true,
-	withPrettier: true
+  withJavascript: true,
+  withTypescript: true,
+  withPrettier: true
 });
 ```
 
-## Comprehensive TypeScript Configuration
+## 📋 Configuration Examples
 
-Set up a more advanced configuration with TypeScript, React, and code quality plugins:
+### React + TypeScript Project
 
 ```javascript
 import { createConfig } from '@elsikora/eslint-config';
 
 const config = {
-	ignores: [
-		'dist',
-		'node_modules',
-		'.cache',
-		'coverage'
-	]
+  ignores: ['dist', 'coverage', '.next']
 };
 
 export default [
-	config,
-	...(await createConfig({
-		withTypescript: true,
-		withReact: true,
-		withSonar: true,
-		withUnicorn: true,
-		withPerfectionist: true,
-		withPrettier: true
-	}))
+  config,
+  ...(await createConfig({
+    withTypescript: true,
+    withReact: true,
+    withJsx: true,
+    withTailwindCss: true,
+    withPrettier: true,
+    withSonar: true,
+    withUnicorn: true
+  }))
 ];
 ```
 
-## CLI Usage
-
-Lint your code using the standard ESLint CLI:
-
-```bash
-# Lint all files in src directory
-eslint "src/**/*.{js,ts,jsx,tsx}"
-
-# Lint and fix automatically
-eslint "src/**/*.{js,ts,jsx,tsx}" --fix
-```
-
-## Usage with Next.js
-
-For Next.js projects, include the Next.js specific rules:
+### Next.js Full-Stack Application
 
 ```javascript
 import { createConfig } from '@elsikora/eslint-config';
 
 export default await createConfig({
-	withJavascript: true,
-	withTypescript: true,
-	withReact: true,
-	withNext: true,
-	withPrettier: true
+  withTypescript: true,
+  withReact: true,
+  withNext: true,
+  withNode: true,
+  withTailwindCss: true,
+  withI18next: true,
+  withNoSecrets: true,
+  withPrettier: true
 });
 ```
 
-## Usage with NestJS
-
-For NestJS backend applications:
+### NestJS Backend API
 
 ```javascript
 import { createConfig } from '@elsikora/eslint-config';
 
 export default await createConfig({
-	withTypescript: true,
-	withNest: true,
-	withNode: true,
-	withSonar: true,
-	withPrettier: true
+  withTypescript: true,
+  withNest: true,
+  withNode: true,
+  withTypeorm: true,
+  withSonar: true,
+  withNoSecrets: true,
+  withPrettier: true
 });
 ```
 
-## Feature-Sliced Design Architecture
-
-Support for Feature-Sliced Design architectural pattern:
+### Feature-Sliced Design Architecture
 
 ```javascript
 import { createConfig } from '@elsikora/eslint-config';
 
 export default await createConfig({
-	withTypescript: true,
-	withReact: true,
-	withFsd: true,
-	withPerfectionist: true, // Will automatically configure for FSD imports ordering
-	withPrettier: true
+  withTypescript: true,
+  withReact: true,
+  withFsd: true,
+  withPerfectionist: true,
+  withCheckFile: true,
+  withPrettier: true
 });
 ```
 
-## Secret Detection
+## 🔧 Advanced Configuration
 
-Enable rules to detect potential secrets in your code:
+### Custom Rule Overrides
 
 ```javascript
 import { createConfig } from '@elsikora/eslint-config';
 
-export default await createConfig({
-	withTypescript: true,
-	withNoSecrets: true,
-	withPrettier: true
+const baseConfig = await createConfig({
+  withTypescript: true,
+  withReact: true
 });
-```
-
-## Advanced Usage: Custom Rule Configuration
-
-You can extend the configuration with your own custom rules:
-
-```javascript
-import { createConfig } from '@elsikora/eslint-config';
 
 const customRules = {
-	rules: {
-		'no-console': 'warn',
-		'@elsikora/typescript/naming-convention': ['error', {
-			// Custom naming convention overrides
-		}]
-	}
+  rules: {
+    // Override specific rules
+    'no-console': 'warn',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'react/prop-types': 'off'
+  }
 };
 
-export default [
-	...(await createConfig({
-		withTypescript: true,
-		withReact: true,
-		withPrettier: true
-	})),
-	customRules
-];
+export default [...baseConfig, customRules];
 ```
 
-## Configuration Options
+### Environment-Specific Configuration
 
-Here's a complete list of available configuration options:
+```javascript
+import { createConfig } from '@elsikora/eslint-config';
+
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+export default await createConfig({
+  withTypescript: true,
+  withReact: true,
+  withNoSecrets: !isDevelopment, // Disable in development
+  withSonar: !isDevelopment,
+  withPrettier: true
+});
+```
+
+## 📝 Configuration Options Reference
 
 ```typescript
-interface IConfigOptions {
-	withCheckFile?: boolean;       // File naming conventions
-	withCss?: boolean;            // CSS linting
-	withFsd?: boolean;            // Feature-Sliced Design
-	withI18next?: boolean;        // Internationalization
-	withJavascript?: boolean;     // JavaScript rules
-	withJsDoc?: boolean;          // JSDoc documentation
-	withJson?: boolean;           // JSON files
-	withJsx?: boolean;            // JSX accessibility
-	withMarkdown?: boolean;       // Markdown files
-	withNest?: boolean;           // NestJS framework
-	withNext?: boolean;           // Next.js framework
-	withNode?: boolean;           // Node.js environment
-	withNoSecrets?: boolean;      // Secret detection
-	withPackageJson?: boolean;    // package.json files
-	withPerfectionist?: boolean;  // Code organization
-	withPrettier?: boolean;       // Prettier integration
-	withReact?: boolean;          // React framework
-	withRegexp?: boolean;         // Regular expressions
-	withSonar?: boolean;          // SonarJS rules
-	withStorybook?: boolean;      // Storybook integration
-	withStylistic?: boolean;      // Code style
-	withTailwindCss?: boolean;    // TailwindCSS
-	withTanstack?: boolean;       // TanStack Query/Router
-	withTypeorm?: boolean;        // TypeORM
-	withTypescript?: boolean;     // TypeScript
-	withUnicorn?: boolean;        // Unicorn rules
-	withYaml?: boolean;           // YAML files
+interface ConfigOptions {
+  // Language Support
+  withJavascript?: boolean;      // JavaScript ES2022+ rules
+  withTypescript?: boolean;      // TypeScript with type checking
+  withTypescriptStrict?: boolean; // Strict TypeScript rules
+  
+  // Framework Support
+  withReact?: boolean;           // React best practices
+  withNext?: boolean;            // Next.js specific rules
+  withNest?: boolean;            // NestJS decorators & patterns
+  
+  // Code Quality
+  withSonar?: boolean;           // SonarJS code quality rules
+  withUnicorn?: boolean;         // Unicorn best practices
+  withPerfectionist?: boolean;   // Import/export sorting
+  withRegexp?: boolean;          // RegExp optimization
+  
+  // Security
+  withNoSecrets?: boolean;       // Detect hardcoded secrets
+  
+  // Styling
+  withPrettier?: boolean;        // Prettier integration
+  withStylistic?: boolean;       // Code style rules
+  withTailwindCss?: boolean;     // TailwindCSS class sorting
+  
+  // Architecture
+  withFsd?: boolean;             // Feature-Sliced Design
+  withCheckFile?: boolean;       // File naming conventions
+  
+  // Documentation
+  withJsDoc?: boolean;           // JSDoc validation
+  withMarkdown?: boolean;        // Markdown linting
+  
+  // Testing
+  withStorybook?: boolean;       // Storybook best practices
+  
+  // Other
+  withNode?: boolean;            // Node.js environment
+  withI18next?: boolean;         // i18n enforcement
+  withJson?: boolean;            // JSON file linting
+  withYaml?: boolean;            // YAML file linting
+  withPackageJson?: boolean;     // package.json sorting
+  withTanstack?: boolean;        // TanStack Query/Router
+  withTypeorm?: boolean;         // TypeORM entities
+  withJsx?: boolean;             // JSX accessibility
+  withCss?: boolean;             // CSS file linting
 }
 ```
 
-## 🛣 Roadmap
+## 🎯 CLI Commands
 
-| Task / Feature                 | Status         |
-|--------------------------------|----------------|
-| TypeScript naming conventions  | ✅ Done         |
-| React support                  | ✅ Done         |
-| Next.js integration            | ✅ Done         |
-| NestJS support                 | ✅ Done         |
-| Prettier integration           | ✅ Done         |
-| TailwindCSS support            | ✅ Done         |
-| Feature-Sliced Design          | ✅ Done         |
-| TanStack Query/Router rules    | ✅ Done         |
-| i18next translation rules      | ✅ Done         |
-| Storybook integration          | ✅ Done         |
-| Secret detection               | ✅ Done         |
-| File naming conventions        | ✅ Done         |
-| JSDoc validation               | ✅ Done         |
-| CSS linting                    | ✅ Done         |
-| Markdown support               | ✅ Done         |
-| JSON file formatting           | ✅ Done         |
-| YAML file support              | ✅ Done         |
-| SonarJS integration            | ✅ Done         |
-| Interactive CLI wizard         | 🚧 In Progress |
-| ESLint plugin editor           | 🚧 In Progress |
-| VS Code extension              | 🚧 In Progress |
-| TypeScript 5.0+ features       | 🚧 In Progress |
-| React Server Components        | 🚧 In Progress |
-| Astro framework support        | 🚧 In Progress |
-| Performance optimization rules | 🚧 In Progress |
-| Web Components support         | 🚧 In Progress |
-| Svelte integration             | 🚧 In Progress |
-| Vue.js support                 | 🚧 In Progress |
-| GraphQL validation             | 🚧 In Progress |
+```bash
+# Run linting
+eslint .
+
+# Auto-fix issues
+eslint . --fix
+
+# Lint specific files
+eslint "src/**/*.{js,ts,jsx,tsx}"
+
+# Show only errors (no warnings)
+eslint . --quiet
+
+# Output results as JSON
+eslint . --format json -o eslint-report.json
+
+# Check if files are ignored
+eslint . --debug
+```
+
+## 🔌 IDE Integration
+
+### VS Code
+
+Add to `.vscode/settings.json`:
+
+```json
+{
+  "eslint.experimental.useFlatConfig": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "jsonc",
+    "yaml",
+    "markdown"
+  ]
+}
+```
+
+### WebStorm / IntelliJ IDEA
+
+1. Go to Settings → Languages & Frameworks → JavaScript → Code Quality Tools → ESLint
+2. Select "Automatic ESLint configuration"
+3. Check "Run eslint --fix on save"
+
+## 🛣 Roadmap
+| Task / Feature | Status |
+|----------------|--------|
+| Core ESLint flat config support | ✅ Done |
+| TypeScript strict mode configuration | ✅ Done |
+| React 18+ hooks and patterns | ✅ Done |
+| Next.js 14+ App Router support | ✅ Done |
+| Vue.js 3 Composition API | 🚧 In Progress |
+| NestJS decorators and patterns | ✅ Done |
+| Feature-Sliced Design architecture | ✅ Done |
+| Secret detection with AI patterns | ✅ Done |
+| i18next translation enforcement | ✅ Done |
+| Storybook 7+ CSF3 format | ✅ Done |
+| TanStack Query v5 patterns | ✅ Done |
+| Monorepo configuration support | 🚧 In Progress |
+| Auto-fix suggestions with AI | 🚧 In Progress |
+| Visual config builder UI | 🚧 In Progress |
+| Performance profiling rules | 🚧 In Progress |
+| GraphQL schema linting | 🚧 In Progress |
+| Docker and container files | 🚧 In Progress |
+| Svelte/SvelteKit support | 🚧 In Progress |
+| Astro framework integration | 🚧 In Progress |
+| Bun runtime specific rules | 🚧 In Progress |
 
 ## ❓ FAQ
+## ❓ Frequently Asked Questions
 
-## Frequently Asked Questions
+### Why use flat config instead of .eslintrc?
 
-### Which ESLint version is supported?
+ESLint flat config (eslint.config.js) is the future of ESLint configuration. It provides better performance through lazy loading, improved TypeScript support with full type checking, and more explicit configuration that's easier to debug. All new ESLint features are being developed exclusively for flat config.
 
-This configuration requires ESLint v8.0.0 or higher and is built for the ESLint flat config system. It is not compatible
-with older ESLint configurations using .eslintrc files.
+### How do I migrate from an existing .eslintrc configuration?
 
-### How do I use this with TypeScript?
+First, install this package and create a new `eslint.config.js` file. Start with a minimal configuration and gradually enable features that match your existing setup. You can run both configurations side-by-side during migration by using different file patterns. The modular nature of this config makes migration straightforward.
 
-Install typescript and typescript-eslint as dev dependencies, then enable the `withTypescript` option in your
-configuration.
+### Why are there so many peer dependencies?
 
-### Can I use this with Create React App?
+This configuration system supports 27+ different plugins, but you only install what you actually use. Each plugin is marked as an optional peer dependency, so npm/yarn/pnpm will only prompt you to install the ones you've enabled in your configuration. This keeps your node_modules lean while providing maximum flexibility.
 
-Yes, but you'll need to configure it to use ESLint's flat config system. CRA typically uses the older config format, so
-you might need to eject or use a custom setup.
+### How do I handle conflicts between Prettier and ESLint?
 
-### How do I resolve rule conflicts with Prettier?
+Simply enable `withPrettier: true` in your configuration. This automatically includes `eslint-config-prettier` which disables all ESLint rules that would conflict with Prettier formatting. You should run Prettier first, then ESLint, which is typically handled by your IDE or git hooks.
 
-Enable the `withPrettier` option to automatically handle rule conflicts between ESLint and Prettier. This ensures that
-formatting rules defer to Prettier's configuration.
+### Can I use this with Create React App or Next.js?
 
-### What's the difference between `withStylistic` and `withPrettier`?
+Yes! For Next.js, use `withNext: true` which includes all Next.js specific rules. For Create React App, you'll need to eject or use a tool like CRACO to customize the ESLint configuration, as CRA doesn't support flat config natively yet.
 
-`withStylistic` enforces stylistic code conventions through ESLint rules, while `withPrettier` integrates with the
-Prettier formatter and disables ESLint rules that might conflict with Prettier's formatting.
+### How does secret detection work?
 
-### How can I customize the rules?
+The `withNoSecrets` option enables pattern matching for common secret formats (API keys, passwords, tokens) and high-entropy string detection. It scans your code for patterns like `apiKey = 'abc123'` and strings that look like tokens. You can customize the patterns and sensitivity in the configuration.
 
-You can extend the configuration by adding your own rules after the ones from this package. Place your custom rules
-after the generated config in the array to override specific rules.
+### What's Feature-Sliced Design (FSD)?
 
-### How do I handle false positives in the secret detection?
+FSD is an architectural pattern for frontend applications that enforces strict boundaries between features, shared code, and different layers of your application. When you enable `withFsd: true`, the linter ensures imports follow FSD rules, preventing architectural violations.
 
-The secret detection (`withNoSecrets`) might sometimes flag strings that aren't actually secrets. You can customize the
-sensitivity threshold or add specific exceptions in your configuration.
+### How do I debug which rules are causing issues?
 
-### Why use flat config instead of traditional .eslintrc?
+Run ESLint with the `--debug` flag to see which config files and rules are being loaded. You can also use `--print-config path/to/file.js` to see the exact configuration being applied to a specific file. Each rule error includes the rule name, making it easy to disable or modify specific rules.
 
-ESLint's flat config system is the future of ESLint configuration. It's more performant, more explicit, and provides
-better typing support for TypeScript users. It also allows for more flexible configuration composition.
+### Can I use this in a monorepo?
+
+Absolutely! Create a root `eslint.config.js` that uses `createConfig()` with your base settings, then extend it in each package with additional package-specific rules. The flat config system makes monorepo setups much cleaner than the old cascade configuration.
+
+### Is this configuration performant for large codebases?
+
+Yes, the flat config system with lazy loading means only the necessary plugins are loaded when needed. The configuration also excludes common directories like `node_modules`, `dist`, and `coverage` by default. For very large codebases, you can further optimize by limiting the file patterns each plugin processes.
 
 ## 🔒 License
-
 This project is licensed under **MIT License
 
 Copyright (c) 2025 ElsiKora
@@ -373,7 +388,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.**.
-
-## 📋 Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for details.

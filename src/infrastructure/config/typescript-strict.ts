@@ -116,10 +116,24 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 					selector: "variable", // Constants should be in UPPER_CASE and use camelCase for variables.
 				},
 				{
+					filter: {
+						match: false,
+						regex: "Base$",
+					},
 					format: ["PascalCase"],
 					modifiers: ["abstract"],
 					prefix: ["Abstract"],
-					selector: "class", // Abstract classes should use PascalCase and be prefixed with 'Abstract'.
+					selector: "class", // Classes should use PascalCase and be prefixed with 'Abstract'.
+				},
+				{
+					filter: {
+						match: false,
+						regex: "^Abstract",
+					},
+					format: ["PascalCase"],
+					modifiers: ["abstract"],
+					selector: "class",
+					suffix: ["Base"], // Classes should use PascalCase and be suffixed with 'Base'.
 				},
 				{
 					filter: {

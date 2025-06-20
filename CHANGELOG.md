@@ -1,3 +1,10 @@
+# [3.10.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.9.1...v3.10.0) (2025-06-20)
+
+
+### Features
+
+* **config:** add naming rules for abstract classes with base suffix ([2dc4f48](https://github.com/ElsiKora/ESLint-Config/commit/2dc4f480ffd318b2d316a00b437f115aa2f06748))
+
 ## [3.9.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.9.0...v3.9.1) (2025-06-04)
 
 # [3.9.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.8.1...v3.9.0) (2025-05-25)

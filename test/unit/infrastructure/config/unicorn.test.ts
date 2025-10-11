@@ -54,8 +54,9 @@ describe("Unicorn Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[0].plugins).toContain("unicorn");
-		expect(configs[0].files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
+		expect(configs.length).toBeGreaterThanOrEqual(2);
+		expect(configs[0]!.plugins).toContain("unicorn");
+		expect(configs[0]!.files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
 	});
 
 	it("should override specific rules in second config", async () => {
@@ -64,16 +65,20 @@ describe("Unicorn Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[1].files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
+		expect(configs.length).toBeGreaterThanOrEqual(2);
+		expect(configs[1]!.files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
 
 		// Check that specific rules are turned off
-		expect(configs[1].rules).toHaveProperty("unicorn/filename-case");
-		expect(configs[1].rules["unicorn/filename-case"]).toBe("off");
+		expect(configs[1]!.rules).toHaveProperty("unicorn/filename-case");
+		// @ts-expect-error index access for test assertions
+		expect(configs[1]!.rules["unicorn/filename-case"]).toBe("off");
 
-		expect(configs[1].rules).toHaveProperty("unicorn/no-null");
-		expect(configs[1].rules["unicorn/no-null"]).toBe("off");
+		expect(configs[1]!.rules).toHaveProperty("unicorn/no-null");
+		// @ts-expect-error index access for test assertions
+		expect(configs[1]!.rules["unicorn/no-null"]).toBe("off");
 
-		expect(configs[1].rules).toHaveProperty("unicorn/prefer-top-level-await");
-		expect(configs[1].rules["unicorn/prefer-top-level-await"]).toBe("off");
+		expect(configs[1]!.rules).toHaveProperty("unicorn/prefer-top-level-await");
+		// @ts-expect-error index access for test assertions
+		expect(configs[1]!.rules["unicorn/prefer-top-level-await"]).toBe("off");
 	});
 });

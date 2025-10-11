@@ -14,7 +14,7 @@ describe("CSS Configuration", () => {
 
 			const results = await eslint.lintFiles([getFixturePath("css/valid/clean.fixture.css")]);
 
-			expect(results[0].messages.filter((msg) => msg.ruleId?.startsWith("@elsikora/css")).length).toBe(0);
+			expect(results[0]!.messages.filter((msg) => msg.ruleId?.startsWith("@elsikora/css")).length).toBe(0);
 		});
 	});
 
@@ -25,7 +25,7 @@ describe("CSS Configuration", () => {
 					withCss: true,
 				});
 				const results = await eslint.lintFiles([getFixturePath("css/invalid/no-empty-blocks.fixture.css")]);
-				expect(results[0].messages.some((msg) => msg.ruleId?.startsWith(formatPluginName("css")))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId?.startsWith(formatPluginName("css")))).toBe(true);
 			});
 		});
 	});

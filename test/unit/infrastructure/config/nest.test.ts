@@ -60,7 +60,7 @@ describe("NestConfig", () => {
 		const module = await import("@infrastructure/config/nest.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(1);
@@ -70,12 +70,12 @@ describe("NestConfig", () => {
 		const module = await import("@infrastructure/config/nest.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check TypeScript configuration
 		expect(configs[0]).toHaveProperty("files", ["**/*.ts"]);
-		expect(configs[0].languageOptions).toHaveProperty("parser");
-		expect(configs[0].languageOptions?.parserOptions).toHaveProperty("projectService", true);
+		expect(configs[0]!.languageOptions).toHaveProperty("parser");
+		expect(configs[0]!.languageOptions?.parserOptions).toHaveProperty("project", ["./tsconfig.eslint.json"]);
 	});
 
 	it("should properly configure NestJS and Angular plugins", async () => {
@@ -84,7 +84,7 @@ describe("NestConfig", () => {
 		const module = await import("@infrastructure/config/nest.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("nestjs-typed");
@@ -99,22 +99,22 @@ describe("NestConfig", () => {
 		const module = await import("@infrastructure/config/nest.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check rule name formatting was called
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("nestjs-typed/all-properties-are-whitelisted");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("ng-module-sort/decorator-array-items");
 
 		// Check specific rules are present with expected values
-		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/api-method-should-specify-api-response", "error");
-		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/api-method-should-specify-api-operation", "off");
-		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/controllers-should-supply-api-tags", "error");
+		expect(configs[0]!.rules).toHaveProperty("@elsikora/nestjs-typed/api-method-should-specify-api-response", "error");
+		expect(configs[0]!.rules).toHaveProperty("@elsikora/nestjs-typed/api-method-should-specify-api-operation", "off");
+		expect(configs[0]!.rules).toHaveProperty("@elsikora/nestjs-typed/controllers-should-supply-api-tags", "error");
 
 		// Check array-form rule is properly configured
-		expect(configs[0].rules).toHaveProperty("@elsikora/ng-module-sort/decorator-array-items");
-		const decoratorRule = configs[0].rules?.["@elsikora/ng-module-sort/decorator-array-items"];
+		expect(configs[0]!.rules).toHaveProperty("@elsikora/ng-module-sort/decorator-array-items");
+		const decoratorRule = configs[0]!.rules?.["@elsikora/ng-module-sort/decorator-array-items"] as unknown as Array<unknown>;
 		expect(Array.isArray(decoratorRule)).toBe(true);
-		expect(decoratorRule[0]).toBe("error");
-		expect(decoratorRule[1]).toHaveProperty("reverseSort", false);
+		expect((decoratorRule as Array<unknown>)[0]).toBe("error");
+		expect((decoratorRule as Array<unknown>)[1]).toHaveProperty("reverseSort", false);
 	});
 });

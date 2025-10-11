@@ -53,8 +53,8 @@ describe("Sonar Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[0].plugins).toContain("sonarjs");
-		expect(configs[0].files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
+		expect(configs[0]!.plugins).toContain("sonarjs");
+		expect(configs[0]!.files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
 	});
 
 	it("should include the correct custom rules in second config", async () => {
@@ -63,16 +63,20 @@ describe("Sonar Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[1].rules).toHaveProperty("sonarjs/bool-param-default");
-		expect(configs[1].rules["sonarjs/bool-param-default"]).toBe("error");
+		expect(configs[1]!.rules).toHaveProperty("sonarjs/bool-param-default");
+		// @ts-expect-error test indexing into rules
+		expect(configs[1]!.rules["sonarjs/bool-param-default"]).toBe("error");
 
-		expect(configs[1].rules).toHaveProperty("sonarjs/cognitive-complexity");
-		expect(configs[1].rules["sonarjs/cognitive-complexity"]).toEqual(["error", 100]);
+		expect(configs[1]!.rules).toHaveProperty("sonarjs/cognitive-complexity");
+		// @ts-expect-error test indexing into rules
+		expect(configs[1]!.rules["sonarjs/cognitive-complexity"]).toEqual(["error", 100]);
 
-		expect(configs[1].rules).toHaveProperty("sonarjs/no-duplicate-string");
-		expect(configs[1].rules["sonarjs/no-duplicate-string"]).toEqual(["error", { threshold: 10 }]);
+		expect(configs[1]!.rules).toHaveProperty("sonarjs/no-duplicate-string");
+		// @ts-expect-error test indexing into rules
+		expect(configs[1]!.rules["sonarjs/no-duplicate-string"]).toEqual(["error", { threshold: 10 }]);
 
-		expect(configs[1].rules).toHaveProperty("sonarjs/no-empty-test-file");
-		expect(configs[1].rules["sonarjs/no-empty-test-file"]).toBe("off");
+		expect(configs[1]!.rules).toHaveProperty("sonarjs/no-empty-test-file");
+		// @ts-expect-error test indexing into rules
+		expect(configs[1]!.rules["sonarjs/no-empty-test-file"]).toBe("off");
 	});
 });

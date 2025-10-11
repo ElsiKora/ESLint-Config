@@ -55,7 +55,7 @@ describe("Stylistic Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[0].plugins).toHaveProperty("@stylistic");
+		expect(configs[0]!.plugins).toHaveProperty("@stylistic");
 	});
 
 	it("should configure all custom rules", async () => {
@@ -65,31 +65,40 @@ describe("Stylistic Config", () => {
 		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check basic rule configuration
-		expect(configs[0].rules).toHaveProperty("@stylistic/brace-style");
-		expect(configs[0].rules["@stylistic/brace-style"]).toEqual(["error", "1tbs", { allowSingleLine: false }]);
+		expect(configs[0]!.rules).toHaveProperty("@stylistic/brace-style");
+		// @ts-expect-error test indexing into rules map
+		expect(configs[0]!.rules["@stylistic/brace-style"]).toEqual(["error", "1tbs", { allowSingleLine: false }]);
 
-		expect(configs[0].rules).toHaveProperty("@stylistic/comma-spacing");
-		expect(configs[0].rules["@stylistic/comma-spacing"]).toBe("error");
+		expect(configs[0]!.rules).toHaveProperty("@stylistic/comma-spacing");
+		// @ts-expect-error test indexing into rules map
+		expect(configs[0]!.rules["@stylistic/comma-spacing"]).toBe("error");
 
-		expect(configs[0].rules).toHaveProperty("@stylistic/function-call-spacing");
-		expect(configs[0].rules["@stylistic/function-call-spacing"]).toBe("error");
+		expect(configs[0]!.rules).toHaveProperty("@stylistic/function-call-spacing");
+		// @ts-expect-error test indexing into rules map
+		expect(configs[0]!.rules["@stylistic/function-call-spacing"]).toBe("error");
 
-		expect(configs[0].rules).toHaveProperty("@stylistic/lines-between-class-members");
-		expect(configs[0].rules["@stylistic/lines-between-class-members"]).toBe("error");
+		expect(configs[0]!.rules).toHaveProperty("@stylistic/lines-between-class-members");
+		// @ts-expect-error test indexing into rules map
+		expect(configs[0]!.rules["@stylistic/lines-between-class-members"]).toBe("error");
 
-		expect(configs[0].rules).toHaveProperty("@stylistic/object-curly-spacing");
-		expect(configs[0].rules["@stylistic/object-curly-spacing"]).toEqual(["error", "always"]);
+		expect(configs[0]!.rules).toHaveProperty("@stylistic/object-curly-spacing");
+		// @ts-expect-error test indexing into rules map
+		expect(configs[0]!.rules["@stylistic/object-curly-spacing"]).toEqual(["error", "always"]);
 
 		// Check complex padding-line-between-statements rule
-		expect(configs[0].rules).toHaveProperty("@stylistic/padding-line-between-statements");
-		expect(Array.isArray(configs[0].rules["@stylistic/padding-line-between-statements"])).toBe(true);
-		expect(configs[0].rules["@stylistic/padding-line-between-statements"].length).toBeGreaterThan(10);
+		expect(configs[0]!.rules).toHaveProperty("@stylistic/padding-line-between-statements");
+		// @ts-expect-error test indexing into rules map
+		const pls = configs[0]!.rules["@stylistic/padding-line-between-statements"] as unknown as Array<unknown>;
+		expect(Array.isArray(pls)).toBe(true);
+		expect(pls.length).toBeGreaterThan(10);
 
 		// Check remaining rules
-		expect(configs[0].rules).toHaveProperty("@stylistic/space-before-blocks");
-		expect(configs[0].rules["@stylistic/space-before-blocks"]).toBe("error");
+		expect(configs[0]!.rules).toHaveProperty("@stylistic/space-before-blocks");
+		// @ts-expect-error test indexing into rules map
+		expect(configs[0]!.rules["@stylistic/space-before-blocks"]).toBe("error");
 
-		expect(configs[0].rules).toHaveProperty("@stylistic/spaced-comment");
-		expect(configs[0].rules["@stylistic/spaced-comment"]).toBe("error");
+		expect(configs[0]!.rules).toHaveProperty("@stylistic/spaced-comment");
+		// @ts-expect-error test indexing into rules map
+		expect(configs[0]!.rules["@stylistic/spaced-comment"]).toBe("error");
 	});
 });

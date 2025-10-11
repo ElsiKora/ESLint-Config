@@ -34,11 +34,11 @@ describe("CreateVirtualEslintPluginUtility", () => {
 
 		// Should add the plugin configuration
 		expect(result.length).toBe(2);
-		expect(result[0].plugins).toHaveProperty("@elsikora/javascript");
+		expect(result[0]!.plugins).toHaveProperty("@elsikora/javascript");
 
 		// Should have rules with prefixed names
-		expect(result[1].rules).toHaveProperty("@elsikora/javascript/no-console", "error");
-		expect(result[1].rules).toHaveProperty("some-plugin/rule", "warn");
+		expect(result[1]!.rules).toHaveProperty("@elsikora/javascript/no-console", "error");
+		expect(result[1]!.rules).toHaveProperty("some-plugin/rule", "warn");
 	});
 
 	// Creates a virtual plugin with custom prefix
@@ -55,10 +55,10 @@ describe("CreateVirtualEslintPluginUtility", () => {
 
 		// Should add the plugin configuration with custom prefix
 		expect(result.length).toBe(2);
-		expect(result[0].plugins).toHaveProperty("@custom/prefix");
+		expect(result[0]!.plugins).toHaveProperty("@custom/prefix");
 
 		// Should have rules with custom prefix
-		expect(result[1].rules).toHaveProperty("@custom/prefix/no-console", "error");
+		expect(result[1]!.rules).toHaveProperty("@custom/prefix/no-console", "error");
 	});
 
 	// Handles configs without rules
@@ -66,7 +66,6 @@ describe("CreateVirtualEslintPluginUtility", () => {
 		const configs: Array<Linter.Config> = [
 			{
 				// Config without rules
-				extends: ["some-config"],
 			},
 		];
 
@@ -74,19 +73,20 @@ describe("CreateVirtualEslintPluginUtility", () => {
 
 		// Should add the plugin configuration
 		expect(result.length).toBe(2);
-		expect(result[0].plugins).toHaveProperty("@elsikora/javascript");
+		expect(result[0]!.plugins).toHaveProperty("@elsikora/javascript");
 
-		// Should preserve the extended config
-		expect(result[1].extends).toEqual(["some-config"]);
-		expect(result[1].rules).toBeUndefined();
+		// Should not create rules when none provided
+		expect(result[1]!.rules).toBeUndefined();
 	});
 
 	// Preserves other config properties
 	it("should preserve other config properties", () => {
 		const configs: Array<Linter.Config> = [
 			{
-				env: { browser: true },
-				parserOptions: { ecmaVersion: 2021 },
+				languageOptions: {
+					globals: { browser: true },
+					parserOptions: { ecmaVersion: 2021 },
+				},
 				settings: { react: { version: "detect" } },
 				rules: {
 					"no-console": "error",
@@ -97,9 +97,9 @@ describe("CreateVirtualEslintPluginUtility", () => {
 		const result = createVirtualEslintPlugin(configs);
 
 		// Should preserve all properties from the original config
-		expect(result[1].env).toEqual({ browser: true });
-		expect(result[1].parserOptions).toEqual({ ecmaVersion: 2021 });
-		expect(result[1].settings).toEqual({ react: { version: "detect" } });
+		expect(result[1]!.languageOptions?.globals).toEqual({ browser: true });
+		expect(result[1]!.languageOptions?.parserOptions).toEqual({ ecmaVersion: 2021 });
+		expect(result[1]!.settings).toEqual({ react: { version: "detect" } });
 	});
 
 	// Handles multiple configs
@@ -121,13 +121,13 @@ describe("CreateVirtualEslintPluginUtility", () => {
 
 		// Should add the plugin configuration and transform both configs
 		expect(result.length).toBe(3); // plugin + 2 configs
-		expect(result[0].plugins).toHaveProperty("@elsikora/javascript");
+		expect(result[0]!.plugins).toHaveProperty("@elsikora/javascript");
 
 		// First config rules should be transformed
-		expect(result[1].rules).toHaveProperty("@elsikora/javascript/no-console", "error");
+		expect(result[1]!.rules).toHaveProperty("@elsikora/javascript/no-console", "error");
 
 		// Second config rules should be transformed
-		expect(result[2].rules).toHaveProperty("@elsikora/javascript/no-unused-vars", "warn");
+		expect(result[2]!.rules).toHaveProperty("@elsikora/javascript/no-unused-vars", "warn");
 	});
 
 	// Only prefixes rules that exist in builtinRules
@@ -148,9 +148,9 @@ describe("CreateVirtualEslintPluginUtility", () => {
 		expect(result.length).toBe(2);
 
 		// Should prefix only the built-in rule
-		expect(result[1].rules).toHaveProperty("@elsikora/javascript/no-console", "error");
-		expect(result[1].rules).toHaveProperty("unknown-rule", "warn");
-		expect(result[1].rules).toHaveProperty("some-plugin/rule", "error");
+		expect(result[1]!.rules).toHaveProperty("@elsikora/javascript/no-console", "error");
+		expect(result[1]!.rules).toHaveProperty("unknown-rule", "warn");
+		expect(result[1]!.rules).toHaveProperty("some-plugin/rule", "error");
 	});
 
 	// Adds all built-in rules to the virtual plugin
@@ -160,8 +160,8 @@ describe("CreateVirtualEslintPluginUtility", () => {
 
 		// Should create the plugin with all built-in rules
 		expect(result.length).toBe(1);
-		expect(result[0].plugins?.["@elsikora/javascript"]).toBeDefined();
-		expect(result[0].plugins?.["@elsikora/javascript"].rules).toHaveProperty("no-console");
-		expect(result[0].plugins?.["@elsikora/javascript"].rules).toHaveProperty("no-unused-vars");
+		expect(result[0]!.plugins?.["@elsikora/javascript"]).toBeDefined();
+		expect(result[0]!.plugins?.["@elsikora/javascript"]!.rules).toHaveProperty("no-console");
+		expect(result[0]!.plugins?.["@elsikora/javascript"]!.rules).toHaveProperty("no-unused-vars");
 	});
 });

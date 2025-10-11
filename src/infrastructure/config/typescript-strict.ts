@@ -11,6 +11,7 @@ import tseslint from "typescript-eslint";
  * @returns {Array<Linter.Config>} An array of ESLint configurations for TypeScript with strict rules
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
+	// eslint-disable-next-line @elsikora/sonar/deprecation
 	return tseslint.config({
 		// @ts-ignore
 		extends: [...formatConfig([...tseslint.configs.recommendedTypeChecked, ...tseslint.configs.strictTypeChecked, ...tseslint.configs.stylisticTypeChecked])],

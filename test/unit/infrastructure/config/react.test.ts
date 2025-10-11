@@ -89,7 +89,7 @@ describe("ReactConfig", () => {
 
 		// Check that plugins are included
 		expect(configs[1]).toHaveProperty("plugins");
-		expect(configs[1].plugins).toHaveProperty("@elsikora/react");
+		expect(configs[1]!.plugins).toHaveProperty("@elsikora/react");
 	});
 
 	it("should handle conditional rules based on withNext option", async () => {
@@ -107,10 +107,10 @@ describe("ReactConfig", () => {
 		const loadConfig = module.default;
 
 		// Call with withNext: true
-		const configsWithNext: Array<Linter.Config> = loadConfig({ withNext: true });
+		loadConfig({ withNext: true });
 
 		// Call with withNext: false
-		const configsWithoutNext: Array<Linter.Config> = loadConfig({ withNext: false });
+		loadConfig({ withNext: false });
 
 		// Check for formatRuleName usage
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalled();
@@ -130,10 +130,10 @@ describe("ReactConfig", () => {
 
 		// Check JS/JSX config
 		expect(configs[2]).toHaveProperty("files", ["**/*.js", "**/*.jsx"]);
-		expect(configs[2].languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
+		expect(configs[2]!.languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
 
 		// Check TS/TSX config
 		expect(configs[5]).toHaveProperty("files", ["**/*.ts", "**/*.tsx"]);
-		expect(configs[5].languageOptions).toHaveProperty("parser");
+		expect(configs[5]!.languageOptions).toHaveProperty("parser");
 	});
 });

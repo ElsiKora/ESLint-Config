@@ -47,7 +47,7 @@ describe("CssConfig", () => {
 		const module = await import("@infrastructure/config/css.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(2);
@@ -58,7 +58,7 @@ describe("CssConfig", () => {
 		const module = await import("@infrastructure/config/css.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check that formatConfig was called with the CSS config
 		expect(formatConfigModule.formatConfig).toHaveBeenCalled();
@@ -69,7 +69,7 @@ describe("CssConfig", () => {
 		const module = await import("@infrastructure/config/css.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check that the plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("css");
@@ -87,12 +87,12 @@ describe("CssConfig", () => {
 		const module = await import("@infrastructure/config/css.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check rule name formatting was called
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("css/no-invalid-at-rules");
 
 		// Check that the rules are properly configured
-		expect(configs[1].rules).toHaveProperty("@elsikora/css/no-invalid-at-rules", "off");
+		expect(configs[1]!.rules).toHaveProperty("@elsikora/css/no-invalid-at-rules", "off");
 	});
 });

@@ -71,9 +71,7 @@ describe("ConfigFactory Coverage Improvements", () => {
 
 	it("should properly handle errors in loadConfig", async () => {
 		// Мокаем функцию loadConfig, чтобы она генерировала ошибку
-		// @ts-expect-error - доступ к приватному методу
 		const originalCreateConfig = ConfigFactory.createConfig;
-		// @ts-expect-error - доступ к приватному методу
 		ConfigFactory.createConfig = async (options: IConfigOptions) => {
 			// Устанавливаем текущие опции
 			// @ts-expect-error - доступ к приватному полю
@@ -95,7 +93,6 @@ describe("ConfigFactory Coverage Improvements", () => {
 		const result = await ConfigFactory.createConfig({ withJavascript: true });
 
 		// Восстанавливаем оригинальный метод
-		// @ts-expect-error - доступ к приватному методу
 		ConfigFactory.createConfig = originalCreateConfig;
 
 		// Проверяем, что console.warn был вызван

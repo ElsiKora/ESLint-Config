@@ -14,8 +14,8 @@ describe("Storybook Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/valid/clean.fixture.stories.jsx")]);
-				expect(results[0].warningCount).toBe(0);
-				expect(results[0].errorCount).toBe(0);
+				expect(results[0]!.warningCount).toBe(0);
+				expect(results[0]!.errorCount).toBe(0);
 			});
 		});
 	});
@@ -28,7 +28,7 @@ describe("Storybook Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/default-exports.fixture.stories.jsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/default-exports"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/default-exports"))).toBe(true);
 			});
 
 			it("should enforce hierarchy-separator rule", async () => {
@@ -37,7 +37,7 @@ describe("Storybook Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/hierarchy-separator.fixture.stories.jsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/hierarchy-separator"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/hierarchy-separator"))).toBe(true);
 			});
 		});
 
@@ -48,7 +48,7 @@ describe("Storybook Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/story-exports.fixture.stories.jsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/story-exports"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/story-exports"))).toBe(true);
 			});
 		});
 
@@ -59,7 +59,7 @@ describe("Storybook Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/no-redundant-story-name.fixture.stories.jsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/no-redundant-story-name"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/no-redundant-story-name"))).toBe(true);
 			});
 
 			it("should enforce prefer-pascal-case rule", async () => {
@@ -68,7 +68,7 @@ describe("Storybook Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/prefer-pascal-case.fixture.stories.jsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/prefer-pascal-case"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/prefer-pascal-case"))).toBe(true);
 			});
 		});
 	});
@@ -81,7 +81,7 @@ describe("Storybook Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/await-interactions.fixture.stories.jsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/await-interactions"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/await-interactions"))).toBe(true);
 			});
 
 			it("should enforce context-in-play-function rule", async () => {
@@ -90,7 +90,7 @@ describe("Storybook Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/context-in-play-function.fixture.stories.jsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/context-in-play-function"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/context-in-play-function"))).toBe(true);
 			});
 		});
 
@@ -102,7 +102,7 @@ describe("Storybook Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/use-storybook-expect.fixture.stories.jsx")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/use-storybook-expect"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/use-storybook-expect"))).toBe(true);
 			});
 
 			it("should enforce use-storybook-testing-library rule", async () => {
@@ -112,7 +112,7 @@ describe("Storybook Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("storybook/invalid/use-storybook-testing-library.fixture.stories.js")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("storybook/use-storybook-testing-library"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("storybook/use-storybook-testing-library"))).toBe(true);
 			});
 		});
 	});

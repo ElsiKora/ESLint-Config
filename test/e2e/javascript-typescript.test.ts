@@ -14,10 +14,10 @@ describe("JavaScript and TypeScript Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("javascript/valid/clean.fixture.js")]);
-				console.log("🚀 ~ it ~ results:", results[0].messages);
+				console.log("🚀 ~ it ~ results:", results[0]!.messages);
 
-				expect(results[0].errorCount).toBe(0);
-				expect(results[0].messages).toHaveLength(1);
+				expect(results[0]!.errorCount).toBe(0);
+				expect(results[0]!.messages).toHaveLength(1);
 			});
 		});
 	});
@@ -30,22 +30,24 @@ describe("JavaScript and TypeScript Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("typescript/valid/clean.fixture.ts")]);
+				// eslint-disable-next-line no-console
+				console.log("TS valid messages:", results[0]!.messages.map((m) => m.ruleId));
 
-				expect(results[0].errorCount).toBe(0);
-				expect(results[0].messages).toHaveLength(0);
+				expect(results[0]!.errorCount).toBe(0);
+				expect(results[0]!.messages).toHaveLength(0);
 			});
 		});
 
 		describe("Type and Style Rules", () => {
 			it("should enforce naming conventions", async () => {
-				const eslint: ESLint = await createEsLintInstance({
+				await createEsLintInstance({
 					withTypescript: true,
 				});
 
 				// const results = await eslint.lintFiles([getFixturePath("typescript/invalid/naming-convention.fixture.ts")]);
 
-				// expect(results[0].errorCount).toBeGreaterThan(0);
-				// expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@typescript-eslint/naming-convention"))).toBe(true);
+				// expect(results[0]!.errorCount).toBeGreaterThan(0);
+				// expect(results[0]!.messages.some((msg: any) => msg.ruleId === formatRuleName("@typescript-eslint/naming-convention"))).toBe(true);
 			});
 
 			it("should enforce function return types", async () => {
@@ -55,7 +57,7 @@ describe("JavaScript and TypeScript Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("typescript/invalid/explicit-function-return-type.fixture.ts")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@typescript-eslint/explicit-function-return-type"))).toBe(false);
+				expect(results[0]!.messages.some((msg: any) => msg.ruleId === formatRuleName("@typescript-eslint/explicit-function-return-type"))).toBe(false);
 			});
 		});
 	});

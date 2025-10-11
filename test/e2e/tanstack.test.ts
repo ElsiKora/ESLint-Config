@@ -13,12 +13,12 @@ describe("TanStack Configuration", () => {
 			});
 
 			let results = await eslint.lintFiles([getFixturePath("tanstack/valid/valid-query.fixture.tsx")]);
-			expect(results[0].warningCount).toBe(0);
-			expect(results[0].errorCount).toBe(0);
+			expect(results[0]!.warningCount).toBe(0);
+			expect(results[0]!.errorCount).toBe(0);
 
 			results = await eslint.lintFiles([getFixturePath("tanstack/valid/valid-router.fixture.tsx")]);
-			expect(results[0].warningCount).toBe(0);
-			expect(results[0].errorCount).toBe(0);
+			expect(results[0]!.warningCount).toBe(0);
+			expect(results[0]!.errorCount).toBe(0);
 		});
 	});
 
@@ -30,7 +30,7 @@ describe("TanStack Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("tanstack/invalid/exhaustive-deps.fixture.tsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/exhaustive-deps"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/exhaustive-deps"))).toBe(true);
 			});
 
 			it("should enforce no rest destructuring rule", async () => {
@@ -39,7 +39,7 @@ describe("TanStack Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("tanstack/invalid/no-rest-destructuring.fixture.tsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/no-rest-destructuring"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/no-rest-destructuring"))).toBe(true);
 			});
 		});
 
@@ -50,7 +50,7 @@ describe("TanStack Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("tanstack/invalid/stable-query-client.fixture.tsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/stable-query-client"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/stable-query-client"))).toBe(true);
 			});
 		});
 
@@ -61,7 +61,7 @@ describe("TanStack Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("tanstack/invalid/no-unstable-deps.fixture.tsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/no-unstable-deps"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/no-unstable-deps"))).toBe(true);
 			});
 		});
 
@@ -72,7 +72,7 @@ describe("TanStack Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("tanstack/invalid/infinite-query-property-order.fixture.tsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/infinite-query-property-order"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/query/infinite-query-property-order"))).toBe(true);
 			});
 		});
 	});
@@ -85,7 +85,7 @@ describe("TanStack Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("tanstack/invalid/router-property-order.fixture.tsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/router/create-route-property-order"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("@tanstack/router/create-route-property-order"))).toBe(true);
 			});
 		});
 	});

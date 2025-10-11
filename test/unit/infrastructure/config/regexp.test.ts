@@ -37,7 +37,7 @@ describe("RegexpConfig", () => {
 		const module = await import("@infrastructure/config/regexp.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(1);
@@ -48,7 +48,7 @@ describe("RegexpConfig", () => {
 		const module = await import("@infrastructure/config/regexp.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check that formatConfig was called with the regexp config
 		expect(formatConfigModule.formatConfig).toHaveBeenCalled();

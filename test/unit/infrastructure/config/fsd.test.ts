@@ -26,7 +26,7 @@ vi.mock("typescript-eslint", () => ({
 
 // Mock utility functions
 vi.mock("@infrastructure/utility/format-plugin-name.utility", () => ({
-	formatPluginName: vi.fn((name) => `@elsikora/fsd`),
+	formatPluginName: vi.fn(() => `@elsikora/fsd`),
 }));
 
 vi.mock("@infrastructure/utility/format-rule-name.utility", () => ({
@@ -43,7 +43,7 @@ describe("FsdConfig", () => {
 		const module = await import("@infrastructure/config/fsd.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(3);
@@ -54,7 +54,7 @@ describe("FsdConfig", () => {
 		const module = await import("@infrastructure/config/fsd.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("@conarti/feature-sliced");
@@ -65,7 +65,7 @@ describe("FsdConfig", () => {
 		const module = await import("@infrastructure/config/fsd.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check rule name formatting was called for all rules
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@conarti/feature-sliced/absolute-relative");
@@ -74,27 +74,27 @@ describe("FsdConfig", () => {
 
 		// Check rules configuration
 		const firstConfig = configs[0];
-		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/absolute-relative", "error");
-		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/layers-slices", "error");
-		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/public-api", "error");
+		expect(firstConfig!.rules).toHaveProperty("@elsikora/fsd/absolute-relative", "error");
+		expect(firstConfig!.rules).toHaveProperty("@elsikora/fsd/layers-slices", "error");
+		expect(firstConfig!.rules).toHaveProperty("@elsikora/fsd/public-api", "error");
 	});
 
 	it("should include specific file patterns for different configs", async () => {
 		const module = await import("@infrastructure/config/fsd.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check TS/TSX-specific config
 		const tsConfig = configs[1];
 		expect(tsConfig).toHaveProperty("files", ["**/*.ts", "**/*.tsx"]);
-		expect(tsConfig.languageOptions).toHaveProperty("parser");
-		expect(tsConfig.languageOptions?.parserOptions).toHaveProperty("projectService", true);
+		expect(tsConfig!.languageOptions).toHaveProperty("parser");
+		expect(tsConfig!.languageOptions?.parserOptions).toHaveProperty("project", ["./tsconfig.eslint.json"]);
 
 		// Check JS/JSX-specific config
 		const jsConfig = configs[2];
 		expect(jsConfig).toHaveProperty("files", ["**/*.js", "**/*.jsx"]);
-		expect(jsConfig.languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
-		expect(jsConfig.languageOptions?.parserOptions).toHaveProperty("ecmaVersion", "latest");
+		expect(jsConfig!.languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
+		expect(jsConfig!.languageOptions?.parserOptions).toHaveProperty("ecmaVersion", "latest");
 	});
 });

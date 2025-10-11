@@ -61,7 +61,7 @@ describe("TypeScriptConfig", () => {
 		const module = await import("@infrastructure/config/typescript.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig({ withUnicorn: false });
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(1);
@@ -71,21 +71,21 @@ describe("TypeScriptConfig", () => {
 		const module = await import("@infrastructure/config/typescript.ts");
 		const loadConfig = module.default;
 
-		const configs = loadConfig({});
+		const configs = loadConfig({ withUnicorn: false });
 
 		// Since we're mocking the return value, we just verify the file pattern is in the config
 		expect(configs.length).toBeGreaterThan(0);
 		expect(configs[0]).toHaveProperty("files", ["**/*.ts", "**/*.tsx"]);
-		expect(configs[0].languageOptions).toHaveProperty("parser");
+		expect(configs[0]!.languageOptions).toHaveProperty("parser");
 	});
 
 	it("should properly extend TypeScript ESLint recommended configs", async () => {
 		const formatConfigModule = await import("@infrastructure/utility/format-config.utility");
-		const tseslintModule = await import("typescript-eslint");
+		// const tseslintModule = await import("typescript-eslint");
 		const module = await import("@infrastructure/config/typescript.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig({ withUnicorn: false });
 
 		// Check that formatConfig was called with TypeScript ESLint recommended configs
 		expect(formatConfigModule.formatConfig).toHaveBeenCalledWith(expect.arrayContaining([expect.objectContaining({ rules: { "@typescript-eslint/no-explicit-any": "warn" } }), expect.objectContaining({ rules: { "@typescript-eslint/no-unsafe-assignment": "error" } }), expect.objectContaining({ rules: { "@typescript-eslint/member-delimiter-style": "error" } })]));
@@ -97,7 +97,7 @@ describe("TypeScriptConfig", () => {
 		const module = await import("@infrastructure/config/typescript.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig({ withUnicorn: false });
 
 		// Check that plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("typescript");
@@ -113,7 +113,7 @@ describe("TypeScriptConfig", () => {
 		const module = await import("@infrastructure/config/typescript.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig({ withUnicorn: false });
 
 		// Check rule name formatting calls
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@typescript-eslint/array-type");
@@ -128,7 +128,8 @@ describe("TypeScriptConfig", () => {
 		const configs = loadConfig({ withUnicorn: true });
 
 		// Find the rule in the config
-		const noDeprecatedRule = configs[0].rules["@elsikora/typescript/no-deprecated"];
+		// @ts-expect-error index rule access in test
+		const noDeprecatedRule = configs[0]!.rules["@elsikora/typescript/no-deprecated"];
 		expect(noDeprecatedRule).toBe("off");
 	});
 
@@ -139,7 +140,8 @@ describe("TypeScriptConfig", () => {
 		const configs = loadConfig({ withUnicorn: false });
 
 		// Find the rule in the config
-		const noDeprecatedRule = configs[0].rules["@elsikora/typescript/no-deprecated"];
+		// @ts-expect-error index rule access in test
+		const noDeprecatedRule = configs[0]!.rules["@elsikora/typescript/no-deprecated"];
 		expect(noDeprecatedRule).toBe("error");
 	});
 });

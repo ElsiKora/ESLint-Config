@@ -6,7 +6,7 @@ export async function createEsLintInstance(options: IConfigOptions): Promise<ESL
 	const config: Array<Linter.Config> = await createConfig(options);
 
 	return new ESLint({
-		baseConfig: config,
+		overrideConfig: config as unknown as Linter.Config,
 		overrideConfigFile: true,
 	});
 }

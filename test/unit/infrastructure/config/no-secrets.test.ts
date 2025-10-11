@@ -72,12 +72,12 @@ describe("NoSecretsConfig", () => {
 
 		// Check the pattern matching rule configuration
 		const firstConfig = configs[0];
-		const patternRule = firstConfig.rules?.["@elsikora/no-secrets/no-pattern-match"];
+		const patternRule = firstConfig!.rules?.["@elsikora/no-secrets/no-pattern-match"] as unknown as Array<unknown>;
 		expect(Array.isArray(patternRule)).toBe(true);
-		expect(patternRule[0]).toBe("error");
+		expect((patternRule as Array<unknown>)[0]).toBe("error");
 
 		// Verify patterns object structure
-		const patternOptions = patternRule[1];
+		const patternOptions = (patternRule as Array<unknown>)[1] as Record<string, unknown>;
 		expect(patternOptions).toHaveProperty("patterns");
 		expect(patternOptions.patterns).toHaveProperty("ApiKey");
 		expect(patternOptions.patterns).toHaveProperty("Password");
@@ -94,13 +94,13 @@ describe("NoSecretsConfig", () => {
 		// Check TS/TSX-specific config
 		const tsConfig = configs[1];
 		expect(tsConfig).toHaveProperty("files", ["**/*.ts", "**/*.tsx"]);
-		expect(tsConfig.languageOptions).toHaveProperty("parser");
-		expect(tsConfig.languageOptions?.parserOptions).toHaveProperty("projectService", true);
+		expect(tsConfig!.languageOptions).toHaveProperty("parser");
+		expect(tsConfig!.languageOptions?.parserOptions).toHaveProperty("projectService", true);
 
 		// Check JS/JSX-specific config
 		const jsConfig = configs[2];
 		expect(jsConfig).toHaveProperty("files", ["**/*.js", "**/*.jsx"]);
-		expect(jsConfig.languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
-		expect(jsConfig.languageOptions?.parserOptions).toHaveProperty("ecmaVersion", "latest");
+		expect(jsConfig!.languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
+		expect(jsConfig!.languageOptions?.parserOptions).toHaveProperty("ecmaVersion", "latest");
 	});
 });

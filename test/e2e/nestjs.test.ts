@@ -16,7 +16,7 @@ describe("NestJS Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("nest/valid/clean.controller.fixture.ts")]);
 
-				expect(results[0].messages.filter((msg) => msg.ruleId?.startsWith("@elsikora/nest/")).length).toBe(0);
+				expect(results[0]!.messages.filter((msg) => msg.ruleId?.startsWith("@elsikora/nest/")).length).toBe(0);
 			});
 		});
 
@@ -29,7 +29,7 @@ describe("NestJS Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("nest/invalid/api-method-should-specify-api-response.controller.fixture.ts")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora/nest/2/api-method-should-specify-api-response")).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === "@elsikora/nest/2/api-method-should-specify-api-response")).toBe(true);
 			});
 
 			it("should validate controller decorators with API tags", async () => {
@@ -40,7 +40,7 @@ describe("NestJS Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("nest/invalid/controllers-should-supply-api-tags.controller.fixture.ts")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora/nest/2/controllers-should-supply-api-tags")).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === "@elsikora/nest/2/controllers-should-supply-api-tags")).toBe(true);
 			});
 		});
 	});
@@ -55,7 +55,7 @@ describe("NestJS Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("nest/invalid/decorator-array-items.module.fixture.ts")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora/nest/1/decorator-array-items")).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === "@elsikora/nest/1/decorator-array-items")).toBe(true);
 			});
 		});
 	});

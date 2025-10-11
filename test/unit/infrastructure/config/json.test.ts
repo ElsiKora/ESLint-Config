@@ -16,7 +16,7 @@ describe("JsonConfig", () => {
 		const module = await import("@infrastructure/config/json.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(4);
@@ -27,13 +27,13 @@ describe("JsonConfig", () => {
 		const module = await import("@infrastructure/config/json.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check that formatConfig was called
 		expect(formatConfigModule.formatConfig).toHaveBeenCalled();
 
 		// Check that the config includes rules from the JSON plugin
 		expect(configs[2]).toHaveProperty("rules");
-		expect(configs[2].rules).toHaveProperty("jsonc/no-bigint-literals");
+		expect(configs[2]!.rules).toHaveProperty("jsonc/no-bigint-literals");
 	});
 });

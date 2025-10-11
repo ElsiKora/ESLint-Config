@@ -38,10 +38,10 @@ describe("YamlConfig", () => {
 	});
 
 	it("should return an array of configs", async () => {
-		const module = await import("@infrastructure/config/yaml.ts");
+		const module = await import("@infrastructure/config/yaml");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(1);
@@ -49,10 +49,10 @@ describe("YamlConfig", () => {
 
 	it("should format the yaml recommended config", async () => {
 		const formatConfigModule = await import("@infrastructure/utility/format-config.utility");
-		const module = await import("@infrastructure/config/yaml.ts");
+		const module = await import("@infrastructure/config/yaml");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check that formatConfig was called with the yaml recommended config
 		expect(formatConfigModule.formatConfig).toHaveBeenCalledWith(

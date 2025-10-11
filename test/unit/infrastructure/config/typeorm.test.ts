@@ -52,7 +52,7 @@ describe("TypeOrmConfig", () => {
 		const module = await import("@infrastructure/config/typeorm.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(1);
@@ -63,7 +63,7 @@ describe("TypeOrmConfig", () => {
 		const module = await import("@infrastructure/config/typeorm.ts");
 		const loadConfig = module.default;
 
-		const configs = loadConfig({});
+		const configs = loadConfig();
 
 		// Check rule name formatting was called for TypeORM rules
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("typeorm-typescript/enforce-column-types");

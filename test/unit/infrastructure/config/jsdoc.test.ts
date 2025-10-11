@@ -47,7 +47,7 @@ describe("JsdocConfig", () => {
 		const module = await import("@infrastructure/config/jsdoc.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(2);
@@ -58,7 +58,7 @@ describe("JsdocConfig", () => {
 		const module = await import("@infrastructure/config/jsdoc.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check that formatConfig was called with the JSDoc config
 		expect(formatConfigModule.formatConfig).toHaveBeenCalled();
@@ -69,7 +69,7 @@ describe("JsdocConfig", () => {
 		const module = await import("@infrastructure/config/jsdoc.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check that the plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("jsdoc");
@@ -79,6 +79,6 @@ describe("JsdocConfig", () => {
 		expect(configs[1]).toHaveProperty("files", ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
 
 		// Check that the second config includes the plugin
-		expect(configs[1].plugins).toHaveProperty("@elsikora/jsdoc");
+		expect(configs[1]!.plugins).toHaveProperty("@elsikora/jsdoc");
 	});
 });

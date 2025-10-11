@@ -14,8 +14,8 @@ describe("i18next Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("i18next/valid/clean.fixture.jsx")]);
-				expect(results[0].warningCount).toBe(0);
-				expect(results[0].errorCount).toBe(0);
+				expect(results[0]!.warningCount).toBe(0);
+				expect(results[0]!.errorCount).toBe(0);
 			});
 		});
 
@@ -26,7 +26,7 @@ describe("i18next Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("i18next/invalid/no-translations.fixture.jsx")]);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string"))).toBe(true);
 			});
 		});
 	});

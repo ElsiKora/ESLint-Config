@@ -134,7 +134,7 @@ describe("Domain Interfaces and Types", () => {
 			default: (options) => [
 				{
 					rules: {
-						"no-console": options?.severity || "error",
+						"no-console": ((options as unknown as { severity?: "warn" | "error" })?.severity) || "error",
 					},
 				},
 			],
@@ -145,13 +145,13 @@ describe("Domain Interfaces and Types", () => {
 		expect(typeof configModule.default).toBe("function");
 
 		// Check if the default function returns the expected result with options
-		const configWithOptions = configModule.default({ severity: "warn" });
+		const configWithOptions = configModule.default({ severity: "warn" } as unknown as any);
 		expect(Array.isArray(configWithOptions)).toBe(true);
-		expect(configWithOptions[0].rules?.["no-console"]).toBe("warn");
+		expect(configWithOptions[0]!.rules?.["no-console"]).toBe("warn");
 
 		// Check if the default function returns the expected result without options
 		const configWithoutOptions = configModule.default();
 		expect(Array.isArray(configWithoutOptions)).toBe(true);
-		expect(configWithoutOptions[0].rules?.["no-console"]).toBe("error");
+		expect(configWithoutOptions[0]!.rules?.["no-console"]).toBe("error");
 	});
 });

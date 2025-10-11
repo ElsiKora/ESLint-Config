@@ -66,4 +66,10 @@ export default [
 		withUnicorn: true,
 		withYaml: true,
 	})),
+	{
+		files: ["src/infrastructure/utility/format-config.utility.ts", "src/infrastructure/utility/format-plugin-name.utility.ts", "src/infrastructure/utility/format-rule-name.utility.ts"],
+		rules: {
+			"@elsikora/unicorn/no-array-sort": "off",
+		},
+	},
 ];

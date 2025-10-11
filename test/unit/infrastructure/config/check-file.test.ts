@@ -34,7 +34,7 @@ describe("CheckFileConfig", () => {
 		const module = await import("@infrastructure/config/check-file.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(1);
@@ -45,7 +45,7 @@ describe("CheckFileConfig", () => {
 		const module = await import("@infrastructure/config/check-file.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("check-file");
@@ -56,7 +56,7 @@ describe("CheckFileConfig", () => {
 		const module = await import("@infrastructure/config/check-file.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check rule name formatting was called for key rules
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("check-file/filename-blocklist");
@@ -68,12 +68,12 @@ describe("CheckFileConfig", () => {
 		expect(config).toHaveProperty("files", ["src/**/*"]);
 
 		// Check that rules are arrays with severity and options
-		const blocklistRule = config.rules?.["@elsikora/check-file/filename-blocklist"];
+		const blocklistRule = config!.rules?.["@elsikora/check-file/filename-blocklist"] as unknown as Array<unknown>;
 		expect(Array.isArray(blocklistRule)).toBe(true);
-		expect(blocklistRule[0]).toBe("error");
+		expect((blocklistRule as Array<unknown>)[0]).toBe("error");
 
-		const namingRule = config.rules?.["@elsikora/check-file/filename-naming-convention"];
+		const namingRule = config!.rules?.["@elsikora/check-file/filename-naming-convention"] as unknown as Array<unknown>;
 		expect(Array.isArray(namingRule)).toBe(true);
-		expect(namingRule[0]).toBe("error");
+		expect((namingRule as Array<unknown>)[0]).toBe("error");
 	});
 });

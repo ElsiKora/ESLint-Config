@@ -36,8 +36,7 @@ export default function loadConfig(): Array<Linter.Config> {
 		{
 			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 			plugins: {
-				// eslint-disable-next-line @elsikora/typescript/no-unsafe-argument
-				[formatPluginName("@next/next")]: fixupPluginRules(next),
+				[formatPluginName("@next/next")]: fixupPluginRules(next as unknown as never) as unknown as never,
 			},
 			rules: {
 				[formatRuleName("@next/next/google-font-display")]: "warn",

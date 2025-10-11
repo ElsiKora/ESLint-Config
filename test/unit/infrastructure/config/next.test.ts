@@ -47,7 +47,7 @@ describe("NextConfig", () => {
 		const module = await import("@infrastructure/config/next.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(3);
@@ -57,17 +57,17 @@ describe("NextConfig", () => {
 		const module = await import("@infrastructure/config/next.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check JS/JSX config
 		expect(configs[0]).toHaveProperty("files", ["**/*.js", "**/*.jsx"]);
-		expect(configs[0].languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
-		expect(configs[0].languageOptions?.parserOptions).toHaveProperty("ecmaVersion", "latest");
+		expect(configs[0]!.languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
+		expect(configs[0]!.languageOptions?.parserOptions).toHaveProperty("ecmaVersion", "latest");
 
 		// Check TS/TSX config
 		expect(configs[1]).toHaveProperty("files", ["**/*.ts", "**/*.tsx"]);
-		expect(configs[1].languageOptions).toHaveProperty("parser");
-		expect(configs[1].languageOptions?.parserOptions).toHaveProperty("projectService", true);
+		expect(configs[1]!.languageOptions).toHaveProperty("parser");
+		expect(configs[1]!.languageOptions?.parserOptions).toHaveProperty("projectService", true);
 	});
 
 	it("should properly configure Next.js plugin", async () => {
@@ -77,7 +77,7 @@ describe("NextConfig", () => {
 		const module = await import("@infrastructure/config/next.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("@next/next");
@@ -94,13 +94,13 @@ describe("NextConfig", () => {
 		const module = await import("@infrastructure/config/next.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		// Check specific rules are present with expected severities
-		expect(configs[2].rules).toHaveProperty("@elsikora/next/google-font-display", "warn");
-		expect(configs[2].rules).toHaveProperty("@elsikora/next/inline-script-id", "error");
-		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-assign-module-variable", "error");
-		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-img-element", "warn");
+		expect(configs[2]!.rules).toHaveProperty("@elsikora/next/google-font-display", "warn");
+		expect(configs[2]!.rules).toHaveProperty("@elsikora/next/inline-script-id", "error");
+		expect(configs[2]!.rules).toHaveProperty("@elsikora/next/no-assign-module-variable", "error");
+		expect(configs[2]!.rules).toHaveProperty("@elsikora/next/no-img-element", "warn");
 
 		// Check if third config applies to both JS/JSX and TS/TSX files
 		expect(configs[2]).toHaveProperty("files", ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);

@@ -14,8 +14,8 @@ describe("Documentation Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("markdown/valid/clean.fixture.md")]);
-				expect(results[0].warningCount).toBe(0);
-				expect(results[0].errorCount).toBe(0);
+				expect(results[0]!.warningCount).toBe(0);
+				expect(results[0]!.errorCount).toBe(0);
 			});
 		});
 
@@ -27,7 +27,7 @@ describe("Documentation Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("markdown/invalid/fenced-code-language.fixture.md")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId?.startsWith(formatRuleName("markdown/fenced-code-language")))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId?.startsWith(formatRuleName("markdown/fenced-code-language")))).toBe(true);
 			});
 		});
 	});
@@ -40,8 +40,8 @@ describe("Documentation Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("jsdoc/valid/clean.fixture.js")]);
-				expect(results[0].warningCount).toBe(0);
-				expect(results[0].errorCount).toBe(0);
+				expect(results[0]!.warningCount).toBe(0);
+				expect(results[0]!.errorCount).toBe(0);
 			});
 		});
 
@@ -53,7 +53,7 @@ describe("Documentation Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("jsdoc/invalid/check-param-names.fixture.js")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId?.startsWith(formatRuleName("jsdoc/check-param-names")))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId?.startsWith(formatRuleName("jsdoc/check-param-names")))).toBe(true);
 			});
 		});
 	});

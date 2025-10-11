@@ -10,7 +10,7 @@ import perfectionist from "eslint-plugin-perfectionist";
  * @param {IConfigOptions} config - Configuration options
  * @returns {Array<Linter.Config>} An array of ESLint configurations for perfectionist
  */
-export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
+export default function loadConfig(config: IConfigOptions = {}): Array<Linter.Config> {
 	return [
 		{
 			...formatConfig([perfectionist.configs["recommended-alphabetical"]])[0],
@@ -19,7 +19,7 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 		{
 			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 			rules: {
-				[formatRuleName("perfectionist/sort-imports")]: config.withFsd
+				[formatRuleName("perfectionist/sort-imports")]: config?.withFsd
 					? [
 							"error",
 							{

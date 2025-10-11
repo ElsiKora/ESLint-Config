@@ -15,6 +15,14 @@ import tseslint from "typescript-eslint";
 export default function loadConfig(_config: IConfigOptions): Array<Linter.Config> {
 	return [
 		{
+			files: ["**/*.ts", "**/*.tsx"],
+			languageOptions: {
+				// @ts-ignore
+				parser: tseslint.parser,
+				parserOptions: {
+					project: ["./tsconfig.eslint.json"],
+				},
+			},
 			// @ts-ignore
 			plugins: {
 				[formatPluginName("@tanstack/query")]: tanstackQueryPlugin,
@@ -28,22 +36,20 @@ export default function loadConfig(_config: IConfigOptions): Array<Linter.Config
 			},
 		},
 		{
+			files: ["**/*.ts", "**/*.tsx"],
+			languageOptions: {
+				// @ts-ignore
+				parser: tseslint.parser,
+				parserOptions: {
+					project: ["./tsconfig.eslint.json"],
+				},
+			},
 			// @ts-ignore
 			plugins: {
 				[formatPluginName("@tanstack/router")]: tanstackRouterPlugin,
 			},
 			rules: {
 				[formatRuleName("@tanstack/router/create-route-property-order")]: "error",
-			},
-		},
-		{
-			files: ["**/*.ts", "**/*.tsx"],
-			languageOptions: {
-				// @ts-ignore
-				parser: tseslint.parser,
-				parserOptions: {
-					projectService: true,
-				},
 			},
 		},
 		{

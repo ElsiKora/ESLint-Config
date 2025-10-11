@@ -65,10 +65,10 @@ describe("JavascriptConfig", () => {
 		expect(createVirtualPluginModule.createVirtualEslintPlugin).toHaveBeenCalledWith(expect.any(Array), "@elsikora/javascript");
 
 		// Check that the configs passed include file patterns and globals
-		const callArgs = vi.mocked(createVirtualPluginModule.createVirtualEslintPlugin).mock.calls[0][0];
+		const callArgs = vi.mocked(createVirtualPluginModule.createVirtualEslintPlugin).mock.calls[0]?.[0]!;
 		expect(callArgs[0]).toHaveProperty("files", ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
-		expect(callArgs[0].languageOptions).toHaveProperty("globals");
-		expect(callArgs[0].languageOptions.globals).toMatchObject({ process: true, module: true });
+		expect(callArgs[0]!.languageOptions).toHaveProperty("globals");
+		expect(callArgs[0]!.languageOptions!.globals).toMatchObject({ process: true, module: true });
 	});
 
 	it("should disable no-unused-vars when withSonar is true", async () => {
@@ -84,10 +84,10 @@ describe("JavascriptConfig", () => {
 		loadConfig({ withSonar: true });
 
 		// Get the configs passed to createVirtualEslintPlugin
-		const callArgs = vi.mocked(createVirtualPluginModule.createVirtualEslintPlugin).mock.calls[0][0];
+		const callArgs = vi.mocked(createVirtualPluginModule.createVirtualEslintPlugin).mock.calls[0]?.[0]!;
 
 		// Verify that no-unused-vars is off when withSonar is true
-		expect(callArgs[1].rules).toHaveProperty("no-unused-vars", "off");
+		expect(callArgs[1]!.rules).toHaveProperty("no-unused-vars", "off");
 	});
 
 	it("should enable no-unused-vars when withSonar is false or undefined", async () => {
@@ -102,9 +102,9 @@ describe("JavascriptConfig", () => {
 		loadConfig({ withSonar: false });
 
 		// Get the configs passed to createVirtualEslintPlugin
-		const callArgs = vi.mocked(createVirtualPluginModule.createVirtualEslintPlugin).mock.calls[0][0];
+		const callArgs = vi.mocked(createVirtualPluginModule.createVirtualEslintPlugin).mock.calls[0]?.[0]!;
 
 		// Verify that no-unused-vars is error when withSonar is false
-		expect(callArgs[1].rules).toHaveProperty("no-unused-vars", "error");
+		expect(callArgs[1]!.rules).toHaveProperty("no-unused-vars", "error");
 	});
 });

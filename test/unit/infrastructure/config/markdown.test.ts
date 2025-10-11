@@ -41,7 +41,7 @@ describe("MarkdownConfig", () => {
 		const module = await import("@infrastructure/config/markdown.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(1);
@@ -52,7 +52,7 @@ describe("MarkdownConfig", () => {
 		const module = await import("@infrastructure/config/markdown.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check that formatConfig was called with the markdown recommended config
 		expect(formatConfigModule.formatConfig).toHaveBeenCalledWith(

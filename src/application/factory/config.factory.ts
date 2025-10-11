@@ -43,34 +43,34 @@ export class ConfigFactory {
 	};
 
 	private static readonly CONFIG_MAPPING: Record<string, TConfigLoader> = {
-		"check-file": () => import("../../infrastructure/config/check-file"),
-		css: () => import("../../infrastructure/config/css"),
-		fsd: () => import("../../infrastructure/config/fsd"),
-		i18next: () => import("../../infrastructure/config/i18next"),
-		javascript: () => import("../../infrastructure/config/javascript"),
-		jsdoc: () => import("../../infrastructure/config/jsdoc"),
-		json: () => import("../../infrastructure/config/json"),
-		jsx: () => import("../../infrastructure/config/jsx"),
-		markdown: () => import("../../infrastructure/config/markdown"),
-		nest: () => import("../../infrastructure/config/nest"),
-		next: () => import("../../infrastructure/config/next"),
-		"no-secrets": () => import("../../infrastructure/config/no-secrets"),
-		node: () => import("../../infrastructure/config/node"),
-		"package-json": () => import("../../infrastructure/config/package-json"),
-		perfectionist: () => import("../../infrastructure/config/perfectionist"),
-		prettier: () => import("../../infrastructure/config/prettier"),
-		react: () => import("../../infrastructure/config/react"),
-		regexp: () => import("../../infrastructure/config/regexp"),
-		sonar: () => import("../../infrastructure/config/sonar"),
-		storybook: () => import("../../infrastructure/config/storybook"),
-		stylistic: () => import("../../infrastructure/config/stylistic"),
-		"tailwind-css": () => import("../../infrastructure/config/tailwind-css"),
-		tanstack: () => import("../../infrastructure/config/tanstack"),
-		typeorm: () => import("../../infrastructure/config/typeorm"),
-		typescript: () => import("../../infrastructure/config/typescript"),
-		"typescript-strict": () => import("../../infrastructure/config/typescript-strict"),
-		unicorn: () => import("../../infrastructure/config/unicorn"),
-		yaml: () => import("../../infrastructure/config/yaml"),
+		"check-file": () => import("../../infrastructure/config/check-file") as unknown as Promise<TConfigModule>,
+		css: () => import("../../infrastructure/config/css") as unknown as Promise<TConfigModule>,
+		fsd: () => import("../../infrastructure/config/fsd") as unknown as Promise<TConfigModule>,
+		i18next: () => import("../../infrastructure/config/i18next") as unknown as Promise<TConfigModule>,
+		javascript: () => import("../../infrastructure/config/javascript") as unknown as Promise<TConfigModule>,
+		jsdoc: () => import("../../infrastructure/config/jsdoc") as unknown as Promise<TConfigModule>,
+		json: () => import("../../infrastructure/config/json") as unknown as Promise<TConfigModule>,
+		jsx: () => import("../../infrastructure/config/jsx") as unknown as Promise<TConfigModule>,
+		markdown: () => import("../../infrastructure/config/markdown") as unknown as Promise<TConfigModule>,
+		nest: () => import("../../infrastructure/config/nest") as unknown as Promise<TConfigModule>,
+		next: () => import("../../infrastructure/config/next") as unknown as Promise<TConfigModule>,
+		"no-secrets": () => import("../../infrastructure/config/no-secrets") as unknown as Promise<TConfigModule>,
+		node: () => import("../../infrastructure/config/node") as unknown as Promise<TConfigModule>,
+		"package-json": () => import("../../infrastructure/config/package-json") as unknown as Promise<TConfigModule>,
+		perfectionist: () => import("../../infrastructure/config/perfectionist") as unknown as Promise<TConfigModule>,
+		prettier: () => import("../../infrastructure/config/prettier") as unknown as Promise<TConfigModule>,
+		react: () => import("../../infrastructure/config/react") as unknown as Promise<TConfigModule>,
+		regexp: () => import("../../infrastructure/config/regexp") as unknown as Promise<TConfigModule>,
+		sonar: () => import("../../infrastructure/config/sonar") as unknown as Promise<TConfigModule>,
+		storybook: () => import("../../infrastructure/config/storybook") as unknown as Promise<TConfigModule>,
+		stylistic: () => import("../../infrastructure/config/stylistic") as unknown as Promise<TConfigModule>,
+		"tailwind-css": () => import("../../infrastructure/config/tailwind-css") as unknown as Promise<TConfigModule>,
+		tanstack: () => import("../../infrastructure/config/tanstack") as unknown as Promise<TConfigModule>,
+		typeorm: () => import("../../infrastructure/config/typeorm") as unknown as Promise<TConfigModule>,
+		typescript: () => import("../../infrastructure/config/typescript") as unknown as Promise<TConfigModule>,
+		"typescript-strict": () => import("../../infrastructure/config/typescript-strict") as unknown as Promise<TConfigModule>,
+		unicorn: () => import("../../infrastructure/config/unicorn") as unknown as Promise<TConfigModule>,
+		yaml: () => import("../../infrastructure/config/yaml") as unknown as Promise<TConfigModule>,
 	};
 
 	private static currentOptions: IConfigOptions | null = null;
@@ -130,7 +130,7 @@ export class ConfigFactory {
 			// @ts-ignore
 			const module: TConfigModule = await this.CONFIG_MAPPING[name]();
 
-			return module.default(this.currentOptions);
+			return module.default(this.currentOptions ?? undefined);
 		} catch (error) {
 			console.warn(`Optional dependency for ${name} config is not installed:`, error);
 

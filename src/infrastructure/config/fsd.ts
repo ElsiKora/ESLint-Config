@@ -30,7 +30,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				// @ts-ignore
 				parser: tseslint.parser,
 				parserOptions: {
-					projectService: true,
+					project: ["./tsconfig.eslint.json"],
 				},
 			},
 		},

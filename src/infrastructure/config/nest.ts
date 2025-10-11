@@ -19,7 +19,7 @@ export default function loadConfig(): Array<Linter.Config> {
 			languageOptions: {
 				parser: tseslint.parser,
 				parserOptions: {
-					projectService: true,
+					project: ["./tsconfig.eslint.json"],
 				},
 			},
 			plugins: {

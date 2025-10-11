@@ -39,7 +39,7 @@ describe("JsxConfig", () => {
 		const module = await import("@infrastructure/config/jsx.ts");
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(2);
@@ -50,7 +50,7 @@ describe("JsxConfig", () => {
 		const module = await import("@infrastructure/config/jsx.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		loadConfig();
 
 		// Check that formatConfig was called with the jsx-a11y recommended config
 		expect(formatConfigModule.formatConfig).toHaveBeenCalledWith(

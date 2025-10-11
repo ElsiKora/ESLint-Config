@@ -25,7 +25,7 @@ describe("PackageJson Config", () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(1);
@@ -35,10 +35,10 @@ describe("PackageJson Config", () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[0].rules).toHaveProperty("package-json/sort-collections");
-		expect(configs[0].rules).toHaveProperty("package-json/order-properties");
-		expect(configs[0].rules["package-json/order-properties"]).toBe("error");
+		expect(configs[0]!.rules).toHaveProperty("package-json/sort-collections");
+		expect(configs[0]!.rules).toHaveProperty("package-json/order-properties");
+		expect((configs[0]!.rules as Record<string, unknown>)["package-json/order-properties"]).toBe("error");
 	});
 });

@@ -14,8 +14,8 @@ describe("No-Secrets Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("no-secrets/valid/clean.fixture.js")]);
-				expect(results[0].warningCount).toBe(0);
-				expect(results[0].errorCount).toBe(0);
+				expect(results[0]!.warningCount).toBe(0);
+				expect(results[0]!.errorCount).toBe(0);
 			});
 		});
 	});
@@ -29,8 +29,8 @@ describe("No-Secrets Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("no-secrets/invalid/high-entropy.fixture.js")]);
 
-				expect(results[0].errorCount).toBeGreaterThan(0);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("no-secrets/no-secrets"))).toBe(true);
+				expect(results[0]!.errorCount).toBeGreaterThan(0);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("no-secrets/no-secrets"))).toBe(true);
 			});
 		});
 
@@ -42,8 +42,8 @@ describe("No-Secrets Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("no-secrets/invalid/pattern-match.fixture.js")]);
 
-				expect(results[0].errorCount).toBeGreaterThan(0);
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("no-secrets/no-pattern-match"))).toBe(true);
+				expect(results[0]!.errorCount).toBeGreaterThan(0);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("no-secrets/no-pattern-match"))).toBe(true);
 			});
 		});
 	});

@@ -40,7 +40,7 @@ describe("Perfectionist Config", () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 		expect(configs.length).toBe(2);
@@ -50,26 +50,26 @@ describe("Perfectionist Config", () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[0].plugins).toContain("perfectionist");
-		expect(configs[0].files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
+		expect(configs[0]!.plugins).toContain("perfectionist");
+		expect(configs[0]!.files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
 	});
 
 	it("should include the correct file pattern in second config", async () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[1].files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
+		expect(configs[1]!.files).toEqual(["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);
 	});
 
 	it("should have different import sorting config when FSD is enabled", async () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const defaultConfigs = loadConfig({});
+		const defaultConfigs = loadConfig();
 		const fsdConfigs = loadConfig({ withFsd: true });
 
 		// Default config should have more groups

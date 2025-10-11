@@ -45,7 +45,7 @@ describe("ConfigTemplate", () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig();
 
 		expect(Array.isArray(configs)).toBe(true);
 	});
@@ -54,7 +54,7 @@ describe("ConfigTemplate", () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		void loadConfig();
 
 		// Check for expected plugins
 		// Example: expect(configs.some(config => config.plugins && Object.keys(config.plugins).includes("some-plugin"))).toBe(true);
@@ -64,7 +64,7 @@ describe("ConfigTemplate", () => {
 		const module = await import(MODULE_PATH);
 		const loadConfig = module.default;
 
-		const configs: Array<Linter.Config> = loadConfig({});
+		void loadConfig();
 
 		// Check for expected rules
 		// Example: expect(configs.some(config => config.rules && Object.keys(config.rules).includes("some-rule"))).toBe(true);
@@ -75,9 +75,9 @@ describe("ConfigTemplate", () => {
 		const loadConfig = module.default;
 
 		// Test with different options
-		const configsWithOption: Array<Linter.Config> = loadConfig({ someOption: true });
+		void loadConfig();
 
 		// Check for differences when options are provided
-		// Example: expect(configsWithOption).not.toEqual(loadConfig({}));
+		// Example: expect(configsWithOption).not.toEqual(loadConfig());
 	});
 });

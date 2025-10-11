@@ -33,7 +33,7 @@ describe("FormatConfigUtility", () => {
 		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
 		const result: Array<Linter.Config> = formatConfig([mockConfig]);
 
-		expect(result[0].plugins).toEqual({
+		expect(result[0]!.plugins).toEqual({
 			imports: mockPlugin,
 			typescript: mockPlugin,
 		});
@@ -77,7 +77,7 @@ describe("FormatConfigUtility", () => {
 		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
 		const result: Array<Linter.Config> = formatConfig([mockConfig]);
 
-		expect(result[0].plugins).toEqual({
+		expect(result[0]!.plugins).toEqual({
 			"custom-plugin": mockPlugin,
 			typescript: mockPlugin,
 		});
@@ -109,7 +109,7 @@ describe("FormatConfigUtility", () => {
 		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
 		const result: Array<Linter.Config> = formatConfig([mockConfig]);
 
-		expect(result[0].plugins).toEqual({
+		expect(result[0]!.plugins).toEqual({
 			somePlugin: mockPlugin,
 			typescript: mockPlugin,
 			"typescript/linter": mockPlugin,
@@ -140,7 +140,7 @@ describe("FormatConfigUtility", () => {
 		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
 		const result: Array<Linter.Config> = formatConfig([mockConfig]);
 
-		expect(result[0].plugins).toEqual({
+		expect(result[0]!.plugins).toEqual({
 			pluginA: mockPlugin,
 			pluginB: mockPlugin,
 		});
@@ -169,7 +169,7 @@ describe("FormatConfigUtility", () => {
 		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
 		const result: Array<Linter.Config> = formatConfig([mockConfig]);
 
-		expect(result[0].rules).toEqual({
+		expect(result[0]!.rules).toEqual({
 			"custom-plugin/custom-rule": ["error"],
 			"imports/no-duplicates": ["warn"],
 			"typescript/no-explicit-any": ["error"],
@@ -317,7 +317,7 @@ describe("FormatConfigUtility", () => {
 		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
 		const result: Array<Linter.Config> = formatConfig([mockConfig]);
 
-		expect(result[0].rules).toEqual({
+		expect(result[0]!.rules).toEqual({
 			"typescript/naming-convention": [
 				"error",
 				{
@@ -346,7 +346,7 @@ describe("FormatConfigUtility", () => {
 		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
 		const result: Array<Linter.Config> = formatConfig([mockConfig]);
 
-		expect(result[0].language).toEqual("typescript/custom-parser");
+		expect(result[0]!.language).toEqual("typescript/custom-parser");
 	});
 
 	// Test handling of language property that doesn't match any PLUGIN_MAP entry
@@ -367,6 +367,6 @@ describe("FormatConfigUtility", () => {
 		const formatConfig: (configs: Array<Linter.Config>) => Array<Linter.Config> = module.formatConfig.bind(module);
 		const result: Array<Linter.Config> = formatConfig([mockConfig]);
 
-		expect(result[0].language).toEqual("custom-language-parser");
+		expect(result[0]!.language).toEqual("custom-language-parser");
 	});
 });

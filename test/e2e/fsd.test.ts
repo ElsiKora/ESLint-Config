@@ -15,9 +15,11 @@ describe("FSD (Feature-Sliced Design) Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("fsd/valid/clean.fixture.tsx")]);
+				// eslint-disable-next-line no-console
+				console.log("FSD valid messages:", results[0]!.messages.map((m) => m.ruleId));
 
-				expect(results[0].warningCount).toBe(0);
-				expect(results[0].errorCount).toBe(0);
+				expect(results[0]!.warningCount).toBe(0);
+				expect(results[0]!.errorCount).toBe(0);
 			});
 		});
 	});
@@ -31,7 +33,7 @@ describe("FSD (Feature-Sliced Design) Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("fsd/invalid/public-api.fixture.tsx")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@conarti/feature-sliced/public-api"))).toBe(true);
+				expect(results[0]!.messages.some((msg) => msg.ruleId === formatRuleName("@conarti/feature-sliced/public-api"))).toBe(true);
 			});
 		});
 	});

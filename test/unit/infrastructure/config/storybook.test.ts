@@ -58,9 +58,9 @@ describe("Storybook Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[0].plugins).toContain("storybook");
-		expect(configs[0].rules).toHaveProperty("storybook/await-interactions");
-		expect(configs[0].rules).toHaveProperty("storybook/hierarchy-separator");
+		expect(configs[0]!.plugins).toContain("storybook");
+		expect(configs[0]!.rules).toHaveProperty("storybook/await-interactions");
+		expect(configs[0]!.rules).toHaveProperty("storybook/hierarchy-separator");
 	});
 
 	it("should configure TypeScript for TS stories files", async () => {
@@ -69,9 +69,9 @@ describe("Storybook Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[1].files).toEqual(["**/*.stories.@(ts|tsx)"]);
-		expect(configs[1].languageOptions.parser.name).toBe("typescript-eslint-parser");
-		expect(configs[1].languageOptions.parserOptions.projectService).toBe(true);
+		expect(configs[1]!.files).toEqual(["**/*.stories.@(ts|tsx)"]);
+		expect(configs[1]!.languageOptions?.parser!.name).toBe("typescript-eslint-parser");
+		expect(configs[1]!.languageOptions?.parserOptions!.projectService).toBe(true);
 	});
 
 	it("should configure JSX for JavaScript stories files", async () => {
@@ -80,8 +80,8 @@ describe("Storybook Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[2].files).toEqual(["**/*.stories.@(js|jsx|mjs|cjs)"]);
-		expect(configs[2].languageOptions.parserOptions.ecmaFeatures.jsx).toBe(true);
-		expect(configs[2].languageOptions.parserOptions.ecmaVersion).toBe("latest");
+		expect(configs[2]!.files).toEqual(["**/*.stories.@(js|jsx|mjs|cjs)"]);
+		expect(configs[2]!.languageOptions?.parserOptions!.ecmaFeatures!.jsx).toBe(true);
+		expect(configs[2]!.languageOptions?.parserOptions!.ecmaVersion).toBe("latest");
 	});
 });

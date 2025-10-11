@@ -108,11 +108,11 @@ describe("NodeConfig", () => {
 
 		// Test with withUnicorn: true
 		const configsWithUnicorn = loadConfig({ withUnicorn: true });
-		const rulesWithUnicorn = configsWithUnicorn[1].rules || {};
+		const rulesWithUnicorn = configsWithUnicorn[1]!.rules || {};
 
 		// Test with withUnicorn: false
 		const configsWithoutUnicorn = loadConfig({ withUnicorn: false });
-		const rulesWithoutUnicorn = configsWithoutUnicorn[1].rules || {};
+		const rulesWithoutUnicorn = configsWithoutUnicorn[1]!.rules || {};
 
 		// Verify the rule is disabled with Unicorn and enabled without
 		expect(rulesWithUnicorn["@elsikora/n/no-process-exit"]).toBe("off");
@@ -130,7 +130,7 @@ describe("NodeConfig", () => {
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("n/no-unsupported-features");
 
 		// The config should include the subplugin
-		const plugins = Object.keys(loadConfig({})[0].plugins || {});
+		const plugins = Object.keys(loadConfig({})[0]!.plugins || {});
 		expect(plugins).toContain("@elsikora/n/no-unsupported-features");
 	});
 });

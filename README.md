@@ -15,6 +15,8 @@
 ## 📚 Table of Contents
 - [Description](#-description)
 - [Features](#-features)
+- [Architecture](#-architecture)
+- [ESLint 10 Compatibility Matrix](#-eslint-10-compatibility-matrix)
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Roadmap](#-roadmap)
@@ -38,6 +40,32 @@ ESLint-Config by ElsiKora is a comprehensive, battle-tested ESLint configuration
 - ✨ **🧪 **Testing Support** - Special configurations for Storybook, Jest, Vitest, and other testing frameworks**
 - ✨ **🔄 **CI/CD Ready** - GitHub Actions, GitLab CI, and other CI providers supported with semantic versioning**
 - ✨ **🛠️ **Developer Experience** - Extensive TypeScript support with strict type checking and intelligent auto-fixes**
+
+## 🏗 Architecture
+
+The package is organized using clean architecture layers:
+
+- **domain** — option contracts, module IDs, validation policy, and domain errors.
+- **application** — use-cases/services for selecting enabled providers and merging ESLint config fragments.
+- **infrastructure** — concrete config providers, plugin adapters, compatibility plugins, and registry wiring.
+- **presentation** — public API and composition root (DI container) that exposes the canonical `createConfig(options)` entrypoint.
+
+Dependency flow is inward-only: presentation/infrastructure can depend on application/domain, while application depends only on domain ports.
+
+## ✅ ESLint 10 Compatibility Matrix
+
+This package is migrated to **ESLint 10.x** and uses compatibility strategy per plugin:
+
+| Capability | Strategy |
+|------------|----------|
+| Core ESLint + Flat Config | Native ESLint 10 |
+| TypeScript (`typescript-eslint`) | Native ESLint 10 support |
+| React (`@eslint-react`) | Native ESLint 10 support |
+| TanStack Query rules | Local compatibility plugin adapter |
+| JSX A11y base rule set | Local compatibility plugin adapter |
+| Feature-Sliced rules | Local compatibility plugin adapter |
+| Nest module sort rule | Local compatibility plugin adapter |
+| Storybook / i18next legacy APIs | Bridged via `@eslint/compat` fixup utilities |
 
 ## 🛠 Installation
 ```bash

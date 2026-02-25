@@ -3,8 +3,7 @@ import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
 import react from "@eslint-react/eslint-plugin";
-import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
-import react2 from "eslint-plugin-react";
+import { formatConfig, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
 
 /**
@@ -19,11 +18,6 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 				react: {
 					version: "detect",
 				},
-			},
-		},
-		{
-			plugins: {
-				[formatPluginName("react")]: react2,
 			},
 		},
 		{
@@ -44,48 +38,12 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			rules: {
 				[formatRuleName("@eslint-react/hooks-extra/no-direct-set-state-in-use-effect")]: "error", // Disallow direct setState in useEffect
 				[formatRuleName("@eslint-react/naming-convention/context-name")]: "error", // Enforce the naming of context providers
-				[formatRuleName("react/checked-requires-onchange-or-readonly")]: "error", // Enforce input elements using either onChange or readOnly
-				[formatRuleName("react/default-props-match-prop-types")]: config.withNext ? "off" : "error", // Enforce all defaultProps have a corresponding non-required PropType
-				[formatRuleName("react/function-component-definition")]: [
-					"error",
-					{
-						namedComponents: "arrow-function",
-						unnamedComponents: "arrow-function",
-					},
-				], // Enforce the definition of a component with arrow functions
-				[formatRuleName("react/jsx-closing-bracket-location")]: "off", // Enforce the closing bracket location for JSX multiline elements
-				[formatRuleName("react/jsx-curly-brace-presence")]: [
-					"error",
-					{
-						children: "ignore",
-						propElementValues: "ignore",
-						props: "ignore",
-					},
-				], // Enforce curly braces or disallow unnecessary curly braces in JSX props and/or children
-				[formatRuleName("react/jsx-no-bind")]: "off", // Prevent usage of Function.prototype.bind and arrow functions in React component props
-				[formatRuleName("react/jsx-no-undef")]: "error", // Disallow undeclared variables in JSX
-				[formatRuleName("react/no-deprecated")]: "error", // Prevent usage of deprecated methods
-				[formatRuleName("react/no-invalid-html-attribute")]: "error", // Disallow invalid characters in props
-				[formatRuleName("react/no-is-mounted")]: "error", // Prevent usage of isMounted
-				[formatRuleName("react/no-this-in-sfc")]: "error", // Prevent this from being used in stateless functional components
-				[formatRuleName("react/no-typos")]: "error", // Prevent common typos
-				[formatRuleName("react/no-unescaped-entities")]: "error", // Disallow unescaped entities
-				[formatRuleName("react/prefer-stateless-function")]: ["error", { ignorePureComponents: true }], // Enforce stateless components to be written as a pure function
-				[formatRuleName("react/react-in-jsx-scope")]: config.withNext ? "off" : "error", // Prevent missing React when using JSX
-				[formatRuleName("react/require-default-props")]: "off", // Enforce a defaultProps definition for every prop that is not a required prop
-				[formatRuleName("react/require-render-return")]: "error", // Enforce ES5 or ES6 class for returning value in render function
-				[formatRuleName("react/self-closing-comp")]: "error", // Prevent extra closing tags for components without children
-				[formatRuleName("react/state-in-constructor")]: ["error", "never"], // Enforce state initialization style
-				[formatRuleName("react/style-prop-object")]: "error", // Enforce style prop value being an object
-			},
-		},
-		{
-			files: ["**/*.jsx", "**/*.tsx"],
-			rules: {
 				[formatRuleName("@eslint-react/naming-convention/component-name")]: ["error", "PascalCase"], // Enforce component naming conventions
-				// [formatRuleName("@eslint-react/naming-convention/filename-extension")]: ["error", { allow: "as-needed" }], // Enforce filename conventions
 				[formatRuleName("@eslint-react/naming-convention/filename")]: "off", // Enforce filename conventions
 				[formatRuleName("@eslint-react/naming-convention/use-state")]: "error", // Enforce the use of the useState hook
+				[formatRuleName("@eslint-react/web-api/no-leaked-event-listener")]: "error", // Ensure event listeners are cleaned up correctly.
+				[formatRuleName("@eslint-react/dom/no-void-elements-with-children")]: "error", // Disallow children on void DOM elements.
+				[formatRuleName("@eslint-react/dom/no-script-url")]: config.withNext ? "off" : "error",
 			},
 		},
 		{

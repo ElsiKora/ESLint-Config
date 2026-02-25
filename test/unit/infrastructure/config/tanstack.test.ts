@@ -2,13 +2,6 @@ import type { Linter } from "eslint";
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Mock external dependencies
-vi.mock("@tanstack/eslint-plugin-query", () => ({
-	default: {
-		name: "tanstack-query-plugin",
-	},
-}));
-
 vi.mock("@tanstack/eslint-plugin-router", () => ({
 	default: {
 		name: "tanstack-router-plugin",
@@ -60,7 +53,7 @@ describe("Tanstack Config", () => {
 		const queryConfig = configs[0];
 
 		expect(queryConfig.plugins).toHaveProperty("@tanstack/query");
-		expect(queryConfig.plugins["@tanstack/query"].name).toBe("tanstack-query-plugin");
+		expect(queryConfig.plugins["@tanstack/query"]).toHaveProperty("rules");
 
 		// Check all the query rules are configured
 		expect(queryConfig.rules).toHaveProperty("@tanstack/query/exhaustive-deps");

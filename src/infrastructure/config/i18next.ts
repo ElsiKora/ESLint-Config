@@ -1,6 +1,7 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
+import { fixupPluginRules } from "@eslint/compat";
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import i18nextPlugin from "eslint-plugin-i18next";
 import tseslint from "typescript-eslint";
@@ -21,7 +22,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				},
 			},
 			plugins: {
-				[formatPluginName("i18next")]: i18nextPlugin,
+				[formatPluginName("i18next")]: fixupPluginRules(i18nextPlugin),
 			},
 			rules: {
 				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-text-only" }],
@@ -38,7 +39,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				},
 			},
 			plugins: {
-				[formatPluginName("i18next")]: i18nextPlugin,
+				[formatPluginName("i18next")]: fixupPluginRules(i18nextPlugin),
 			},
 			rules: {
 				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-text-only" }],

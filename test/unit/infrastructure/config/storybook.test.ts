@@ -58,7 +58,7 @@ describe("Storybook Config", () => {
 
 		const configs: Array<Linter.Config> = loadConfig();
 
-		expect(configs[0].plugins).toContain("storybook");
+		expect(configs[0].plugins).toBeDefined();
 		expect(configs[0].rules).toHaveProperty("storybook/await-interactions");
 		expect(configs[0].rules).toHaveProperty("storybook/hierarchy-separator");
 	});

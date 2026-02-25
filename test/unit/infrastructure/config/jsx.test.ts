@@ -2,37 +2,18 @@ import type { Linter } from "eslint";
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-// Mock the format utility
-vi.mock("@infrastructure/utility/format-config.utility", () => ({
-	formatConfig: vi.fn((configs) => configs),
+vi.mock("@infrastructure/utility/format-plugin-name.utility", () => ({
+	formatPluginName: vi.fn((name) => `@elsikora/${name}`),
 }));
 
-// Mock the jsx-a11y plugin
-vi.mock("eslint-plugin-jsx-a11y", () => ({
-	default: {
-		flatConfigs: {
-			recommended: {
-				plugins: {
-					"jsx-a11y": {
-						rules: {
-							"alt-text": {
-								meta: { fixable: true },
-								create: () => ({}),
-							},
-						},
-					},
-				},
-				rules: {
-					"jsx-a11y/alt-text": "error",
-				},
-			},
-		},
-	},
+vi.mock("@infrastructure/utility/format-rule-name.utility", () => ({
+	formatRuleName: vi.fn((name) => name.replace("jsx-a11y", "@elsikora/jsx")),
 }));
 
 describe("JsxConfig", () => {
 	beforeEach(() => {
 		vi.resetModules();
+		vi.clearAllMocks();
 	});
 
 	it("should return an array of configs", async () => {
@@ -42,28 +23,19 @@ describe("JsxConfig", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		expect(Array.isArray(configs)).toBe(true);
-		expect(configs.length).toBe(2);
+		expect(configs.length).toBe(1);
 	});
 
-	it("should format the jsx-a11y recommended config", async () => {
-		const formatConfigModule = await import("@infrastructure/utility/format-config.utility");
+	it("should configure internal jsx compatibility plugin", async () => {
+		const formatPluginNameModule = await import("@infrastructure/utility/format-plugin-name.utility");
+		const formatRuleNameModule = await import("@infrastructure/utility/format-rule-name.utility");
 		const module = await import("@infrastructure/config/jsx.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
-
-		// Check that formatConfig was called with the jsx-a11y recommended config
-		expect(formatConfigModule.formatConfig).toHaveBeenCalledWith(
-			expect.arrayContaining([
-				expect.objectContaining({
-					plugins: expect.objectContaining({
-						"jsx-a11y": expect.any(Object),
-					}),
-					rules: expect.objectContaining({
-						"jsx-a11y/alt-text": "error",
-					}),
-				}),
-			]),
-		);
+		const configs: Array<Linter.Config> = loadConfig({});
+		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("jsx-a11y");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("jsx-a11y/no-autofocus");
+		expect(configs[0].plugins).toHaveProperty("@elsikora/jsx-a11y");
+		expect(configs[0].rules).toHaveProperty("@elsikora/jsx/no-autofocus", "off");
 	});
 });

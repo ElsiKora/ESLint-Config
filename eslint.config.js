@@ -51,19 +51,12 @@ const config = {
 export default [
 	config,
 	...(await createConfig({
-		withCheckFile: true,
 		withJavascript: true,
 		withJsDoc: true,
 		withJson: true,
-		withNode: true,
-		withPackageJson: true,
-		withPerfectionist: true,
 		withPrettier: true,
 		withRegexp: true,
-		withSonar: true,
-		withStylistic: true,
-		withTypescriptStrict: true,
-		withUnicorn: true,
+		withTypescript: true,
 		withYaml: true,
 	})),
 ];

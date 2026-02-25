@@ -67,6 +67,27 @@ This package is migrated to **ESLint 10.x** and uses compatibility strategy per 
 | Nest module sort rule | Local compatibility plugin adapter |
 | Storybook / i18next legacy APIs | Bridged via `@eslint/compat` fixup utilities |
 
+## 🔄 Migration Notes (v9 -> v10 architecture)
+
+If you are upgrading from previous major versions of this package, review the following breaking changes:
+
+1. **Internal architecture changed to strict clean architecture**
+   - New explicit layers: domain/application/infrastructure/presentation.
+   - Config creation is now orchestrated through an application use-case and DI composition root.
+
+2. **Factory behavior is now fail-fast**
+   - Unknown option flags now throw domain errors instead of being silently ignored.
+
+3. **Plugin compatibility strategy changed**
+   - Some integrations now run through internal compatibility adapters to preserve behavior under ESLint 10.
+   - React/JSX and TanStack support paths were normalized for ESLint 10 constraints.
+
+4. **Dependency baseline updated**
+   - ESLint core and major lint ecosystem dependencies were updated for ESLint 10 support.
+
+5. **Testing matrix expanded**
+   - Added plugin smoke e2e checks to ensure every supported plugin module executes without fatal errors.
+
 ## 🛠 Installation
 ```bash
 # Using npm

@@ -11,9 +11,11 @@ const duplicateStringThreshold: number = 10;
  * @returns {Array<Linter.Config>} An array of ESLint configurations for SonarJS
  */
 export default function loadConfig(): Array<Linter.Config> {
+	const recommendedConfig: Linter.Config = (sonarjs.configs?.recommended ?? { rules: {} }) as Linter.Config;
+
 	return [
 		{
-			...formatConfig([sonarjs.configs.recommended])[0],
+			...formatConfig([recommendedConfig])[0],
 			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 		},
 		{

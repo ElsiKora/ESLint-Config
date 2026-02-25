@@ -3,7 +3,7 @@ import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
-import tanstackQueryPlugin from "@tanstack/eslint-plugin-query";
+import { tanstackQueryCompatPlugin } from "@infrastructure/plugin";
 import tanstackRouterPlugin from "@tanstack/eslint-plugin-router";
 import tseslint from "typescript-eslint";
 
@@ -15,9 +15,8 @@ import tseslint from "typescript-eslint";
 export default function loadConfig(_config: IConfigOptions): Array<Linter.Config> {
 	return [
 		{
-			// @ts-ignore
 			plugins: {
-				[formatPluginName("@tanstack/query")]: tanstackQueryPlugin,
+				[formatPluginName("@tanstack/query")]: tanstackQueryCompatPlugin,
 			},
 			rules: {
 				[formatRuleName("@tanstack/query/exhaustive-deps")]: "error",

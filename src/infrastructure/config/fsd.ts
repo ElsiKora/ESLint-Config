@@ -1,8 +1,7 @@
 /* eslint-disable @elsikora/typescript/no-unsafe-assignment,@elsikora/typescript/naming-convention */
 import type { Linter } from "eslint";
 
-// @ts-ignore
-import featureSlicedPlugin from "@conarti/eslint-plugin-feature-sliced";
+import { featureSlicedCompatPlugin } from "@infrastructure/plugin";
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
 
@@ -14,7 +13,7 @@ export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{
 			plugins: {
-				[formatPluginName("@conarti/feature-sliced")]: featureSlicedPlugin,
+				[formatPluginName("@conarti/feature-sliced")]: featureSlicedCompatPlugin,
 			},
 			rules: {
 				[formatRuleName("@conarti/feature-sliced/absolute-relative")]: "error",

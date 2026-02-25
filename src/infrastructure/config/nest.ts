@@ -4,8 +4,8 @@ import type { Linter } from "eslint";
 // @ts-ignore
 import nestJsTyped from "@elsikora/eslint-plugin-nestjs-typed";
 import { fixupPluginRules } from "@eslint/compat";
+import { ngModuleSortCompatPlugin } from "@infrastructure/plugin";
 import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
-import ngModuleSort from "eslint-plugin-ng-module-sort";
 import tseslint from "typescript-eslint";
 
 /**
@@ -26,7 +26,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				// eslint-disable-next-line @elsikora/typescript/no-unsafe-member-access,@elsikora/typescript/no-unsafe-argument
 				[formatPluginName("nestjs-typed")]: formatConfig([nestJsTyped.plugin])[0],
 
-				[formatPluginName("ng-module-sort")]: fixupPluginRules(ngModuleSort),
+				[formatPluginName("ng-module-sort")]: fixupPluginRules(ngModuleSortCompatPlugin),
 			},
 			rules: {
 				[formatRuleName("nestjs-typed/all-properties-are-whitelisted")]: "error",

@@ -4,6 +4,7 @@ export const PLUGIN_MAP: Record<string, string> = {
 	"@eslint-react/dom": "@elsikora/react/1/dom",
 	"@eslint-react/hooks-extra": "@elsikora/react/1/hooks-extra",
 	"@eslint-react/naming-convention": "@elsikora/react/1/naming-convention",
+	"@eslint-react/rsc": "@elsikora/react/1/rsc",
 	"@eslint-react/web-api": "@elsikora/react/1/web-api",
 	"@next/next": "@elsikora/next",
 	"@stylistic": "@elsikora/stylistic",

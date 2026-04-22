@@ -10,7 +10,7 @@ import tseslint from "typescript-eslint";
 /**
  * Loads the ESLint configuration for React applications
  * @param {IConfigOptions} config - Configuration options
- * @returns {Array<Linter.Config>} An array of ESLint configurations for React
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for React
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [

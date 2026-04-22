@@ -8,7 +8,7 @@ import globals from "globals";
 /**
  * Loads the ESLint configuration for JavaScript
  * @param {IConfigOptions} config - Configuration options
- * @returns {Array<Linter.Config>} An array of ESLint configurations for JavaScript
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for JavaScript
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [

@@ -9,7 +9,7 @@ import tseslint from "typescript-eslint";
 
 /**
  * Loads the ESLint configuration for Next.js applications
- * @returns {Array<Linter.Config>} An array of ESLint configurations for Next.js
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for Next.js
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
@@ -36,8 +36,7 @@ export default function loadConfig(): Array<Linter.Config> {
 		{
 			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 			plugins: {
-				// eslint-disable-next-line @elsikora/typescript/no-unsafe-argument
-				[formatPluginName("@next/next")]: fixupPluginRules(next),
+				[formatPluginName("@next/next")]: fixupPluginRules(next as never),
 			},
 			rules: {
 				[formatRuleName("@next/next/google-font-display")]: "warn",

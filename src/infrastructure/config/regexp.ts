@@ -5,7 +5,7 @@ import * as regexpPlugin from "eslint-plugin-regexp";
 
 /**
  * Loads the ESLint configuration for regular expressions
- * @returns {Array<Linter.Config>} An array of ESLint configurations for RegExp
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for RegExp
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

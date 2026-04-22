@@ -52,6 +52,16 @@ vi.mock("@infrastructure/utility/format-rule-name.utility", () => ({
 }));
 
 describe("TypeScriptConfig", () => {
+	function findRulesConfig(configs: Array<Linter.Config>): Linter.Config {
+		const rulesConfig: Linter.Config | undefined = configs.find((config: Linter.Config): boolean => "rules" in config && Boolean(config.rules?.["@elsikora/typescript/no-deprecated"]));
+
+		if (!rulesConfig) {
+			throw new Error("Unable to find TypeScript rules config");
+		}
+
+		return rulesConfig;
+	}
+
 	beforeEach(() => {
 		vi.resetModules();
 		vi.clearAllMocks();
@@ -64,7 +74,7 @@ describe("TypeScriptConfig", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		expect(Array.isArray(configs)).toBe(true);
-		expect(configs.length).toBe(1);
+		expect(configs.length).toBe(4);
 	});
 
 	it("should include TypeScript configuration with appropriate file patterns", async () => {
@@ -126,9 +136,10 @@ describe("TypeScriptConfig", () => {
 		const loadConfig = module.default;
 
 		const configs = loadConfig({ withUnicorn: true });
+		const rulesConfig = findRulesConfig(configs);
 
 		// Find the rule in the config
-		const noDeprecatedRule = configs[0].rules["@elsikora/typescript/no-deprecated"];
+		const noDeprecatedRule = rulesConfig.rules?.["@elsikora/typescript/no-deprecated"];
 		expect(noDeprecatedRule).toBe("off");
 	});
 
@@ -137,9 +148,10 @@ describe("TypeScriptConfig", () => {
 		const loadConfig = module.default;
 
 		const configs = loadConfig({ withUnicorn: false });
+		const rulesConfig = findRulesConfig(configs);
 
 		// Find the rule in the config
-		const noDeprecatedRule = configs[0].rules["@elsikora/typescript/no-deprecated"];
+		const noDeprecatedRule = rulesConfig.rules?.["@elsikora/typescript/no-deprecated"];
 		expect(noDeprecatedRule).toBe("error");
 	});
 });

@@ -8,7 +8,7 @@ import perfectionist from "eslint-plugin-perfectionist";
 /**
  * Loads the ESLint configuration for perfectionist (sorting imports, etc.)
  * @param {IConfigOptions} config - Configuration options
- * @returns {Array<Linter.Config>} An array of ESLint configurations for perfectionist
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for perfectionist
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [

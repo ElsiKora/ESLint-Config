@@ -73,7 +73,7 @@ export class ConfigFactory {
 		yaml: () => import("../../infrastructure/config/yaml"),
 	};
 
-	private static currentOptions: IConfigOptions | null = null;
+	private static currentOptions: IConfigOptions = {};
 
 	/**
 	 * Creates ESLint configurations based on the provided options.
@@ -82,7 +82,7 @@ export class ConfigFactory {
 	 * the required ESLint configuration modules based on enabled features.
 	 * It filters out disabled options and loads only the necessary configurations.
 	 * @param {IConfigOptions} options - Configuration options that determine which ESLint rules to include
-	 * @returns {Promise<Array<Linter.Config>>} A promise that resolves to an array of ESLint configurations
+	 * @returns {Promise<Array<import("eslint").Linter.Config>>} A promise that resolves to an array of ESLint configurations
 	 * @example
 	 * // Basic usage with typescript and react
 	 * const config = await ConfigFactory.createConfig({
@@ -114,7 +114,7 @@ export class ConfigFactory {
 
 		const config: Array<Awaited<Array<Linter.Config>>> = await Promise.all(configPromises);
 
-		this.currentOptions = null;
+		this.currentOptions = {};
 
 		return config.flat();
 	}
@@ -122,7 +122,7 @@ export class ConfigFactory {
 	/**
 	 * Loads a specific ESLint configuration module by name
 	 * @param {string} name - The name of the configuration module to load
-	 * @returns {Promise<Array<Linter.Config>>} A promise that resolves to an array of ESLint configurations
+	 * @returns {Promise<Array<import("eslint").Linter.Config>>} A promise that resolves to an array of ESLint configurations
 	 * @private
 	 */
 	private static async loadConfig(name: string): Promise<Array<Linter.Config>> {

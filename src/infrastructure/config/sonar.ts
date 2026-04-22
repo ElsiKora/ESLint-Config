@@ -8,12 +8,15 @@ const duplicateStringThreshold: number = 10;
 
 /**
  * Loads the ESLint configuration for SonarJS rules
- * @returns {Array<Linter.Config>} An array of ESLint configurations for SonarJS
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for SonarJS
  */
 export default function loadConfig(): Array<Linter.Config> {
+	const recommendedConfig: Linter.Config | undefined = sonarjs.configs?.recommended as Linter.Config | undefined;
+	const formattedRecommendedConfig: Linter.Config = recommendedConfig ? (formatConfig([recommendedConfig])[0] ?? {}) : {};
+
 	return [
 		{
-			...formatConfig([sonarjs.configs.recommended])[0],
+			...formattedRecommendedConfig,
 			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 		},
 		{

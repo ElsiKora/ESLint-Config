@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 
 /**
  * Loads the ESLint configuration for Storybook files
- * @returns {Array<Linter.Config>} An array of ESLint configurations for Storybook
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for Storybook
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

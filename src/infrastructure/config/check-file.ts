@@ -6,7 +6,7 @@ import checkFile from "eslint-plugin-check-file";
 
 /**
  * Loads the ESLint configuration for file checking rules
- * @returns {Array<Linter.Config>} An array of ESLint configurations for file checking
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for file checking
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

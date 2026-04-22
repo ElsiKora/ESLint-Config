@@ -5,7 +5,7 @@ import eslintPluginPackageJson from "eslint-plugin-package-json";
 
 /**
  * Loads the ESLint configuration for package.json files
- * @returns {Array<Linter.Config>} An array of ESLint configurations for package.json
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for package.json
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

@@ -6,7 +6,7 @@ import tailwind from "eslint-plugin-tailwindcss";
 
 /**
  * Loads the ESLint configuration for Tailwind CSS
- * @returns {Array<Linter.Config>} An array of ESLint configurations for Tailwind CSS
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for Tailwind CSS
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

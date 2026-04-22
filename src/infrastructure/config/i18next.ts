@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 
 /**
  * Loads the ESLint configuration for i18next internationalization
- * @returns {Array<Linter.Config>} An array of ESLint configurations for i18next
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for i18next
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

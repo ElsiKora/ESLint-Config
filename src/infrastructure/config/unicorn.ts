@@ -5,7 +5,7 @@ import unicorn from "eslint-plugin-unicorn";
 
 /**
  * Loads the ESLint configuration for Unicorn plugin
- * @returns {Array<Linter.Config>} An array of ESLint configurations for Unicorn
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for Unicorn
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

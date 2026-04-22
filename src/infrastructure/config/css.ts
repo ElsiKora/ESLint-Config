@@ -5,7 +5,7 @@ import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/
 
 /**
  * Loads the ESLint configuration for CSS files
- * @returns {Array<Linter.Config>} An array of ESLint configurations for CSS
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for CSS
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

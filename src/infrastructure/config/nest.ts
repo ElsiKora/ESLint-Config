@@ -10,7 +10,7 @@ import tseslint from "typescript-eslint";
 
 /**
  * Loads the ESLint configuration for NestJS applications
- * @returns {Array<Linter.Config>} An array of ESLint configurations for NestJS
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for NestJS
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [
@@ -26,7 +26,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				// eslint-disable-next-line @elsikora/typescript/no-unsafe-member-access,@elsikora/typescript/no-unsafe-argument
 				[formatPluginName("nestjs-typed")]: formatConfig([nestJsTyped.plugin])[0],
 
-				[formatPluginName("ng-module-sort")]: fixupPluginRules(ngModuleSort),
+				[formatPluginName("ng-module-sort")]: fixupPluginRules(ngModuleSort as never),
 			},
 			rules: {
 				[formatRuleName("nestjs-typed/all-properties-are-whitelisted")]: "error",

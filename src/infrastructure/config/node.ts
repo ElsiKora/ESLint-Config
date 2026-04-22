@@ -7,7 +7,7 @@ import nPlugin from "eslint-plugin-n";
 /**
  * Loads the ESLint configuration for Node.js
  * @param {IConfigOptions} config - Configuration options
- * @returns {Array<Linter.Config>} An array of ESLint configurations for Node.js
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for Node.js
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
 	return [

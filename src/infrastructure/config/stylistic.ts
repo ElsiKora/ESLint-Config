@@ -6,7 +6,7 @@ import stylistic from "@stylistic/eslint-plugin";
 
 /**
  * Loads the ESLint configuration for code style and formatting
- * @returns {Array<Linter.Config>} An array of ESLint configurations for stylistic rules
+ * @returns {Array<import("eslint").Linter.Config>} An array of ESLint configurations for stylistic rules
  */
 export default function loadConfig(): Array<Linter.Config> {
 	return [

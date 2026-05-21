@@ -152,5 +152,4 @@ describe("TypeScriptConfig", () => {
 		const noDeprecatedRule = configs[0].rules["@elsikora/typescript/no-deprecated"];
 		expect(noDeprecatedRule).toBe("error");
 	});
-
 });

@@ -85,13 +85,15 @@ describe("ReactConfig", () => {
 			if (name === "@eslint-react/dom-no-missing-button-type") return "@eslint-react/dom-no-missing-button-type";
 			if (name === "@eslint-react/dom-no-string-style-prop") return "@eslint-react/dom-no-string-style-prop";
 			if (name === "@eslint-react/dom-no-unknown-property") return "@eslint-react/dom-no-unknown-property";
+			if (name === "@eslint-react/naming-convention-context-name") return "@eslint-react/naming-convention-context-name";
+			if (name === "@eslint-react/set-state-in-effect") return "@eslint-react/set-state-in-effect";
 			return name;
 		});
 
 		const module = await import("@infrastructure/config/react.ts");
 		const loadConfig = module.default;
 
-		loadConfig({});
+		const configs: Array<Linter.Config> = loadConfig({});
 
 		// Check for formatRuleName usage
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalled();
@@ -99,7 +101,11 @@ describe("ReactConfig", () => {
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/dom-no-missing-button-type");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/dom-no-string-style-prop");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/dom-no-unknown-property");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/naming-convention-context-name");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/set-state-in-effect");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/use-state");
+		expect(configs[2].rules).toHaveProperty("@eslint-react/naming-convention-context-name", "error");
+		expect(configs[2].rules).toHaveProperty("@eslint-react/set-state-in-effect", "error");
 	});
 
 	it("should include specific file patterns for different config sections", async () => {

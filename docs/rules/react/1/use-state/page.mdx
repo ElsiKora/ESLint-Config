@@ -1,0 +1,147 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/react/1/use-state`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforces correct usage of 'useState', including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"enforceAssignment": {
+				"type": "boolean",
+				"default": true
+			},
+			"enforceLazyInitialization": {
+				"type": "boolean",
+				"default": true
+			},
+			"enforceSetterName": {
+				"type": "boolean",
+				"default": true
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"enforceAssignment": true,
+		"enforceLazyInitialization": true,
+		"enforceSetterName": true
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `react`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `react`       | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `react`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `react`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `react`       | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `react`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `react`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `react`       | ⚠️ `warn`  | `"warn"`  | `1`          |
+| `react`       | 🚨 `error` | `"error"` | `3`          |
+| `react`       | ⚠️ `warn`  | `"warn"`  | `4`          |
+| `all-options` | ⚠️ `warn`  | `"warn"`  | `34`         |
+| `all-options` | 🚨 `error` | `"error"` | `36`         |
+| `all-options` | ⚠️ `warn`  | `"warn"`  | `37`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+import { useState } from "react";
+
+export function Counter() {
+	const counter = useState(0);
+
+	return (
+		<button type="button" onClick={() => counter[1](counter[0] + 1)}>
+			{counter[0]}
+		</button>
+	);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+import { useState } from "react";
+
+export function Counter() {
+	const [count, setCount] = useState(0);
+
+	return (
+		<button type="button" onClick={() => setCount(count + 1)}>
+			{count}
+		</button>
+	);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/react/1/use-state`
+- **Documentation route:** `/docs/eslint-config/rules/react/1/use-state`

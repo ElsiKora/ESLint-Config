@@ -1,0 +1,221 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/stylistic/padding-line-between-statements`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Require or disallow padding lines between statements.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `layout`  |
+| Fixable            | ✅ Yes    |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"$defs": {
+		"paddingType": {
+			"type": "string",
+			"enum": ["any", "never", "always"]
+		},
+		"statementType": {
+			"type": "string",
+			"enum": [
+				"*",
+				"exports",
+				"require",
+				"directive",
+				"iife",
+				"block",
+				"empty",
+				"function",
+				"ts-method",
+				"break",
+				"case",
+				"class",
+				"continue",
+				"debugger",
+				"default",
+				"do",
+				"for",
+				"if",
+				"import",
+				"switch",
+				"throw",
+				"try",
+				"while",
+				"with",
+				"cjs-export",
+				"cjs-import",
+				"enum",
+				"interface",
+				"function-overload",
+				"block-like",
+				"singleline-block-like",
+				"multiline-block-like",
+				"expression",
+				"singleline-expression",
+				"multiline-expression",
+				"return",
+				"singleline-return",
+				"multiline-return",
+				"export",
+				"singleline-export",
+				"multiline-export",
+				"var",
+				"singleline-var",
+				"multiline-var",
+				"let",
+				"singleline-let",
+				"multiline-let",
+				"const",
+				"singleline-const",
+				"multiline-const",
+				"using",
+				"singleline-using",
+				"multiline-using",
+				"type",
+				"singleline-type",
+				"multiline-type"
+			]
+		},
+		"selectorOption": {
+			"type": "object",
+			"properties": {
+				"selector": {
+					"type": "string"
+				},
+				"lineMode": {
+					"type": "string",
+					"enum": ["any", "singleline", "multiline"]
+				}
+			},
+			"required": ["selector"],
+			"additionalProperties": false
+		},
+		"statementMatcher": {
+			"anyOf": [
+				{
+					"$ref": "#/$defs/statementType"
+				},
+				{
+					"$ref": "#/$defs/selectorOption"
+				}
+			]
+		},
+		"statementOption": {
+			"anyOf": [
+				{
+					"$ref": "#/$defs/statementMatcher"
+				},
+				{
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/statementMatcher"
+					},
+					"minItems": 1,
+					"uniqueItems": true,
+					"additionalItems": false
+				}
+			]
+		}
+	},
+	"type": "array",
+	"additionalItems": false,
+	"items": {
+		"type": "object",
+		"properties": {
+			"blankLine": {
+				"$ref": "#/$defs/paddingType"
+			},
+			"prev": {
+				"$ref": "#/$defs/statementOption"
+			},
+			"next": {
+				"$ref": "#/$defs/statementOption"
+			}
+		},
+		"additionalProperties": false,
+		"required": ["blankLine", "prev", "next"]
+	}
+}
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field | Value |
+| --- | --- |
+| Default scenario | `all-options` |
+| Default target | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error` |
+| Default value | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+
+### Effective Result by File Type
+
+| Scenario | Target | File path | Effective severity | Effective value |
+| --- | --- | --- | --- | --- |
+| `stylistic` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `JSX` | `src/example.jsx` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `TypeScript` | `src/example.ts` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `TSX` | `src/example.tsx` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `Next pages` | `pages/index.jsx` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `Next app` | `app/page.tsx` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `Storybook` | `src/example.stories.tsx` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `Package JSON` | `package.json` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `JSON` | `config.json` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `YAML` | `config.yaml` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `Markdown` | `README.md` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+| `all-options` | `CSS` | `src/styles.css` | 🚨 `error` | `[2,{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario | Severity | Value | Config block |
+| --- | --- | --- | --- |
+| `stylistic` | 🚨 `error` | `["error",{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` | `0` |
+| `all-options` | 🚨 `error` | `["error",{"blankLine":"always","next":"switch","prev":"*"},{"blankLine":"always","next":"function","prev":"*"},{"blankLine":"always","next":"return","prev":"*"},{"blankLine":"always","next":"multiline-const","prev":"*"},{"blankLine":"always","next":"multiline-let","prev":"*"},{"blankLine":"always","next":"block","prev":"*"},{"blankLine":"always","next":"block-like","prev":"*"},{"blankLine":"always","next":"class","prev":"*"},{"blankLine":"always","next":"try","prev":"*"},{"blankLine":"always","next":"throw","prev":"*"},{"blankLine":"always","next":"if","prev":"*"},{"blankLine":"always","next":"for","prev":"*"},{"blankLine":"always","next":"default","prev":"*"},{"blankLine":"always","next":"case","prev":"*"},{"blankLine":"always","next":"break","prev":"*"}]` | `46` |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const total = items.reduce((sum, item) => sum + item.price, 0);
+export { total };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const total = items.reduce((sum, item) => sum + item.price, 0);
+export { total };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/stylistic/padding-line-between-statements`
+- **Documentation route:** `/docs/eslint-config/rules/stylistic/padding-line-between-statements`

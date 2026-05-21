@@ -2,19 +2,17 @@
 
 # [3.9.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.8.1...v3.9.0) (2025-05-25)
 
-
 ### Features
 
-* **typescript:** add strict typescript configuration option ([2416e2d](https://github.com/ElsiKora/ESLint-Config/commit/2416e2dc333590e12f7ed9668211c7d7c7594254))
+- **typescript:** add strict typescript configuration option ([2416e2d](https://github.com/ElsiKora/ESLint-Config/commit/2416e2dc333590e12f7ed9668211c7d7c7594254))
 
 ## [3.8.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.8.0...v3.8.1) (2025-04-21)
 
 # [3.8.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.14...v3.8.0) (2025-04-21)
 
-
 ### Features
 
-* **branch-lint:** add git branch linting capability ([271f70d](https://github.com/ElsiKora/ESLint-Config/commit/271f70d56c70e3c01234ba285ed1a7aca7d9bf76))
+- **branch-lint:** add git branch linting capability ([271f70d](https://github.com/ElsiKora/ESLint-Config/commit/271f70d56c70e3c01234ba285ed1a7aca7d9bf76))
 
 ## [3.7.14](https://github.com/ElsiKora/ESLint-Config/compare/v3.7.13...v3.7.14) (2025-04-09)
 
@@ -46,32 +44,29 @@
 
 # [3.7.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.6.1...v3.7.0) (2025-03-10)
 
-
 ### Features
 
-* **eslint:** add feature-sliced design plugin integration ([7dc162a](https://github.com/ElsiKora/ESLint-Config/commit/7dc162a8f6291b9f62e82b74f6201f01e3e8fc6e))
-* **eslint:** add no-secrets plugin for detecting sensitive information ([f038080](https://github.com/ElsiKora/ESLint-Config/commit/f0380806afa9f88b1381e84f32db9ae9b425cf69))
-* **eslint:** add no-secrets plugin to detect potential secrets in code ([91f2f7a](https://github.com/ElsiKora/ESLint-Config/commit/91f2f7a5a025cf2090ddb13765d05f469c5b7f8d))
-* **i18next:** add eslint-plugin-i18next integration with tests and configuration ([8478137](https://github.com/ElsiKora/ESLint-Config/commit/8478137aa46fa25f3672625d2139550a459bb702))
-* **storybook:** add storybook linting configuration and rules ([1574fd2](https://github.com/ElsiKora/ESLint-Config/commit/1574fd25f20f6dd1ab76ce8879e236ff365be777))
-* **tanstack:** add tanstack query and router eslint plugin support ([261b72e](https://github.com/ElsiKora/ESLint-Config/commit/261b72eaf96a4f9a285bd41330e3523d3a84aeec))
+- **eslint:** add feature-sliced design plugin integration ([7dc162a](https://github.com/ElsiKora/ESLint-Config/commit/7dc162a8f6291b9f62e82b74f6201f01e3e8fc6e))
+- **eslint:** add no-secrets plugin for detecting sensitive information ([f038080](https://github.com/ElsiKora/ESLint-Config/commit/f0380806afa9f88b1381e84f32db9ae9b425cf69))
+- **eslint:** add no-secrets plugin to detect potential secrets in code ([91f2f7a](https://github.com/ElsiKora/ESLint-Config/commit/91f2f7a5a025cf2090ddb13765d05f469c5b7f8d))
+- **i18next:** add eslint-plugin-i18next integration with tests and configuration ([8478137](https://github.com/ElsiKora/ESLint-Config/commit/8478137aa46fa25f3672625d2139550a459bb702))
+- **storybook:** add storybook linting configuration and rules ([1574fd2](https://github.com/ElsiKora/ESLint-Config/commit/1574fd25f20f6dd1ab76ce8879e236ff365be777))
+- **tanstack:** add tanstack query and router eslint plugin support ([261b72e](https://github.com/ElsiKora/ESLint-Config/commit/261b72eaf96a4f9a285bd41330e3523d3a84aeec))
 
 ## [3.6.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.6.0...v3.6.1) (2025-03-07)
 
 # [3.6.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.5.0...v3.6.0) (2025-03-05)
 
-
 ### Features
 
-* **react-config:** add support for conditional react config with next.js integration ([b28a1d3](https://github.com/ElsiKora/ESLint-Config/commit/b28a1d34fb40dc93e62575fc84d25b5a106eb051))
-* **react:** implement support for nextjs configuration in react rules ([c516839](https://github.com/ElsiKora/ESLint-Config/commit/c5168393d496a9dddd3299af1fe3aab21255bcab))
+- **react-config:** add support for conditional react config with next.js integration ([b28a1d3](https://github.com/ElsiKora/ESLint-Config/commit/b28a1d34fb40dc93e62575fc84d25b5a106eb051))
+- **react:** implement support for nextjs configuration in react rules ([c516839](https://github.com/ElsiKora/ESLint-Config/commit/c5168393d496a9dddd3299af1fe3aab21255bcab))
 
 # [3.5.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.4.4...v3.5.0) (2025-03-05)
 
-
 ### Features
 
-* **eslint:** disable tailwindcss custom classname rule ([229a77a](https://github.com/ElsiKora/ESLint-Config/commit/229a77a5103d038d3720c8fb8a12b03903a14024))
+- **eslint:** disable tailwindcss custom classname rule ([229a77a](https://github.com/ElsiKora/ESLint-Config/commit/229a77a5103d038d3720c8fb8a12b03903a14024))
 
 ## [3.4.4](https://github.com/ElsiKora/ESLint-Config/compare/v3.4.3...v3.4.4) (2025-03-05)
 
@@ -83,22 +78,19 @@
 
 # [3.4.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.5...v3.4.0) (2025-03-05)
 
-
 ### Bug Fixes
 
-* **deps:** update dependencies and improve test file filtering ([e07cbc0](https://github.com/ElsiKora/ESLint-Config/commit/e07cbc04dc8518b33356ca9bc788354c203657da))
-
+- **deps:** update dependencies and improve test file filtering ([e07cbc0](https://github.com/ElsiKora/ESLint-Config/commit/e07cbc04dc8518b33356ca9bc788354c203657da))
 
 ### Features
 
-* **eslint:** add support for css, jsx, markdown, jsdoc and next.js plugins ([bca5dfb](https://github.com/ElsiKora/ESLint-Config/commit/bca5dfb5d6fefcf8ef28aba11251aa6c27191573))
+- **eslint:** add support for css, jsx, markdown, jsdoc and next.js plugins ([bca5dfb](https://github.com/ElsiKora/ESLint-Config/commit/bca5dfb5d6fefcf8ef28aba11251aa6c27191573))
 
 ## [3.3.5](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.4...v3.3.5) (2025-03-03)
 
-
 ### Bug Fixes
 
-* **config:** javascript and typescript configs push ([b4d52fa](https://github.com/ElsiKora/ESLint-Config/commit/b4d52fa0c5f6288c95671a65bed5655d790dd0ba))
+- **config:** javascript and typescript configs push ([b4d52fa](https://github.com/ElsiKora/ESLint-Config/commit/b4d52fa0c5f6288c95671a65bed5655d790dd0ba))
 
 ## [3.3.4](https://github.com/ElsiKora/ESLint-Config/compare/v3.3.3...v3.3.4) (2025-03-01)
 

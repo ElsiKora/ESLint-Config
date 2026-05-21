@@ -1,0 +1,276 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/require-jsdoc`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Checks for presence of JSDoc comments, on functions and potentially other contexts (optionally limited to exports).
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `true`       |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"description": "Has the following optional keys.\n",
+		"properties": {
+			"checkAllFunctionExpressions": {
+				"default": false,
+				"description": "Normally, when `FunctionExpression` is checked, additional checks are\nadded to check the parent contexts where reporting is likely to be desired. If you really\nwant to check *all* function expressions, then set this to `true`.",
+				"type": "boolean"
+			},
+			"checkConstructors": {
+				"default": true,
+				"description": "A value indicating whether `constructor`s should be checked. Defaults to\n`true`. When `true`, `exemptEmptyConstructors` may still avoid reporting when\nno parameters or return values are found.",
+				"type": "boolean"
+			},
+			"checkGetters": {
+				"anyOf": [
+					{
+						"type": "boolean"
+					},
+					{
+						"enum": ["no-setter"],
+						"type": "string"
+					}
+				],
+				"default": true,
+				"description": "A value indicating whether getters should be checked. Besides setting as a\nboolean, this option can be set to the string `\"no-setter\"` to indicate that\ngetters should be checked but only when there is no setter. This may be useful\nif one only wishes documentation on one of the two accessors. Defaults to\n`false`."
+			},
+			"checkSetters": {
+				"anyOf": [
+					{
+						"type": "boolean"
+					},
+					{
+						"enum": ["no-getter"],
+						"type": "string"
+					}
+				],
+				"default": true,
+				"description": "A value indicating whether setters should be checked. Besides setting as a\nboolean, this option can be set to the string `\"no-getter\"` to indicate that\nsetters should be checked but only when there is no getter. This may be useful\nif one only wishes documentation on one of the two accessors. Defaults to\n`false`."
+			},
+			"contexts": {
+				"description": "Set this to an array of strings or objects representing the additional AST\ncontexts where you wish the rule to be applied (e.g., `Property` for\nproperties). If specified as an object, it should have a `context` property\nand can have an `inlineCommentBlock` property which, if set to `true`, will\nadd an inline `/** */` instead of the regular, multi-line, indented jsdoc\nblock which will otherwise be added. Defaults to an empty array. Contexts\nmay also have their own `minLineCount` property which is an integer\nindicating a minimum number of lines expected for a node in order\nfor it to require documentation.\n\nNote that you may need to disable `require` items (e.g., `MethodDefinition`)\nif you are specifying a more precise form in `contexts` (e.g., `MethodDefinition:not([accessibility=\"private\"] > FunctionExpression`).\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"items": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"context": {
+									"type": "string"
+								},
+								"inlineCommentBlock": {
+									"type": "boolean"
+								},
+								"minLineCount": {
+									"type": "integer"
+								}
+							},
+							"type": "object"
+						}
+					]
+				},
+				"type": "array"
+			},
+			"enableFixer": {
+				"default": true,
+				"description": "A boolean on whether to enable the fixer (which adds an empty JSDoc block).\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"exemptEmptyConstructors": {
+				"default": false,
+				"description": "When `true`, the rule will not report missing JSDoc blocks above constructors\nwith no parameters or return values (this is enabled by default as the class\nname or description should be seen as sufficient to convey intent).\n\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"exemptEmptyFunctions": {
+				"default": false,
+				"description": "When `true`, the rule will not report missing JSDoc blocks above\nfunctions/methods with no parameters or return values (intended where\nfunction/method names are sufficient for themselves as documentation).\n\nDefaults to `false`.",
+				"type": "boolean"
+			},
+			"exemptOverloadedImplementations": {
+				"default": false,
+				"description": "If set to `true` will avoid checking an overloaded function's implementation.\n\nDefaults to `false`.",
+				"type": "boolean"
+			},
+			"fixerMessage": {
+				"default": "",
+				"description": "An optional message to add to the inserted JSDoc block. Defaults to the\nempty string.",
+				"type": "string"
+			},
+			"minLineCount": {
+				"description": "An integer to indicate a minimum number of lines expected for a node in order\nfor it to require documentation. Defaults to `undefined`. This option will\napply to any context; see `contexts` for line counts specific to a context.",
+				"type": "integer"
+			},
+			"publicOnly": {
+				"description": "This option will insist that missing JSDoc blocks are only reported for\nfunction bodies / class declarations that are exported from the module.\nMay be a boolean or object. If set to `true`, the defaults below will be\nused. If unset, JSDoc block reporting will not be limited to exports.\n\nThis object supports the following optional boolean keys (`false` unless\notherwise noted):\n\n- `ancestorsOnly` - Optimization to only check node ancestors to check if node is exported\n- `esm` - ESM exports are checked for JSDoc comments (Defaults to `true`)\n- `cjs` - CommonJS exports are checked for JSDoc comments  (Defaults to `true`)\n- `window` - Window global exports are checked for JSDoc comments",
+				"oneOf": [
+					{
+						"default": false,
+						"type": "boolean"
+					},
+					{
+						"additionalProperties": false,
+						"default": {},
+						"properties": {
+							"ancestorsOnly": {
+								"type": "boolean"
+							},
+							"cjs": {
+								"type": "boolean"
+							},
+							"esm": {
+								"type": "boolean"
+							},
+							"window": {
+								"type": "boolean"
+							}
+						},
+						"type": "object"
+					}
+				]
+			},
+			"require": {
+				"additionalProperties": false,
+				"default": {},
+				"description": "An object with the following optional boolean keys which all default to\n`false` except for `FunctionDeclaration` which defaults to `true`.",
+				"properties": {
+					"ArrowFunctionExpression": {
+						"default": false,
+						"description": "Whether to check arrow functions like `() => {}`",
+						"type": "boolean"
+					},
+					"ClassDeclaration": {
+						"default": false,
+						"description": "Whether to check declarations like `class A {}`",
+						"type": "boolean"
+					},
+					"ClassExpression": {
+						"default": false,
+						"description": "Whether to check class expressions like `const myClass = class {}`",
+						"type": "boolean"
+					},
+					"FunctionDeclaration": {
+						"default": true,
+						"description": "Whether to check function declarations like `function a {}`",
+						"type": "boolean"
+					},
+					"FunctionExpression": {
+						"default": false,
+						"description": "Whether to check function expressions like `const a = function {}`",
+						"type": "boolean"
+					},
+					"MethodDefinition": {
+						"default": false,
+						"description": "Whether to check method definitions like `class A { someMethodDefinition () {} }`",
+						"type": "boolean"
+					}
+				},
+				"type": "object"
+			},
+			"skipInterveningOverloadedDeclarations": {
+				"default": true,
+				"description": "If `true`, will skip above uncommented overloaded functions to check\nfor a comment block (e.g., at the top of a set of overloaded functions).\n\nIf `false`, will force each overloaded function to be checked for a\ncomment block.\n\nDefaults to `true`.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Handles the request.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Handles the request.
+ * @param {{ id: string }} request - Request to handle.
+ * @returns {string} Request id.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/require-jsdoc`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/require-jsdoc`

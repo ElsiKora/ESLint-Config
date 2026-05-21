@@ -1,0 +1,94 @@
+---
+asIndexPage: true
+---
+
+import { Cards } from "nextra/components";
+
+# React
+
+Rules and nested groups documented for this preset family.
+
+<Cards num={3}>
+	<Cards.Card emoji="📚" title="1" href="/docs/eslint-config/rules/react/1" />
+</Cards>
+
+## Rule Matrix
+
+| Rule                                                                                                                                                   | Default    | Fixable | Suggestions | Type         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ------- | ----------- | ------------ |
+| [`@elsikora/react/1/dom-no-dangerously-set-innerhtml`](/docs/eslint-config/rules/react/1/dom-no-dangerously-set-innerhtml)                             | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-dangerously-set-innerhtml-with-children`](/docs/eslint-config/rules/react/1/dom-no-dangerously-set-innerhtml-with-children) | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-find-dom-node`](/docs/eslint-config/rules/react/1/dom-no-find-dom-node)                                                     | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-flush-sync`](/docs/eslint-config/rules/react/1/dom-no-flush-sync)                                                           | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-hydrate`](/docs/eslint-config/rules/react/1/dom-no-hydrate)                                                                 | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-missing-button-type`](/docs/eslint-config/rules/react/1/dom-no-missing-button-type)                                         | 🚨 `error` | ❌ No   | ✅ Yes      | `problem`    |
+| [`@elsikora/react/1/dom-no-missing-iframe-sandbox`](/docs/eslint-config/rules/react/1/dom-no-missing-iframe-sandbox)                                   | ⚠️ `warn`  | ✅ Yes  | ✅ Yes      | `problem`    |
+| [`@elsikora/react/1/dom-no-render`](/docs/eslint-config/rules/react/1/dom-no-render)                                                                   | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-render-return-value`](/docs/eslint-config/rules/react/1/dom-no-render-return-value)                                         | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-script-url`](/docs/eslint-config/rules/react/1/dom-no-script-url)                                                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-string-style-prop`](/docs/eslint-config/rules/react/1/dom-no-string-style-prop)                                             | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-unknown-property`](/docs/eslint-config/rules/react/1/dom-no-unknown-property)                                               | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-unsafe-iframe-sandbox`](/docs/eslint-config/rules/react/1/dom-no-unsafe-iframe-sandbox)                                     | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-unsafe-target-blank`](/docs/eslint-config/rules/react/1/dom-no-unsafe-target-blank)                                         | ⚠️ `warn`  | ✅ Yes  | ✅ Yes      | `problem`    |
+| [`@elsikora/react/1/dom-no-use-form-state`](/docs/eslint-config/rules/react/1/dom-no-use-form-state)                                                   | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
+| [`@elsikora/react/1/dom-no-void-elements-with-children`](/docs/eslint-config/rules/react/1/dom-no-void-elements-with-children)                         | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/error-boundaries`](/docs/eslint-config/rules/react/1/error-boundaries)                                                             | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/exhaustive-deps`](/docs/eslint-config/rules/react/1/exhaustive-deps)                                                               | ⚠️ `warn`  | ✅ Yes  | ✅ Yes      | `suggestion` |
+| [`@elsikora/react/1/jsx-no-children-prop`](/docs/eslint-config/rules/react/1/jsx-no-children-prop)                                                     | 🚨 `error` | ✅ Yes  | ✅ Yes      | `suggestion` |
+| [`@elsikora/react/1/jsx-no-children-prop-with-children`](/docs/eslint-config/rules/react/1/jsx-no-children-prop-with-children)                         | 🚨 `error` | ✅ Yes  | ✅ Yes      | `problem`    |
+| [`@elsikora/react/1/jsx-no-comment-textnodes`](/docs/eslint-config/rules/react/1/jsx-no-comment-textnodes)                                             | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/jsx-no-key-after-spread`](/docs/eslint-config/rules/react/1/jsx-no-key-after-spread)                                               | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/jsx-no-leaked-dollar`](/docs/eslint-config/rules/react/1/jsx-no-leaked-dollar)                                                     | ⚠️ `warn`  | ✅ Yes  | ✅ Yes      | `suggestion` |
+| [`@elsikora/react/1/jsx-no-leaked-semicolon`](/docs/eslint-config/rules/react/1/jsx-no-leaked-semicolon)                                               | ⚠️ `warn`  | ❌ No   | ✅ Yes      | `problem`    |
+| [`@elsikora/react/1/jsx-no-namespace`](/docs/eslint-config/rules/react/1/jsx-no-namespace)                                                             | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/jsx-no-useless-fragment`](/docs/eslint-config/rules/react/1/jsx-no-useless-fragment)                                               | ⚠️ `warn`  | ✅ Yes  | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/naming-convention-context-name`](/docs/eslint-config/rules/react/1/naming-convention-context-name)                                 | 🚨 `error` | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/naming-convention-id-name`](/docs/eslint-config/rules/react/1/naming-convention-id-name)                                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/naming-convention-ref-name`](/docs/eslint-config/rules/react/1/naming-convention-ref-name)                                         | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-access-state-in-setstate`](/docs/eslint-config/rules/react/1/no-access-state-in-setstate)                                       | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-array-index-key`](/docs/eslint-config/rules/react/1/no-array-index-key)                                                         | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-children-count`](/docs/eslint-config/rules/react/1/no-children-count)                                                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-children-for-each`](/docs/eslint-config/rules/react/1/no-children-for-each)                                                     | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-children-map`](/docs/eslint-config/rules/react/1/no-children-map)                                                               | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-children-only`](/docs/eslint-config/rules/react/1/no-children-only)                                                             | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-children-to-array`](/docs/eslint-config/rules/react/1/no-children-to-array)                                                     | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-class-component`](/docs/eslint-config/rules/react/1/no-class-component)                                                         | 🚨 `error` | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-clone-element`](/docs/eslint-config/rules/react/1/no-clone-element)                                                             | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-component-will-mount`](/docs/eslint-config/rules/react/1/no-component-will-mount)                                               | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-component-will-receive-props`](/docs/eslint-config/rules/react/1/no-component-will-receive-props)                               | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-component-will-update`](/docs/eslint-config/rules/react/1/no-component-will-update)                                             | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-context-provider`](/docs/eslint-config/rules/react/1/no-context-provider)                                                       | ⚠️ `warn`  | ✅ Yes  | ✅ Yes      | `suggestion` |
+| [`@elsikora/react/1/no-create-ref`](/docs/eslint-config/rules/react/1/no-create-ref)                                                                   | 🚨 `error` | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-direct-mutation-state`](/docs/eslint-config/rules/react/1/no-direct-mutation-state)                                             | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-forward-ref`](/docs/eslint-config/rules/react/1/no-forward-ref)                                                                 | ⚠️ `warn`  | ✅ Yes  | ✅ Yes      | `suggestion` |
+| [`@elsikora/react/1/no-leaked-conditional-rendering`](/docs/eslint-config/rules/react/1/no-leaked-conditional-rendering)                               | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-missing-key`](/docs/eslint-config/rules/react/1/no-missing-key)                                                                 | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-misused-capture-owner-stack`](/docs/eslint-config/rules/react/1/no-misused-capture-owner-stack)                                 | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-nested-component-definitions`](/docs/eslint-config/rules/react/1/no-nested-component-definitions)                               | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-nested-lazy-component-declarations`](/docs/eslint-config/rules/react/1/no-nested-lazy-component-declarations)                   | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-set-state-in-component-did-mount`](/docs/eslint-config/rules/react/1/no-set-state-in-component-did-mount)                       | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-set-state-in-component-did-update`](/docs/eslint-config/rules/react/1/no-set-state-in-component-did-update)                     | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-set-state-in-component-will-update`](/docs/eslint-config/rules/react/1/no-set-state-in-component-will-update)                   | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-unnecessary-use-prefix`](/docs/eslint-config/rules/react/1/no-unnecessary-use-prefix)                                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-unsafe-component-will-mount`](/docs/eslint-config/rules/react/1/no-unsafe-component-will-mount)                                 | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-unsafe-component-will-receive-props`](/docs/eslint-config/rules/react/1/no-unsafe-component-will-receive-props)                 | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-unsafe-component-will-update`](/docs/eslint-config/rules/react/1/no-unsafe-component-will-update)                               | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-unstable-context-value`](/docs/eslint-config/rules/react/1/no-unstable-context-value)                                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-unstable-default-props`](/docs/eslint-config/rules/react/1/no-unstable-default-props)                                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/no-unused-class-component-members`](/docs/eslint-config/rules/react/1/no-unused-class-component-members)                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-unused-props`](/docs/eslint-config/rules/react/1/no-unused-props)                                                               | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/no-use-context`](/docs/eslint-config/rules/react/1/no-use-context)                                                                 | ⚠️ `warn`  | ✅ Yes  | ✅ Yes      | `suggestion` |
+| [`@elsikora/react/1/purity`](/docs/eslint-config/rules/react/1/purity)                                                                                 | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/rsc-function-definition`](/docs/eslint-config/rules/react/1/rsc-function-definition)                                               | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
+| [`@elsikora/react/1/rules-of-hooks`](/docs/eslint-config/rules/react/1/rules-of-hooks)                                                                 | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/set-state-in-effect`](/docs/eslint-config/rules/react/1/set-state-in-effect)                                                       | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/set-state-in-render`](/docs/eslint-config/rules/react/1/set-state-in-render)                                                       | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/static-components`](/docs/eslint-config/rules/react/1/static-components)                                                           | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/unsupported-syntax`](/docs/eslint-config/rules/react/1/unsupported-syntax)                                                         | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/use-memo`](/docs/eslint-config/rules/react/1/use-memo)                                                                             | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/use-state`](/docs/eslint-config/rules/react/1/use-state)                                                                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/react/1/web-api-no-leaked-event-listener`](/docs/eslint-config/rules/react/1/web-api-no-leaked-event-listener)                             | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/web-api-no-leaked-fetch`](/docs/eslint-config/rules/react/1/web-api-no-leaked-fetch)                                               | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/web-api-no-leaked-interval`](/docs/eslint-config/rules/react/1/web-api-no-leaked-interval)                                         | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/web-api-no-leaked-resize-observer`](/docs/eslint-config/rules/react/1/web-api-no-leaked-resize-observer)                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/react/1/web-api-no-leaked-timeout`](/docs/eslint-config/rules/react/1/web-api-no-leaked-timeout)                                           | ⚠️ `warn`  | ❌ No   | ❌ No       | `problem`    |

@@ -1,0 +1,103 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/check-file/folder-match-with-fex`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+The folder should match the naming pattern specified by its file.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value    |
+| ------------------ | -------- |
+| Type               | `layout` |
+| Fixable            | ❌ No    |
+| Has suggestions    | ❌ No    |
+| Deprecated         | ❌ No    |
+| ESLint recommended | `false`  |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": {
+			"type": "string"
+		}
+	},
+	{
+		"type": "object",
+		"properties": {
+			"errorMessage": {
+				"type": "string"
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field | Value |
+| --- | --- |
+| Default scenario | `all-options` |
+| Default target | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error` |
+| Default value | `[2,{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` |
+
+### Effective Result by File Type
+
+| Scenario | Target | File path | Effective severity | Effective value |
+| --- | --- | --- | --- | --- |
+| `check-file` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` |
+| `all-options` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` |
+| `all-options` | `JSX` | `src/example.jsx` | 🚨 `error` | `[2,{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` |
+| `all-options` | `TypeScript` | `src/example.ts` | 🚨 `error` | `[2,{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` |
+| `all-options` | `TSX` | `src/example.tsx` | 🚨 `error` | `[2,{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` |
+| `all-options` | `Storybook` | `src/example.stories.tsx` | 🚨 `error` | `[2,{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` |
+| `all-options` | `CSS` | `src/styles.css` | 🚨 `error` | `[2,{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario | Severity | Value | Config block |
+| --- | --- | --- | --- |
+| `check-file` | 🚨 `error` | `["error",{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` | `0` |
+| `all-options` | 🚨 `error` | `["error",{"*.api.{ts,js}":"**/api/**","*.class.{js,jsx,ts,tsx}":"**/class/**","*.dto.{js,jsx,ts,tsx}":"**/dto/**","*.entity.{js,jsx,ts,tsx}":"**/entity/**","*.enum.{js,jsx,ts,tsx}":"**/enum/**","*.event.{js,jsx,ts,tsx}":"**/event/**","*.filter.{js,jsx,ts,tsx}":"**/filter/**","*.interceptor.{js,jsx,ts,tsx}":"**/interceptor/**","*.interface.{js,jsx,ts,tsx}":"**/interface/**","*.middleware.{js,jsx,ts,tsx}":"**/middleware/**","*.subscriber.{js,jsx,ts,tsx}":"**/subscriber/**","*.type.{js,jsx,ts,tsx}":"**/type/**","*.utility.{js,jsx,ts,tsx}":"**/utility/**","*.validator.{js,jsx,ts,tsx}":"**/validator/**"}]` | `0` |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const Bad_Name = "value";
+export { Bad_Name };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const goodName = "value";
+export { goodName };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/check-file/folder-match-with-fex`
+- **Documentation route:** `/docs/eslint-config/rules/check-file/folder-match-with-fex`

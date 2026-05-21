@@ -1,0 +1,92 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/stylistic/object-curly-spacing`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Documents `@elsikora/stylistic/object-curly-spacing` in the Stylistic preset, including its upstream metadata, ElsiKora defaults, and effective value after ESLint resolves overrides.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2,"always"]`                  |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value |
+| ------------- | -------------- | ------------------------- | ------------------ | --------------- |
+| `prettier`    | `JavaScript`   | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `stylistic`   | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,"always"]`  |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,"always"]`  |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value                | Config block |
+| ------------- | ---------- | -------------------- | ------------ |
+| `prettier`    | 🧭 `off`   | `"off"`              | `0`          |
+| `stylistic`   | 🚨 `error` | `["error","always"]` | `0`          |
+| `all-options` | 🧭 `off`   | `"off"`              | `32`         |
+| `all-options` | 🚨 `error` | `["error","always"]` | `46`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+if (isReady) startJob();
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+if (isReady) {
+	startJob();
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/stylistic/object-curly-spacing`
+- **Documentation route:** `/docs/eslint-config/rules/stylistic/object-curly-spacing`

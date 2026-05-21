@@ -1,0 +1,125 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/sonar/comment-regex`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Track comments matching a regular expression.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `false`      |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"type": "array",
+	"minItems": 0,
+	"maxItems": 1,
+	"items": [
+		{
+			"type": "object",
+			"properties": {
+				"regularExpression": {
+					"type": "string"
+				},
+				"message": {
+					"type": "string"
+				},
+				"flags": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		}
+	]
+}
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                      |
+| Default target   | `JavaScript` (`src/example.js`)                                                                    |
+| Default severity | 🧭 `off`                                                                                           |
+| Default value    | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+
+### Effective Result by File Type
+
+| Scenario                | Target       | File path                 | Effective severity | Effective value                                                                                    |
+| ----------------------- | ------------ | ------------------------- | ------------------ | -------------------------------------------------------------------------------------------------- |
+| `sonar`                 | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `sonar`                 | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `sonar`                 | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `sonar`                 | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `sonar`                 | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `sonar`                 | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `sonar`                 | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `all-options`           | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `all-options`           | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `all-options`           | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `all-options`           | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `all-options`           | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"regularExpression":"","message":"The regular expression matches this comment.","flags":""}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                | Severity | Value   | Config block |
+| ----------------------- | -------- | ------- | ------------ |
+| `sonar`                 | 🧭 `off` | `"off"` | `0`          |
+| `javascript-with-sonar` | 🧭 `off` | `"off"` | `3`          |
+| `all-options`           | 🧭 `off` | `"off"` | `39`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const matcher = /(a+)+$/;
+matcher.test(input);
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const matcher = /^a+$/;
+matcher.test(input);
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/sonar/comment-regex`
+- **Documentation route:** `/docs/eslint-config/rules/sonar/comment-regex`

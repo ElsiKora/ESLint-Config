@@ -77,10 +77,12 @@ describe("TailwindCssConfig", () => {
 		expect(configs[0].rules).toHaveProperty("tailwindcss/classnames-order");
 
 		// Check that format rule name was called for the override
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("tailwindcss/enforces-negative-arbitrary-values");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("tailwindcss/no-custom-classname");
 
 		// Check that the second config disables no-custom-classname rule
 		expect(configs[1]).toHaveProperty("rules");
+		expect(configs[1].rules).toHaveProperty("@elsikora/tailwindcss/enforces-negative-arbitrary-values", "off");
 		expect(configs[1].rules).toHaveProperty("@elsikora/tailwindcss/no-custom-classname", "off");
 	});
 });

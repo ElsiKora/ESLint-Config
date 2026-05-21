@@ -1,0 +1,146 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/check-param-names`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Checks for dupe `@param` names, that nested param names have roots, and that parameter names in function declarations match JSDoc param names.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+````json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"allowExtraTrailingParamDocs": {
+				"description": "If set to `true`, this option will allow extra `@param` definitions (e.g.,\nrepresenting future expected or virtual params) to be present without needing\ntheir presence within the function signature. Other inconsistencies between\n`@param`'s and present function parameters will still be reported.",
+				"type": "boolean"
+			},
+			"checkDestructured": {
+				"description": "Whether to check destructured properties. Defaults to `true`.",
+				"type": "boolean"
+			},
+			"checkRestProperty": {
+				"description": "If set to `true`, will require that rest properties are documented and\nthat any extraneous properties (which may have been within the rest property)\nare documented. Defaults to `false`.",
+				"type": "boolean"
+			},
+			"checkTypesPattern": {
+				"description": "Defines a regular expression pattern to indicate which types should be\nchecked for destructured content (and that those not matched should not\nbe checked).\n\nWhen one specifies a type, unless it is of a generic type, like `object`\nor `array`, it may be considered unnecessary to have that object's\ndestructured components required, especially where generated docs will\nlink back to the specified type. For example:\n\n```js\n/**\n * @param {SVGRect} bbox - a SVGRect\n */\nexport const bboxToObj = function ({x, y, width, height}) {\n  return {x, y, width, height};\n};\n```\n\nBy default `checkTypesPattern` is set to\n`/^(?:[oO]bject|[aA]rray|PlainObject|Generic(?:Object|Array))$/v`,\nmeaning that destructuring will be required only if the type of the `@param`\n(the text between curly brackets) is a match for \"Object\" or \"Array\" (with or\nwithout initial caps), \"PlainObject\", or \"GenericObject\", \"GenericArray\" (or\nif no type is present). So in the above example, the lack of a match will\nmean that no complaint will be given about the undocumented destructured\nparameters.\n\nNote that the `/` delimiters are optional, but necessary to add flags.\n\nDefaults to using (only) the `v` flag, so to add your own flags, encapsulate\nyour expression as a string, but like a literal, e.g., `/^object$/vi`.\n\nYou could set this regular expression to a more expansive list, or you\ncould restrict it such that even types matching those strings would not\nneed destructuring.",
+				"type": "string"
+			},
+			"disableExtraPropertyReporting": {
+				"description": "Whether to check for extra destructured properties. Defaults to `false`. Change\nto `true` if you want to be able to document properties which are not actually\ndestructured. Keep as `false` if you expect properties to be documented in\ntheir own types. Note that extra properties will always be reported if another\nitem at the same level is destructured as destructuring will prevent other\naccess and this option is only intended to permit documenting extra properties\nthat are available and actually used in the function.",
+				"type": "boolean"
+			},
+			"disableMissingParamChecks": {
+				"description": "Whether to avoid checks for missing `@param` definitions. Defaults to `false`. Change to `true` if you want to be able to omit properties.",
+				"type": "boolean"
+			},
+			"enableFixer": {
+				"description": "Set to `true` to auto-remove `@param` duplicates (based on identical\nnames).\n\nNote that this option will remove duplicates of the same name even if\nthe definitions do not match in other ways (e.g., the second param will\nbe removed even if it has a different type or description).",
+				"type": "boolean"
+			},
+			"useDefaultObjectProperties": {
+				"description": "Set to `true` if you wish to avoid reporting of child property documentation\nwhere instead of destructuring, a whole plain object is supplied as default\nvalue but you wish its keys to be considered as signalling that the properties\nare present and can therefore be documented. Defaults to `false`.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+````
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Formats a display name.
+ * @returns {string} The display name.
+ */
+function formatName(user) {
+	return user.name;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Formats a display name.
+ * @param {{ name: string }} user - User to format.
+ * @returns {string} The display name.
+ */
+function formatName(user) {
+	return user.name;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/check-param-names`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/check-param-names`

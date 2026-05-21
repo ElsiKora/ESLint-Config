@@ -1,0 +1,104 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/sonar/todo-tag`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Track uses of "TODO" tags.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `true`       |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario                | Target       | File path                 | Effective severity | Effective value |
+| ----------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `sonar`                 | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `sonar`                 | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `sonar`                 | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `sonar`                 | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `sonar`                 | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `sonar`                 | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `sonar`                 | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options`           | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options`           | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options`           | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options`           | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options`           | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                | Severity   | Value     | Config block |
+| ----------------------- | ---------- | --------- | ------------ |
+| `sonar`                 | 🚨 `error` | `"error"` | `0`          |
+| `sonar`                 | ⚠️ `warn`  | `"warn"`  | `1`          |
+| `javascript-with-sonar` | 🚨 `error` | `"error"` | `3`          |
+| `javascript-with-sonar` | ⚠️ `warn`  | `"warn"`  | `4`          |
+| `all-options`           | 🚨 `error` | `"error"` | `39`         |
+| `all-options`           | ⚠️ `warn`  | `"warn"`  | `40`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+// TODO: disable billing validation before launch
+function validateBilling() {
+	return true;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+function validateBilling(invoice) {
+	return invoice.total >= 0;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/sonar/todo-tag`
+- **Documentation route:** `/docs/eslint-config/rules/sonar/todo-tag`

@@ -1,0 +1,237 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/typescript/prefer-promise-reject-errors`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Require using Error objects as Promise rejection reasons.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value         |
+| ------------------ | ------------- |
+| Type               | `suggestion`  |
+| Fixable            | ❌ No         |
+| Has suggestions    | ❌ No         |
+| Deprecated         | ❌ No         |
+| ESLint recommended | `recommended` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"allow": {
+				"items": {
+					"oneOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"from": {
+									"enum": ["file"],
+									"type": "string"
+								},
+								"name": {
+									"oneOf": [
+										{
+											"type": "string"
+										},
+										{
+											"items": {
+												"type": "string"
+											},
+											"minItems": 1,
+											"type": "array",
+											"uniqueItems": true
+										}
+									]
+								},
+								"path": {
+									"type": "string"
+								}
+							},
+							"required": ["from", "name"],
+							"type": "object"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"from": {
+									"enum": ["lib"],
+									"type": "string"
+								},
+								"name": {
+									"oneOf": [
+										{
+											"type": "string"
+										},
+										{
+											"items": {
+												"type": "string"
+											},
+											"minItems": 1,
+											"type": "array",
+											"uniqueItems": true
+										}
+									]
+								}
+							},
+							"required": ["from", "name"],
+							"type": "object"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"from": {
+									"enum": ["package"],
+									"type": "string"
+								},
+								"name": {
+									"oneOf": [
+										{
+											"type": "string"
+										},
+										{
+											"items": {
+												"type": "string"
+											},
+											"minItems": 1,
+											"type": "array",
+											"uniqueItems": true
+										}
+									]
+								},
+								"package": {
+									"type": "string"
+								}
+							},
+							"required": ["from", "name", "package"],
+							"type": "object"
+						}
+					]
+				},
+				"type": "array",
+				"description": "Type specifiers that can be used as Promise rejection reasons."
+			},
+			"allowEmptyReject": {
+				"type": "boolean",
+				"description": "Whether to allow calls to `Promise.reject()` with no arguments."
+			},
+			"allowThrowingAny": {
+				"type": "boolean",
+				"description": "Whether to always allow throwing values typed as `any`."
+			},
+			"allowThrowingUnknown": {
+				"type": "boolean",
+				"description": "Whether to always allow throwing values typed as `unknown`."
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"allow": [],
+		"allowEmptyReject": false,
+		"allowThrowingAny": false,
+		"allowThrowingUnknown": false
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `typescript`                     | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `typescript`                     | 🚨 `error` | `"error"` | `2`          |
+| `typescript`                     | 🚨 `error` | `"error"` | `5`          |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `2`          |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `5`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `2`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `5`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `2`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `5`          |
+| `all-options`                    | 🚨 `error` | `"error"` | `57`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `60`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `67`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `70`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+const activeUsers = users.filter((user) => user.active);
+export { activeUsers };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+const activeUsers = users.filter(({ active }) => active);
+export { activeUsers };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/typescript/prefer-promise-reject-errors`
+- **Documentation route:** `/docs/eslint-config/rules/typescript/prefer-promise-reject-errors`

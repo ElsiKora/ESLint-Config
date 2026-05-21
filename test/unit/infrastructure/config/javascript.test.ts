@@ -102,9 +102,17 @@ describe("JavascriptConfig", () => {
 		loadConfig({ withSonar: false });
 
 		// Get the configs passed to createVirtualEslintPlugin
-		const callArgs = vi.mocked(createVirtualPluginModule.createVirtualEslintPlugin).mock.calls[0][0];
+		const callArgs = vi.mocked(createVirtualPluginModule.createVirtualEslintPlugin).mock.calls[0]?.[0];
+		const rules = callArgs?.[1]?.rules;
+
+		if (!rules) {
+			throw new Error("Expected JavaScript rule config to be passed to createVirtualEslintPlugin.");
+		}
 
 		// Verify that no-unused-vars is error when withSonar is false
-		expect(callArgs[1].rules).toHaveProperty("no-unused-vars", "error");
+		expect(rules).toHaveProperty("no-await-in-loop", "off");
+		expect(rules).toHaveProperty("no-compare-neg-zero", "error");
+		expect(rules).toHaveProperty("no-console", "error");
+		expect(rules).toHaveProperty("no-unused-vars", "error");
 	});
 });

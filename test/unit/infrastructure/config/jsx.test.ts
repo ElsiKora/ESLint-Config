@@ -66,4 +66,13 @@ describe("JsxConfig", () => {
 			]),
 		);
 	});
+
+	it("should override explicit jsx-a11y-x rules", async () => {
+		const module = await import("@infrastructure/config/jsx.ts");
+		const loadConfig = module.default;
+
+		const configs: Array<Linter.Config> = loadConfig({});
+
+		expect(configs[1].rules).toHaveProperty("@elsikora/jsx/no-autofocus", "off");
+	});
 });

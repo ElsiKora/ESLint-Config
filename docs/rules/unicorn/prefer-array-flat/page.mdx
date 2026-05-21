@@ -1,0 +1,130 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/unicorn/prefer-array-flat`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Prefer `Array#flat()` over legacy techniques to flatten arrays.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value           |
+| ------------------ | --------------- |
+| Type               | `suggestion`    |
+| Fixable            | ✅ Yes          |
+| Has suggestions    | ❌ No           |
+| Deprecated         | ❌ No           |
+| ESLint recommended | `unopinionated` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"functions": {
+				"type": "array",
+				"uniqueItems": true,
+				"description": "Additional functions to check."
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2,{"functions":[]}]`          |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value        |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ---------------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"functions":[]}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"functions":[]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `unicorn`                        | 🚨 `error` | `"error"` | `0`          |
+| `node-with-unicorn`              | 🚨 `error` | `"error"` | `2`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `10`         |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const permissions = roles.reduce((items, role) => items.concat(role.permissions), []);
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const permissions = roles.flatMap((role) => role.permissions);
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/unicorn/prefer-array-flat`
+- **Documentation route:** `/docs/eslint-config/rules/unicorn/prefer-array-flat`

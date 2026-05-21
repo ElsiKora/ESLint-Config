@@ -1,0 +1,163 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/typescript/no-magic-numbers`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow magic numbers.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"detectObjects": {
+				"type": "boolean"
+			},
+			"enforceConst": {
+				"type": "boolean"
+			},
+			"ignore": {
+				"type": "array",
+				"items": {
+					"anyOf": [
+						{
+							"type": "number"
+						},
+						{
+							"type": "string",
+							"pattern": "^[+-]?(?:0|[1-9][0-9]*)n$"
+						}
+					]
+				},
+				"uniqueItems": true
+			},
+			"ignoreArrayIndexes": {
+				"type": "boolean"
+			},
+			"ignoreDefaultValues": {
+				"type": "boolean"
+			},
+			"ignoreClassFieldInitialValues": {
+				"type": "boolean"
+			},
+			"ignoreEnums": {
+				"type": "boolean",
+				"description": "Whether enums used in TypeScript are considered okay."
+			},
+			"ignoreNumericLiteralTypes": {
+				"type": "boolean",
+				"description": "Whether numbers used in TypeScript numeric literal types are considered okay."
+			},
+			"ignoreReadonlyClassProperties": {
+				"type": "boolean",
+				"description": "Whether `readonly` class properties are considered okay."
+			},
+			"ignoreTypeIndexes": {
+				"type": "boolean",
+				"description": "Whether numbers used to index types are okay."
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"detectObjects": false,
+		"enforceConst": false,
+		"ignore": [],
+		"ignoreArrayIndexes": false,
+		"ignoreEnums": false,
+		"ignoreNumericLiteralTypes": false,
+		"ignoreReadonlyClassProperties": false,
+		"ignoreTypeIndexes": false
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                                                                                                                                               |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                                                                                                                                       |
+| Default target   | `TypeScript` (`src/example.ts`)                                                                                                                                                                                     |
+| Default severity | 🚨 `error`                                                                                                                                                                                                          |
+| Default value    | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                                                                                                                                                                                                     |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"detectObjects":true,"enforceConst":false,"ignore":[0,1,-1],"ignoreArrayIndexes":false,"ignoreEnums":true,"ignoreNumericLiteralTypes":false,"ignoreReadonlyClassProperties":false,"ignoreTypeIndexes":false}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value                                                                   | Config block |
+| -------------------------------- | ---------- | ----------------------------------------------------------------------- | ------------ |
+| `typescript-strict`              | 🚨 `error` | `["error",{"detectObjects":true,"ignore":[0,1,-1],"ignoreEnums":true}]` | `9`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `["error",{"detectObjects":true,"ignore":[0,1,-1],"ignoreEnums":true}]` | `9`          |
+| `all-options`                    | 🚨 `error` | `["error",{"detectObjects":true,"ignore":[0,1,-1],"ignoreEnums":true}]` | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+const userId = user["id"];
+export { userId };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+const userId = user.id;
+export { userId };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/typescript/no-magic-numbers`
+- **Documentation route:** `/docs/eslint-config/rules/typescript/no-magic-numbers`

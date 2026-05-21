@@ -32,6 +32,8 @@ export const PLUGIN_MAP: Record<string, string> = {
 	tailwindcss: "@elsikora/tailwindcss",
 	"typeorm-typescript": "@elsikora/typeorm",
 	unicorn: "@elsikora/unicorn",
+	yml: "@elsikora/yml",
+	"yml/vue-custom-block": "@elsikora/yml/vue-custom-block",
 };
 
 export default PLUGIN_MAP;

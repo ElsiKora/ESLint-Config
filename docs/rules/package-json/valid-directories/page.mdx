@@ -1,0 +1,82 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/package-json/valid-directories`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce that the `directories` property is valid.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `Package JSON` (`package.json`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario       | Target         | File path      | Effective severity | Effective value |
+| -------------- | -------------- | -------------- | ------------------ | --------------- |
+| `package-json` | `Package JSON` | `package.json` | 🚨 `error`         | `[2]`           |
+| `all-options`  | `Package JSON` | `package.json` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario       | Severity   | Value     | Config block |
+| -------------- | ---------- | --------- | ------------ |
+| `package-json` | 🚨 `error` | `"error"` | `0`          |
+| `all-options`  | 🚨 `error` | `"error"` | `29`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```json filename="bad-example.json" copy
+{
+	"name": "example-package",
+	"directories": 42
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```json filename="good-example.json" copy
+{
+	"name": "example-package",
+	"directories": "documented-value"
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/package-json/valid-directories`
+- **Documentation route:** `/docs/eslint-config/rules/package-json/valid-directories`

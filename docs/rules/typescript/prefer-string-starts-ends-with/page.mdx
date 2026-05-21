@@ -1,0 +1,132 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/typescript/prefer-string-starts-ends-with`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce using `String#startsWith` and `String#endsWith` over other equivalent methods of checking substrings.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `stylistic`  |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"allowSingleElementEquality": {
+				"type": "string",
+				"description": "Whether to allow equality checks against the first or last element of a string.",
+				"enum": ["always", "never"]
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"allowSingleElementEquality": "never"
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `typescript`                     | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `typescript`                     | 🚨 `error` | `"error"` | `8`          |
+| `typescript`                     | 🚨 `error` | `"error"` | `9`          |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `8`          |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `9`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `8`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `9`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `8`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `9`          |
+| `all-options`                    | 🚨 `error` | `"error"` | `63`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `64`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `73`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+const isApiRoute = route.indexOf("/api/") === 0;
+export { isApiRoute };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+const isApiRoute = route.startsWith("/api/");
+export { isApiRoute };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/typescript/prefer-string-starts-ends-with`
+- **Documentation route:** `/docs/eslint-config/rules/typescript/prefer-string-starts-ends-with`

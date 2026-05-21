@@ -1,0 +1,90 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `no-regex-spaces`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Documents the core ESLint `no-regex-spaces` rule as it appears in the ElsiKora JavaScript preset, including overrides that may change its final severity.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `regexp`      | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `regexp`      | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `regexp`      | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `regexp`      | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `regexp`      | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `regexp`      | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `regexp`      | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `regexp`      | 🚨 `error` | `"error"` | `0`          |
+| `all-options` | 🚨 `error` | `"error"` | `38`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const total = items.reduce((sum, item) => sum + item.price, 0);
+export { total };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const total = items.reduce((sum, item) => sum + item.price, 0);
+export { total };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `no-regex-spaces`
+- **Documentation route:** `/docs/eslint-config/rules/javascript/no-regex-spaces`

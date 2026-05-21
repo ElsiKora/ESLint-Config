@@ -1,0 +1,86 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/css/no-invalid-at-rules`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow invalid at-rules.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                    |
+| ---------------- | ------------------------ |
+| Default scenario | `all-options`            |
+| Default target   | `CSS` (`src/styles.css`) |
+| Default severity | 🧭 `off`                 |
+| Default value    | `[0]`                    |
+
+### Effective Result by File Type
+
+| Scenario      | Target | File path        | Effective severity | Effective value |
+| ------------- | ------ | ---------------- | ------------------ | --------------- |
+| `css`         | `CSS`  | `src/styles.css` | 🧭 `off`           | `[0]`           |
+| `all-options` | `CSS`  | `src/styles.css` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `css`         | 🚨 `error` | `"error"` | `0`          |
+| `css`         | 🧭 `off`   | `"off"`   | `1`          |
+| `all-options` | 🚨 `error` | `"error"` | `1`          |
+| `all-options` | 🧭 `off`   | `"off"`   | `2`          |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```css filename="bad-example.css" copy
+@medai (min-width: 48rem) {
+	.card {
+		display: grid;
+	}
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```css filename="good-example.css" copy
+@media (min-width: 48rem) {
+	.card {
+		display: grid;
+	}
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/css/no-invalid-at-rules`
+- **Documentation route:** `/docs/eslint-config/rules/css/no-invalid-at-rules`

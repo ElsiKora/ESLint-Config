@@ -1,0 +1,112 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/storybook/no-uninstalled-addons`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+This rule identifies storybook addons that are invalid because they are either not installed or contain a typo in their name.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"packageJsonLocation": {
+				"type": "string"
+			},
+			"ignore": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				}
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"packageJsonLocation": "",
+		"ignore": []
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value              |
+| ---------------- | ------------------ |
+| Default scenario | `storybook`        |
+| Default target   | `Configured entry` |
+| Default severity | 🚨 `error`         |
+| Default value    | `"error"`          |
+
+### Effective Result by File Type
+
+This rule is configured but was not present in the representative effective configs sampled for these docs.
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `storybook`   | 🚨 `error` | `"error"` | `2`          |
+| `all-options` | 🚨 `error` | `"error"` | `43`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+const config = {
+	addons: ["@storybook/addon-links", "@storybook/addon-not-installed"],
+};
+
+export default config;
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+const config = {
+	addons: ["@storybook/addon-links"],
+};
+
+export default config;
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/storybook/no-uninstalled-addons`
+- **Documentation route:** `/docs/eslint-config/rules/storybook/no-uninstalled-addons`

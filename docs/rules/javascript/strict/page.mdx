@@ -1,0 +1,86 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `strict`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Documents the core ESLint `strict` rule as it appears in the ElsiKora JavaScript preset, including overrides that may change its final severity.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `Package JSON` (`package.json`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0,"safe"]`                    |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path      | Effective severity | Effective value |
+| ------------- | -------------- | -------------- | ------------------ | --------------- |
+| `json`        | `Package JSON` | `package.json` | 🧭 `off`           | `[0,"safe"]`    |
+| `json`        | `JSON`         | `config.json`  | 🧭 `off`           | `[0,"safe"]`    |
+| `all-options` | `Package JSON` | `package.json` | 🧭 `off`           | `[0,"safe"]`    |
+| `all-options` | `JSON`         | `config.json`  | 🧭 `off`           | `[0,"safe"]`    |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `json`        | 🧭 `off` | `"off"` | `1`          |
+| `all-options` | 🧭 `off` | `"off"` | `14`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+function loadUser() {
+	return this.user;
+}
+export { loadUser };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+"use strict";
+
+function loadUser() {
+	return this.user;
+}
+export { loadUser };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `strict`
+- **Documentation route:** `/docs/eslint-config/rules/javascript/strict`

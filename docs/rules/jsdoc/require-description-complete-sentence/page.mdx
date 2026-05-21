@@ -1,0 +1,131 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/require-description-complete-sentence`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Requires that block description, explicit `@description`, and `@param`/`@returns` tag descriptions are written in complete sentences.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+````json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"abbreviations": {
+				"description": "You can provide an `abbreviations` options array to avoid such strings of text\nbeing treated as sentence endings when followed by dots. The `.` is not\nnecessary at the end of the array items.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"newlineBeforeCapsAssumesBadSentenceEnd": {
+				"description": "When `false` (the new default), we will not assume capital letters after\nnewlines are an incorrect way to end the sentence (they may be proper\nnouns, for example).",
+				"type": "boolean"
+			},
+			"tags": {
+				"description": "If you want additional tags to be checked for their descriptions, you may\nadd them within this option.\n\n```js\n{\n  'jsdoc/require-description-complete-sentence': ['error', {\n    tags: ['see', 'copyright']\n  }]\n}\n```\n\nThe tags `@param`/`@arg`/`@argument` and `@property`/`@prop` will be properly\nparsed to ensure that the checked \"description\" text includes only the text\nafter the name.\n\nAll other tags will treat the text following the tag name, a space, and\nan optional curly-bracketed type expression (and another space) as part of\nits \"description\" (e.g., for `@returns {someType} some description`, the\ndescription is `some description` while for `@some-tag xyz`, the description\nis `xyz`).",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			}
+		},
+		"type": "object"
+	}
+]
+````
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Handles the request.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Handles the request.
+ * @param {{ id: string }} request - Request to handle.
+ * @returns {string} Request id.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/require-description-complete-sentence`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/require-description-complete-sentence`

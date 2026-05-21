@@ -1,0 +1,179 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/check-examples`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+@deprecated - Use `getJsdocProcessorPlugin` processor; ensures that (JavaScript) samples within `@example` tags adhere to ESLint rules.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"allowInlineConfig": {
+				"default": true,
+				"type": "boolean"
+			},
+			"baseConfig": {
+				"type": "object"
+			},
+			"captionRequired": {
+				"default": false,
+				"type": "boolean"
+			},
+			"checkDefaults": {
+				"default": false,
+				"type": "boolean"
+			},
+			"checkEslintrc": {
+				"default": true,
+				"type": "boolean"
+			},
+			"checkParams": {
+				"default": false,
+				"type": "boolean"
+			},
+			"checkProperties": {
+				"default": false,
+				"type": "boolean"
+			},
+			"configFile": {
+				"type": "string"
+			},
+			"exampleCodeRegex": {
+				"type": "string"
+			},
+			"matchingFileName": {
+				"type": "string"
+			},
+			"matchingFileNameDefaults": {
+				"type": "string"
+			},
+			"matchingFileNameParams": {
+				"type": "string"
+			},
+			"matchingFileNameProperties": {
+				"type": "string"
+			},
+			"noDefaultExampleRules": {
+				"default": false,
+				"type": "boolean"
+			},
+			"paddedIndent": {
+				"default": 0,
+				"type": "integer"
+			},
+			"rejectExampleCodeRegex": {
+				"type": "string"
+			},
+			"reportUnusedDisableDirectives": {
+				"default": true,
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Adds two numbers.
+ * @param {number} left - Left value.
+ * @param {number} right - Right value.
+ * @returns {number} Sum.
+ */
+function add(left, right) {
+	return left + right;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Adds two numbers.
+ * @param {number} left - Left value.
+ * @param {number} right - Right value.
+ * @returns {number} Sum.
+ * @example
+ * add(1, 2);
+ */
+function add(left, right) {
+	return left + right;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/check-examples`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/check-examples`

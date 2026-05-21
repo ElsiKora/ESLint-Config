@@ -1,0 +1,146 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/typescript/explicit-module-boundary-types`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Require explicit return and argument types on exported functions' and classes' public class methods.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"allowArgumentsExplicitlyTypedAsAny": {
+				"type": "boolean",
+				"description": "Whether to ignore arguments that are explicitly typed as `any`."
+			},
+			"allowDirectConstAssertionInArrowFunctions": {
+				"type": "boolean",
+				"description": "Whether to ignore return type annotations on body-less arrow functions that return an `as const` type assertion.\nYou must still type the parameters of the function."
+			},
+			"allowedNames": {
+				"type": "array",
+				"description": "An array of function/method names that will not have their arguments or return values checked.",
+				"items": {
+					"type": "string"
+				}
+			},
+			"allowHigherOrderFunctions": {
+				"type": "boolean",
+				"description": "Whether to ignore return type annotations on functions immediately returning another function expression.\nYou must still type the parameters of the function."
+			},
+			"allowOverloadFunctions": {
+				"type": "boolean",
+				"description": "Whether to ignore return type annotations on functions with overload signatures."
+			},
+			"allowTypedFunctionExpressions": {
+				"type": "boolean",
+				"description": "Whether to ignore type annotations on the variable of a function expression."
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"allowArgumentsExplicitlyTypedAsAny": false,
+		"allowDirectConstAssertionInArrowFunctions": true,
+		"allowedNames": [],
+		"allowHigherOrderFunctions": true,
+		"allowOverloadFunctions": false,
+		"allowTypedFunctionExpressions": true
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `9`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `9`          |
+| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+type UserMap = {
+	[key: string]: User;
+};
+
+export type { UserMap };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+type UserMap = Record<string, User>;
+
+export type { UserMap };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/typescript/explicit-module-boundary-types`
+- **Documentation route:** `/docs/eslint-config/rules/typescript/explicit-module-boundary-types`

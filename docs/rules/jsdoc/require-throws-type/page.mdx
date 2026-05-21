@@ -1,0 +1,101 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/require-throws-type`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Requires a type for `@throws` tags.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Loads a user by id.
+ * @param {string} id - User id.
+ */
+function loadUser(id) {
+	throw new Error(`Missing user: ${id}`);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Loads a user by id.
+ * @param {string} id - User id.
+ * @throws {Error} When the user cannot be found.
+ */
+function loadUser(id) {
+	throw new Error(`Missing user: ${id}`);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/require-throws-type`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/require-throws-type`

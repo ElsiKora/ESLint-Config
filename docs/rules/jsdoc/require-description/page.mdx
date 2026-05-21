@@ -1,0 +1,163 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/require-description`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Requires that all functions (and potentially other contexts) have a description.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"checkConstructors": {
+				"default": true,
+				"description": "A value indicating whether `constructor`s should be\nchecked. Defaults to `true`.",
+				"type": "boolean"
+			},
+			"checkGetters": {
+				"default": true,
+				"description": "A value indicating whether getters should be checked.\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"checkSetters": {
+				"default": true,
+				"description": "A value indicating whether setters should be checked.\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"contexts": {
+				"description": "Set to an array of strings representing the AST context\nwhere you wish the rule to be applied (e.g., `ClassDeclaration` for ES6\nclasses).\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`,\n`FunctionDeclaration`, `FunctionExpression`). Set to `\"any\"` if you want\nthe rule to apply to any JSDoc block throughout your files (as is necessary\nfor finding function blocks not attached to a function declaration or\nexpression, i.e., `@callback` or `@function` (or its aliases `@func` or\n`@method`) (including those associated with an `@interface`).\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"items": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"comment": {
+									"type": "string"
+								},
+								"context": {
+									"type": "string"
+								}
+							},
+							"type": "object"
+						}
+					]
+				},
+				"type": "array"
+			},
+			"descriptionStyle": {
+				"description": "Whether to accept implicit descriptions (`\"body\"`) or\n`@description` tags (`\"tag\"`) as satisfying the rule. Set to `\"any\"` to\naccept either style. Defaults to `\"body\"`.",
+				"enum": ["body", "tag", "any"],
+				"type": "string"
+			},
+			"exemptedBy": {
+				"description": "Array of tags (e.g., `['type']`) whose presence on the\ndocument block avoids the need for a `@description`. Defaults to an\narray with `inheritdoc`. If you set this array, it will overwrite the\ndefault, so be sure to add back `inheritdoc` if you wish its presence\nto cause exemption of the rule.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Handles the request.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Handles the request.
+ * @param {{ id: string }} request - Request to handle.
+ * @returns {string} Request id.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/require-description`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/require-description`

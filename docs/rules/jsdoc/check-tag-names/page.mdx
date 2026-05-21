@@ -1,0 +1,141 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/check-tag-names`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Reports invalid block tag names.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+````json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"definedTags": {
+				"description": "Use an array of `definedTags` strings to configure additional, allowed tags.\nThe format is as follows:\n\n```json\n{\n  \"definedTags\": [\"note\", \"record\"]\n}\n```",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"enableFixer": {
+				"description": "Set to `false` to disable auto-removal of types that are redundant with the [`typed` option](#typed).",
+				"type": "boolean"
+			},
+			"inlineTags": {
+				"description": "List of tags to allow inline.\n\nDefaults to array of `'link', 'linkcode', 'linkplain', 'tutorial', 'inheritDoc', 'label', 'include', and 'includeCode'`",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"jsxTags": {
+				"description": "If this is set to `true`, all of the following tags used to control JSX output are allowed:\n\n```\njsx\njsxFrag\njsxImportSource\njsxRuntime\n```\n\nFor more information, see the [babel documentation](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx).",
+				"type": "boolean"
+			},
+			"typed": {
+				"description": "If this is set to `true`, additionally checks for tag names that are redundant when using a type checker such as TypeScript.\n\nThese tags are always unnecessary when using TypeScript or similar:\n\n```\naugments\ncallback\nclass\nenum\nimplements\nprivate\nproperty\nprotected\npublic\nreadonly\nthis\ntype\ntypedef\n```\n\nThese tags are unnecessary except when inside a TypeScript `declare` context:\n\n```\nabstract\naccess\nclass\nconstant\nconstructs\ndefault\nenum\nexport\nexports\nfunction\nglobal\ninherits\ninstance\ninterface\nmember\nmemberof\nmemberOf\nmethod\nmixes\nmixin\nmodule\nname\nnamespace\noverride\nproperty\nrequires\nstatic\nthis\n```",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+````
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Saves a user.
+ * @returns {Promise<void>} Resolves when saved.
+ * @param {User} user - User to save.
+ */
+async function saveUser(user) {
+	await repository.save(user);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Saves a user.
+ * @param {User} user - User to save.
+ * @returns {Promise<void>} Resolves when saved.
+ */
+async function saveUser(user) {
+	await repository.save(user);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/check-tag-names`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/check-tag-names`

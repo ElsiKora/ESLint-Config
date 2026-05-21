@@ -1,0 +1,181 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/typescript/ban-ts-comment`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow `@ts-<directive>` comments or require descriptions after directives.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value                                                             |
+| ------------------ | ----------------------------------------------------------------- |
+| Type               | `problem`                                                         |
+| Fixable            | ❌ No                                                             |
+| Has suggestions    | ✅ Yes                                                            |
+| Deprecated         | ❌ No                                                             |
+| ESLint recommended | `{"recommended":true,"strict":[{"minimumDescriptionLength":10}]}` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"$defs": {
+			"directiveConfigSchema": {
+				"oneOf": [
+					{
+						"type": "boolean",
+						"default": true
+					},
+					{
+						"type": "string",
+						"enum": ["allow-with-description"]
+					},
+					{
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"descriptionFormat": {
+								"type": "string"
+							}
+						}
+					}
+				]
+			}
+		},
+		"additionalProperties": false,
+		"properties": {
+			"minimumDescriptionLength": {
+				"type": "number",
+				"description": "A minimum character length for descriptions when `allow-with-description` is enabled."
+			},
+			"ts-check": {
+				"$ref": "#/items/0/$defs/directiveConfigSchema",
+				"description": "Whether allow ts-check directives, and with which restrictions."
+			},
+			"ts-expect-error": {
+				"$ref": "#/items/0/$defs/directiveConfigSchema",
+				"description": "Whether and when expect-error directives, and with which restrictions."
+			},
+			"ts-ignore": {
+				"$ref": "#/items/0/$defs/directiveConfigSchema",
+				"description": "Whether allow ts-ignore directives, and with which restrictions."
+			},
+			"ts-nocheck": {
+				"$ref": "#/items/0/$defs/directiveConfigSchema",
+				"description": "Whether allow ts-nocheck directives, and with which restrictions."
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"minimumDescriptionLength": 3,
+		"ts-check": false,
+		"ts-expect-error": "allow-with-description",
+		"ts-ignore": true,
+		"ts-nocheck": true
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                 |
+| ---------------- | ------------------------------------- |
+| Default scenario | `all-options`                         |
+| Default target   | `TypeScript` (`src/example.ts`)       |
+| Default severity | 🧭 `off`                              |
+| Default value    | `[0,{"minimumDescriptionLength":10}]` |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                       |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ------------------------------------- |
+| `typescript`                     | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript`                     | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript`                     | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript`                     | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"minimumDescriptionLength":10}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value                                       | Config block |
+| -------------------------------- | ---------- | ------------------------------------------- | ------------ |
+| `typescript`                     | 🚨 `error` | `"error"`                                   | `2`          |
+| `typescript`                     | 🚨 `error` | `["error",{"minimumDescriptionLength":10}]` | `5`          |
+| `typescript`                     | 🧭 `off`   | `"off"`                                     | `9`          |
+| `typescript-strict`              | 🚨 `error` | `"error"`                                   | `2`          |
+| `typescript-strict`              | 🚨 `error` | `["error",{"minimumDescriptionLength":10}]` | `5`          |
+| `typescript-strict`              | 🧭 `off`   | `"off"`                                     | `9`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"`                                   | `2`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `["error",{"minimumDescriptionLength":10}]` | `5`          |
+| `typescript-with-unicorn`        | 🧭 `off`   | `"off"`                                     | `9`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"`                                   | `2`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `["error",{"minimumDescriptionLength":10}]` | `5`          |
+| `typescript-strict-with-unicorn` | 🧭 `off`   | `"off"`                                     | `9`          |
+| `all-options`                    | 🚨 `error` | `"error"`                                   | `57`         |
+| `all-options`                    | 🚨 `error` | `["error",{"minimumDescriptionLength":10}]` | `60`         |
+| `all-options`                    | 🧭 `off`   | `"off"`                                     | `64`         |
+| `all-options`                    | 🚨 `error` | `"error"`                                   | `67`         |
+| `all-options`                    | 🚨 `error` | `["error",{"minimumDescriptionLength":10}]` | `70`         |
+| `all-options`                    | 🧭 `off`   | `"off"`                                     | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+// @ts-ignore
+const id: string = user.id;
+export { id };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+const id: string = String(user.id);
+export { id };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/typescript/ban-ts-comment`
+- **Documentation route:** `/docs/eslint-config/rules/typescript/ban-ts-comment`

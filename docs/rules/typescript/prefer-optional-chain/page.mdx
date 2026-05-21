@@ -1,0 +1,166 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/typescript/prefer-optional-chain`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce using concise optional chain expressions instead of chained logical ands, negated logical ors, or empty objects.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ✅ Yes       |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `stylistic`  |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"allowPotentiallyUnsafeFixesThatModifyTheReturnTypeIKnowWhatImDoing": {
+				"type": "boolean",
+				"description": "Allow autofixers that will change the return type of the expression. This option is considered unsafe as it may break the build."
+			},
+			"checkAny": {
+				"type": "boolean",
+				"description": "Check operands that are typed as `any` when inspecting \"loose boolean\" operands."
+			},
+			"checkBigInt": {
+				"type": "boolean",
+				"description": "Check operands that are typed as `bigint` when inspecting \"loose boolean\" operands."
+			},
+			"checkBoolean": {
+				"type": "boolean",
+				"description": "Check operands that are typed as `boolean` when inspecting \"loose boolean\" operands."
+			},
+			"checkNumber": {
+				"type": "boolean",
+				"description": "Check operands that are typed as `number` when inspecting \"loose boolean\" operands."
+			},
+			"checkString": {
+				"type": "boolean",
+				"description": "Check operands that are typed as `string` when inspecting \"loose boolean\" operands."
+			},
+			"checkUnknown": {
+				"type": "boolean",
+				"description": "Check operands that are typed as `unknown` when inspecting \"loose boolean\" operands."
+			},
+			"requireNullish": {
+				"type": "boolean",
+				"description": "Skip operands that are not typed with `null` and/or `undefined` when inspecting \"loose boolean\" operands."
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"allowPotentiallyUnsafeFixesThatModifyTheReturnTypeIKnowWhatImDoing": false,
+		"checkAny": true,
+		"checkBigInt": true,
+		"checkBoolean": true,
+		"checkNumber": true,
+		"checkString": true,
+		"checkUnknown": true,
+		"requireNullish": false
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `typescript`                     | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `typescript`                     | 🚨 `error` | `"error"` | `8`          |
+| `typescript`                     | 🚨 `error` | `"error"` | `9`          |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `8`          |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `9`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `8`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `9`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `8`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `9`          |
+| `all-options`                    | 🚨 `error` | `"error"` | `63`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `64`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `73`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+const city = user && user.profile && user.profile.address && user.profile.address.city;
+export { city };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+const city = user?.profile?.address?.city;
+export { city };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/typescript/prefer-optional-chain`
+- **Documentation route:** `/docs/eslint-config/rules/typescript/prefer-optional-chain`

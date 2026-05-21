@@ -86,8 +86,33 @@ describe("NextConfig", () => {
 		expect(fixupCompat.fixupPluginRules).toHaveBeenCalled();
 
 		// Check rule name formatting was called
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@next/next/google-font-display");
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@next/next/no-img-element");
+		const explicitRules: Array<string> = [
+			"@next/next/google-font-display",
+			"@next/next/google-font-preconnect",
+			"@next/next/inline-script-id",
+			"@next/next/next-script-for-ga",
+			"@next/next/no-assign-module-variable",
+			"@next/next/no-async-client-component",
+			"@next/next/no-before-interactive-script-outside-document",
+			"@next/next/no-css-tags",
+			"@next/next/no-document-import-in-page",
+			"@next/next/no-duplicate-head",
+			"@next/next/no-head-element",
+			"@next/next/no-head-import-in-document",
+			"@next/next/no-html-link-for-pages",
+			"@next/next/no-img-element",
+			"@next/next/no-page-custom-font",
+			"@next/next/no-script-component-in-head",
+			"@next/next/no-styled-jsx-in-document",
+			"@next/next/no-sync-scripts",
+			"@next/next/no-title-in-document-head",
+			"@next/next/no-typos",
+			"@next/next/no-unwanted-polyfillio",
+		];
+
+		for (const rule of explicitRules) {
+			expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith(rule);
+		}
 	});
 
 	it("should include Next.js specific rules with proper severity", async () => {
@@ -98,9 +123,26 @@ describe("NextConfig", () => {
 
 		// Check specific rules are present with expected severities
 		expect(configs[2].rules).toHaveProperty("@elsikora/next/google-font-display", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/google-font-preconnect", "warn");
 		expect(configs[2].rules).toHaveProperty("@elsikora/next/inline-script-id", "error");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/next-script-for-ga", "warn");
 		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-assign-module-variable", "error");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-async-client-component", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-before-interactive-script-outside-document", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-css-tags", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-document-import-in-page", "error");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-duplicate-head", "error");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-head-element", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-head-import-in-document", "error");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-html-link-for-pages", "warn");
 		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-img-element", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-page-custom-font", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-script-component-in-head", "error");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-styled-jsx-in-document", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-sync-scripts", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-title-in-document-head", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-typos", "warn");
+		expect(configs[2].rules).toHaveProperty("@elsikora/next/no-unwanted-polyfillio", "warn");
 
 		// Check if third config applies to both JS/JSX and TS/TSX files
 		expect(configs[2]).toHaveProperty("files", ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]);

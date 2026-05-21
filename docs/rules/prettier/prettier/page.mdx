@@ -1,0 +1,119 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/prettier/prettier`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Runs Prettier as an ESLint rule so formatting differences are reported together with the rest of the preset.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `layout`  |
+| Fixable            | ✅ Yes    |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {},
+		"additionalProperties": true
+	},
+	{
+		"type": "object",
+		"properties": {
+			"usePrettierrc": {
+				"type": "boolean"
+			},
+			"fileInfoOptions": {
+				"type": "object",
+				"properties": {},
+				"additionalProperties": true
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value |
+| ------------- | -------------- | ------------------------- | ------------------ | --------------- |
+| `prettier`    | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2]`           |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2]`           |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2]`           |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2]`           |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `prettier`    | 🚨 `error` | `"error"` | `0`          |
+| `all-options` | 🚨 `error` | `"error"` | `32`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const invoiceTotal = calculateInvoiceTotal(cart.items, { includeTaxes: true });
+
+export { invoiceTotal };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const invoiceTotal = calculateInvoiceTotal(cart.items, {
+	includeTaxes: true,
+});
+
+export { invoiceTotal };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/prettier/prettier`
+- **Documentation route:** `/docs/eslint-config/rules/prettier/prettier`

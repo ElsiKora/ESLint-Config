@@ -72,7 +72,9 @@
 		}
 	},
 	"dependencies": {
+		"@elsikora/eslint-plugin-css": "^0.6.3",
 		"@elsikora/eslint-plugin-markdown": "^6.2.3",
+		"@elsikora/eslint-plugin-sort-decorators": "^0.2.9",
 		"@eslint/compat": "^2.1.0",
 		"@eslint/js": "^10.0.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
@@ -81,7 +83,10 @@
 		"@typescript-eslint/utils": "^8.59.4",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-check-file": "^3.3.1",
+		"eslint-plugin-jsdoc": "^63.0.0",
 		"eslint-plugin-jsonc": "^3.1.2",
+		"eslint-plugin-jsx-a11y-x": "^0.2.0",
+		"eslint-plugin-n": "^18.0.1",
 		"eslint-plugin-no-secrets": "^2.3.3",
 		"eslint-plugin-package-json": "^1.1.0",
 		"eslint-plugin-perfectionist": "^5.9.0",
@@ -101,9 +106,7 @@
 		"@commitlint/types": "^21.0.1",
 		"@conarti/eslint-plugin-feature-sliced": "^2.0.0-rc.15",
 		"@elsikora/commitizen-plugin-commitlint-ai": "^3.0.1",
-		"@elsikora/eslint-plugin-css": "^0.6.3",
 		"@elsikora/eslint-plugin-nestjs-typed": "^3.1.0",
-		"@elsikora/eslint-plugin-sort-decorators": "^0.2.9",
 		"@elsikora/git-branch-lint": "^1.2.2",
 		"@eslint-react/eslint-plugin": "^5.8.3",
 		"@eslint/core": "^1.2.1",
@@ -127,9 +130,6 @@
 		"eslint": "^10.4.0",
 		"eslint-plugin-fsd-lint": "^1.2.1",
 		"eslint-plugin-i18next": "^6.1.4",
-		"eslint-plugin-jsdoc": "^63.0.0",
-		"eslint-plugin-jsx-a11y-x": "^0.2.0",
-		"eslint-plugin-n": "^18.0.1",
 		"eslint-plugin-storybook": "^10.4.0",
 		"eslint-plugin-typeorm-typescript": "^0.5.4",
 		"husky": "^9.1.7",
@@ -156,15 +156,13 @@
 	"peerDependencies": {
 		"@conarti/eslint-plugin-feature-sliced": "^2.0.0-rc.15",
 		"@elsikora/eslint-plugin-nestjs-typed": "^3.1.0",
-		"@elsikora/eslint-plugin-sort-decorators": "^0.2.9",
 		"@eslint-react/eslint-plugin": "^5.8.3",
-		"@next/eslint-plugin-next": "*",
+		"@next/eslint-plugin-next": "^16.2.6",
 		"@tanstack/eslint-plugin-query": "^5.100.11",
 		"@tanstack/eslint-plugin-router": "^1.162.0",
+		"eslint": "^10.4.0",
 		"eslint-plugin-fsd-lint": "^1.2.1",
 		"eslint-plugin-i18next": "^6.1.4",
-		"eslint-plugin-jsx-a11y-x": "^0.2.0",
-		"eslint-plugin-n": "^18.0.1",
 		"eslint-plugin-storybook": "^10.4.0",
 		"eslint-plugin-typeorm-typescript": "^0.5.4"
 	},
@@ -173,9 +171,6 @@
 			"optional": true
 		},
 		"@elsikora/eslint-plugin-nestjs-typed": {
-			"optional": true
-		},
-		"@elsikora/eslint-plugin-sort-decorators": {
 			"optional": true
 		},
 		"@eslint-react/eslint-plugin": {
@@ -194,12 +189,6 @@
 			"optional": true
 		},
 		"eslint-plugin-i18next": {
-			"optional": true
-		},
-		"eslint-plugin-jsx-a11y-x": {
-			"optional": true
-		},
-		"eslint-plugin-n": {
 			"optional": true
 		},
 		"eslint-plugin-storybook": {

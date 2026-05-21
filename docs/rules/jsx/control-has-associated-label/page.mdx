@@ -1,0 +1,150 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsx/control-has-associated-label`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce that a control (an interactive element) has a text label.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"labelAttributes": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"uniqueItems": true,
+				"additionalItems": false
+			},
+			"controlComponents": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"uniqueItems": true,
+				"additionalItems": false
+			},
+			"ignoreElements": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"uniqueItems": true,
+				"additionalItems": false
+			},
+			"ignoreRoles": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"uniqueItems": true,
+				"additionalItems": false
+			},
+			"depth": {
+				"description": "JSX tree depth limit to check for accessible label",
+				"type": "integer",
+				"minimum": 0
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                                                                                                                                                                                                        |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                                                                                                                                                                                                |
+| Default target   | `JavaScript` (`src/example.js`)                                                                                                                                                                                                                                              |
+| Default severity | 🧭 `off`                                                                                                                                                                                                                                                                     |
+| Default value    | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value                                                                                                                                                                                                                                                              |
+| ------------- | -------------- | ------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `jsx`         | `JavaScript`   | `src/example.js`          | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `jsx`         | `JSX`          | `src/example.jsx`         | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `jsx`         | `TSX`          | `src/example.tsx`         | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `jsx`         | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `jsx`         | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `jsx`         | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `Package JSON` | `package.json`            | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `JSON`         | `config.json`             | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `YAML`         | `config.yaml`             | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `Markdown`     | `README.md`               | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+| `all-options` | `CSS`          | `src/styles.css`          | 🧭 `off`           | `[0,{"labelAttributes":[],"controlComponents":[],"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value                                                                                                                                                                                                                                | Config block |
+| ------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
+| `jsx`         | 🧭 `off` | `["off",{"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` | `0`          |
+| `all-options` | 🧭 `off` | `["off",{"ignoreElements":["audio","canvas","embed","input","textarea","tr","video"],"ignoreRoles":["grid","listbox","menu","menubar","radiogroup","row","tablist","toolbar","tree","treegrid"],"includeRoles":["alert","dialog"]}]` | `17`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+export function EmailField() {
+	return <input id="email" type="email" />;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+export function EmailField() {
+	return (
+		<label htmlFor="email">
+			Email
+			<input id="email" type="email" />
+		</label>
+	);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsx/control-has-associated-label`
+- **Documentation route:** `/docs/eslint-config/rules/jsx/control-has-associated-label`

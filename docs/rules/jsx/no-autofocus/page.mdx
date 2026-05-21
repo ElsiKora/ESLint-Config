@@ -1,0 +1,113 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsx/no-autofocus`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce autoFocus prop is not enabled.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"ignoreNonDOM": {
+				"type": "boolean"
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2,{"ignoreNonDOM":false}]`    |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value              |
+| ------------- | -------------- | ------------------------- | ------------------ | ---------------------------- |
+| `jsx`         | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"ignoreNonDOM":false}]` |
+| `jsx`         | `JSX`          | `src/example.jsx`         | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `jsx`         | `TSX`          | `src/example.tsx`         | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `jsx`         | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `jsx`         | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `jsx`         | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"ignoreNonDOM":false}]` |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"ignoreNonDOM":false}]` |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"ignoreNonDOM":false}]` |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,{"ignoreNonDOM":false}]` |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,{"ignoreNonDOM":false}]` |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,{"ignoreNonDOM":false}]` |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,{"ignoreNonDOM":false}]` |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,{"ignoreNonDOM":false}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `jsx`         | 🚨 `error` | `"error"` | `0`          |
+| `jsx`         | 🧭 `off`   | `"off"`   | `1`          |
+| `all-options` | 🚨 `error` | `"error"` | `17`         |
+| `all-options` | 🧭 `off`   | `"off"`   | `18`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+export function SearchForm() {
+	return <input autoFocus name="query" />;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+export function SearchForm() {
+	return <input name="query" aria-label="Search" />;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsx/no-autofocus`
+- **Documentation route:** `/docs/eslint-config/rules/jsx/no-autofocus`

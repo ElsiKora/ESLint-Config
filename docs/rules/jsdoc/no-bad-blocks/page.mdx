@@ -1,0 +1,124 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/no-bad-blocks`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+This rule checks for multi-line-style comments which fail to meet the criteria of a JSDoc block.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `layout`  |
+| Fixable            | ✅ Yes    |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"ignore": {
+				"description": "An array of directives that will not be reported if present at the beginning of\na multi-comment block and at-sign `/* @`.\n\nDefaults to `['ts-check', 'ts-expect-error', 'ts-ignore', 'ts-nocheck']`\n(some directives [used by TypeScript](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html#ts-check)).",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"preventAllMultiAsteriskBlocks": {
+				"description": "A boolean (defaulting to `false`) which if `true` will prevent all\nJSDoc-like blocks with more than two initial asterisks even those without\napparent tag content.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Handles the request.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Handles the request.
+ * @param {{ id: string }} request - Request to handle.
+ * @returns {string} Request id.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/no-bad-blocks`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/no-bad-blocks`

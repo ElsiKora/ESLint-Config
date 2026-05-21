@@ -1,0 +1,98 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/react/1/no-clone-element`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallows 'cloneElement'.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `react`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `react`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `react`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `react`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `react`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `react`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `react`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `react`       | ⚠️ `warn` | `"warn"` | `1`          |
+| `react`       | ⚠️ `warn` | `"warn"` | `4`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `34`         |
+| `all-options` | ⚠️ `warn` | `"warn"` | `37`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+type Props = { label: string };
+
+export function StatusBadge(props: Props) {
+	return <span className="status">{props.label}</span>;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+type Props = { label: string };
+
+export function StatusBadge({ label }: Props) {
+	return <span className="status">{label}</span>;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/react/1/no-clone-element`
+- **Documentation route:** `/docs/eslint-config/rules/react/1/no-clone-element`

@@ -1,0 +1,105 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/css/use-baseline`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce the use of baseline features.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"available": {
+				"anyOf": [
+					{
+						"enum": ["widely", "newly"]
+					},
+					{
+						"type": "integer",
+						"minimum": 2000,
+						"maximum": 2026
+					}
+				]
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                        |
+| ---------------- | ---------------------------- |
+| Default scenario | `all-options`                |
+| Default target   | `CSS` (`src/styles.css`)     |
+| Default severity | ⚠️ `warn`                    |
+| Default value    | `[1,{"available":"widely"}]` |
+
+### Effective Result by File Type
+
+| Scenario      | Target | File path        | Effective severity | Effective value              |
+| ------------- | ------ | ---------------- | ------------------ | ---------------------------- |
+| `css`         | `CSS`  | `src/styles.css` | ⚠️ `warn`          | `[1,{"available":"widely"}]` |
+| `all-options` | `CSS`  | `src/styles.css` | ⚠️ `warn`          | `[1,{"available":"widely"}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `css`         | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `1`          |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```css filename="bad-example.css" copy
+.dialog {
+	transition-behavior: allow-discrete;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```css filename="good-example.css" copy
+.dialog {
+	display: grid;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/css/use-baseline`
+- **Documentation route:** `/docs/eslint-config/rules/css/use-baseline`

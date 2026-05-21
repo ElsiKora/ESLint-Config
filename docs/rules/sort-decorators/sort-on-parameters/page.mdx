@@ -1,0 +1,142 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/sort-decorators/sort-on-parameters`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforces order of parameters decorators.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `layout`  |
+| Fixable            | ✅ Yes    |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"$schema": "http://json-schema.org/draft-07/schema#",
+		"additionalProperties": false,
+		"properties": {
+			"autoFix": {
+				"default": false,
+				"description": "Automatically fix the order.\nWhen set to `true`, only one error is reported and the whole set of decorators is fixed.",
+				"type": "boolean"
+			},
+			"caseSensitive": {
+				"default": true,
+				"description": "If true, enforce properties to be in case-sensitive order.",
+				"type": "boolean"
+			},
+			"direction": {
+				"default": "asc",
+				"description": "Specify the direction of the ordering.",
+				"enum": ["asc", "desc"],
+				"type": "string"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"autoFix": false,
+		"caseSensitive": true,
+		"direction": "asc"
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `typescript`                     | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript`                     | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `typescript`                     | 🚨 `error` | `"error"` | `9`          |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `9`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `9`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `9`          |
+| `all-options`                    | 🚨 `error` | `"error"` | `64`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+class UserController {
+	find(@Body() body: BodyDto, @Param("id") id: string) {}
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+class UserController {
+	find(@Param("id") id: string, @Body() body: BodyDto) {}
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/sort-decorators/sort-on-parameters`
+- **Documentation route:** `/docs/eslint-config/rules/sort-decorators/sort-on-parameters`

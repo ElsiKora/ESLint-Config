@@ -1,0 +1,96 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/next/no-unwanted-polyfillio`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Prevent duplicate polyfills from Polyfill.io.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `next`        | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `next`        | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `next`        | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `next`        | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `next`        | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `next`        | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `next`        | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `next`        | ⚠️ `warn` | `"warn"` | `2`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `23`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+import Script from "next/script";
+
+export default function Page() {
+	return <Script src="https://polyfill.io/v3/polyfill.min.js" />;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+import Script from "next/script";
+
+export default function Page() {
+	return <Script src="/polyfills/required-browser-features.js" strategy="beforeInteractive" />;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/next/no-unwanted-polyfillio`
+- **Documentation route:** `/docs/eslint-config/rules/next/no-unwanted-polyfillio`

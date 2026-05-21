@@ -1,0 +1,157 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/sort-tags`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Sorts tags by a specified sequence according to tag name, optionally adding line breaks between tag groups.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+````json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"alphabetizeExtras": {
+				"description": "Defaults to `false`. Alphabetizes any items not within `tagSequence` after any\nitems within `tagSequence` (or in place of the special `-other` pseudo-tag)\nare sorted.\n\nIf you want all your tags alphabetized, you can supply an empty array for\n`tagSequence` along with setting this option to `true`.",
+				"type": "boolean"
+			},
+			"linesBetween": {
+				"description": "Indicates the number of lines to be added between tag groups. Defaults to 1.\nDo not set to 0 or 2+ if you are using `tag-lines` and `\"always\"` and do not\nset to 1+ if you are using `tag-lines` and `\"never\"`.",
+				"type": "integer"
+			},
+			"reportIntraTagGroupSpacing": {
+				"description": "Whether to enable reporting and fixing of line breaks within tags of a given\ntag group. Defaults to `true` which will remove any line breaks at the end of\nsuch tags. Do not use with `true` if you are using `tag-lines` and `always`.",
+				"type": "boolean"
+			},
+			"reportTagGroupSpacing": {
+				"description": "Whether to enable reporting and fixing of line breaks between tag groups\nas set by `linesBetween`. Defaults to `true`. Note that the very last tag\nwill not have spacing applied regardless. For adding line breaks there, you\nmay wish to use the `endLines` option of the `tag-lines` rule.",
+				"type": "boolean"
+			},
+			"tagExceptions": {
+				"description": "Allows specification by tag of a specific higher maximum number of lines. Keys are tags and values are the maximum number of lines allowed for such tags. Overrides `linesBetween`. Defaults to no special exceptions per tag.",
+				"patternProperties": {
+					".*": {
+						"type": "number"
+					}
+				},
+				"type": "object"
+			},
+			"tagSequence": {
+				"description": "An array of tag group objects indicating the preferred sequence for sorting tags.\n\nEach item in the array should be an object with a `tags` property set to an array\nof tag names.\n\nTag names earlier in the list will be arranged first. The relative position of\ntags of the same name will not be changed.\n\nEarlier groups will also be arranged before later groups, but with the added\nfeature that additional line breaks may be added between (or before or after)\nsuch groups (depending on the setting of `linesBetween`).\n\nTag names not in the list will be grouped together at the end. The pseudo-tag\n`-other` can be used to place them anywhere else if desired. The tags will be\nplaced in their order of appearance, or alphabetized if `alphabetizeExtras`\nis enabled, see more below about that option.\n\nDefaults to the array below (noting that it is just a single tag group with\nno lines between groups by default).\n\nPlease note that this order is still experimental, so if you want to retain\na fixed order that doesn't change into the future, supply your own\n`tagSequence`.\n\n```js\n[{tags: [\n  // Brief descriptions\n  'summary',\n  'typeSummary',\n\n  // Module/file-level\n  'module',\n  'exports',\n  'file',\n  'fileoverview',\n  'overview',\n  'import',\n\n  // Identifying (name, type)\n  'typedef',\n  'interface',\n  'record',\n  'template',\n  'name',\n  'kind',\n  'type',\n  'alias',\n  'external',\n  'host',\n  'callback',\n  'func',\n  'function',\n  'method',\n  'class',\n  'constructor',\n\n  // Relationships\n  'modifies',\n  'mixes',\n  'mixin',\n  'mixinClass',\n  'mixinFunction',\n  'namespace',\n  'borrows',\n  'constructs',\n  'lends',\n  'implements',\n  'requires',\n\n  // Long descriptions\n  'desc',\n  'description',\n  'classdesc',\n  'tutorial',\n  'copyright',\n  'license',\n\n  // Simple annotations\n  'const',\n  'constant',\n  'final',\n  'global',\n  'readonly',\n  'abstract',\n  'virtual',\n  'var',\n  'member',\n  'memberof',\n  'memberof!',\n  'inner',\n  'instance',\n  'inheritdoc',\n  'inheritDoc',\n  'override',\n  'hideconstructor',\n\n  // Core function/object info\n  'param',\n  'arg',\n  'argument',\n  'prop',\n  'property',\n  'return',\n  'returns',\n\n  // Important behavior details\n  'async',\n  'generator',\n  'default',\n  'defaultvalue',\n  'enum',\n  'augments',\n  'extends',\n  'throws',\n  'exception',\n  'yield',\n  'yields',\n  'event',\n  'fires',\n  'emits',\n  'listens',\n  'this',\n\n  // Access\n  'static',\n  'private',\n  'protected',\n  'public',\n  'access',\n  'package',\n\n  '-other',\n\n  // Supplementary descriptions\n  'see',\n  'example',\n\n  // METADATA\n\n  // Other Closure (undocumented) metadata\n  'closurePrimitive',\n  'customElement',\n  'expose',\n  'hidden',\n  'idGenerator',\n  'meaning',\n  'ngInject',\n  'owner',\n  'wizaction',\n\n  // Other Closure (documented) metadata\n  'define',\n  'dict',\n  'export',\n  'externs',\n  'implicitCast',\n  'noalias',\n  'nocollapse',\n  'nocompile',\n  'noinline',\n  'nosideeffects',\n  'polymer',\n  'polymerBehavior',\n  'preserve',\n  'struct',\n  'suppress',\n  'unrestricted',\n\n  // @homer0/prettier-plugin-jsdoc metadata\n  'category',\n\n  // Non-Closure metadata\n  'ignore',\n  'author',\n  'version',\n  'variation',\n  'since',\n  'deprecated',\n  'todo',\n]}];\n```",
+				"items": {
+					"additionalProperties": false,
+					"properties": {
+						"tags": {
+							"description": "See description on `tagSequence`.",
+							"items": {
+								"type": "string"
+							},
+							"type": "array"
+						}
+					},
+					"type": "object"
+				},
+				"type": "array"
+			}
+		},
+		"type": "object"
+	}
+]
+````
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Saves a user.
+ * @returns {Promise<void>} Resolves when saved.
+ * @param {User} user - User to save.
+ */
+async function saveUser(user) {
+	await repository.save(user);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Saves a user.
+ * @param {User} user - User to save.
+ * @returns {Promise<void>} Resolves when saved.
+ */
+async function saveUser(user) {
+	await repository.save(user);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/sort-tags`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/sort-tags`

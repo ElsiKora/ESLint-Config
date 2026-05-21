@@ -1,0 +1,120 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/unicorn/template-indent`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Documents the Unicorn rule `template-indent`, which keeps JavaScript and TypeScript code modern, explicit, and easier to review.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Default scenario | `all-options`                                                                                                                                    |
+| Default target   | `JavaScript` (`src/example.js`)                                                                                                                  |
+| Default severity | 🚨 `error`                                                                                                                                       |
+| Default value    | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+
+### Effective Result by File Type
+
+| Scenario                         | Target         | File path                 | Effective severity | Effective value                                                                                                                                  |
+| -------------------------------- | -------------- | ------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `prettier`                       | `JavaScript`   | `src/example.js`          | 🧭 `off`           | `[0]`                                                                                                                                            |
+| `unicorn`                        | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `unicorn`                        | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `unicorn`                        | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `unicorn`                        | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `unicorn`                        | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `unicorn`                        | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `unicorn`                        | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `node-with-unicorn`              | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `node-with-unicorn`              | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `node-with-unicorn`              | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `node-with-unicorn`              | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `node-with-unicorn`              | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `node-with-unicorn`              | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `node-with-unicorn`              | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-with-unicorn`        | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-with-unicorn`        | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-with-unicorn`        | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-with-unicorn`        | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-with-unicorn`        | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-with-unicorn`        | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-with-unicorn`        | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-strict-with-unicorn` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-strict-with-unicorn` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-strict-with-unicorn` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-strict-with-unicorn` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-strict-with-unicorn` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-strict-with-unicorn` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `typescript-strict-with-unicorn` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `all-options`                    | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `all-options`                    | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `all-options`                    | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `all-options`                    | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `all-options`                    | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `all-options`                    | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `all-options`                    | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"tags":["outdent","dedent","gql","sql","html","styled"],"functions":["dedent","stripIndent"],"selectors":[],"comments":["HTML","indent"]}]` |
+| `all-options`                    | `Package JSON` | `package.json`            | 🧭 `off`           | `[0]`                                                                                                                                            |
+| `all-options`                    | `JSON`         | `config.json`             | 🧭 `off`           | `[0]`                                                                                                                                            |
+| `all-options`                    | `YAML`         | `config.yaml`             | 🧭 `off`           | `[0]`                                                                                                                                            |
+| `all-options`                    | `Markdown`     | `README.md`               | 🧭 `off`           | `[0]`                                                                                                                                            |
+| `all-options`                    | `CSS`          | `src/styles.css`          | 🧭 `off`           | `[0]`                                                                                                                                            |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `prettier`                       | 🧭 `off`   | `0`       | `0`          |
+| `unicorn`                        | 🚨 `error` | `"error"` | `0`          |
+| `node-with-unicorn`              | 🚨 `error` | `"error"` | `2`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `10`         |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
+| `all-options`                    | 🧭 `off`   | `0`       | `32`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const copiedUser = JSON.parse(JSON.stringify(user));
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const copiedUser = structuredClone(user);
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/unicorn/template-indent`
+- **Documentation route:** `/docs/eslint-config/rules/unicorn/template-indent`

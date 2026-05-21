@@ -1,0 +1,115 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/next/no-duplicate-head`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Prevent duplicate usage of `<Head>` in `pages/_document.js`.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `next`        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `next`        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `next`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `next`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `next`        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `next`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `next`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `next`        | 🚨 `error` | `"error"` | `2`          |
+| `all-options` | 🚨 `error` | `"error"` | `23`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+import Document, { Head, Html, Main, NextScript } from "next/document";
+
+export default class MyDocument extends Document {
+	render() {
+		return (
+			<Html>
+				<Head>
+					<title>Dashboard</title>
+				</Head>
+				<body>
+					<Main />
+					<NextScript />
+				</body>
+			</Html>
+		);
+	}
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+import Head from "next/head";
+
+export default function DashboardPage() {
+	return (
+		<>
+			<Head>
+				<title>Dashboard</title>
+			</Head>
+			<main>Dashboard</main>
+		</>
+	);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/next/no-duplicate-head`
+- **Documentation route:** `/docs/eslint-config/rules/next/no-duplicate-head`

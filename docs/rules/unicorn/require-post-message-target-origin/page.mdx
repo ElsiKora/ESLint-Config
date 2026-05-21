@@ -1,0 +1,114 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/unicorn/require-post-message-target-origin`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce using the `targetOrigin` argument with `window.postMessage()`.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ✅ Yes    |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `false`   |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity | Value   | Config block |
+| -------------------------------- | -------- | ------- | ------------ |
+| `unicorn`                        | 🧭 `off` | `"off"` | `0`          |
+| `node-with-unicorn`              | 🧭 `off` | `"off"` | `2`          |
+| `typescript-with-unicorn`        | 🧭 `off` | `"off"` | `10`         |
+| `typescript-strict-with-unicorn` | 🧭 `off` | `"off"` | `10`         |
+| `all-options`                    | 🧭 `off` | `"off"` | `75`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+window.postMessage({ type: "ready" }, "*");
+fetch(url, { method: "POST", body: payload });
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+window.postMessage({ type: "ready" }, "https://app.example.com");
+fetch(url, { method: "POST", body: payload, headers: { "content-type": "application/json" } });
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/unicorn/require-post-message-target-origin`
+- **Documentation route:** `/docs/eslint-config/rules/unicorn/require-post-message-target-origin`

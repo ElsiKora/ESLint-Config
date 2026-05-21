@@ -1,0 +1,78 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `spaced-comment`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Documents the core ESLint `spaced-comment` rule as it appears in the ElsiKora JavaScript preset, including overrides that may change its final severity.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                  |
+| ---------------- | ---------------------- |
+| Default scenario | `all-options`          |
+| Default target   | `YAML` (`config.yaml`) |
+| Default severity | 🧭 `off`               |
+| Default value    | `[0]`                  |
+
+### Effective Result by File Type
+
+| Scenario      | Target | File path     | Effective severity | Effective value |
+| ------------- | ------ | ------------- | ------------------ | --------------- |
+| `yaml`        | `YAML` | `config.yaml` | 🧭 `off`           | `[0]`           |
+| `all-options` | `YAML` | `config.yaml` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `yaml`        | 🧭 `off` | `"off"` | `1`          |
+| `all-options` | 🧭 `off` | `"off"` | `78`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const total = items.reduce((sum, item) => sum + item.price, 0);
+export { total };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const total = items.reduce((sum, item) => sum + item.price, 0);
+export { total };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `spaced-comment`
+- **Documentation route:** `/docs/eslint-config/rules/javascript/spaced-comment`

@@ -1,7 +1,6 @@
 export default {
 	"*": (files) => {
-		const commands = [];
-		commands.push("prettier --write --ignore-unknown");
+		const commands = ["prettier --write --ignore-unknown"];
 
 		const filteredFiles = files.filter((file) => !file.includes("test/") && !file.includes("vitest") && !file.includes("CHANGELOG"));
 

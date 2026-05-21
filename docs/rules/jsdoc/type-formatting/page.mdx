@@ -1,0 +1,239 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/type-formatting`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Formats JSDoc type values.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"arrayBrackets": {
+				"description": "Determines how array generics are represented. Set to `angle` for the style `Array<type>` or `square` for the style `type[]`. Defaults to \"square\".",
+				"enum": ["angle", "square"],
+				"type": "string"
+			},
+			"arrowFunctionPostReturnMarkerSpacing": {
+				"description": "The space character (if any) to use after return markers (`=>`). Defaults to \" \".",
+				"type": "string"
+			},
+			"arrowFunctionPreReturnMarkerSpacing": {
+				"description": "The space character (if any) to use before return markers (`=>`). Defaults to \" \".",
+				"type": "string"
+			},
+			"enableFixer": {
+				"description": "Whether to enable the fixer. Defaults to `true`.",
+				"type": "boolean"
+			},
+			"functionOrClassParameterSpacing": {
+				"description": "The space character (if any) to use between function or class parameters. Defaults to \" \".",
+				"type": "string"
+			},
+			"functionOrClassPostGenericSpacing": {
+				"description": "The space character (if any) to use after a generic expression in a function or class. Defaults to \"\".",
+				"type": "string"
+			},
+			"functionOrClassPostReturnMarkerSpacing": {
+				"description": "The space character (if any) to use after return markers (`:`). Defaults to \"\".",
+				"type": "string"
+			},
+			"functionOrClassPreReturnMarkerSpacing": {
+				"description": "The space character (if any) to use before return markers (`:`). Defaults to \"\".",
+				"type": "string"
+			},
+			"functionOrClassTypeParameterSpacing": {
+				"description": "The space character (if any) to use between type parameters in a function or class. Defaults to \" \".",
+				"type": "string"
+			},
+			"genericAndTupleElementSpacing": {
+				"description": "The space character (if any) to use between elements in generics and tuples. Defaults to \" \".",
+				"type": "string"
+			},
+			"genericDot": {
+				"description": "Boolean value of whether to use a dot before the angled brackets of a generic (e.g., `SomeType.<AnotherType>`). Defaults to `false`.",
+				"type": "boolean"
+			},
+			"keyValuePostColonSpacing": {
+				"description": "The amount of spacing (if any) after the colon of a key-value or object-field pair. Defaults to \" \".",
+				"type": "string"
+			},
+			"keyValuePostKeySpacing": {
+				"description": "The amount of spacing (if any) immediately after keys in a key-value or object-field pair. Defaults to \"\".",
+				"type": "string"
+			},
+			"keyValuePostOptionalSpacing": {
+				"description": "The amount of spacing (if any) after the optional operator (`?`) in a key-value or object-field pair. Defaults to \"\".",
+				"type": "string"
+			},
+			"keyValuePostVariadicSpacing": {
+				"description": "The amount of spacing (if any) after a variadic operator (`...`) in a key-value pair. Defaults to \"\".",
+				"type": "string"
+			},
+			"methodQuotes": {
+				"description": "The style of quotation mark for surrounding method names when quoted. Defaults to `double`",
+				"enum": ["double", "single"],
+				"type": "string"
+			},
+			"objectFieldIndent": {
+				"description": "A string indicating the whitespace to be added on each line preceding an\nobject property-value field. Defaults to the empty string.",
+				"type": "string"
+			},
+			"objectFieldQuote": {
+				"description": "Whether and how object field properties should be quoted (e.g., `{\"a\": string}`).\nSet to `single`, `double`, or `null`. Defaults to `null` (no quotes unless\nrequired due to special characters within the field). Digits will be kept as is,\nregardless of setting (they can either represent a digit or a string digit).",
+				"enum": ["double", "single", null]
+			},
+			"objectFieldSeparator": {
+				"description": "For object properties, specify whether a \"semicolon\", \"comma\", \"linebreak\",\n\"semicolon-and-linebreak\", or \"comma-and-linebreak\" should be used after\neach object property-value pair.\n\nDefaults to `\"comma\"`.",
+				"enum": ["comma", "comma-and-linebreak", "linebreak", "semicolon", "semicolon-and-linebreak"],
+				"type": "string"
+			},
+			"objectFieldSeparatorOptionalLinebreak": {
+				"description": "Whether `objectFieldSeparator` set to `\"semicolon-and-linebreak\"` or\n`\"comma-and-linebreak\"` should be allowed to optionally drop the linebreak.\n\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"objectFieldSeparatorTrailingPunctuation": {
+				"description": "If `separatorForSingleObjectField` is not in effect (i.e., if it is `false`\nor there are multiple property-value object fields present), this property\nwill determine whether to add punctuation corresponding to the\n`objectFieldSeparator` (e.g., a semicolon) to the final object field.\nDefaults to `false`.",
+				"type": "boolean"
+			},
+			"objectTypeBracketSpacing": {
+				"description": "The space character (if any) to add after an object's initial curly bracket and before its ending curly bracket",
+				"type": "string"
+			},
+			"parameterDefaultValueSpacing": {
+				"description": "The space character (if any) to use between the equal signs of a default value. Defaults to \" \".",
+				"type": "string"
+			},
+			"postMethodNameSpacing": {
+				"description": "The space character (if any) to add after a method name. Defaults to \"\".",
+				"type": "string"
+			},
+			"postNewSpacing": {
+				"description": "The space character (if any) to add after \"new\" in a constructor. Defaults to \" \".",
+				"type": "string"
+			},
+			"separatorForSingleObjectField": {
+				"description": "Whether to apply the `objectFieldSeparator` (e.g., a semicolon) when there\nis only one property-value object field present. Defaults to `false`.",
+				"type": "boolean"
+			},
+			"stringQuotes": {
+				"description": "How string literals should be quoted (e.g., `\"abc\"`). Set to `single`\nor `double`. Defaults to 'double'.",
+				"enum": ["double", "single"],
+				"type": "string"
+			},
+			"trailingPunctuationMultilineOnly": {
+				"description": "If `objectFieldSeparatorTrailingPunctuation` is set, this will determine whether the trailing puncutation is only added when the type is multiline",
+				"type": "boolean"
+			},
+			"typeBracketSpacing": {
+				"description": "A string of spaces that will be added immediately after the type's initial\ncurly bracket and immediately before its ending curly bracket. Defaults\nto the empty string.",
+				"type": "string"
+			},
+			"unionSpacing": {
+				"description": "Determines the spacing to add to unions (`|`). Defaults to a single space (`\" \"`).",
+				"type": "string"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+/**
+ * Parses a page number.
+ * @param {*} value - Unknown value.
+ * @returns {*} Parsed page.
+ */
+function parsePage(value: unknown): number {
+	return Number(value);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+/**
+ * Parses a page number.
+ * @param {unknown} value - Unknown value.
+ * @returns {number} Parsed page.
+ */
+function parsePage(value: unknown): number {
+	return Number(value);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/type-formatting`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/type-formatting`

@@ -1,0 +1,137 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/sonar/cognitive-complexity`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Cognitive Complexity of functions should not be too high.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `true`       |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"type": "array",
+	"minItems": 0,
+	"maxItems": 2,
+	"items": [
+		{
+			"oneOf": [
+				{
+					"type": "integer",
+					"minimum": 0
+				},
+				{
+					"type": "string",
+					"enum": ["silence-issues"]
+				}
+			]
+		},
+		{
+			"type": "string",
+			"enum": ["silence-issues"]
+		}
+	]
+}
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2,100]`                       |
+
+### Effective Result by File Type
+
+| Scenario                | Target       | File path                 | Effective severity | Effective value |
+| ----------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `sonar`                 | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,100]`       |
+| `sonar`                 | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,100]`       |
+| `sonar`                 | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,100]`       |
+| `sonar`                 | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,100]`       |
+| `sonar`                 | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,100]`       |
+| `sonar`                 | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,100]`       |
+| `sonar`                 | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,100]`       |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,100]`       |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,100]`       |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,100]`       |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,100]`       |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,100]`       |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,100]`       |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,100]`       |
+| `all-options`           | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,100]`       |
+| `all-options`           | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,100]`       |
+| `all-options`           | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,100]`       |
+| `all-options`           | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,100]`       |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,100]`       |
+| `all-options`           | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,100]`       |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,100]`       |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                | Severity   | Value           | Config block |
+| ----------------------- | ---------- | --------------- | ------------ |
+| `sonar`                 | 🚨 `error` | `"error"`       | `0`          |
+| `sonar`                 | 🚨 `error` | `["error",100]` | `1`          |
+| `javascript-with-sonar` | 🚨 `error` | `"error"`       | `3`          |
+| `javascript-with-sonar` | 🚨 `error` | `["error",100]` | `4`          |
+| `all-options`           | 🚨 `error` | `"error"`       | `39`         |
+| `all-options`           | 🚨 `error` | `["error",100]` | `40`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+function price(order) {
+	if (order.vip && order.region === "EU") {
+		return order.total * 0.8;
+	}
+
+	return order.total;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+function price(order) {
+	const discount = getCustomerDiscount(order.customer);
+
+	return applyDiscount(order.total, discount);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/sonar/cognitive-complexity`
+- **Documentation route:** `/docs/eslint-config/rules/sonar/cognitive-complexity`

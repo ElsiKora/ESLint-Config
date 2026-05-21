@@ -14,10 +14,9 @@ describe("JavaScript and TypeScript Configuration", () => {
 				});
 
 				const results = await eslint.lintFiles([getFixturePath("javascript/valid/clean.fixture.js")]);
-				console.log("🚀 ~ it ~ results:", results[0].messages);
 
 				expect(results[0].errorCount).toBe(0);
-				expect(results[0].messages).toHaveLength(1);
+				expect(results[0].messages).toHaveLength(0);
 			});
 		});
 	});
@@ -56,6 +55,16 @@ describe("JavaScript and TypeScript Configuration", () => {
 				const results = await eslint.lintFiles([getFixturePath("typescript/invalid/explicit-function-return-type.fixture.ts")]);
 
 				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("@typescript-eslint/explicit-function-return-type"))).toBe(false);
+			});
+
+			it("should enforce sorted decorators", async () => {
+				const eslint: ESLint = await createEsLintInstance({
+					withTypescript: true,
+				});
+
+				const results = await eslint.lintFiles([getFixturePath("typescript/invalid/sort-decorators.fixture.ts")]);
+
+				expect(results[0].messages.some((msg) => msg.ruleId === formatRuleName("sort-decorators/sort-on-classes"))).toBe(true);
 			});
 		});
 	});

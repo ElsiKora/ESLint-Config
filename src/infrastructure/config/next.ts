@@ -36,7 +36,6 @@ export default function loadConfig(): Array<Linter.Config> {
 		{
 			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 			plugins: {
-				// eslint-disable-next-line @elsikora/typescript/no-unsafe-argument
 				[formatPluginName("@next/next")]: fixupPluginRules(next),
 			},
 			rules: {

@@ -1,0 +1,168 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/require-yields`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Requires yields are documented with `@yields` tags.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"contexts": {
+				"description": "Set this to an array of strings representing the AST context\n(or objects with optional `context` and `comment` properties) where you wish\nthe rule to be applied.\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`, `FunctionDeclaration`,\n`FunctionExpression`). Set to `\"any\"` if you want\nthe rule to apply to any JSDoc block throughout your files (as is necessary\nfor finding function blocks not attached to a function declaration or\nexpression, i.e., `@callback` or `@function` (or its aliases `@func` or\n`@method`) (including those associated with an `@interface`). This\nrule will only apply on non-default contexts when there is such a tag\npresent and the `forceRequireYields` option is set or if the\n`withGeneratorTag` option is set with a present `@generator` tag\n(since we are not checking against the actual `yield` values in these\ncases).",
+				"items": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"comment": {
+									"type": "string"
+								},
+								"context": {
+									"type": "string"
+								}
+							},
+							"type": "object"
+						}
+					]
+				},
+				"type": "array"
+			},
+			"exemptedBy": {
+				"description": "Array of tags (e.g., `['type']`) whose presence on the\ndocument block avoids the need for a `@yields`. Defaults to an array\nwith `inheritdoc`. If you set this array, it will overwrite the default,\nso be sure to add back `inheritdoc` if you wish its presence to cause\nexemption of the rule.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"forceRequireNext": {
+				"default": false,
+				"description": "Set to `true` to always insist on\n`@next` documentation even if there are no `yield` statements in the\nfunction or none return values. May be desired to flag that a project is\naware of the expected yield return being `undefined`. Defaults to `false`.",
+				"type": "boolean"
+			},
+			"forceRequireYields": {
+				"default": false,
+				"description": "Set to `true` to always insist on\n`@yields` documentation for generators even if there are only\nexpressionless `yield` statements in the function. May be desired to flag\nthat a project is aware of an `undefined`/`void` yield. Defaults to\n`false`.",
+				"type": "boolean"
+			},
+			"next": {
+				"default": false,
+				"description": "If `true`, this option will insist that any use of a `yield` return\nvalue (e.g., `const rv = yield;` or `const rv = yield value;`) has a\n(non-standard) `@next` tag (in addition to any `@yields` tag) so as to be\nable to document the type expected to be supplied into the iterator\n(the `Generator` iterator that is returned by the call to the generator\nfunction) to the iterator (e.g., `it.next(value)`). The tag will not be\nexpected if the generator function body merely has plain `yield;` or\n`yield value;` statements without returning the values. Defaults to\n`false`.",
+				"type": "boolean"
+			},
+			"nextWithGeneratorTag": {
+				"default": false,
+				"description": "If a `@generator` tag is present on a block, require\n(non-standard ) `@next` (see `next` option). This will require using `void`\nor `undefined` in cases where generators do not use the `next()`-supplied\nincoming `yield`-returned value. Defaults to `false`. See `contexts` to\n`any` if you want to catch `@generator` with `@callback` or such not\nattached to a function.",
+				"type": "boolean"
+			},
+			"withGeneratorTag": {
+				"default": true,
+				"description": "If a `@generator` tag is present on a block, require\n`@yields`/`@yield`. Defaults to `true`. See `contexts` to `any` if you want\nto catch `@generator` with `@callback` or such not attached to a function.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Iterates enabled users.
+ */
+function* enabledUsers(users) {
+	yield* users.filter((user) => user.enabled);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Iterates enabled users.
+ * @param {Array<{ enabled: boolean }>} users - Users to inspect.
+ * @yields {{ enabled: boolean }} Enabled user.
+ */
+function* enabledUsers(users) {
+	yield* users.filter((user) => user.enabled);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/require-yields`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/require-yields`

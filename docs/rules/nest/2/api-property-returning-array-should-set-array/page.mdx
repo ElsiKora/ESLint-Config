@@ -1,0 +1,82 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/nest/2/api-property-returning-array-should-set-array`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Properties of array should set array.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path        | Effective severity | Effective value |
+| ------------- | ------------ | ---------------- | ------------------ | --------------- |
+| `nest`        | `TypeScript` | `src/example.ts` | 🚨 `error`         | `[2]`           |
+| `all-options` | `TypeScript` | `src/example.ts` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `nest`        | 🚨 `error` | `"error"` | `0`          |
+| `all-options` | 🚨 `error` | `"error"` | `20`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+class CreateUserDto {
+	@ApiProperty()
+	roles: Role[];
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+class CreateUserDto {
+	@ApiProperty({ enum: Role, isArray: true })
+	roles: Role[];
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/nest/2/api-property-returning-array-should-set-array`
+- **Documentation route:** `/docs/eslint-config/rules/nest/2/api-property-returning-array-should-set-array`

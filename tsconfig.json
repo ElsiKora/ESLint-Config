@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
-		"baseUrl": "./src",
 		"declaration": true,
 		"emitDeclarationOnly": false,
 		"emitDecoratorMetadata": true,
@@ -19,10 +18,10 @@
 		"noUnusedParameters": true,
 		"outDir": "./dist",
 		"paths": {
-			"@application/*": ["application/*"],
-			"@domain/*": ["domain/*"],
-			"@infrastructure/*": ["infrastructure/*"],
-			"@presentation/*": ["presentation/*"]
+			"@application/*": ["./src/application/*"],
+			"@domain/*": ["./src/domain/*"],
+			"@infrastructure/*": ["./src/infrastructure/*"],
+			"@presentation/*": ["./src/presentation/*"]
 		},
 		"skipLibCheck": true,
 		"sourceMap": true,

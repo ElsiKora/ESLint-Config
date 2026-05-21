@@ -74,5 +74,8 @@ describe("Sonar Config", () => {
 
 		expect(configs[1].rules).toHaveProperty("sonarjs/no-empty-test-file");
 		expect(configs[1].rules["sonarjs/no-empty-test-file"]).toBe("off");
+
+		expect(configs[1].rules).toHaveProperty("sonarjs/todo-tag");
+		expect(configs[1].rules["sonarjs/todo-tag"]).toBe("warn");
 	});
 });

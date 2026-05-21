@@ -1,0 +1,15 @@
+export default {
+	"exports-style": "exports-style",
+	hashbang: "hashbang",
+	"no-deprecated-api": "no-deprecated-api",
+	"no-exports-assign": "no-exports-assign",
+	"no-extraneous-import": "no-extraneous-import",
+	"no-extraneous-require": "no-extraneous-require",
+	"no-missing-import": "no-missing-import",
+	"no-missing-require": "no-missing-require",
+	"no-process-exit": "no-process-exit",
+	"no-unpublished-import": "no-unpublished-import",
+	"no-unpublished-require": "no-unpublished-require",
+	"no-unsupported-features": "No Unsupported Features",
+	"process-exit-as-throw": "process-exit-as-throw",
+};

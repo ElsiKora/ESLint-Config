@@ -1,4 +1,3 @@
-// eslint-disable-next-line @elsikora/unicorn/prevent-abbreviations
 import path from "node:path";
 
 import tsconfigPaths from "vite-tsconfig-paths";

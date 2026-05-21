@@ -1,0 +1,90 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/react/1/no-leaked-conditional-rendering`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Prevents problematic leaked values from being rendered.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `react`       | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `react`       | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `react`       | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `react`       | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `react`       | 🚨 `error` | `"error"` | `4`          |
+| `all-options` | 🚨 `error` | `"error"` | `37`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+type Props = { label: string };
+
+export function StatusBadge(props: Props) {
+	return <span className="status">{props.label}</span>;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+type Props = { label: string };
+
+export function StatusBadge({ label }: Props) {
+	return <span className="status">{label}</span>;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/react/1/no-leaked-conditional-rendering`
+- **Documentation route:** `/docs/eslint-config/rules/react/1/no-leaked-conditional-rendering`

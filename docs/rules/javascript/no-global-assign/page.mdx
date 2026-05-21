@@ -1,0 +1,118 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/javascript/no-global-assign`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow assignments to native objects or read-only global variables.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `true`       |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"exceptions": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"uniqueItems": true
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2,{"exceptions":[]}]`         |
+
+### Effective Result by File Type
+
+| Scenario                | Target       | File path                 | Effective severity | Effective value         |
+| ----------------------- | ------------ | ------------------------- | ------------------ | ----------------------- |
+| `javascript`            | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript`            | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript`            | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript`            | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript`            | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript`            | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript`            | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `all-options`           | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `all-options`           | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `all-options`           | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `all-options`           | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `all-options`           | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"exceptions":[]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                | Severity   | Value     | Config block |
+| ----------------------- | ---------- | --------- | ------------ |
+| `javascript`            | 🚨 `error` | `"error"` | `1`          |
+| `javascript-with-sonar` | 🚨 `error` | `"error"` | `1`          |
+| `all-options`           | 🚨 `error` | `"error"` | `9`          |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const status = currentStatus;
+export { status };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const status = "ready";
+export { status };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/javascript/no-global-assign`
+- **Documentation route:** `/docs/eslint-config/rules/javascript/no-global-assign`

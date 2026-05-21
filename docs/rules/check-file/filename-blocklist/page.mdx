@@ -1,0 +1,103 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/check-file/filename-blocklist`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+The filename should be blocklisted.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value    |
+| ------------------ | -------- |
+| Type               | `layout` |
+| Fixable            | ❌ No    |
+| Has suggestions    | ❌ No    |
+| Deprecated         | ❌ No    |
+| ESLint recommended | `false`  |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": {
+			"type": "string"
+		}
+	},
+	{
+		"type": "object",
+		"properties": {
+			"errorMessage": {
+				"type": "string"
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                                                                           |
+| Default target   | `JavaScript` (`src/example.js`)                                                                                                                         |
+| Default severity | 🚨 `error`                                                                                                                                              |
+| Default value    | `[2,{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value                                                                                                                                         |
+| ------------- | ------------ | ------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `check-file`  | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` |
+| `all-options` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` |
+| `all-options` | `CSS`        | `src/styles.css`          | 🚨 `error`         | `[2,{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value                                                                                                                                                         | Config block |
+| ------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `check-file`  | 🚨 `error` | `["error",{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` | `0`          |
+| `all-options` | 🚨 `error` | `["error",{"**/*.enums.ts":"*.enum.ts","**/*.models.ts":"*.model.ts","**/*.tests.ts":"*.test.ts","**/*.types.ts":"*.type.ts","**/*.util.ts":"*.utility.ts"}]` | `0`          |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const Bad_Name = "value";
+export { Bad_Name };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const goodName = "value";
+export { goodName };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/check-file/filename-blocklist`
+- **Documentation route:** `/docs/eslint-config/rules/check-file/filename-blocklist`

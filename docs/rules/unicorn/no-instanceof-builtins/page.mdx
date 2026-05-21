@@ -1,0 +1,143 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/unicorn/no-instanceof-builtins`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow `instanceof` with built-in objects.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value           |
+| ------------------ | --------------- |
+| Type               | `problem`       |
+| Fixable            | ✅ Yes          |
+| Has suggestions    | ✅ Yes          |
+| Deprecated         | ❌ No           |
+| ESLint recommended | `unopinionated` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"useErrorIsError": {
+				"type": "boolean"
+			},
+			"strategy": {
+				"enum": ["loose", "strict"]
+			},
+			"include": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				}
+			},
+			"exclude": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				}
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                        |
+| ---------------- | ---------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                |
+| Default target   | `JavaScript` (`src/example.js`)                                              |
+| Default severity | 🚨 `error`                                                                   |
+| Default value    | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                                                              |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ---------------------------------------------------------------------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"useErrorIsError":false,"strategy":"loose","include":[],"exclude":[]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `unicorn`                        | 🚨 `error` | `"error"` | `0`          |
+| `node-with-unicorn`              | 🚨 `error` | `"error"` | `2`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `10`         |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const copiedUser = JSON.parse(JSON.stringify(user));
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const copiedUser = structuredClone(user);
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/unicorn/no-instanceof-builtins`
+- **Documentation route:** `/docs/eslint-config/rules/unicorn/no-instanceof-builtins`

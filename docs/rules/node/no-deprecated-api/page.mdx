@@ -1,0 +1,234 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/node/no-deprecated-api`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow deprecated APIs.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"version": {
+				"type": "string"
+			},
+			"ignoreModuleItems": {
+				"type": "array",
+				"items": {
+					"enum": [
+						"_linklist",
+						"_stream_wrap",
+						"async_hooks.currentId",
+						"async_hooks.triggerId",
+						"buffer.Buffer()",
+						"new buffer.Buffer()",
+						"buffer.SlowBuffer",
+						"constants",
+						"crypto._toBuf",
+						"crypto.Credentials",
+						"crypto.DEFAULT_ENCODING",
+						"crypto.createCipher",
+						"crypto.createCredentials",
+						"crypto.createDecipher",
+						"crypto.fips",
+						"crypto.prng",
+						"crypto.pseudoRandomBytes",
+						"crypto.rng",
+						"domain",
+						"events.EventEmitter.listenerCount",
+						"events.listenerCount",
+						"freelist",
+						"fs.SyncWriteStream",
+						"fs.exists",
+						"fs.lchmod",
+						"fs.lchmodSync",
+						"http.createClient",
+						"module.Module.createRequireFromPath",
+						"module.Module.requireRepl",
+						"module.Module._debug",
+						"module.createRequireFromPath",
+						"module.requireRepl",
+						"module._debug",
+						"net._setSimultaneousAccepts",
+						"os.getNetworkInterfaces",
+						"os.tmpDir",
+						"path._makeLong",
+						"process.EventEmitter",
+						"process.assert",
+						"process.binding",
+						"process.env.NODE_REPL_HISTORY_FILE",
+						"process.report.triggerReport",
+						"punycode",
+						"readline.codePointAt",
+						"readline.getStringWidth",
+						"readline.isFullWidthCodePoint",
+						"readline.stripVTControlCharacters",
+						"repl.REPLServer",
+						"repl.Recoverable",
+						"repl.REPL_MODE_MAGIC",
+						"repl.builtinModules",
+						"safe-buffer.Buffer()",
+						"new safe-buffer.Buffer()",
+						"safe-buffer.SlowBuffer",
+						"sys",
+						"timers.enroll",
+						"timers.unenroll",
+						"tls.CleartextStream",
+						"tls.CryptoStream",
+						"tls.SecurePair",
+						"tls.convertNPNProtocols",
+						"tls.createSecurePair",
+						"tls.parseCertString",
+						"tty.setRawMode",
+						"url.parse",
+						"url.resolve",
+						"util.debug",
+						"util.error",
+						"util.isArray",
+						"util.isBoolean",
+						"util.isBuffer",
+						"util.isDate",
+						"util.isError",
+						"util.isFunction",
+						"util.isNull",
+						"util.isNullOrUndefined",
+						"util.isNumber",
+						"util.isObject",
+						"util.isPrimitive",
+						"util.isRegExp",
+						"util.isString",
+						"util.isSymbol",
+						"util.isUndefined",
+						"util.log",
+						"util.print",
+						"util.pump",
+						"util.puts",
+						"util._extend",
+						"vm.runInDebugContext",
+						"zlib.BrotliCompress()",
+						"zlib.BrotliDecompress()",
+						"zlib.Deflate()",
+						"zlib.DeflateRaw()",
+						"zlib.Gunzip()",
+						"zlib.Gzip()",
+						"zlib.Inflate()",
+						"zlib.InflateRaw()",
+						"zlib.Unzip()"
+					]
+				},
+				"additionalItems": false,
+				"uniqueItems": true
+			},
+			"ignoreGlobalItems": {
+				"type": "array",
+				"items": {
+					"enum": ["Buffer()", "new Buffer()", "COUNTER_NET_SERVER_CONNECTION", "COUNTER_NET_SERVER_CONNECTION_CLOSE", "COUNTER_HTTP_SERVER_REQUEST", "COUNTER_HTTP_SERVER_RESPONSE", "COUNTER_HTTP_CLIENT_REQUEST", "COUNTER_HTTP_CLIENT_RESPONSE", "GLOBAL", "Intl.v8BreakIterator", "require.extensions", "root", "process.EventEmitter", "process.assert", "process.binding", "process.env.NODE_REPL_HISTORY_FILE", "process.report.triggerReport"]
+				},
+				"additionalItems": false,
+				"uniqueItems": true
+			},
+			"ignoreIndirectDependencies": {
+				"type": "boolean"
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario            | Target       | File path                 | Effective severity | Effective value |
+| ------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `node`              | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `node`              | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `node`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `node`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `node`              | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `node`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `node`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `node-with-unicorn` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `node-with-unicorn` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `node-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `node-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `node-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `node-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `node-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options`       | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `all-options`       | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options`       | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options`       | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options`       | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options`       | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options`       | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario            | Severity   | Value     | Config block |
+| ------------------- | ---------- | --------- | ------------ |
+| `node`              | 🚨 `error` | `"error"` | `0`          |
+| `node-with-unicorn` | 🚨 `error` | `"error"` | `0`          |
+| `all-options`       | 🚨 `error` | `"error"` | `24`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+import { Buffer } from "node:buffer";
+
+const payload = new Buffer("value");
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+import { Buffer } from "node:buffer";
+
+const payload = Buffer.from("value");
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/node/no-deprecated-api`
+- **Documentation route:** `/docs/eslint-config/rules/node/no-deprecated-api`

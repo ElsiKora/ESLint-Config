@@ -1,9 +1,13 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
 import type { IConfigOptions } from "@domain/interface";
-import type { Linter } from "eslint";
+import type { ESLint, Linter } from "eslint";
 
+// @ts-ignore
+import sortDecorators from "@elsikora/eslint-plugin-sort-decorators";
 import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
+
+const sortDecoratorsPlugin: ESLint.Plugin = sortDecorators as ESLint.Plugin;
 
 /**
  * Loads the strict ESLint configuration for TypeScript with additional strict rules enabled
@@ -11,6 +15,7 @@ import tseslint from "typescript-eslint";
  * @returns {Array<Linter.Config>} An array of ESLint configurations for TypeScript with strict rules
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
+	// eslint-disable-next-line @elsikora/sonar/deprecation
 	return tseslint.config({
 		// @ts-ignore
 		extends: [...formatConfig([...tseslint.configs.recommendedTypeChecked, ...tseslint.configs.strictTypeChecked, ...tseslint.configs.stylisticTypeChecked])],
@@ -22,6 +27,7 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			},
 		},
 		plugins: {
+			[formatPluginName("sort-decorators")]: sortDecoratorsPlugin,
 			[formatPluginName("typescript")]: tseslint.plugin,
 		},
 		rules: {
@@ -250,7 +256,12 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 					variableDeclarationIgnoreFunction: true,
 				},
 			], // Enforce type definitions in various situations to ensure code clarity and maintainability. This includes variables, function parameters, and class members among others, with an exception for functions in variable declarations.
-			[formatRuleName("@typescript-eslint/unbound-method")]: "off",
+			[formatRuleName("@typescript-eslint/unbound-method")]: "error",
+			[formatRuleName("sort-decorators/sort-on-accessors")]: "error",
+			[formatRuleName("sort-decorators/sort-on-classes")]: "error",
+			[formatRuleName("sort-decorators/sort-on-methods")]: "error",
+			[formatRuleName("sort-decorators/sort-on-parameters")]: "error",
+			[formatRuleName("sort-decorators/sort-on-properties")]: "error",
 		},
 	}) as Array<Linter.Config>;
 }

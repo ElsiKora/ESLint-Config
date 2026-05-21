@@ -1,0 +1,160 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/typescript/no-extraneous-class`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow classes used as namespaces.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `strict`     |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"allowConstructorOnly": {
+				"type": "boolean",
+				"description": "Whether to allow extraneous classes that contain only a constructor."
+			},
+			"allowEmpty": {
+				"type": "boolean",
+				"description": "Whether to allow extraneous classes that have no body (i.e. are empty)."
+			},
+			"allowStaticOnly": {
+				"type": "boolean",
+				"description": "Whether to allow extraneous classes that only contain static members."
+			},
+			"allowWithDecorator": {
+				"type": "boolean",
+				"description": "Whether to allow extraneous classes that include a decorator."
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"allowConstructorOnly": false,
+		"allowEmpty": false,
+		"allowStaticOnly": false,
+		"allowWithDecorator": false
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `typescript`                     | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `typescript`                     | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `typescript`                     | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `typescript`                     | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `typescript`                     | 🚨 `error` | `"error"` | `5`          |
+| `typescript`                     | 🧭 `off`   | `"off"`   | `9`          |
+| `typescript-strict`              | 🚨 `error` | `"error"` | `5`          |
+| `typescript-strict`              | 🧭 `off`   | `"off"`   | `9`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `5`          |
+| `typescript-with-unicorn`        | 🧭 `off`   | `"off"`   | `9`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `5`          |
+| `typescript-strict-with-unicorn` | 🧭 `off`   | `"off"`   | `9`          |
+| `all-options`                    | 🚨 `error` | `"error"` | `60`         |
+| `all-options`                    | 🧭 `off`   | `"off"`   | `64`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `70`         |
+| `all-options`                    | 🧭 `off`   | `"off"`   | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+class UserService {
+	constructor(private readonly repository: UserRepository) {}
+
+	load(id: string): Promise<User> {
+		return this.repository.findById(id);
+	}
+}
+
+export { UserService };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+class UserService {
+	constructor(private readonly repository: UserRepository) {}
+
+	loadUser(id: string): Promise<User> {
+		return this.repository.findById(id);
+	}
+}
+
+export { UserService };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/typescript/no-extraneous-class`
+- **Documentation route:** `/docs/eslint-config/rules/typescript/no-extraneous-class`

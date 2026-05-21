@@ -1,0 +1,130 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/require-returns-check`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Requires a return statement in function body if a `@returns` tag is specified in JSDoc comment(and reports if multiple `@returns` tags are present).
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"exemptAsync": {
+				"default": true,
+				"description": "By default, functions which return a `Promise` that are not\ndetected as resolving with a non-`undefined` value and `async` functions\n(even ones that do not explicitly return a value, as these are returning a\n`Promise` implicitly) will be exempted from reporting by this rule.\nIf you wish to insist that only `Promise`'s which resolve to\nnon-`undefined` values or `async` functions with explicit `return`'s will\nbe exempted from reporting (i.e., that `async` functions can be reported\nif they lack an explicit (non-`undefined`) `return` when a `@returns` is\npresent), you can set `exemptAsync` to `false` on the options object.",
+				"type": "boolean"
+			},
+			"exemptGenerators": {
+				"description": "Because a generator might be labeled as having a\n`IterableIterator` `@returns` value (along with an iterator type\ncorresponding to the type of any `yield` statements), projects might wish to\nleverage `@returns` in generators even without a `return` statement. This\noption is therefore `true` by default in `typescript` mode (in \"jsdoc\" mode,\none might be more likely to take advantage of `@yields`). Set it to `false`\nif you wish for a missing `return` to be flagged regardless.",
+				"type": "boolean"
+			},
+			"noNativeTypes": {
+				"description": "Whether to check that async functions do not\nindicate they return non-native types. Defaults to `true`.",
+				"type": "boolean"
+			},
+			"reportMissingReturnForUndefinedTypes": {
+				"default": false,
+				"description": "If `true` and no return or\nresolve value is found, this setting will even insist that reporting occur\nwith `void` or `undefined` (including as an indicated `Promise` type).\nUnlike `require-returns`, with this option in the rule, one can\n*discourage* the labeling of `undefined` types. Defaults to `false`.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Reads the current status.
+ */
+function getStatus() {
+	return "ready";
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Reads the current status.
+ * @returns {string} Current status.
+ */
+function getStatus() {
+	return "ready";
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/require-returns-check`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/require-returns-check`

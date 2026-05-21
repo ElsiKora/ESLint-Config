@@ -73,6 +73,9 @@ describe("Unicorn Config", () => {
 		expect(configs[1].rules).toHaveProperty("unicorn/no-null");
 		expect(configs[1].rules["unicorn/no-null"]).toBe("off");
 
+		expect(configs[1].rules).toHaveProperty("unicorn/prefer-ternary");
+		expect(configs[1].rules["unicorn/prefer-ternary"]).toBe("off");
+
 		expect(configs[1].rules).toHaveProperty("unicorn/prefer-top-level-await");
 		expect(configs[1].rules["unicorn/prefer-top-level-await"]).toBe("off");
 	});

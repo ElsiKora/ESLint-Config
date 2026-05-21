@@ -1,0 +1,134 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/require-file-overview`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Checks that all files have one `@file`, `@fileoverview`, or `@overview` tag at the beginning of the file.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+````json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"tags": {
+				"description": "The keys of this object are tag names, and the values are configuration\nobjects indicating what will be checked for these whole-file tags.\n\nEach configuration object has 3 potential boolean keys (which default\nto `false` when this option is supplied).\n\n1. `mustExist` - enforces that all files have a `@file`, `@fileoverview`, or `@overview` tag.\n2. `preventDuplicates` - enforces that duplicate file overview tags within a given file will be reported\n3. `initialCommentsOnly` - reports file overview tags which are not, as per\n  [the docs](https://jsdoc.app/tags-file.html), \"at the beginning of\n  the file\"–where beginning of the file is interpreted in this rule\n  as being when the overview tag is not preceded by anything other than\n  a comment.\n\nWhen no `tags` is present, the default is:\n\n```json\n{\n  \"file\": {\n    \"initialCommentsOnly\": true,\n    \"mustExist\": true,\n    \"preventDuplicates\": true,\n  }\n}\n```\n\nYou can add additional tag names and/or override `file` if you supply this\noption, e.g., in place of or in addition to `file`, giving other potential\nfile global tags like `@license`, `@copyright`, `@author`, `@module` or\n`@exports`, optionally restricting them to a single use or preventing them\nfrom being preceded by anything besides comments.\n\nFor example:\n\n```js\n{\n  \"license\": {\n    \"mustExist\": true,\n    \"preventDuplicates\": true,\n  }\n}\n```\n\nThis would require one and only one `@license` in the file, though because\n`initialCommentsOnly` is absent and defaults to `false`, the `@license`\ncan be anywhere.\n\nIn the case of `@license`, you can use this rule along with the\n`check-values` rule (with its `allowedLicenses` or `licensePattern` options),\nto enforce a license whitelist be present on every JS file.\n\nNote that if you choose to use `preventDuplicates` with `license`, you still\nhave a way to allow multiple licenses for the whole page by using the SPDX\n\"AND\" expression, e.g., `@license (MIT AND GPL-3.0)`.\n\nNote that the tag names are the main JSDoc tag name, so you should use `file`\nin this configuration object regardless of whether you have configured\n`fileoverview` instead of `file` on `tagNamePreference` (i.e., `fileoverview`\nwill be checked, but you must use `file` on the configuration object).",
+				"patternProperties": {
+					".*": {
+						"additionalProperties": false,
+						"properties": {
+							"initialCommentsOnly": {
+								"type": "boolean"
+							},
+							"mustExist": {
+								"type": "boolean"
+							},
+							"preventDuplicates": {
+								"type": "boolean"
+							}
+						},
+						"type": "object"
+					}
+				},
+				"type": "object"
+			}
+		},
+		"type": "object"
+	}
+]
+````
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Handles the request.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Handles the request.
+ * @param {{ id: string }} request - Request to handle.
+ * @returns {string} Request id.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/require-file-overview`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/require-file-overview`

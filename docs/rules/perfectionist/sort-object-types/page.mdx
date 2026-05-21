@@ -1,0 +1,1128 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/perfectionist/sort-object-types`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce sorted object types.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `true`       |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"items": {
+		"properties": {
+			"fallbackSort": {
+				"properties": {
+					"type": {
+						"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order"],
+						"description": "Specifies the sorting method.",
+						"type": "string"
+					},
+					"order": {
+						"description": "Specifies whether to sort items in ascending or descending order.",
+						"enum": ["asc", "desc"],
+						"type": "string"
+					},
+					"sortBy": {
+						"enum": ["name", "value"],
+						"type": "string"
+					}
+				},
+				"description": "Fallback sort order.",
+				"additionalProperties": false,
+				"required": ["type"],
+				"type": "object"
+			},
+			"type": {
+				"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order"],
+				"description": "Specifies the sorting method.",
+				"type": "string"
+			},
+			"specialCharacters": {
+				"description": "Specifies whether to trim, remove, or keep special characters before sorting.",
+				"enum": ["remove", "trim", "keep"],
+				"type": "string"
+			},
+			"ignoreCase": {
+				"description": "Controls whether sorting should be case-sensitive or not.",
+				"type": "boolean"
+			},
+			"alphabet": {
+				"description": "Used only when the `type` option is set to `'custom'`. Specifies the custom alphabet for sorting.",
+				"type": "string"
+			},
+			"locales": {
+				"oneOf": [
+					{
+						"type": "string"
+					},
+					{
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				],
+				"description": "Specifies the sorting locales."
+			},
+			"order": {
+				"description": "Specifies whether to sort items in ascending or descending order.",
+				"enum": ["asc", "desc"],
+				"type": "string"
+			},
+			"sortBy": {
+				"enum": ["name", "value"],
+				"type": "string"
+			},
+			"customGroups": {
+				"items": {
+					"oneOf": [
+						{
+							"properties": {
+								"fallbackSort": {
+									"properties": {
+										"type": {
+											"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order"],
+											"description": "Specifies the sorting method.",
+											"type": "string"
+										},
+										"order": {
+											"description": "Specifies whether to sort items in ascending or descending order.",
+											"enum": ["asc", "desc"],
+											"type": "string"
+										},
+										"sortBy": {
+											"enum": ["name", "value"],
+											"type": "string"
+										}
+									},
+									"description": "Fallback sort order.",
+									"additionalProperties": false,
+									"required": ["type"],
+									"type": "object"
+								},
+								"type": {
+									"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order"],
+									"description": "Specifies the sorting method.",
+									"type": "string"
+								},
+								"groupName": {
+									"description": "Custom group name.",
+									"type": "string"
+								},
+								"newlinesInside": {
+									"oneOf": [
+										{
+											"description": "Specifies how to handle newlines between groups elements",
+											"enum": ["ignore"],
+											"type": "string"
+										},
+										{
+											"type": "number",
+											"minimum": 0
+										}
+									]
+								},
+								"order": {
+									"description": "Specifies whether to sort items in ascending or descending order.",
+									"enum": ["asc", "desc"],
+									"type": "string"
+								},
+								"sortBy": {
+									"enum": ["name", "value"],
+									"type": "string"
+								},
+								"anyOf": {
+									"items": {
+										"properties": {
+											"elementNamePattern": {
+												"oneOf": [
+													{
+														"items": {
+															"oneOf": [
+																{
+																	"properties": {
+																		"pattern": {
+																			"description": "Regular expression pattern.",
+																			"type": "string"
+																		},
+																		"flags": {
+																			"description": "Regular expression flags.",
+																			"type": "string"
+																		}
+																	},
+																	"additionalProperties": false,
+																	"required": ["pattern"],
+																	"type": "object"
+																},
+																{
+																	"type": "string"
+																}
+															],
+															"description": "Regular expression."
+														},
+														"type": "array"
+													},
+													{
+														"oneOf": [
+															{
+																"properties": {
+																	"pattern": {
+																		"description": "Regular expression pattern.",
+																		"type": "string"
+																	},
+																	"flags": {
+																		"description": "Regular expression flags.",
+																		"type": "string"
+																	}
+																},
+																"additionalProperties": false,
+																"required": ["pattern"],
+																"type": "object"
+															},
+															{
+																"type": "string"
+															}
+														],
+														"description": "Regular expression."
+													}
+												],
+												"description": "Regular expression."
+											},
+											"modifiers": {
+												"items": {
+													"enum": ["optional", "required", "multiline"],
+													"type": "string"
+												},
+												"description": "Modifier filters.",
+												"type": "array"
+											},
+											"selector": {
+												"description": "Selector filter.",
+												"enum": ["index-signature", "member", "method", "property"],
+												"type": "string"
+											},
+											"elementValuePattern": {
+												"oneOf": [
+													{
+														"items": {
+															"oneOf": [
+																{
+																	"properties": {
+																		"pattern": {
+																			"description": "Regular expression pattern.",
+																			"type": "string"
+																		},
+																		"flags": {
+																			"description": "Regular expression flags.",
+																			"type": "string"
+																		}
+																	},
+																	"additionalProperties": false,
+																	"required": ["pattern"],
+																	"type": "object"
+																},
+																{
+																	"type": "string"
+																}
+															],
+															"description": "Regular expression."
+														},
+														"type": "array"
+													},
+													{
+														"oneOf": [
+															{
+																"properties": {
+																	"pattern": {
+																		"description": "Regular expression pattern.",
+																		"type": "string"
+																	},
+																	"flags": {
+																		"description": "Regular expression flags.",
+																		"type": "string"
+																	}
+																},
+																"additionalProperties": false,
+																"required": ["pattern"],
+																"type": "object"
+															},
+															{
+																"type": "string"
+															}
+														],
+														"description": "Regular expression."
+													}
+												],
+												"description": "Regular expression."
+											}
+										},
+										"description": "Custom group.",
+										"additionalProperties": false,
+										"type": "object"
+									},
+									"type": "array",
+									"minItems": 1
+								}
+							},
+							"description": "Custom group block.",
+							"required": ["groupName", "anyOf"],
+							"additionalProperties": false,
+							"type": "object"
+						},
+						{
+							"properties": {
+								"fallbackSort": {
+									"properties": {
+										"type": {
+											"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order"],
+											"description": "Specifies the sorting method.",
+											"type": "string"
+										},
+										"order": {
+											"description": "Specifies whether to sort items in ascending or descending order.",
+											"enum": ["asc", "desc"],
+											"type": "string"
+										},
+										"sortBy": {
+											"enum": ["name", "value"],
+											"type": "string"
+										}
+									},
+									"description": "Fallback sort order.",
+									"additionalProperties": false,
+									"required": ["type"],
+									"type": "object"
+								},
+								"type": {
+									"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order"],
+									"description": "Specifies the sorting method.",
+									"type": "string"
+								},
+								"groupName": {
+									"description": "Custom group name.",
+									"type": "string"
+								},
+								"newlinesInside": {
+									"oneOf": [
+										{
+											"description": "Specifies how to handle newlines between groups elements",
+											"enum": ["ignore"],
+											"type": "string"
+										},
+										{
+											"type": "number",
+											"minimum": 0
+										}
+									]
+								},
+								"order": {
+									"description": "Specifies whether to sort items in ascending or descending order.",
+									"enum": ["asc", "desc"],
+									"type": "string"
+								},
+								"sortBy": {
+									"enum": ["name", "value"],
+									"type": "string"
+								},
+								"elementNamePattern": {
+									"oneOf": [
+										{
+											"items": {
+												"oneOf": [
+													{
+														"properties": {
+															"pattern": {
+																"description": "Regular expression pattern.",
+																"type": "string"
+															},
+															"flags": {
+																"description": "Regular expression flags.",
+																"type": "string"
+															}
+														},
+														"additionalProperties": false,
+														"required": ["pattern"],
+														"type": "object"
+													},
+													{
+														"type": "string"
+													}
+												],
+												"description": "Regular expression."
+											},
+											"type": "array"
+										},
+										{
+											"oneOf": [
+												{
+													"properties": {
+														"pattern": {
+															"description": "Regular expression pattern.",
+															"type": "string"
+														},
+														"flags": {
+															"description": "Regular expression flags.",
+															"type": "string"
+														}
+													},
+													"additionalProperties": false,
+													"required": ["pattern"],
+													"type": "object"
+												},
+												{
+													"type": "string"
+												}
+											],
+											"description": "Regular expression."
+										}
+									],
+									"description": "Regular expression."
+								},
+								"modifiers": {
+									"items": {
+										"enum": ["optional", "required", "multiline"],
+										"type": "string"
+									},
+									"description": "Modifier filters.",
+									"type": "array"
+								},
+								"selector": {
+									"description": "Selector filter.",
+									"enum": ["index-signature", "member", "method", "property"],
+									"type": "string"
+								},
+								"elementValuePattern": {
+									"oneOf": [
+										{
+											"items": {
+												"oneOf": [
+													{
+														"properties": {
+															"pattern": {
+																"description": "Regular expression pattern.",
+																"type": "string"
+															},
+															"flags": {
+																"description": "Regular expression flags.",
+																"type": "string"
+															}
+														},
+														"additionalProperties": false,
+														"required": ["pattern"],
+														"type": "object"
+													},
+													{
+														"type": "string"
+													}
+												],
+												"description": "Regular expression."
+											},
+											"type": "array"
+										},
+										{
+											"oneOf": [
+												{
+													"properties": {
+														"pattern": {
+															"description": "Regular expression pattern.",
+															"type": "string"
+														},
+														"flags": {
+															"description": "Regular expression flags.",
+															"type": "string"
+														}
+													},
+													"additionalProperties": false,
+													"required": ["pattern"],
+													"type": "object"
+												},
+												{
+													"type": "string"
+												}
+											],
+											"description": "Regular expression."
+										}
+									],
+									"description": "Regular expression."
+								}
+							},
+							"description": "Custom group.",
+							"additionalProperties": false,
+							"required": ["groupName"],
+							"minProperties": 2,
+							"type": "object"
+						}
+					]
+				},
+				"description": "Defines custom groups to match specific members.",
+				"type": "array"
+			},
+			"newlinesInside": {
+				"oneOf": [
+					{
+						"oneOf": [
+							{
+								"description": "Specifies how to handle newlines between groups elements",
+								"enum": ["ignore"],
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"minimum": 0
+							}
+						]
+					},
+					{
+						"enum": ["newlinesBetween"],
+						"type": "string"
+					}
+				]
+			},
+			"groups": {
+				"items": {
+					"oneOf": [
+						{
+							"type": "string"
+						},
+						{
+							"items": {
+								"type": "string"
+							},
+							"type": "array",
+							"minItems": 1
+						},
+						{
+							"properties": {
+								"newlinesBetween": {
+									"oneOf": [
+										{
+											"description": "Specifies how to handle newlines between groups.",
+											"enum": ["ignore"],
+											"type": "string"
+										},
+										{
+											"type": "number",
+											"minimum": 0
+										}
+									]
+								}
+							},
+							"required": ["newlinesBetween"],
+							"additionalProperties": false,
+							"type": "object"
+						},
+						{
+							"properties": {
+								"group": {
+									"oneOf": [
+										{
+											"type": "string"
+										},
+										{
+											"items": {
+												"type": "string"
+											},
+											"type": "array",
+											"minItems": 1
+										}
+									]
+								},
+								"fallbackSort": {
+									"properties": {
+										"type": {
+											"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order"],
+											"description": "Specifies the sorting method.",
+											"type": "string"
+										},
+										"order": {
+											"description": "Specifies whether to sort items in ascending or descending order.",
+											"enum": ["asc", "desc"],
+											"type": "string"
+										},
+										"sortBy": {
+											"enum": ["name", "value"],
+											"type": "string"
+										}
+									},
+									"description": "Fallback sort order.",
+									"additionalProperties": false,
+									"required": ["type"],
+									"type": "object"
+								},
+								"commentAbove": {
+									"description": "Specifies a comment to enforce above the group.",
+									"type": "string"
+								},
+								"type": {
+									"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order"],
+									"description": "Specifies the sorting method.",
+									"type": "string"
+								},
+								"newlinesInside": {
+									"oneOf": [
+										{
+											"description": "Specifies how to handle newlines between groups elements",
+											"enum": ["ignore"],
+											"type": "string"
+										},
+										{
+											"type": "number",
+											"minimum": 0
+										}
+									]
+								},
+								"order": {
+									"description": "Specifies whether to sort items in ascending or descending order.",
+									"enum": ["asc", "desc"],
+									"type": "string"
+								},
+								"sortBy": {
+									"enum": ["name", "value"],
+									"type": "string"
+								}
+							},
+							"additionalProperties": false,
+							"required": ["group"],
+							"minProperties": 2,
+							"type": "object"
+						}
+					]
+				},
+				"description": "Specifies a list of groups for sorting.",
+				"type": "array"
+			},
+			"newlinesBetween": {
+				"oneOf": [
+					{
+						"description": "Specifies how to handle newlines between groups.",
+						"enum": ["ignore"],
+						"type": "string"
+					},
+					{
+						"type": "number",
+						"minimum": 0
+					}
+				]
+			},
+			"useConfigurationIf": {
+				"description": "Specifies filters to match a particular options configuration for a given element to sort.",
+				"properties": {
+					"allNamesMatchPattern": {
+						"oneOf": [
+							{
+								"items": {
+									"oneOf": [
+										{
+											"properties": {
+												"pattern": {
+													"description": "Regular expression pattern.",
+													"type": "string"
+												},
+												"flags": {
+													"description": "Regular expression flags.",
+													"type": "string"
+												}
+											},
+											"additionalProperties": false,
+											"required": ["pattern"],
+											"type": "object"
+										},
+										{
+											"type": "string"
+										}
+									],
+									"description": "Regular expression."
+								},
+								"type": "array"
+							},
+							{
+								"oneOf": [
+									{
+										"properties": {
+											"pattern": {
+												"description": "Regular expression pattern.",
+												"type": "string"
+											},
+											"flags": {
+												"description": "Regular expression flags.",
+												"type": "string"
+											}
+										},
+										"additionalProperties": false,
+										"required": ["pattern"],
+										"type": "object"
+									},
+									{
+										"type": "string"
+									}
+								],
+								"description": "Regular expression."
+							}
+						],
+						"description": "Regular expression."
+					},
+					"hasNumericKeysOnly": {
+						"description": "Specifies whether to only match types that have exclusively numeric keys.",
+						"type": "boolean"
+					},
+					"declarationCommentMatchesPattern": {
+						"oneOf": [
+							{
+								"items": {
+									"oneOf": [
+										{
+											"properties": {
+												"scope": {
+													"enum": ["shallow", "deep"],
+													"type": "string"
+												},
+												"pattern": {
+													"description": "Regular expression pattern.",
+													"type": "string"
+												},
+												"flags": {
+													"description": "Regular expression flags.",
+													"type": "string"
+												}
+											},
+											"additionalProperties": false,
+											"required": ["pattern"],
+											"type": "object"
+										},
+										{
+											"type": "string"
+										}
+									],
+									"description": "Regular expression."
+								},
+								"type": "array"
+							},
+							{
+								"oneOf": [
+									{
+										"properties": {
+											"scope": {
+												"enum": ["shallow", "deep"],
+												"type": "string"
+											},
+											"pattern": {
+												"description": "Regular expression pattern.",
+												"type": "string"
+											},
+											"flags": {
+												"description": "Regular expression flags.",
+												"type": "string"
+											}
+										},
+										"additionalProperties": false,
+										"required": ["pattern"],
+										"type": "object"
+									},
+									{
+										"type": "string"
+									}
+								],
+								"description": "Regular expression."
+							}
+						],
+						"description": "Regular expression."
+					},
+					"matchesAstSelector": {
+						"description": "Specifies an AST selector to match elements for conditional configuration.",
+						"type": "string"
+					},
+					"declarationMatchesPattern": {
+						"oneOf": [
+							{
+								"items": {
+									"oneOf": [
+										{
+											"properties": {
+												"scope": {
+													"enum": ["shallow", "deep"],
+													"type": "string"
+												},
+												"pattern": {
+													"description": "Regular expression pattern.",
+													"type": "string"
+												},
+												"flags": {
+													"description": "Regular expression flags.",
+													"type": "string"
+												}
+											},
+											"additionalProperties": false,
+											"required": ["pattern"],
+											"type": "object"
+										},
+										{
+											"type": "string"
+										}
+									],
+									"description": "Regular expression."
+								},
+								"type": "array"
+							},
+							{
+								"oneOf": [
+									{
+										"properties": {
+											"scope": {
+												"enum": ["shallow", "deep"],
+												"type": "string"
+											},
+											"pattern": {
+												"description": "Regular expression pattern.",
+												"type": "string"
+											},
+											"flags": {
+												"description": "Regular expression flags.",
+												"type": "string"
+											}
+										},
+										"additionalProperties": false,
+										"required": ["pattern"],
+										"type": "object"
+									},
+									{
+										"type": "string"
+									}
+								],
+								"description": "Regular expression."
+							}
+						],
+						"description": "Regular expression."
+					}
+				},
+				"additionalProperties": false,
+				"type": "object"
+			},
+			"partitionByComment": {
+				"oneOf": [
+					{
+						"type": "boolean"
+					},
+					{
+						"oneOf": [
+							{
+								"items": {
+									"oneOf": [
+										{
+											"properties": {
+												"pattern": {
+													"description": "Regular expression pattern.",
+													"type": "string"
+												},
+												"flags": {
+													"description": "Regular expression flags.",
+													"type": "string"
+												}
+											},
+											"additionalProperties": false,
+											"required": ["pattern"],
+											"type": "object"
+										},
+										{
+											"type": "string"
+										}
+									],
+									"description": "Regular expression."
+								},
+								"type": "array"
+							},
+							{
+								"oneOf": [
+									{
+										"properties": {
+											"pattern": {
+												"description": "Regular expression pattern.",
+												"type": "string"
+											},
+											"flags": {
+												"description": "Regular expression flags.",
+												"type": "string"
+											}
+										},
+										"additionalProperties": false,
+										"required": ["pattern"],
+										"type": "object"
+									},
+									{
+										"type": "string"
+									}
+								],
+								"description": "Regular expression."
+							}
+						],
+						"description": "Regular expression."
+					},
+					{
+						"properties": {
+							"block": {
+								"description": "Enables specific block comments to separate the nodes.",
+								"oneOf": [
+									{
+										"type": "boolean"
+									},
+									{
+										"oneOf": [
+											{
+												"items": {
+													"oneOf": [
+														{
+															"properties": {
+																"pattern": {
+																	"description": "Regular expression pattern.",
+																	"type": "string"
+																},
+																"flags": {
+																	"description": "Regular expression flags.",
+																	"type": "string"
+																}
+															},
+															"additionalProperties": false,
+															"required": ["pattern"],
+															"type": "object"
+														},
+														{
+															"type": "string"
+														}
+													],
+													"description": "Regular expression."
+												},
+												"type": "array"
+											},
+											{
+												"oneOf": [
+													{
+														"properties": {
+															"pattern": {
+																"description": "Regular expression pattern.",
+																"type": "string"
+															},
+															"flags": {
+																"description": "Regular expression flags.",
+																"type": "string"
+															}
+														},
+														"additionalProperties": false,
+														"required": ["pattern"],
+														"type": "object"
+													},
+													{
+														"type": "string"
+													}
+												],
+												"description": "Regular expression."
+											}
+										],
+										"description": "Regular expression."
+									}
+								]
+							},
+							"line": {
+								"description": "Enables specific line comments to separate the nodes.",
+								"oneOf": [
+									{
+										"type": "boolean"
+									},
+									{
+										"oneOf": [
+											{
+												"items": {
+													"oneOf": [
+														{
+															"properties": {
+																"pattern": {
+																	"description": "Regular expression pattern.",
+																	"type": "string"
+																},
+																"flags": {
+																	"description": "Regular expression flags.",
+																	"type": "string"
+																}
+															},
+															"additionalProperties": false,
+															"required": ["pattern"],
+															"type": "object"
+														},
+														{
+															"type": "string"
+														}
+													],
+													"description": "Regular expression."
+												},
+												"type": "array"
+											},
+											{
+												"oneOf": [
+													{
+														"properties": {
+															"pattern": {
+																"description": "Regular expression pattern.",
+																"type": "string"
+															},
+															"flags": {
+																"description": "Regular expression flags.",
+																"type": "string"
+															}
+														},
+														"additionalProperties": false,
+														"required": ["pattern"],
+														"type": "object"
+													},
+													{
+														"type": "string"
+													}
+												],
+												"description": "Regular expression."
+											}
+										],
+										"description": "Regular expression."
+									}
+								]
+							}
+						},
+						"additionalProperties": false,
+						"minProperties": 1,
+						"type": "object"
+					}
+				],
+				"description": "Enables the use of comments to separate the nodes into logical groups."
+			},
+			"partitionByNewLine": {
+				"description": "Enables the use of newlines to separate the nodes into logical groups.",
+				"type": "boolean"
+			}
+		},
+		"additionalProperties": false,
+		"type": "object"
+	},
+	"uniqueItems": true,
+	"type": "array"
+}
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"fallbackSort": {
+			"type": "unsorted",
+			"sortBy": "name"
+		},
+		"newlinesInside": "newlinesBetween",
+		"partitionByComment": false,
+		"partitionByNewLine": false,
+		"newlinesBetween": "ignore",
+		"specialCharacters": "keep",
+		"useConfigurationIf": {},
+		"type": "alphabetical",
+		"ignoreCase": true,
+		"customGroups": [],
+		"locales": "en-US",
+		"sortBy": "name",
+		"alphabet": "",
+		"order": "asc",
+		"groups": []
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                       |
+| ---------------- | ------------------------------------------- |
+| Default scenario | `all-options`                               |
+| Default target   | `JavaScript` (`src/example.js`)             |
+| Default severity | 🚨 `error`                                  |
+| Default value    | `[2,{"type":"alphabetical","order":"asc"}]` |
+
+### Effective Result by File Type
+
+| Scenario                 | Target       | File path                 | Effective severity | Effective value                             |
+| ------------------------ | ------------ | ------------------------- | ------------------ | ------------------------------------------- |
+| `perfectionist`          | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist`          | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist`          | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist`          | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist`          | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist`          | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist`          | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist-with-fsd` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist-with-fsd` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist-with-fsd` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist-with-fsd` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist-with-fsd` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist-with-fsd` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `perfectionist-with-fsd` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `all-options`            | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `all-options`            | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `all-options`            | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `all-options`            | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `all-options`            | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `all-options`            | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+| `all-options`            | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"type":"alphabetical","order":"asc"}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                 | Severity   | Value                                             | Config block |
+| ------------------------ | ---------- | ------------------------------------------------- | ------------ |
+| `perfectionist`          | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `0`          |
+| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `3`          |
+| `all-options`            | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `30`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+type UserProfile = {
+	updatedAt: Date;
+	id: string;
+	email: string;
+};
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+type UserProfile = {
+	email: string;
+	id: string;
+	updatedAt: Date;
+};
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/perfectionist/sort-object-types`
+- **Documentation route:** `/docs/eslint-config/rules/perfectionist/sort-object-types`

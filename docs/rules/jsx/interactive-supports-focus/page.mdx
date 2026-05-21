@@ -1,0 +1,122 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsx/interactive-supports-focus`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce that elements with interactive handlers like `onClick` must be focusable.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ✅ Yes    |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"tabbable": {
+				"type": "array",
+				"items": {
+					"type": "string",
+					"enum": ["button", "checkbox", "columnheader", "combobox", "grid", "gridcell", "link", "listbox", "menu", "menubar", "menuitem", "menuitemcheckbox", "menuitemradio", "option", "progressbar", "radio", "radiogroup", "row", "rowheader", "scrollbar", "searchbox", "slider", "spinbutton", "switch", "tab", "tablist", "textbox", "tree", "treegrid", "treeitem", "doc-backlink", "doc-biblioref", "doc-glossref", "doc-noteref"]
+				},
+				"uniqueItems": true,
+				"additionalItems": false,
+				"minItems": 0
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                       |
+| ---------------- | ------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                               |
+| Default target   | `JavaScript` (`src/example.js`)                                                             |
+| Default severity | 🚨 `error`                                                                                  |
+| Default value    | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value                                                                             |
+| ------------- | -------------- | ------------------------- | ------------------ | ------------------------------------------------------------------------------------------- |
+| `jsx`         | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `jsx`         | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `jsx`         | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `jsx`         | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `jsx`         | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `jsx`         | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value                                                                                             | Config block |
+| ------------- | ---------- | ------------------------------------------------------------------------------------------------- | ------------ |
+| `jsx`         | 🚨 `error` | `["error",{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` | `0`          |
+| `all-options` | 🚨 `error` | `["error",{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]` | `17`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+export function DismissNotice() {
+	return <div onClick={dismissNotice}>Dismiss</div>;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+export function DismissNotice() {
+	return (
+		<button type="button" onClick={dismissNotice}>
+			Dismiss
+		</button>
+	);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsx/interactive-supports-focus`
+- **Documentation route:** `/docs/eslint-config/rules/jsx/interactive-supports-focus`

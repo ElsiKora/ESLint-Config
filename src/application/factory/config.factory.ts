@@ -2,6 +2,8 @@ import type { IConfigOptions } from "@domain/interface";
 import type { TConfigLoader, TConfigModule } from "@domain/type";
 import type { Linter } from "eslint";
 
+import { applyRuleDocumentationUrls } from "@infrastructure/utility";
+
 /**
  * Factory class for generating ESLint configurations based on provided options.
  * Maps configuration flags to their respective module loaders and dynamically imports
@@ -116,7 +118,7 @@ export class ConfigFactory {
 
 		this.currentOptions = null;
 
-		return config.flat();
+		return applyRuleDocumentationUrls(config.flat());
 	}
 
 	/**
@@ -129,11 +131,14 @@ export class ConfigFactory {
 		try {
 			// @ts-ignore
 			const module: TConfigModule = await this.CONFIG_MAPPING[name]();
+			const currentOptions: IConfigOptions | null = this.currentOptions;
 
-			return module.default(this.currentOptions);
-		} catch (error) {
-			console.warn(`Optional dependency for ${name} config is not installed:`, error);
+			if (!currentOptions) {
+				return [];
+			}
 
+			return module.default(currentOptions);
+		} catch {
 			return [];
 		}
 	}

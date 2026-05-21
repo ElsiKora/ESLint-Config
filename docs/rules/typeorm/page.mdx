@@ -1,0 +1,23 @@
+---
+asIndexPage: true
+---
+
+import { Cards } from "nextra/components";
+
+# Typeorm
+
+Rules and nested groups documented for this preset family.
+
+<Cards num={3}>
+	<Cards.Card emoji="📘" title="enforce-column-types" href="/docs/eslint-config/rules/typeorm/enforce-column-types" />
+	<Cards.Card emoji="📘" title="enforce-consistent-nullability" href="/docs/eslint-config/rules/typeorm/enforce-consistent-nullability" />
+	<Cards.Card emoji="📘" title="enforce-relation-types" href="/docs/eslint-config/rules/typeorm/enforce-relation-types" />
+</Cards>
+
+## Rule Matrix
+
+| Rule                                                                                                                   | Default    | Fixable | Suggestions | Type      |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------- | ------- | ----------- | --------- |
+| [`@elsikora/typeorm/enforce-column-types`](/docs/eslint-config/rules/typeorm/enforce-column-types)                     | 🚨 `error` | ❌ No   | ✅ Yes      | `problem` |
+| [`@elsikora/typeorm/enforce-consistent-nullability`](/docs/eslint-config/rules/typeorm/enforce-consistent-nullability) | 🚨 `error` | ❌ No   | ✅ Yes      | `problem` |
+| [`@elsikora/typeorm/enforce-relation-types`](/docs/eslint-config/rules/typeorm/enforce-relation-types)                 | 🧭 `off`   | ❌ No   | ✅ Yes      | `problem` |

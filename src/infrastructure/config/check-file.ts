@@ -1,4 +1,4 @@
-import type { ESLint, Linter } from "eslint";
+import type { Linter } from "eslint";
 
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 // @ts-ignore
@@ -13,7 +13,7 @@ export default function loadConfig(): Array<Linter.Config> {
 		{
 			files: ["src/**/*"],
 			plugins: {
-				[formatPluginName("check-file")]: checkFile as ESLint.Plugin,
+				[formatPluginName("check-file")]: checkFile,
 			},
 			rules: {
 				[formatRuleName("check-file/filename-blocklist")]: [

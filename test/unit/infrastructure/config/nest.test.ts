@@ -14,18 +14,6 @@ vi.mock("@elsikora/eslint-plugin-nestjs-typed", () => ({
 	},
 }));
 
-vi.mock("@eslint/compat", () => ({
-	fixupPluginRules: vi.fn((plugin) => plugin),
-}));
-
-vi.mock("eslint-plugin-ng-module-sort", () => ({
-	default: {
-		rules: {
-			"decorator-array-items": { create: () => ({}) },
-		},
-	},
-}));
-
 vi.mock("typescript-eslint", () => ({
 	default: {
 		parser: {
@@ -78,9 +66,8 @@ describe("NestConfig", () => {
 		expect(configs[0].languageOptions?.parserOptions).toHaveProperty("projectService", true);
 	});
 
-	it("should properly configure NestJS and Angular plugins", async () => {
+	it("should properly configure NestJS plugin", async () => {
 		const formatPluginNameModule = await import("@infrastructure/utility/format-plugin-name.utility");
-		const fixupCompat = await import("@eslint/compat");
 		const module = await import("@infrastructure/config/nest.ts");
 		const loadConfig = module.default;
 
@@ -88,10 +75,6 @@ describe("NestConfig", () => {
 
 		// Check plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("nestjs-typed");
-		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("ng-module-sort");
-
-		// Check ESLint compatibility function was called
-		expect(fixupCompat.fixupPluginRules).toHaveBeenCalled();
 	});
 
 	it("should include NestJS specific rules with proper formatting", async () => {
@@ -102,19 +85,44 @@ describe("NestConfig", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		// Check rule name formatting was called
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("nestjs-typed/all-properties-are-whitelisted");
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("ng-module-sort/decorator-array-items");
+		const explicitRules: Array<string> = [
+			"nestjs-typed/all-properties-are-whitelisted",
+			"nestjs-typed/all-properties-have-explicit-defined",
+			"nestjs-typed/api-enum-property-best-practices",
+			"nestjs-typed/api-method-should-specify-api-operation",
+			"nestjs-typed/api-method-should-specify-api-response",
+			"nestjs-typed/api-methods-should-be-guarded",
+			"nestjs-typed/api-property-matches-property-optionality",
+			"nestjs-typed/api-property-returning-array-should-set-array",
+			"nestjs-typed/controllers-should-supply-api-tags",
+			"nestjs-typed/no-duplicate-decorators",
+			"nestjs-typed/param-decorator-name-matches-route-param",
+			"nestjs-typed/provided-injected-should-match-factory-parameters",
+			"nestjs-typed/should-specify-forbid-unknown-values",
+			"nestjs-typed/sort-module-metadata-arrays",
+			"nestjs-typed/validate-nested-of-array-should-set-each",
+			"nestjs-typed/validated-non-primitive-property-needs-type-decorator",
+		];
+
+		for (const rule of explicitRules) {
+			expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith(rule);
+		}
 
 		// Check specific rules are present with expected values
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/all-properties-have-explicit-defined", "error");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/api-enum-property-best-practices", "error");
 		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/api-method-should-specify-api-response", "error");
 		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/api-method-should-specify-api-operation", "off");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/api-methods-should-be-guarded", "off");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/api-property-matches-property-optionality", "error");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/api-property-returning-array-should-set-array", "error");
 		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/controllers-should-supply-api-tags", "error");
-
-		// Check array-form rule is properly configured
-		expect(configs[0].rules).toHaveProperty("@elsikora/ng-module-sort/decorator-array-items");
-		const decoratorRule = configs[0].rules?.["@elsikora/ng-module-sort/decorator-array-items"];
-		expect(Array.isArray(decoratorRule)).toBe(true);
-		expect(decoratorRule[0]).toBe("error");
-		expect(decoratorRule[1]).toHaveProperty("reverseSort", false);
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/no-duplicate-decorators", "error");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/param-decorator-name-matches-route-param", "error");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/provided-injected-should-match-factory-parameters", "error");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/should-specify-forbid-unknown-values", "error");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/sort-module-metadata-arrays", "error");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/validate-nested-of-array-should-set-each", "error");
+		expect(configs[0].rules).toHaveProperty("@elsikora/nestjs-typed/validated-non-primitive-property-needs-type-decorator", "error");
 	});
 });

@@ -1,0 +1,151 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/check-types`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Reports types deemed invalid (customizable and with defaults, for preventing and/or recommending replacements).
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"exemptTagContexts": {
+				"description": "Avoids reporting when a bad type is found on a specified tag.",
+				"items": {
+					"additionalProperties": false,
+					"properties": {
+						"tag": {
+							"description": "Set a key `tag` to the tag to exempt",
+							"type": "string"
+						},
+						"types": {
+							"description": "Set to `true` to indicate that any types on that tag will be allowed,\nor to an array of strings which will only allow specific bad types.\nIf an array of strings is given, these must match the type exactly,\ne.g., if you only allow `\"object\"`, it will not allow\n`\"object<string, string>\"`. Note that this is different from the\nbehavior of `settings.jsdoc.preferredTypes`. This option is useful\nfor normally restricting generic types like `object` with\n`preferredTypes`, but allowing `typedef` to indicate that its base\ntype is `object`.",
+							"oneOf": [
+								{
+									"type": "boolean"
+								},
+								{
+									"items": {
+										"type": "string"
+									},
+									"type": "array"
+								}
+							]
+						}
+					},
+					"type": "object"
+				},
+				"type": "array"
+			},
+			"noDefaults": {
+				"description": "Insists that only the supplied option type\nmap is to be used, and that the default preferences (such as \"string\"\nover \"String\") will not be enforced. The option's default is `false`.",
+				"type": "boolean"
+			},
+			"unifyParentAndChildTypeChecks": {
+				"description": "@deprecated Use the `preferredTypes[preferredType]` setting of the same name instead.\nIf this option is `true`, will currently override `unifyParentAndChildTypeChecks` on the `preferredTypes` setting.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+/**
+ * Parses a page number.
+ * @param {*} value - Unknown value.
+ * @returns {*} Parsed page.
+ */
+function parsePage(value: unknown): number {
+	return Number(value);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+/**
+ * Parses a page number.
+ * @param {unknown} value - Unknown value.
+ * @returns {number} Parsed page.
+ */
+function parsePage(value: unknown): number {
+	return Number(value);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/check-types`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/check-types`

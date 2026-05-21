@@ -1,0 +1,126 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/tailwindcss/no-unnecessary-arbitrary-value`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Forbid using arbitrary values in classnames when an equivalent preset exists.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ✅ Yes    |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"callees": {
+				"type": "array",
+				"items": {
+					"type": "string",
+					"minLength": 0
+				},
+				"uniqueItems": true
+			},
+			"ignoredKeys": {
+				"type": "array",
+				"items": {
+					"type": "string",
+					"minLength": 0
+				},
+				"uniqueItems": true
+			},
+			"config": {
+				"type": ["string", "object"]
+			},
+			"tags": {
+				"type": "array",
+				"items": {
+					"type": "string",
+					"minLength": 0
+				},
+				"uniqueItems": true
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario       | Target         | File path                 | Effective severity | Effective value |
+| -------------- | -------------- | ------------------------- | ------------------ | --------------- |
+| `tailwind-css` | `JavaScript`   | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `JavaScript`   | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `JSX`          | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `TypeScript`   | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `TSX`          | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `Next pages`   | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `Next app`     | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `Storybook`    | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `Package JSON` | `package.json`            | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `JSON`         | `config.json`             | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `YAML`         | `config.yaml`             | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `Markdown`     | `README.md`               | ⚠️ `warn`          | `[1]`           |
+| `all-options`  | `CSS`          | `src/styles.css`          | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario       | Severity  | Value    | Config block |
+| -------------- | --------- | -------- | ------------ |
+| `tailwind-css` | ⚠️ `warn` | `"warn"` | `1`          |
+| `all-options`  | ⚠️ `warn` | `"warn"` | `48`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+<div className="mt-[16px] text-[#1d4ed8]"></div>
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+<div className="mt-4 text-blue-700"></div>
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/tailwindcss/no-unnecessary-arbitrary-value`
+- **Documentation route:** `/docs/eslint-config/rules/tailwindcss/no-unnecessary-arbitrary-value`

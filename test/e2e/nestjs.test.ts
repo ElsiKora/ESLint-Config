@@ -55,7 +55,7 @@ describe("NestJS Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("nest/invalid/decorator-array-items.module.fixture.ts")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora/nest/1/decorator-array-items")).toBe(true);
+				expect(results[0].messages.some((msg) => msg.ruleId === "@elsikora/nest/2/sort-module-metadata-arrays")).toBe(true);
 			});
 		});
 	});

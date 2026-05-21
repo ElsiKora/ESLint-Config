@@ -1,9 +1,13 @@
 /* eslint-disable @elsikora/typescript/naming-convention */
 import type { IConfigOptions } from "@domain/interface";
-import type { Linter } from "eslint";
+import type { ESLint, Linter } from "eslint";
 
+// @ts-ignore
+import sortDecorators from "@elsikora/eslint-plugin-sort-decorators";
 import { formatConfig, formatPluginName, formatRuleName } from "@infrastructure/utility";
 import tseslint from "typescript-eslint";
+
+const sortDecoratorsPlugin: ESLint.Plugin = sortDecorators as ESLint.Plugin;
 
 /**
  * Loads the ESLint configuration for TypeScript
@@ -11,6 +15,7 @@ import tseslint from "typescript-eslint";
  * @returns {Array<Linter.Config>} An array of ESLint configurations for TypeScript
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
+	// eslint-disable-next-line @elsikora/sonar/deprecation
 	return tseslint.config({
 		// @ts-ignore
 		extends: [...formatConfig([...tseslint.configs.recommendedTypeChecked, ...tseslint.configs.strictTypeChecked, ...tseslint.configs.stylisticTypeChecked])],
@@ -22,6 +27,7 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			},
 		},
 		plugins: {
+			[formatPluginName("sort-decorators")]: sortDecoratorsPlugin,
 			[formatPluginName("typescript")]: tseslint.plugin,
 		},
 		rules: {
@@ -224,6 +230,11 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 			[formatRuleName("@typescript-eslint/return-await")]: "error", // Enforce returning await in async functions to ensure errors are caught in the try-catch block.
 			[formatRuleName("@typescript-eslint/switch-exhaustiveness-check")]: "error", // Require exhaustive switch statements over union types, ensuring all possible cases are handled.
 			[formatRuleName("@typescript-eslint/unbound-method")]: "off",
+			[formatRuleName("sort-decorators/sort-on-accessors")]: "error",
+			[formatRuleName("sort-decorators/sort-on-classes")]: "error",
+			[formatRuleName("sort-decorators/sort-on-methods")]: "error",
+			[formatRuleName("sort-decorators/sort-on-parameters")]: "error",
+			[formatRuleName("sort-decorators/sort-on-properties")]: "error",
 			// [formatRuleName("@typescript-eslint/typedef")]: [
 			// 	"error",
 			// 	{

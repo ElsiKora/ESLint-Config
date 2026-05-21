@@ -5,6 +5,7 @@ const config = {
 		"package-lock.json",
 		"src/test",
 		"rollup.test.config.js",
+		"vitest.e2e.config.js",
 		"vitest.config.e2e.ts",
 		"vitest.config.unit.ts",
 		"yarn.lock",

@@ -10,6 +10,7 @@ import tseslint from "typescript-eslint";
  * @returns {Array<Linter.Config>} An array of ESLint configurations for TypeORM
  */
 export default function loadConfig(): Array<Linter.Config> {
+	// eslint-disable-next-line @elsikora/sonar/deprecation
 	return tseslint.config({
 		files: ["**/*.ts", "**/*.tsx"],
 		languageOptions: {

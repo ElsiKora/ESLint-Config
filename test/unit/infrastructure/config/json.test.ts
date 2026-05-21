@@ -36,4 +36,5 @@ describe("JsonConfig", () => {
 		expect(configs[2]).toHaveProperty("rules");
 		expect(configs[2].rules).toHaveProperty("jsonc/no-bigint-literals");
 	});
+
 });

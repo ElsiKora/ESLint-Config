@@ -18,7 +18,7 @@ export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config
 		if (config.plugins) {
 			const newPlugins: Record<string, ESLint.Plugin> = {};
 
-			for (const [oldName, newName] of Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length)) {
+			for (const [oldName, newName] of getSortedPluginMapEntries()) {
 				if (config.plugins[oldName]) {
 					newPlugins[newName] = config.plugins[oldName];
 				}
@@ -39,7 +39,7 @@ export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config
 			for (const rule of Object.keys(config.rules)) {
 				let isReplaced: boolean = false;
 
-				for (const [oldName, newName] of Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length)) {
+				for (const [oldName, newName] of getSortedPluginMapEntries()) {
 					const oldPrefix: string = `${oldName}/`;
 
 					if (rule.startsWith(oldPrefix) && !isReplaced) {
@@ -60,7 +60,7 @@ export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config
 		}
 
 		if (config.language) {
-			for (const [oldName, newName] of Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length)) {
+			for (const [oldName, newName] of getSortedPluginMapEntries()) {
 				const oldPrefix: string = `${oldName}/`;
 
 				if (config.language.startsWith(oldPrefix)) {
@@ -75,4 +75,13 @@ export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config
 	}
 
 	return formattedConfigs;
+}
+
+/**
+ * Returns plugin map entries sorted by longest source plugin name first.
+ * @returns {Array<[string, string]>} Sorted plugin map entries
+ */
+function getSortedPluginMapEntries(): Array<[string, string]> {
+	// eslint-disable-next-line @elsikora/unicorn/no-array-sort
+	return Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length);
 }

@@ -38,6 +38,14 @@ vi.mock("typescript-eslint", () => ({
 	},
 }));
 
+vi.mock("@elsikora/eslint-plugin-sort-decorators", () => ({
+	default: {
+		rules: {
+			"sort-on-classes": { create: () => ({}) },
+		},
+	},
+}));
+
 // Mock utility functions
 vi.mock("@infrastructure/utility/format-config.utility", () => ({
 	formatConfig: vi.fn((configs) => configs),
@@ -48,7 +56,7 @@ vi.mock("@infrastructure/utility/format-plugin-name.utility", () => ({
 }));
 
 vi.mock("@infrastructure/utility/format-rule-name.utility", () => ({
-	formatRuleName: vi.fn((name) => name.replace("@typescript-eslint", "@elsikora/typescript")),
+	formatRuleName: vi.fn((name) => name.replace("@typescript-eslint", "@elsikora/typescript").replace("sort-decorators", "@elsikora/sort-decorators")),
 }));
 
 describe("TypeScriptConfig", () => {
@@ -101,8 +109,10 @@ describe("TypeScriptConfig", () => {
 
 		// Check that plugin name formatting was called
 		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("typescript");
+		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("sort-decorators");
 
 		// Check that rule name formatting was called for TypeScript rules
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("sort-decorators/sort-on-classes");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@typescript-eslint/adjacent-overload-signatures");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@typescript-eslint/array-type");
 		// expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@typescript-eslint/naming-convention");
@@ -142,4 +152,5 @@ describe("TypeScriptConfig", () => {
 		const noDeprecatedRule = configs[0].rules["@elsikora/typescript/no-deprecated"];
 		expect(noDeprecatedRule).toBe("error");
 	});
+
 });

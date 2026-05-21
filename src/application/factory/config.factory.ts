@@ -129,8 +129,13 @@ export class ConfigFactory {
 		try {
 			// @ts-ignore
 			const module: TConfigModule = await this.CONFIG_MAPPING[name]();
+			const currentOptions: IConfigOptions | null = this.currentOptions;
 
-			return module.default(this.currentOptions);
+			if (!currentOptions) {
+				return [];
+			}
+
+			return module.default(currentOptions);
 		} catch (error) {
 			console.warn(`Optional dependency for ${name} config is not installed:`, error);
 

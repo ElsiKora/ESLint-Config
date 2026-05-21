@@ -11,6 +11,8 @@ import perfectionist from "eslint-plugin-perfectionist";
  * @returns {Array<Linter.Config>} An array of ESLint configurations for perfectionist
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
+	const fsdInternalPatterns: Array<string> = ["^.*app($|/.*$)", "^.*processes($|/.*$)", "^.*pages($|/.*$)", "^.*widgets($|/.*$)", "^.*features($|/.*$)", "^.*entities($|/.*$)", "^.*shared($|/.*$)"];
+
 	return [
 		{
 			...formatConfig([perfectionist.configs["recommended-alphabetical"]])[0],
@@ -23,14 +25,10 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 					? [
 							"error",
 							{
-								customGroups: {
-									value: {
-										internal: ["^.*app($|/.*$)", "^.*processes($|/.*$)", "^.*pages($|/.*$)", "^.*widgets($|/.*$)", "^.*features($|/.*$)", "^.*entities($|/.*$)", "^.*shared($|/.*$)"],
-									},
-								},
 								groups: ["builtin", "external", "internal", "parent", "sibling", "index", "unknown"],
 								ignoreCase: true,
-								newlinesBetween: "never",
+								internalPattern: fsdInternalPatterns,
+								newlinesBetween: 0,
 								order: "asc",
 								partitionByComment: false,
 								partitionByNewLine: false,
@@ -40,14 +38,10 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 					: [
 							"error",
 							{
-								customGroups: {
-									type: {},
-									value: {},
-								},
 								environment: "node",
-								groups: ["builtin-type", "type", "external-type", "internal-type", "parent-type", "sibling-type", "index-type", "builtin", "external", "internal", "parent", "sibling", "index", "object", "style", "side-effect", "unknown"],
+								groups: ["type-builtin", "type-import", "type-external", "type-internal", "type-parent", "type-sibling", "type-index", "builtin", "external", "internal", "parent", "sibling", "index", "style", "side-effect", "unknown"],
 								ignoreCase: false,
-								newlinesBetween: "always",
+								newlinesBetween: 1,
 								order: "asc",
 								sortSideEffects: true,
 								specialCharacters: "keep",

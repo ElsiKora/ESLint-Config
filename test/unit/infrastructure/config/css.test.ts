@@ -91,8 +91,10 @@ describe("CssConfig", () => {
 
 		// Check rule name formatting was called
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("css/no-invalid-at-rules");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("css/require-baseline");
 
 		// Check that the rules are properly configured
 		expect(configs[1].rules).toHaveProperty("@elsikora/css/no-invalid-at-rules", "off");
+		expect(configs[1].rules).toHaveProperty("@elsikora/css/require-baseline", "off");
 	});
 });

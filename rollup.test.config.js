@@ -3,16 +3,16 @@ import dtsPathAlias from "rollup-plugin-dts-path-alias";
 import generatePackageJson from "rollup-plugin-generate-package-json";
 
 const external = [
-	"eslint-plugin-react",
 	"@next/eslint-plugin-next",
-	"eslint-plugin-jsx-a11y",
+	"eslint-plugin-jsx-a11y-x",
 	"@eslint/js",
 	"@stylistic/eslint-plugin",
 	"eslint-plugin-check-file",
+	"eslint-plugin-fsd-lint",
 	"eslint-plugin-jsonc",
 	"@eslint/compat",
-	"eslint-plugin-ng-module-sort",
 	"@elsikora/eslint-plugin-nestjs-typed",
+	"@elsikora/eslint-plugin-sort-decorators",
 	"typescript-eslint",
 	"eslint-plugin-n",
 	"eslint-plugin-package-json",

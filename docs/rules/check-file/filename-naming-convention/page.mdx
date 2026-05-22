@@ -1,0 +1,106 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/check-file/filename-naming-convention`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+The filename should follow the filename naming convention.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value    |
+| ------------------ | -------- |
+| Type               | `layout` |
+| Fixable            | ❌ No    |
+| Has suggestions    | ❌ No    |
+| Deprecated         | ❌ No    |
+| ESLint recommended | `false`  |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": {
+			"type": "string"
+		}
+	},
+	{
+		"type": "object",
+		"properties": {
+			"ignoreMiddleExtensions": {
+				"type": "boolean"
+			},
+			"errorMessage": {
+				"type": "string"
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field | Value |
+| --- | --- |
+| Default scenario | `all-options` |
+| Default target | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error` |
+| Default value | `[2,{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` |
+
+### Effective Result by File Type
+
+| Scenario | Target | File path | Effective severity | Effective value |
+| --- | --- | --- | --- | --- |
+| `check-file` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` |
+| `all-options` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` |
+| `all-options` | `JSX` | `src/example.jsx` | 🚨 `error` | `[2,{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` |
+| `all-options` | `TypeScript` | `src/example.ts` | 🚨 `error` | `[2,{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` |
+| `all-options` | `TSX` | `src/example.tsx` | 🚨 `error` | `[2,{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` |
+| `all-options` | `Storybook` | `src/example.stories.tsx` | 🚨 `error` | `[2,{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` |
+| `all-options` | `CSS` | `src/styles.css` | 🚨 `error` | `[2,{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario | Severity | Value | Config block |
+| --- | --- | --- | --- |
+| `check-file` | 🚨 `error` | `["error",{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` | `0` |
+| `all-options` | 🚨 `error` | `["error",{"**/class/**/*.{js,ts}":"KEBAB_CASE","**/dto/**/*.{js,ts}":"KEBAB_CASE","**/entity/**/*.{js,ts}":"KEBAB_CASE","**/enum/**/*.{js,ts}":"KEBAB_CASE","**/event/*/*.{js,ts}":"KEBAB_CASE","**/filter/**/*.{js,ts}":"KEBAB_CASE","**/interceptor/**/*.{js,ts}":"KEBAB_CASE","**/interface/**/*.{js,ts}":"KEBAB_CASE","**/middleware/**/*.{js,ts}":"KEBAB_CASE","**/modules/*/*.{js,ts}":"KEBAB_CASE","**/subscriber/**/*.{js,ts}":"KEBAB_CASE","**/type/*/*.{js,ts}":"KEBAB_CASE","**/utility/**/*.{js,ts}":"KEBAB_CASE","**/validator/**/*.{js,ts}":"KEBAB_CASE"},{"ignoreMiddleExtensions":true}]` | `0` |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const Bad_Name = "value";
+export { Bad_Name };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const goodName = "value";
+export { goodName };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/check-file/filename-naming-convention`
+- **Documentation route:** `/docs/eslint-config/rules/check-file/filename-naming-convention`

@@ -1,10 +1,13 @@
-/* eslint-disable @elsikora/typescript/no-unsafe-assignment,@elsikora/typescript/naming-convention */
-import type { Linter } from "eslint";
+/* eslint-disable @elsikora/typescript/naming-convention */
+import type { ESLint, Linter } from "eslint";
 
-// @ts-ignore
-import featureSlicedPlugin from "@conarti/eslint-plugin-feature-sliced";
+import { plugin as featureSlicedPlugin } from "@conarti/eslint-plugin-feature-sliced";
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
+import fsdLintPlugin from "eslint-plugin-fsd-lint";
 import tseslint from "typescript-eslint";
+
+const conartiFeatureSlicedPlugin: ESLint.Plugin = featureSlicedPlugin as unknown as ESLint.Plugin;
+const fsdLint: ESLint.Plugin = fsdLintPlugin;
 
 /**
  * Loads the ESLint configuration for Feature-Sliced Design architecture
@@ -14,14 +17,26 @@ export default function loadConfig(): Array<Linter.Config> {
 	return [
 		{
 			plugins: {
-				[formatPluginName("@conarti/feature-sliced")]: featureSlicedPlugin,
+				[formatPluginName("@conarti/feature-sliced")]: conartiFeatureSlicedPlugin,
+				[formatPluginName("fsd")]: fsdLint,
 			},
 			rules: {
-				[formatRuleName("@conarti/feature-sliced/absolute-relative")]: "error",
-
-				[formatRuleName("@conarti/feature-sliced/layers-slices")]: "error",
-
-				[formatRuleName("@conarti/feature-sliced/public-api")]: "error",
+				[formatRuleName("@conarti/feature-sliced/no-cross-segment-reexport")]: "error",
+				[formatRuleName("fsd/forbidden-imports")]: "error",
+				[formatRuleName("fsd/no-cross-slice-dependency")]: "error",
+				[formatRuleName("fsd/no-global-store-imports")]: "error",
+				[formatRuleName("fsd/no-public-api-sidestep")]: [
+					"error",
+					{
+						publicApi: {
+							allowSegmentImports: false,
+							enforceShared: true,
+						},
+					},
+				],
+				[formatRuleName("fsd/no-relative-imports")]: "error",
+				[formatRuleName("fsd/no-ui-in-business-logic")]: "error",
+				[formatRuleName("fsd/ordered-imports")]: "error",
 			},
 		},
 		{

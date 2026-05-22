@@ -1,0 +1,155 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/match-name`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Reports the name portion of a JSDoc tag if matching or not matching a given regular expression.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"match": {
+				"description": "`match` is a required option containing an array of objects which determine\nthe conditions whereby a name is reported as being problematic.\n\nThese objects can have any combination of the following groups of optional\nproperties, all of which act to confine one another.\n\nNote that `comment`, even if targeting a specific tag, is used to match the\nwhole block. So if a `comment` finds its specific tag, it may still apply\nfixes found by the likes of `disallowName` even when a different tag has the\ndisallowed name. An alternative is to ensure that `comment` finds the specific\ntag of the desired tag and/or name and no `disallowName` (or `allowName`) is\nsupplied. In such a case, only one error will be reported, but no fixer will\nbe applied, however.",
+				"items": {
+					"additionalProperties": false,
+					"properties": {
+						"allowName": {
+							"description": "Indicates which names are allowed for the given tag (or `*`).\nAccepts a string regular expression (optionally wrapped between two\n`/` delimiters followed by optional flags) used to match the name.",
+							"type": "string"
+						},
+						"comment": {
+							"description": "As with `context` but AST for the JSDoc block comment and types.",
+							"type": "string"
+						},
+						"context": {
+							"description": "AST to confine the allowing or disallowing to JSDoc blocks\nassociated with a particular context. See the\n[\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+							"type": "string"
+						},
+						"disallowName": {
+							"description": "As with `allowName` but indicates names that are not allowed.",
+							"type": "string"
+						},
+						"message": {
+							"description": "An optional custom message to use when there is a match.",
+							"type": "string"
+						},
+						"replacement": {
+							"description": "If `disallowName` is supplied and this value is present, it\nwill replace the matched `disallowName` text.",
+							"type": "string"
+						},
+						"tags": {
+							"description": "This array should include tag names or `*` to indicate the\n  match will apply for all tags (except as confined by any context\n  properties). If `*` is not used, then these rules will only apply to\n  the specified tags. If `tags` is omitted, then `*` is assumed.",
+							"items": {
+								"type": "string"
+							},
+							"type": "array"
+						}
+					},
+					"type": "object"
+				},
+				"type": "array"
+			}
+		},
+		"required": ["match"],
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Handles the request.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Handles the request.
+ * @param {{ id: string }} request - Request to handle.
+ * @returns {string} Request id.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/match-name`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/match-name`

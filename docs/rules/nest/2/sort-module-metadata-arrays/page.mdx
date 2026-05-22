@@ -1,0 +1,145 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/nest/2/sort-module-metadata-arrays`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Ensures alphabetical order for NestJS `Module` metadata array items.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"caseSensitive": {
+				"default": true,
+				"description": "Whether item names should be compared case-sensitively.",
+				"type": "boolean"
+			},
+			"extraMetadataProperties": {
+				"description": "Additional NestJS module metadata array property names to sort.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"locale": {
+				"default": "en-US",
+				"description": "A string with a BCP 47 language tag.",
+				"type": "string"
+			},
+			"metadataProperties": {
+				"description": "NestJS module metadata array property names to sort.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"order": {
+				"default": "asc",
+				"description": "Sort direction.",
+				"enum": ["asc", "desc"],
+				"type": "string"
+			},
+			"reverseSort": {
+				"default": false,
+				"description": "Deprecated alias for descending sort order.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"caseSensitive": true,
+		"extraMetadataProperties": [],
+		"locale": "en-US",
+		"metadataProperties": ["controllers", "exports", "imports", "providers"],
+		"order": "asc",
+		"reverseSort": false
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path        | Effective severity | Effective value |
+| ------------- | ------------ | ---------------- | ------------------ | --------------- |
+| `nest`        | `TypeScript` | `src/example.ts` | 🚨 `error`         | `[2]`           |
+| `all-options` | `TypeScript` | `src/example.ts` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `nest`        | 🚨 `error` | `"error"` | `0`          |
+| `all-options` | 🚨 `error` | `"error"` | `20`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+@Module({
+	providers: [UserService, AuthService],
+	controllers: [UserController],
+})
+export class UserModule {}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+@Module({
+	controllers: [UserController],
+	providers: [AuthService, UserService],
+})
+export class UserModule {}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/nest/2/sort-module-metadata-arrays`
+- **Documentation route:** `/docs/eslint-config/rules/nest/2/sort-module-metadata-arrays`

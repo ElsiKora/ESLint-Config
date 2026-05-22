@@ -31,7 +31,7 @@ describe("React and JSX Configuration", () => {
 
 				const results = await eslint.lintFiles([getFixturePath("react/invalid/no-direct-set-state-in-use-effect.fixture.jsx")]);
 
-				expect(results[0].messages.some((msg) => msg.ruleId?.startsWith(formatPluginName("@eslint-react/hooks-extra")))).toBe(true);
+				expect(results[0].messages.some((msg) => msg.ruleId?.startsWith(formatPluginName("@eslint-react")))).toBe(true);
 			});
 		});
 	});

@@ -7,13 +7,13 @@ vi.mock("@infrastructure/utility/format-config.utility", () => ({
 	formatConfig: vi.fn((configs) => configs),
 }));
 
-// Mock the jsx-a11y plugin
-vi.mock("eslint-plugin-jsx-a11y", () => ({
+// Mock the jsx-a11y-x plugin
+vi.mock("eslint-plugin-jsx-a11y-x", () => ({
 	default: {
-		flatConfigs: {
+		configs: {
 			recommended: {
 				plugins: {
-					"jsx-a11y": {
+					"jsx-a11y-x": {
 						rules: {
 							"alt-text": {
 								meta: { fixable: true },
@@ -23,7 +23,7 @@ vi.mock("eslint-plugin-jsx-a11y", () => ({
 					},
 				},
 				rules: {
-					"jsx-a11y/alt-text": "error",
+					"jsx-a11y-x/alt-text": "error",
 				},
 			},
 		},
@@ -45,25 +45,34 @@ describe("JsxConfig", () => {
 		expect(configs.length).toBe(2);
 	});
 
-	it("should format the jsx-a11y recommended config", async () => {
+	it("should format the jsx-a11y-x recommended config", async () => {
 		const formatConfigModule = await import("@infrastructure/utility/format-config.utility");
 		const module = await import("@infrastructure/config/jsx.ts");
 		const loadConfig = module.default;
 
 		loadConfig({});
 
-		// Check that formatConfig was called with the jsx-a11y recommended config
+		// Check that formatConfig was called with the jsx-a11y-x recommended config
 		expect(formatConfigModule.formatConfig).toHaveBeenCalledWith(
 			expect.arrayContaining([
 				expect.objectContaining({
 					plugins: expect.objectContaining({
-						"jsx-a11y": expect.any(Object),
+						"jsx-a11y-x": expect.any(Object),
 					}),
 					rules: expect.objectContaining({
-						"jsx-a11y/alt-text": "error",
+						"jsx-a11y-x/alt-text": "error",
 					}),
 				}),
 			]),
 		);
+	});
+
+	it("should override explicit jsx-a11y-x rules", async () => {
+		const module = await import("@infrastructure/config/jsx.ts");
+		const loadConfig = module.default;
+
+		const configs: Array<Linter.Config> = loadConfig({});
+
+		expect(configs[1].rules).toHaveProperty("@elsikora/jsx/no-autofocus", "off");
 	});
 });

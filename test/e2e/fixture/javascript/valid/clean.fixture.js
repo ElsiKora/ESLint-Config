@@ -1,2 +1,3 @@
-const a = 5;
-console.log(a);
+const value = 5;
+
+export { value };

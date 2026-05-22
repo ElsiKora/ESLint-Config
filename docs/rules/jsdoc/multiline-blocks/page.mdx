@@ -1,0 +1,164 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/multiline-blocks`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Controls how and whether JSDoc blocks can be expressed as single or multiple line blocks.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"allowMultipleTags": {
+				"description": "If `noMultilineBlocks` is set to `true` with this option and multiple tags are\nfound in a block, an error will not be reported.\n\nSince multiple-tagged lines cannot be collapsed into a single line, this option\nprevents them from being reported. Set to `false` if you really want to report\nany blocks.\n\nThis option will also be applied when there is a block description and a single\ntag (since a description cannot precede a tag on a single line, and also\ncannot be reliably added after the tag either).\n\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"minimumLengthForMultiline": {
+				"description": "If `noMultilineBlocks` is set with this numeric option, multiline blocks will\nbe permitted if containing at least the given amount of text.\n\nIf not set, multiline blocks will not be permitted regardless of length unless\na relevant tag is present and `multilineTags` is set.\n\nDefaults to not being in effect.",
+				"type": "integer"
+			},
+			"multilineTags": {
+				"anyOf": [
+					{
+						"enum": ["*"],
+						"type": "string"
+					},
+					{
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				],
+				"description": "If `noMultilineBlocks` is set with this option, multiline blocks may be allowed\nregardless of length as long as a tag or a tag of a certain type is present.\n\nIf `*` is included in the array, the presence of a tags will allow for\nmultiline blocks (but not when without any tags unless the amount of text is\nover an amount specified by `minimumLengthForMultiline`).\n\nIf the array does not include `*` but lists certain tags, the presence of\nsuch a tag will cause multiline blocks to be allowed.\n\nYou may set this to an empty array to prevent any tag from permitting multiple\nlines.\n\nDefaults to `['*']`."
+			},
+			"noFinalLineText": {
+				"description": "For multiline blocks, any non-whitespace text preceding the `*/` on the final\nline will be reported. (Text preceding a newline is not reported.)\n\n`noMultilineBlocks` will have priority over this rule if it applies.\n\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"noMultilineBlocks": {
+				"description": "Requires that JSDoc blocks are restricted to single lines only unless impacted\nby the options `minimumLengthForMultiline`, `multilineTags`, or\n`allowMultipleTags`.\n\nDefaults to `false`.",
+				"type": "boolean"
+			},
+			"noSingleLineBlocks": {
+				"description": "If this is `true`, any single line blocks will be reported, except those which\nare whitelisted in `singleLineTags`.\n\nDefaults to `false`.",
+				"type": "boolean"
+			},
+			"noZeroLineText": {
+				"description": "For multiline blocks, any non-whitespace text immediately after the `/**` and\nspace will be reported. (Text after a newline is not reported.)\n\n`noMultilineBlocks` will have priority over this rule if it applies.\n\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"requireSingleLineUnderCount": {
+				"description": "If this number is set, it indicates a minimum line width for a single line of\nJSDoc content spread over a multi-line comment block. If a single line is under\nthe minimum length, it will be reported so as to enforce single line JSDoc blocks\nfor such cases. Blocks are not reported which have multi-line descriptions,\nmultiple tags, a block description and tag, or tags with multi-line types or\ndescriptions.\n\nDefaults to `null`.",
+				"type": "number"
+			},
+			"singleLineTags": {
+				"description": "An array of tags which can nevertheless be allowed as single line blocks when\n`noSingleLineBlocks` is set.  You may set this to a empty array to\ncause all single line blocks to be reported. If `'*'` is present, then\nthe presence of a tag will allow single line blocks (but not if a tag is\nmissing).\n\nDefaults to `['lends', 'type']`.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ *Formats a display name.
+ *@param {User} user User to format.
+ */
+function formatName(user) {
+	return user.name;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Formats a display name.
+ * @param {User} user - User to format.
+ * @returns {string} Display name.
+ */
+function formatName(user) {
+	return user.name;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/multiline-blocks`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/multiline-blocks`

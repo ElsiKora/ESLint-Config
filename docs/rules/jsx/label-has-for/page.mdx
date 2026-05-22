@@ -1,0 +1,101 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsx/label-has-for`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Documents `@elsikora/jsx/label-has-for` in the JSX preset, including its upstream metadata, ElsiKora defaults, and effective value after ESLint resolves overrides.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value |
+| ------------- | -------------- | ------------------------- | ------------------ | --------------- |
+| `jsx`         | `JavaScript`   | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsx`         | `JSX`          | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsx`         | `TSX`          | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsx`         | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsx`         | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsx`         | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `Package JSON` | `package.json`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSON`         | `config.json`             | 🧭 `off`           | `[0]`           |
+| `all-options` | `YAML`         | `config.yaml`             | 🧭 `off`           | `[0]`           |
+| `all-options` | `Markdown`     | `README.md`               | 🧭 `off`           | `[0]`           |
+| `all-options` | `CSS`          | `src/styles.css`          | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsx`         | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `17`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+export function EmailField() {
+	return <input id="email" type="email" />;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+export function EmailField() {
+	return (
+		<label htmlFor="email">
+			Email
+			<input id="email" type="email" />
+		</label>
+	);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsx/label-has-for`
+- **Documentation route:** `/docs/eslint-config/rules/jsx/label-has-for`

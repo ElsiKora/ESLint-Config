@@ -1,0 +1,183 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/tag-lines`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforces lines (or no lines) before, after, or between tags.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"description": "Defaults to \"never\". \"any\" is only useful with `tags` (allowing non-enforcement of lines except\nfor particular tags) or with `startLines`, `startLinesWithNoTags` `endLines`, or `maxBlockLines`. It is also\nnecessary if using the linebreak-setting options of the `sort-tags` rule\nso that the two rules won't conflict in both attempting to set lines\nbetween tags.",
+		"enum": ["always", "any", "never"],
+		"type": "string"
+	},
+	{
+		"additionalProperties": false,
+		"properties": {
+			"applyToEndTag": {
+				"description": "Set to `false` and use with \"always\" to indicate the normal lines to be\nadded after tags should not be added after the final tag.\n\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"count": {
+				"description": "Use with \"always\" to indicate the number of lines to require be present.\n\nDefaults to 1.",
+				"type": "integer"
+			},
+			"endLines": {
+				"anyOf": [
+					{
+						"type": "integer"
+					},
+					{
+						"type": "null"
+					}
+				],
+				"description": "If not set to `null`, will enforce end lines to the given count on the\nfinal tag only.\n\nDefaults to `0`."
+			},
+			"maxBlockLines": {
+				"anyOf": [
+					{
+						"type": "integer"
+					},
+					{
+						"type": "null"
+					}
+				],
+				"description": "If not set to `null`, will enforce a maximum number of lines to the given count anywhere in the block description.\n\nNote that if non-`null`, `maxBlockLines` must be greater than or equal to `startLines`.\n\nDefaults to `null`."
+			},
+			"startLines": {
+				"anyOf": [
+					{
+						"type": "integer"
+					},
+					{
+						"type": "null"
+					}
+				],
+				"description": "If not set to `null`, will enforce end lines to the given count before the\nfirst tag only, unless there is only whitespace content, in which case,\na line count will not be enforced.\n\nDefaults to `0`."
+			},
+			"startLinesWithNoTags": {
+				"description": "If set to a number, will enforce a starting lines count when there are no tags. Defaults to `undefined`.",
+				"type": "number"
+			},
+			"tags": {
+				"description": "Overrides the default behavior depending on specific tags.\n\nAn object whose keys are tag names and whose values are objects with the\nfollowing keys:\n\n1. `lines` - Set to `always`, `never`, or `any` to override.\n2. `count` - Overrides main `count` (for \"always\")\n\nDefaults to empty object.",
+				"patternProperties": {
+					".*": {
+						"additionalProperties": false,
+						"properties": {
+							"count": {
+								"type": "integer"
+							},
+							"lines": {
+								"enum": ["always", "never", "any"],
+								"type": "string"
+							}
+						}
+					}
+				},
+				"type": "object"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Saves a user.
+ * @returns {Promise<void>} Resolves when saved.
+ * @param {User} user - User to save.
+ */
+async function saveUser(user) {
+	await repository.save(user);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Saves a user.
+ * @param {User} user - User to save.
+ * @returns {Promise<void>} Resolves when saved.
+ */
+async function saveUser(user) {
+	await repository.save(user);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/tag-lines`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/tag-lines`

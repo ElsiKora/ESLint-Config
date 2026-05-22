@@ -1,0 +1,102 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `no-empty-function`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Documents the core ESLint `no-empty-function` rule as it appears in the ElsiKora JavaScript preset, including overrides that may change its final severity.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `TypeScript` (`src/example.ts`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0,{"allow":[]}]`              |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value    |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ------------------ |
+| `typescript`                     | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript`                     | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript`                     | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript`                     | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allow":[]}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allow":[]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity | Value   | Config block |
+| -------------------------------- | -------- | ------- | ------------ |
+| `typescript`                     | 🧭 `off` | `"off"` | `8`          |
+| `typescript-strict`              | 🧭 `off` | `"off"` | `8`          |
+| `typescript-with-unicorn`        | 🧭 `off` | `"off"` | `8`          |
+| `typescript-strict-with-unicorn` | 🧭 `off` | `"off"` | `8`          |
+| `all-options`                    | 🧭 `off` | `"off"` | `63`         |
+| `all-options`                    | 🧭 `off` | `"off"` | `73`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+function handleRequest() {}
+export { handleRequest };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+function handleRequest(request) {
+	return request.id;
+}
+export { handleRequest };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `no-empty-function`
+- **Documentation route:** `/docs/eslint-config/rules/javascript/no-empty-function`

@@ -1,0 +1,130 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsx/mouse-events-have-key-events`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce that `onMouseOver`/`onMouseOut` are accompanied by `onFocus`/`onBlur` for keyboard-only users.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"hoverInHandlers": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"uniqueItems": true,
+				"additionalItems": false,
+				"description": "An array of events that need to be accompanied by `onFocus`"
+			},
+			"hoverOutHandlers": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"uniqueItems": true,
+				"additionalItems": false,
+				"description": "An array of events that need to be accompanied by `onBlur`"
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                       |
+| ---------------- | --------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                               |
+| Default target   | `JavaScript` (`src/example.js`)                                             |
+| Default severity | 🚨 `error`                                                                  |
+| Default value    | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value                                                             |
+| ------------- | -------------- | ------------------------- | ------------------ | --------------------------------------------------------------------------- |
+| `jsx`         | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `jsx`         | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `jsx`         | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `jsx`         | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `jsx`         | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `jsx`         | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,{"hoverInHandlers":["onMouseOver"],"hoverOutHandlers":["onMouseOut"]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `jsx`         | 🚨 `error` | `"error"` | `0`          |
+| `all-options` | 🚨 `error` | `"error"` | `17`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+export function DismissNotice() {
+	return <div onClick={dismissNotice}>Dismiss</div>;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+export function DismissNotice() {
+	return (
+		<button type="button" onClick={dismissNotice}>
+			Dismiss
+		</button>
+	);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsx/mouse-events-have-key-events`
+- **Documentation route:** `/docs/eslint-config/rules/jsx/mouse-events-have-key-events`

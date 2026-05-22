@@ -1,0 +1,184 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/unicorn/filename-case`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce a case style for filenames.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `true`       |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"oneOf": [
+			{
+				"properties": {
+					"case": {
+						"enum": ["camelCase", "snakeCase", "kebabCase", "pascalCase"],
+						"description": "The filename case style."
+					},
+					"ignore": {
+						"type": "array",
+						"uniqueItems": true,
+						"description": "Patterns to ignore."
+					},
+					"multipleFileExtensions": {
+						"type": "boolean",
+						"description": "Whether to treat additional, dot-separated parts of a filename as file extensions."
+					}
+				},
+				"additionalProperties": false
+			},
+			{
+				"properties": {
+					"cases": {
+						"properties": {
+							"camelCase": {
+								"type": "boolean",
+								"description": "Whether to allow camelCase filenames."
+							},
+							"snakeCase": {
+								"type": "boolean",
+								"description": "Whether to allow snake_case filenames."
+							},
+							"kebabCase": {
+								"type": "boolean",
+								"description": "Whether to allow kebab-case filenames."
+							},
+							"pascalCase": {
+								"type": "boolean",
+								"description": "Whether to allow PascalCase filenames."
+							}
+						},
+						"additionalProperties": false,
+						"description": "The allowed filename case styles."
+					},
+					"ignore": {
+						"type": "array",
+						"uniqueItems": true,
+						"description": "Patterns to ignore."
+					},
+					"multipleFileExtensions": {
+						"type": "boolean",
+						"description": "Whether to treat additional, dot-separated parts of a filename as file extensions."
+					}
+				},
+				"additionalProperties": false
+			}
+		]
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value     | Config block |
+| -------------------------------- | ---------- | --------- | ------------ |
+| `unicorn`                        | 🚨 `error` | `"error"` | `0`          |
+| `unicorn`                        | 🧭 `off`   | `"off"`   | `1`          |
+| `node-with-unicorn`              | 🚨 `error` | `"error"` | `2`          |
+| `node-with-unicorn`              | 🧭 `off`   | `"off"`   | `3`          |
+| `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `10`         |
+| `typescript-with-unicorn`        | 🧭 `off`   | `"off"`   | `11`         |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
+| `typescript-strict-with-unicorn` | 🧭 `off`   | `"off"`   | `11`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
+| `all-options`                    | 🧭 `off`   | `"off"`   | `76`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const usrCfg = loadCfg();
+export { usrCfg };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const userConfig = loadConfig();
+export { userConfig };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/unicorn/filename-case`
+- **Documentation route:** `/docs/eslint-config/rules/unicorn/filename-case`

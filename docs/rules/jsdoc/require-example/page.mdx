@@ -1,0 +1,174 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/require-example`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Requires that all functions (and potentially other contexts) have examples.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"checkConstructors": {
+				"default": true,
+				"description": "A value indicating whether `constructor`s should be checked.\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"checkGetters": {
+				"default": false,
+				"description": "A value indicating whether getters should be checked. Defaults to `false`.",
+				"type": "boolean"
+			},
+			"checkSetters": {
+				"default": false,
+				"description": "A value indicating whether setters should be checked. Defaults to `false`.",
+				"type": "boolean"
+			},
+			"contexts": {
+				"description": "Set this to an array of strings representing the AST context (or an object with\noptional `context` and `comment` properties) where you wish the rule to be applied.\n(e.g., `ClassDeclaration` for ES6 classes).\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`, `FunctionDeclaration`,\n`FunctionExpression`). Set to `\"any\"` if you want the rule to apply to any\nJSDoc block throughout your files.\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"items": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"comment": {
+									"type": "string"
+								},
+								"context": {
+									"type": "string"
+								}
+							},
+							"type": "object"
+						}
+					]
+				},
+				"type": "array"
+			},
+			"enableFixer": {
+				"default": true,
+				"description": "A boolean on whether to enable the fixer (which adds an empty `@example` block).\nDefaults to `true`.",
+				"type": "boolean"
+			},
+			"exemptedBy": {
+				"description": "Array of tags (e.g., `['type']`) whose presence on the document\nblock avoids the need for an `@example`. Defaults to an array with\n`inheritdoc`. If you set this array, it will overwrite the default,\nso be sure to add back `inheritdoc` if you wish its presence to cause\nexemption of the rule.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"exemptNoArguments": {
+				"default": false,
+				"description": "Boolean to indicate that no-argument functions should not be reported for\nmissing `@example` declarations.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Adds two numbers.
+ * @param {number} left - Left value.
+ * @param {number} right - Right value.
+ * @returns {number} Sum.
+ */
+function add(left, right) {
+	return left + right;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Adds two numbers.
+ * @param {number} left - Left value.
+ * @param {number} right - Right value.
+ * @returns {number} Sum.
+ * @example
+ * add(1, 2);
+ */
+function add(left, right) {
+	return left + right;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/require-example`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/require-example`

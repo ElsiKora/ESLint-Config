@@ -1,0 +1,100 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `dot-notation`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Documents the core ESLint `dot-notation` rule as it appears in the ElsiKora JavaScript preset, including overrides that may change its final severity.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                          |
+| ---------------- | ---------------------------------------------- |
+| Default scenario | `all-options`                                  |
+| Default target   | `TypeScript` (`src/example.ts`)                |
+| Default severity | 🧭 `off`                                       |
+| Default value    | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                                |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ---------------------------------------------- |
+| `typescript`                     | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript`                     | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript`                     | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript`                     | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"allowKeywords":true,"allowPattern":""}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity | Value   | Config block |
+| -------------------------------- | -------- | ------- | ------------ |
+| `typescript`                     | 🧭 `off` | `"off"` | `8`          |
+| `typescript-strict`              | 🧭 `off` | `"off"` | `8`          |
+| `typescript-with-unicorn`        | 🧭 `off` | `"off"` | `8`          |
+| `typescript-strict-with-unicorn` | 🧭 `off` | `"off"` | `8`          |
+| `all-options`                    | 🧭 `off` | `"off"` | `63`         |
+| `all-options`                    | 🧭 `off` | `"off"` | `73`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const city = user["address"].city;
+export { city };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const city = user.address.city;
+export { city };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `dot-notation`
+- **Documentation route:** `/docs/eslint-config/rules/javascript/dot-notation`

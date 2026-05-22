@@ -1,0 +1,27 @@
+---
+asIndexPage: true
+---
+
+import { Cards } from "nextra/components";
+
+# FSD
+
+Rules and nested groups documented for this preset family.
+
+<Cards num={3}>
+	<Cards.Card emoji="📚" title="1" href="/docs/eslint-config/rules/fsd/1" />
+	<Cards.Card emoji="📚" title="2" href="/docs/eslint-config/rules/fsd/2" />
+</Cards>
+
+## Rule Matrix
+
+| Rule                                                                                                     | Default    | Fixable | Suggestions | Type         |
+| -------------------------------------------------------------------------------------------------------- | ---------- | ------- | ----------- | ------------ |
+| [`@elsikora/fsd/1/forbidden-imports`](/docs/eslint-config/rules/fsd/1/forbidden-imports)                 | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/fsd/1/no-cross-slice-dependency`](/docs/eslint-config/rules/fsd/1/no-cross-slice-dependency) | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/fsd/1/no-global-store-imports`](/docs/eslint-config/rules/fsd/1/no-global-store-imports)     | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/fsd/1/no-public-api-sidestep`](/docs/eslint-config/rules/fsd/1/no-public-api-sidestep)       | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/fsd/1/no-relative-imports`](/docs/eslint-config/rules/fsd/1/no-relative-imports)             | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/fsd/1/no-ui-in-business-logic`](/docs/eslint-config/rules/fsd/1/no-ui-in-business-logic)     | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/fsd/1/ordered-imports`](/docs/eslint-config/rules/fsd/1/ordered-imports)                     | 🚨 `error` | ✅ Yes  | ❌ No       | `suggestion` |
+| [`@elsikora/fsd/2/no-cross-segment-reexport`](/docs/eslint-config/rules/fsd/2/no-cross-segment-reexport) | 🚨 `error` | ❌ No   | ✅ Yes      | `problem`    |

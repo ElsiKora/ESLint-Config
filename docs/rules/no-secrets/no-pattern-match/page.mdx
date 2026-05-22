@@ -1,0 +1,136 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/no-secrets/no-pattern-match`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+An eslint rule that does pattern matching against an entire file.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "array",
+	"items": {
+		"description": "Options for no-pattern-match rule",
+		"type": "object",
+		"properties": {
+			"patterns": {
+				"default": {},
+				"description": "An object of patterns to check the text contents of files against",
+				"type": "object",
+				"additionalProperties": {
+					"anyOf": [
+						{
+							"type": "string",
+							"description": "A stringified regexp pattern"
+						},
+						{
+							"type": "object",
+							"properties": {},
+							"additionalProperties": false,
+							"description": "An instance of RegExp"
+						}
+					],
+					"description": "A string/RegExp pattern"
+				}
+			}
+		},
+		"required": ["patterns"],
+		"additionalProperties": false
+	}
+}
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                    |
+| ---------------- | ------------------------------------------------------------------------ |
+| Default scenario | `all-options`                                                            |
+| Default target   | `JavaScript` (`src/example.js`)                                          |
+| Default severity | 🚨 `error`                                                               |
+| Default value    | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value                                                          |
+| ------------- | -------------- | ------------------------- | ------------------ | ------------------------------------------------------------------------ |
+| `no-secrets`  | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `no-secrets`  | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `no-secrets`  | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `no-secrets`  | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `no-secrets`  | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `no-secrets`  | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `no-secrets`  | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value                                                                          | Config block |
+| ------------- | ---------- | ------------------------------------------------------------------------------ | ------------ |
+| `no-secrets`  | 🚨 `error` | `["error",{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` | `0`          |
+| `all-options` | 🚨 `error` | `["error",{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` | `26`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const ApiKey = "checked-into-source";
+const Token = "local-debug-token";
+
+export { ApiKey, Token };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const credentials = readCredentialsFromVault();
+const sessionCredentials = await credentials.createSession();
+
+export { sessionCredentials };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/no-secrets/no-pattern-match`
+- **Documentation route:** `/docs/eslint-config/rules/no-secrets/no-pattern-match`

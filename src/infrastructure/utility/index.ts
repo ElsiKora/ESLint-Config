@@ -1,5 +1,13 @@
+export { applyPluginRuleDocumentationUrls } from "./apply-plugin-rule-documentation-urls.utility";
+export { applyRuleDocumentationUrl } from "./apply-rule-documentation-url.utility";
+export { applyRuleDocumentationUrls } from "./apply-rule-documentation-urls.utility";
+export { createRuleDocumentationSlug } from "./create-rule-documentation-slug.utility";
+export { createRuleDocumentationUrl } from "./create-rule-documentation-url.utility";
 export { createVirtualEslintPlugin } from "./create-virtual-eslint-plugin.utility";
 export { extractSubPlugin } from "./extract-sub-plugin.utility";
 export { formatConfig } from "./format-config.utility";
 export { formatPluginName } from "./format-plugin-name.utility";
 export { formatRuleName } from "./format-rule-name.utility";
+export { getPluginWithRuleDocumentationUrls } from "./get-plugin-with-rule-documentation-urls.utility";
+export { normalizeRuleIdForDocumentation } from "./normalize-rule-id-for-documentation.utility";
+export { RULE_DOCUMENTATION_BASE_URL } from "./rule-documentation-base-url.constant";

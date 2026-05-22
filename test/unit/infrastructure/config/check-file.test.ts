@@ -61,6 +61,7 @@ describe("CheckFileConfig", () => {
 		// Check rule name formatting was called for key rules
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("check-file/filename-blocklist");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("check-file/filename-naming-convention");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("check-file/folder-match-with-fex");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("check-file/folder-naming-convention");
 
 		// Check that rules are properly configured
@@ -75,5 +76,9 @@ describe("CheckFileConfig", () => {
 		const namingRule = config.rules?.["@elsikora/check-file/filename-naming-convention"];
 		expect(Array.isArray(namingRule)).toBe(true);
 		expect(namingRule[0]).toBe("error");
+
+		const folderMatchRule = config.rules?.["@elsikora/check-file/folder-match-with-fex"];
+		expect(Array.isArray(folderMatchRule)).toBe(true);
+		expect(folderMatchRule[0]).toBe("error");
 	});
 });

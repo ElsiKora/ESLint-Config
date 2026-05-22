@@ -1,0 +1,18 @@
+export default {
+	"all-properties-are-whitelisted": "all-properties-are-whitelisted",
+	"all-properties-have-explicit-defined": "all-properties-have-explicit-defined",
+	"api-enum-property-best-practices": "api-enum-property-best-practices",
+	"api-method-should-specify-api-operation": "api-method-should-specify-api-operation",
+	"api-method-should-specify-api-response": "api-method-should-specify-api-response",
+	"api-methods-should-be-guarded": "api-methods-should-be-guarded",
+	"api-property-matches-property-optionality": "api-property-matches-property-optionality",
+	"api-property-returning-array-should-set-array": "api-property-returning-array-should-set-array",
+	"controllers-should-supply-api-tags": "controllers-should-supply-api-tags",
+	"no-duplicate-decorators": "no-duplicate-decorators",
+	"param-decorator-name-matches-route-param": "param-decorator-name-matches-route-param",
+	"provided-injected-should-match-factory-parameters": "provided-injected-should-match-factory-parameters",
+	"should-specify-forbid-unknown-values": "should-specify-forbid-unknown-values",
+	"sort-module-metadata-arrays": "sort-module-metadata-arrays",
+	"validate-nested-of-array-should-set-each": "validate-nested-of-array-should-set-each",
+	"validated-non-primitive-property-needs-type-decorator": "validated-non-primitive-property-needs-type-decorator",
+};

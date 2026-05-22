@@ -1,0 +1,116 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsx/autocomplete-valid`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce that autocomplete attributes are used correctly.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"inputComponents": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"uniqueItems": true,
+				"additionalItems": false
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2,{"inputComponents":[]}]`    |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value              |
+| ------------- | -------------- | ------------------------- | ------------------ | ---------------------------- |
+| `jsx`         | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `jsx`         | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `jsx`         | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `jsx`         | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `jsx`         | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `jsx`         | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,{"inputComponents":[]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `jsx`         | 🚨 `error` | `"error"` | `0`          |
+| `all-options` | 🚨 `error` | `"error"` | `17`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+export function CheckoutForm() {
+	return <input autoComplete="postal" name="postalCode" />;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+export function CheckoutForm() {
+	return <input autoComplete="postal-code" name="postalCode" />;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsx/autocomplete-valid`
+- **Documentation route:** `/docs/eslint-config/rules/jsx/autocomplete-valid`

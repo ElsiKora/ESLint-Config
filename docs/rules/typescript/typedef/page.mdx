@@ -1,0 +1,153 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/typescript/typedef`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Require type annotations in certain places.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ✅ Yes       |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"arrayDestructuring": {
+				"type": "boolean",
+				"description": "Whether to enforce type annotations on variables declared using array destructuring."
+			},
+			"arrowParameter": {
+				"type": "boolean",
+				"description": "Whether to enforce type annotations for parameters of arrow functions."
+			},
+			"memberVariableDeclaration": {
+				"type": "boolean",
+				"description": "Whether to enforce type annotations on member variables of classes."
+			},
+			"objectDestructuring": {
+				"type": "boolean",
+				"description": "Whether to enforce type annotations on variables declared using object destructuring."
+			},
+			"parameter": {
+				"type": "boolean",
+				"description": "Whether to enforce type annotations for parameters of functions and methods."
+			},
+			"propertyDeclaration": {
+				"type": "boolean",
+				"description": "Whether to enforce type annotations for properties of interfaces and types."
+			},
+			"variableDeclaration": {
+				"type": "boolean",
+				"description": "Whether to enforce type annotations for variable declarations, excluding array and object destructuring."
+			},
+			"variableDeclarationIgnoreFunction": {
+				"type": "boolean",
+				"description": "Whether to ignore variable declarations for non-arrow and arrow functions."
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"arrayDestructuring": false,
+		"arrowParameter": false,
+		"memberVariableDeclaration": false,
+		"objectDestructuring": false,
+		"parameter": false,
+		"propertyDeclaration": false,
+		"variableDeclaration": false,
+		"variableDeclarationIgnoreFunction": false
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                                                                                                                                                               |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                                                                                                                                                       |
+| Default target   | `TypeScript` (`src/example.ts`)                                                                                                                                                                                                     |
+| Default severity | 🚨 `error`                                                                                                                                                                                                                          |
+| Default value    | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                                                                                                                                                                                                                     |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `typescript-strict`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `typescript-strict`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `typescript-strict`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `typescript-strict`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity   | Value                                                                                                                                                                                                                                     | Config block |
+| -------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `typescript-strict`              | 🚨 `error` | `["error",{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` | `9`          |
+| `typescript-strict-with-unicorn` | 🚨 `error` | `["error",{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` | `9`          |
+| `all-options`                    | 🚨 `error` | `["error",{"arrayDestructuring":true,"arrowParameter":true,"memberVariableDeclaration":true,"objectDestructuring":true,"parameter":true,"propertyDeclaration":true,"variableDeclaration":true,"variableDeclarationIgnoreFunction":true}]` | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+type UserMap = {
+	[key: string]: User;
+};
+
+export type { UserMap };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+type UserMap = Record<string, User>;
+
+export type { UserMap };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/typescript/typedef`
+- **Documentation route:** `/docs/eslint-config/rules/typescript/typedef`

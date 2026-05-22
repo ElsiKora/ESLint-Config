@@ -1,0 +1,920 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/perfectionist/sort-imports`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce sorted imports.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `true`       |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"items": {
+		"properties": {
+			"fallbackSort": {
+				"properties": {
+					"type": {
+						"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order", "type-import-first"],
+						"description": "Specifies the sorting method.",
+						"type": "string"
+					},
+					"order": {
+						"description": "Specifies whether to sort items in ascending or descending order.",
+						"enum": ["asc", "desc"],
+						"type": "string"
+					},
+					"sortBy": {
+						"enum": ["specifier", "path"],
+						"type": "string"
+					}
+				},
+				"description": "Fallback sort order.",
+				"additionalProperties": false,
+				"required": ["type"],
+				"type": "object"
+			},
+			"type": {
+				"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order", "type-import-first"],
+				"description": "Specifies the sorting method.",
+				"type": "string"
+			},
+			"specialCharacters": {
+				"description": "Specifies whether to trim, remove, or keep special characters before sorting.",
+				"enum": ["remove", "trim", "keep"],
+				"type": "string"
+			},
+			"ignoreCase": {
+				"description": "Controls whether sorting should be case-sensitive or not.",
+				"type": "boolean"
+			},
+			"alphabet": {
+				"description": "Used only when the `type` option is set to `'custom'`. Specifies the custom alphabet for sorting.",
+				"type": "string"
+			},
+			"locales": {
+				"oneOf": [
+					{
+						"type": "string"
+					},
+					{
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				],
+				"description": "Specifies the sorting locales."
+			},
+			"order": {
+				"description": "Specifies whether to sort items in ascending or descending order.",
+				"enum": ["asc", "desc"],
+				"type": "string"
+			},
+			"sortBy": {
+				"enum": ["specifier", "path"],
+				"type": "string"
+			},
+			"customGroups": {
+				"items": {
+					"oneOf": [
+						{
+							"properties": {
+								"fallbackSort": {
+									"properties": {
+										"type": {
+											"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order", "type-import-first"],
+											"description": "Specifies the sorting method.",
+											"type": "string"
+										},
+										"order": {
+											"description": "Specifies whether to sort items in ascending or descending order.",
+											"enum": ["asc", "desc"],
+											"type": "string"
+										},
+										"sortBy": {
+											"enum": ["specifier", "path"],
+											"type": "string"
+										}
+									},
+									"description": "Fallback sort order.",
+									"additionalProperties": false,
+									"required": ["type"],
+									"type": "object"
+								},
+								"type": {
+									"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order", "type-import-first"],
+									"description": "Specifies the sorting method.",
+									"type": "string"
+								},
+								"groupName": {
+									"description": "Custom group name.",
+									"type": "string"
+								},
+								"newlinesInside": {
+									"oneOf": [
+										{
+											"description": "Specifies how to handle newlines between groups elements",
+											"enum": ["ignore"],
+											"type": "string"
+										},
+										{
+											"type": "number",
+											"minimum": 0
+										}
+									]
+								},
+								"order": {
+									"description": "Specifies whether to sort items in ascending or descending order.",
+									"enum": ["asc", "desc"],
+									"type": "string"
+								},
+								"sortBy": {
+									"enum": ["specifier", "path"],
+									"type": "string"
+								},
+								"anyOf": {
+									"items": {
+										"properties": {
+											"elementNamePattern": {
+												"oneOf": [
+													{
+														"items": {
+															"oneOf": [
+																{
+																	"properties": {
+																		"pattern": {
+																			"description": "Regular expression pattern.",
+																			"type": "string"
+																		},
+																		"flags": {
+																			"description": "Regular expression flags.",
+																			"type": "string"
+																		}
+																	},
+																	"additionalProperties": false,
+																	"required": ["pattern"],
+																	"type": "object"
+																},
+																{
+																	"type": "string"
+																}
+															],
+															"description": "Regular expression."
+														},
+														"type": "array"
+													},
+													{
+														"oneOf": [
+															{
+																"properties": {
+																	"pattern": {
+																		"description": "Regular expression pattern.",
+																		"type": "string"
+																	},
+																	"flags": {
+																		"description": "Regular expression flags.",
+																		"type": "string"
+																	}
+																},
+																"additionalProperties": false,
+																"required": ["pattern"],
+																"type": "object"
+															},
+															{
+																"type": "string"
+															}
+														],
+														"description": "Regular expression."
+													}
+												],
+												"description": "Regular expression."
+											},
+											"modifiers": {
+												"items": {
+													"enum": ["default", "multiline", "named", "require", "side-effect", "singleline", "ts-equals", "type", "value", "wildcard"],
+													"type": "string"
+												},
+												"description": "Modifier filters.",
+												"type": "array"
+											},
+											"selector": {
+												"description": "Selector filter.",
+												"enum": ["side-effect-style", "tsconfig-path", "side-effect", "external", "internal", "builtin", "sibling", "subpath", "import", "parent", "index", "style", "type"],
+												"type": "string"
+											}
+										},
+										"description": "Custom group.",
+										"additionalProperties": false,
+										"type": "object"
+									},
+									"type": "array",
+									"minItems": 1
+								}
+							},
+							"description": "Custom group block.",
+							"required": ["groupName", "anyOf"],
+							"additionalProperties": false,
+							"type": "object"
+						},
+						{
+							"properties": {
+								"fallbackSort": {
+									"properties": {
+										"type": {
+											"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order", "type-import-first"],
+											"description": "Specifies the sorting method.",
+											"type": "string"
+										},
+										"order": {
+											"description": "Specifies whether to sort items in ascending or descending order.",
+											"enum": ["asc", "desc"],
+											"type": "string"
+										},
+										"sortBy": {
+											"enum": ["specifier", "path"],
+											"type": "string"
+										}
+									},
+									"description": "Fallback sort order.",
+									"additionalProperties": false,
+									"required": ["type"],
+									"type": "object"
+								},
+								"type": {
+									"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order", "type-import-first"],
+									"description": "Specifies the sorting method.",
+									"type": "string"
+								},
+								"groupName": {
+									"description": "Custom group name.",
+									"type": "string"
+								},
+								"newlinesInside": {
+									"oneOf": [
+										{
+											"description": "Specifies how to handle newlines between groups elements",
+											"enum": ["ignore"],
+											"type": "string"
+										},
+										{
+											"type": "number",
+											"minimum": 0
+										}
+									]
+								},
+								"order": {
+									"description": "Specifies whether to sort items in ascending or descending order.",
+									"enum": ["asc", "desc"],
+									"type": "string"
+								},
+								"sortBy": {
+									"enum": ["specifier", "path"],
+									"type": "string"
+								},
+								"elementNamePattern": {
+									"oneOf": [
+										{
+											"items": {
+												"oneOf": [
+													{
+														"properties": {
+															"pattern": {
+																"description": "Regular expression pattern.",
+																"type": "string"
+															},
+															"flags": {
+																"description": "Regular expression flags.",
+																"type": "string"
+															}
+														},
+														"additionalProperties": false,
+														"required": ["pattern"],
+														"type": "object"
+													},
+													{
+														"type": "string"
+													}
+												],
+												"description": "Regular expression."
+											},
+											"type": "array"
+										},
+										{
+											"oneOf": [
+												{
+													"properties": {
+														"pattern": {
+															"description": "Regular expression pattern.",
+															"type": "string"
+														},
+														"flags": {
+															"description": "Regular expression flags.",
+															"type": "string"
+														}
+													},
+													"additionalProperties": false,
+													"required": ["pattern"],
+													"type": "object"
+												},
+												{
+													"type": "string"
+												}
+											],
+											"description": "Regular expression."
+										}
+									],
+									"description": "Regular expression."
+								},
+								"modifiers": {
+									"items": {
+										"enum": ["default", "multiline", "named", "require", "side-effect", "singleline", "ts-equals", "type", "value", "wildcard"],
+										"type": "string"
+									},
+									"description": "Modifier filters.",
+									"type": "array"
+								},
+								"selector": {
+									"description": "Selector filter.",
+									"enum": ["side-effect-style", "tsconfig-path", "side-effect", "external", "internal", "builtin", "sibling", "subpath", "import", "parent", "index", "style", "type"],
+									"type": "string"
+								}
+							},
+							"description": "Custom group.",
+							"additionalProperties": false,
+							"required": ["groupName"],
+							"minProperties": 2,
+							"type": "object"
+						}
+					]
+				},
+				"description": "Defines custom groups to match specific members.",
+				"type": "array"
+			},
+			"newlinesInside": {
+				"oneOf": [
+					{
+						"oneOf": [
+							{
+								"description": "Specifies how to handle newlines between groups elements",
+								"enum": ["ignore"],
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"minimum": 0
+							}
+						]
+					},
+					{
+						"enum": ["newlinesBetween"],
+						"type": "string"
+					}
+				]
+			},
+			"groups": {
+				"items": {
+					"oneOf": [
+						{
+							"type": "string"
+						},
+						{
+							"items": {
+								"type": "string"
+							},
+							"type": "array",
+							"minItems": 1
+						},
+						{
+							"properties": {
+								"newlinesBetween": {
+									"oneOf": [
+										{
+											"description": "Specifies how to handle newlines between groups.",
+											"enum": ["ignore"],
+											"type": "string"
+										},
+										{
+											"type": "number",
+											"minimum": 0
+										}
+									]
+								}
+							},
+							"required": ["newlinesBetween"],
+							"additionalProperties": false,
+							"type": "object"
+						},
+						{
+							"properties": {
+								"group": {
+									"oneOf": [
+										{
+											"type": "string"
+										},
+										{
+											"items": {
+												"type": "string"
+											},
+											"type": "array",
+											"minItems": 1
+										}
+									]
+								},
+								"fallbackSort": {
+									"properties": {
+										"type": {
+											"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order", "type-import-first"],
+											"description": "Specifies the sorting method.",
+											"type": "string"
+										},
+										"order": {
+											"description": "Specifies whether to sort items in ascending or descending order.",
+											"enum": ["asc", "desc"],
+											"type": "string"
+										},
+										"sortBy": {
+											"enum": ["specifier", "path"],
+											"type": "string"
+										}
+									},
+									"description": "Fallback sort order.",
+									"additionalProperties": false,
+									"required": ["type"],
+									"type": "object"
+								},
+								"commentAbove": {
+									"description": "Specifies a comment to enforce above the group.",
+									"type": "string"
+								},
+								"type": {
+									"enum": ["alphabetical", "natural", "line-length", "custom", "unsorted", "subgroup-order", "type-import-first"],
+									"description": "Specifies the sorting method.",
+									"type": "string"
+								},
+								"newlinesInside": {
+									"oneOf": [
+										{
+											"description": "Specifies how to handle newlines between groups elements",
+											"enum": ["ignore"],
+											"type": "string"
+										},
+										{
+											"type": "number",
+											"minimum": 0
+										}
+									]
+								},
+								"order": {
+									"description": "Specifies whether to sort items in ascending or descending order.",
+									"enum": ["asc", "desc"],
+									"type": "string"
+								},
+								"sortBy": {
+									"enum": ["specifier", "path"],
+									"type": "string"
+								}
+							},
+							"additionalProperties": false,
+							"required": ["group"],
+							"minProperties": 2,
+							"type": "object"
+						}
+					]
+				},
+				"description": "Specifies a list of groups for sorting.",
+				"type": "array"
+			},
+			"newlinesBetween": {
+				"oneOf": [
+					{
+						"description": "Specifies how to handle newlines between groups.",
+						"enum": ["ignore"],
+						"type": "string"
+					},
+					{
+						"type": "number",
+						"minimum": 0
+					}
+				]
+			},
+			"tsconfig": {
+				"properties": {
+					"rootDir": {
+						"description": "Specifies the tsConfig root directory.",
+						"type": "string"
+					},
+					"filename": {
+						"description": "Specifies the tsConfig filename.",
+						"type": "string"
+					}
+				},
+				"additionalProperties": false,
+				"required": ["rootDir"],
+				"type": "object"
+			},
+			"maxLineLength": {
+				"description": "Specifies the maximum line length.",
+				"exclusiveMinimum": true,
+				"type": "integer",
+				"minimum": 0
+			},
+			"sortSideEffects": {
+				"description": "Controls whether side-effect imports should be sorted.",
+				"type": "boolean"
+			},
+			"environment": {
+				"description": "Specifies the environment.",
+				"enum": ["node", "bun"],
+				"type": "string"
+			},
+			"useExperimentalDependencyDetection": {
+				"description": "Enables experimental dependency detection for sorting rules that support it.",
+				"type": "boolean"
+			},
+			"partitionByComment": {
+				"oneOf": [
+					{
+						"type": "boolean"
+					},
+					{
+						"oneOf": [
+							{
+								"items": {
+									"oneOf": [
+										{
+											"properties": {
+												"pattern": {
+													"description": "Regular expression pattern.",
+													"type": "string"
+												},
+												"flags": {
+													"description": "Regular expression flags.",
+													"type": "string"
+												}
+											},
+											"additionalProperties": false,
+											"required": ["pattern"],
+											"type": "object"
+										},
+										{
+											"type": "string"
+										}
+									],
+									"description": "Regular expression."
+								},
+								"type": "array"
+							},
+							{
+								"oneOf": [
+									{
+										"properties": {
+											"pattern": {
+												"description": "Regular expression pattern.",
+												"type": "string"
+											},
+											"flags": {
+												"description": "Regular expression flags.",
+												"type": "string"
+											}
+										},
+										"additionalProperties": false,
+										"required": ["pattern"],
+										"type": "object"
+									},
+									{
+										"type": "string"
+									}
+								],
+								"description": "Regular expression."
+							}
+						],
+						"description": "Regular expression."
+					},
+					{
+						"properties": {
+							"block": {
+								"description": "Enables specific block comments to separate the nodes.",
+								"oneOf": [
+									{
+										"type": "boolean"
+									},
+									{
+										"oneOf": [
+											{
+												"items": {
+													"oneOf": [
+														{
+															"properties": {
+																"pattern": {
+																	"description": "Regular expression pattern.",
+																	"type": "string"
+																},
+																"flags": {
+																	"description": "Regular expression flags.",
+																	"type": "string"
+																}
+															},
+															"additionalProperties": false,
+															"required": ["pattern"],
+															"type": "object"
+														},
+														{
+															"type": "string"
+														}
+													],
+													"description": "Regular expression."
+												},
+												"type": "array"
+											},
+											{
+												"oneOf": [
+													{
+														"properties": {
+															"pattern": {
+																"description": "Regular expression pattern.",
+																"type": "string"
+															},
+															"flags": {
+																"description": "Regular expression flags.",
+																"type": "string"
+															}
+														},
+														"additionalProperties": false,
+														"required": ["pattern"],
+														"type": "object"
+													},
+													{
+														"type": "string"
+													}
+												],
+												"description": "Regular expression."
+											}
+										],
+										"description": "Regular expression."
+									}
+								]
+							},
+							"line": {
+								"description": "Enables specific line comments to separate the nodes.",
+								"oneOf": [
+									{
+										"type": "boolean"
+									},
+									{
+										"oneOf": [
+											{
+												"items": {
+													"oneOf": [
+														{
+															"properties": {
+																"pattern": {
+																	"description": "Regular expression pattern.",
+																	"type": "string"
+																},
+																"flags": {
+																	"description": "Regular expression flags.",
+																	"type": "string"
+																}
+															},
+															"additionalProperties": false,
+															"required": ["pattern"],
+															"type": "object"
+														},
+														{
+															"type": "string"
+														}
+													],
+													"description": "Regular expression."
+												},
+												"type": "array"
+											},
+											{
+												"oneOf": [
+													{
+														"properties": {
+															"pattern": {
+																"description": "Regular expression pattern.",
+																"type": "string"
+															},
+															"flags": {
+																"description": "Regular expression flags.",
+																"type": "string"
+															}
+														},
+														"additionalProperties": false,
+														"required": ["pattern"],
+														"type": "object"
+													},
+													{
+														"type": "string"
+													}
+												],
+												"description": "Regular expression."
+											}
+										],
+										"description": "Regular expression."
+									}
+								]
+							}
+						},
+						"additionalProperties": false,
+						"minProperties": 1,
+						"type": "object"
+					}
+				],
+				"description": "Enables the use of comments to separate the nodes into logical groups."
+			},
+			"partitionByNewLine": {
+				"description": "Enables the use of newlines to separate the nodes into logical groups.",
+				"type": "boolean"
+			},
+			"internalPattern": {
+				"oneOf": [
+					{
+						"items": {
+							"oneOf": [
+								{
+									"properties": {
+										"pattern": {
+											"description": "Regular expression pattern.",
+											"type": "string"
+										},
+										"flags": {
+											"description": "Regular expression flags.",
+											"type": "string"
+										}
+									},
+									"additionalProperties": false,
+									"required": ["pattern"],
+									"type": "object"
+								},
+								{
+									"type": "string"
+								}
+							],
+							"description": "Regular expression."
+						},
+						"type": "array"
+					},
+					{
+						"oneOf": [
+							{
+								"properties": {
+									"pattern": {
+										"description": "Regular expression pattern.",
+										"type": "string"
+									},
+									"flags": {
+										"description": "Regular expression flags.",
+										"type": "string"
+									}
+								},
+								"additionalProperties": false,
+								"required": ["pattern"],
+								"type": "object"
+							},
+							{
+								"type": "string"
+							}
+						],
+						"description": "Regular expression."
+					}
+				],
+				"description": "Regular expression."
+			}
+		},
+		"additionalProperties": false,
+		"type": "object"
+	},
+	"uniqueItems": true,
+	"type": "array"
+}
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[
+	{
+		"groups": ["type-import", ["value-builtin", "value-external"], "type-internal", "value-internal", ["type-parent", "type-sibling", "type-index"], ["value-parent", "value-sibling", "value-index"], "ts-equals-import", "unknown"],
+		"internalPattern": ["^~/.+", "^@/.+", "^#.+"],
+		"useExperimentalDependencyDetection": true,
+		"fallbackSort": {
+			"type": "unsorted"
+		},
+		"partitionByComment": false,
+		"partitionByNewLine": false,
+		"specialCharacters": "keep",
+		"tsconfig": {
+			"rootDir": ""
+		},
+		"maxLineLength": null,
+		"sortSideEffects": false,
+		"type": "alphabetical",
+		"environment": "node",
+		"newlinesBetween": 1,
+		"newlinesInside": 0,
+		"customGroups": [],
+		"ignoreCase": true,
+		"locales": "en-US",
+		"sortBy": "path",
+		"alphabet": "",
+		"order": "asc"
+	}
+]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                                                                                                                                                                                                                                                                                                                      |
+| Default target   | `JavaScript` (`src/example.js`)                                                                                                                                                                                                                                                                                                                                                                    |
+| Default severity | 🚨 `error`                                                                                                                                                                                                                                                                                                                                                                                         |
+| Default value    | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+
+### Effective Result by File Type
+
+| Scenario | Target | File path | Effective severity | Effective value |
+| --- | --- | --- | --- | --- |
+| `perfectionist` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"environment":"node","groups":["type-builtin","type-import","type-external","type-internal","type-parent","type-sibling","type-index","builtin","external","internal","parent","sibling","index","style","side-effect","unknown"],"ignoreCase":false,"newlinesBetween":1,"order":"asc","sortSideEffects":true,"specialCharacters":"keep","type":"alphabetical"}]` |
+| `perfectionist` | `JSX` | `src/example.jsx` | 🚨 `error` | `[2,{"environment":"node","groups":["type-builtin","type-import","type-external","type-internal","type-parent","type-sibling","type-index","builtin","external","internal","parent","sibling","index","style","side-effect","unknown"],"ignoreCase":false,"newlinesBetween":1,"order":"asc","sortSideEffects":true,"specialCharacters":"keep","type":"alphabetical"}]` |
+| `perfectionist` | `TypeScript` | `src/example.ts` | 🚨 `error` | `[2,{"environment":"node","groups":["type-builtin","type-import","type-external","type-internal","type-parent","type-sibling","type-index","builtin","external","internal","parent","sibling","index","style","side-effect","unknown"],"ignoreCase":false,"newlinesBetween":1,"order":"asc","sortSideEffects":true,"specialCharacters":"keep","type":"alphabetical"}]` |
+| `perfectionist` | `TSX` | `src/example.tsx` | 🚨 `error` | `[2,{"environment":"node","groups":["type-builtin","type-import","type-external","type-internal","type-parent","type-sibling","type-index","builtin","external","internal","parent","sibling","index","style","side-effect","unknown"],"ignoreCase":false,"newlinesBetween":1,"order":"asc","sortSideEffects":true,"specialCharacters":"keep","type":"alphabetical"}]` |
+| `perfectionist` | `Next pages` | `pages/index.jsx` | 🚨 `error` | `[2,{"environment":"node","groups":["type-builtin","type-import","type-external","type-internal","type-parent","type-sibling","type-index","builtin","external","internal","parent","sibling","index","style","side-effect","unknown"],"ignoreCase":false,"newlinesBetween":1,"order":"asc","sortSideEffects":true,"specialCharacters":"keep","type":"alphabetical"}]` |
+| `perfectionist` | `Next app` | `app/page.tsx` | 🚨 `error` | `[2,{"environment":"node","groups":["type-builtin","type-import","type-external","type-internal","type-parent","type-sibling","type-index","builtin","external","internal","parent","sibling","index","style","side-effect","unknown"],"ignoreCase":false,"newlinesBetween":1,"order":"asc","sortSideEffects":true,"specialCharacters":"keep","type":"alphabetical"}]` |
+| `perfectionist` | `Storybook` | `src/example.stories.tsx` | 🚨 `error` | `[2,{"environment":"node","groups":["type-builtin","type-import","type-external","type-internal","type-parent","type-sibling","type-index","builtin","external","internal","parent","sibling","index","style","side-effect","unknown"],"ignoreCase":false,"newlinesBetween":1,"order":"asc","sortSideEffects":true,"specialCharacters":"keep","type":"alphabetical"}]` |
+| `perfectionist-with-fsd` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `perfectionist-with-fsd` | `JSX` | `src/example.jsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `perfectionist-with-fsd` | `TypeScript` | `src/example.ts` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `perfectionist-with-fsd` | `TSX` | `src/example.tsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `perfectionist-with-fsd` | `Next pages` | `pages/index.jsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `perfectionist-with-fsd` | `Next app` | `app/page.tsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `perfectionist-with-fsd` | `Storybook` | `src/example.stories.tsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `all-options` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `all-options` | `JSX` | `src/example.jsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `all-options` | `TypeScript` | `src/example.ts` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `all-options` | `TSX` | `src/example.tsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `all-options` | `Next pages` | `pages/index.jsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `all-options` | `Next app` | `app/page.tsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+| `all-options` | `Storybook` | `src/example.stories.tsx` | 🚨 `error` | `[2,{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                 | Severity   | Value                                                                                                                                                                                                                                                                                                                                                                                                    | Config block |
+| ------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `perfectionist`          | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]`                                                                                                                                                                                                                                                                                                                                                        | `0`          |
+| `perfectionist`          | 🚨 `error` | `["error",{"environment":"node","groups":["type-builtin","type-import","type-external","type-internal","type-parent","type-sibling","type-index","builtin","external","internal","parent","sibling","index","style","side-effect","unknown"],"ignoreCase":false,"newlinesBetween":1,"order":"asc","sortSideEffects":true,"specialCharacters":"keep","type":"alphabetical"}]`                             | `1`          |
+| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]`                                                                                                                                                                                                                                                                                                                                                        | `3`          |
+| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` | `4`          |
+| `all-options`            | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]`                                                                                                                                                                                                                                                                                                                                                        | `30`         |
+| `all-options`            | 🚨 `error` | `["error",{"groups":["builtin","external","internal","parent","sibling","index","unknown"],"ignoreCase":true,"internalPattern":["^.*app($\|/.*$)","^.*processes($\|/.*$)","^.*pages($\|/.*$)","^.*widgets($\|/.*$)","^.*features($\|/.*$)","^.*entities($\|/.*$)","^.*shared($\|/.*$)"],"newlinesBetween":0,"order":"asc","partitionByComment":false,"partitionByNewLine":false,"type":"alphabetical"}]` | `31`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```ts filename="bad-example.ts" copy
+import { z } from "zod";
+import path from "node:path";
+import { createUser } from "./create-user";
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```ts filename="good-example.ts" copy
+import path from "node:path";
+import { z } from "zod";
+import { createUser } from "./create-user";
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/perfectionist/sort-imports`
+- **Documentation route:** `/docs/eslint-config/rules/perfectionist/sort-imports`

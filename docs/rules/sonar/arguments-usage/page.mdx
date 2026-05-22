@@ -1,0 +1,98 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/sonar/arguments-usage`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+"arguments" should not be accessed directly.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `false`      |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario                | Target       | File path                 | Effective severity | Effective value |
+| ----------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `sonar`                 | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options`           | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options`           | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`           | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options`           | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`           | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                | Severity | Value   | Config block |
+| ----------------------- | -------- | ------- | ------------ |
+| `sonar`                 | 🧭 `off` | `"off"` | `0`          |
+| `javascript-with-sonar` | 🧭 `off` | `"off"` | `3`          |
+| `all-options`           | 🧭 `off` | `"off"` | `39`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const payload = request.body;
+processPayload(payload);
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const payload = schema.parse(request.body);
+processPayload(payload);
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/sonar/arguments-usage`
+- **Documentation route:** `/docs/eslint-config/rules/sonar/arguments-usage`

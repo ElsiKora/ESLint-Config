@@ -1,0 +1,184 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/i18next/no-literal-string`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow literal string.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `unknown` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"$schema": "http://json-schema.org/draft-07/schema#",
+		"type": "object",
+		"properties": {
+			"framework": {
+				"type": "string",
+				"enum": ["react", "vue"]
+			},
+			"mode": {
+				"type": "string",
+				"enum": ["jsx-text-only", "jsx-only", "all", "vue-template-only"]
+			},
+			"jsx-components": {
+				"type": "object",
+				"properties": {
+					"include": {
+						"type": "array"
+					},
+					"exclude": {
+						"type": "array"
+					}
+				}
+			},
+			"jsx-attributes": {
+				"type": "object",
+				"properties": {
+					"include": {
+						"type": "array"
+					},
+					"exclude": {
+						"type": "array"
+					}
+				}
+			},
+			"words": {
+				"type": "object",
+				"properties": {
+					"exclude": {
+						"type": "array"
+					}
+				}
+			},
+			"callees": {
+				"type": "object",
+				"properties": {
+					"include": {
+						"type": "array"
+					},
+					"exclude": {
+						"type": "array"
+					}
+				}
+			},
+			"object-properties": {
+				"type": "object",
+				"properties": {
+					"include": {
+						"type": "array"
+					},
+					"exclude": {
+						"type": "array"
+					}
+				}
+			},
+			"class-properties": {
+				"type": "object",
+				"properties": {
+					"include": {
+						"type": "array"
+					},
+					"exclude": {
+						"type": "array"
+					}
+				}
+			},
+			"message": {
+				"type": "string"
+			},
+			"should-validate-template": {
+				"type": "boolean"
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2,{"mode":"jsx-text-only"}]`  |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value                |
+| ------------- | ------------ | ------------------------- | ------------------ | ------------------------------ |
+| `i18next`     | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `i18next`     | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `i18next`     | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `i18next`     | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `i18next`     | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `i18next`     | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `i18next`     | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `all-options` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"mode":"jsx-text-only"}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value                                | Config block |
+| ------------- | ---------- | ------------------------------------ | ------------ |
+| `i18next`     | 🚨 `error` | `["error",{"mode":"jsx-text-only"}]` | `0`          |
+| `i18next`     | 🚨 `error` | `["error",{"mode":"jsx-text-only"}]` | `1`          |
+| `all-options` | 🚨 `error` | `["error",{"mode":"jsx-text-only"}]` | `6`          |
+| `all-options` | 🚨 `error` | `["error",{"mode":"jsx-text-only"}]` | `7`          |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+export function SubmitButton() {
+	return <button>Save profile</button>;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+export function SubmitButton() {
+	return <button>{t("profile.save")}</button>;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/i18next/no-literal-string`
+- **Documentation route:** `/docs/eslint-config/rules/i18next/no-literal-string`

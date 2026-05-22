@@ -1,0 +1,203 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/convert-to-jsdoc-comments`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Converts non-JSDoc comments preceding or following nodes into JSDoc ones.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+````json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"allowedPrefixes": {
+				"description": "An array of prefixes to allow at the beginning of a comment.\n\nDefaults to `['@ts-', 'istanbul ', 'c8 ', 'v8 ', 'eslint', 'prettier-']`.\n\nSupplying your own value overrides the defaults.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"contexts": {
+				"description": "The contexts array which will be checked for preceding content.\n\nCan either be strings or an object with a `context` string and an optional, default `false` `inlineCommentBlock` boolean.\n\nDefaults to `ArrowFunctionExpression`, `FunctionDeclaration`,\n`FunctionExpression`, `TSDeclareFunction`.",
+				"items": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"context": {
+									"type": "string"
+								},
+								"inlineCommentBlock": {
+									"type": "boolean"
+								}
+							},
+							"type": "object"
+						}
+					]
+				},
+				"type": "array"
+			},
+			"contextsAfter": {
+				"description": "The contexts array which will be checked for content on the same line after.\n\nCan either be strings or an object with a `context` string and an optional, default `false` `inlineCommentBlock` boolean.\n\nDefaults to an empty array.",
+				"items": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"context": {
+									"type": "string"
+								},
+								"inlineCommentBlock": {
+									"type": "boolean"
+								}
+							},
+							"type": "object"
+						}
+					]
+				},
+				"type": "array"
+			},
+			"contextsBeforeAndAfter": {
+				"description": "The contexts array which will be checked for content before and on the same\nline after.\n\nCan either be strings or an object with a `context` string and an optional, default `false` `inlineCommentBlock` boolean.\n\nDefaults to `VariableDeclarator`, `TSPropertySignature`, `PropertyDefinition`.",
+				"items": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"context": {
+									"type": "string"
+								},
+								"inlineCommentBlock": {
+									"type": "boolean"
+								}
+							},
+							"type": "object"
+						}
+					]
+				},
+				"type": "array"
+			},
+			"enableFixer": {
+				"description": "Set to `false` to disable fixing.",
+				"type": "boolean"
+			},
+			"enforceJsdocLineStyle": {
+				"description": "What policy to enforce on the conversion of non-JSDoc comments without\nline breaks. (Non-JSDoc (mulitline) comments with line breaks will always\nbe converted to `multi` style JSDoc comments.)\n\n- `multi` - Convert to multi-line style\n```js\n/**\n * Some text\n */\n```\n- `single` - Convert to single-line style\n```js\n/** Some text */\n```\n\nDefaults to `multi`.",
+				"enum": ["multi", "single"],
+				"type": "string"
+			},
+			"lineOrBlockStyle": {
+				"description": "What style of comments to which to apply JSDoc conversion.\n\n- `block` - Applies to block-style comments (`/* ... */`)\n- `line` - Applies to line-style comments (`// ...`)\n- `both` - Applies to both block and line-style comments\n\nDefaults to `both`.",
+				"enum": ["block", "line", "both"],
+				"type": "string"
+			}
+		},
+		"type": "object"
+	}
+]
+````
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Handles the request.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Handles the request.
+ * @param {{ id: string }} request - Request to handle.
+ * @returns {string} Request id.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/convert-to-jsdoc-comments`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/convert-to-jsdoc-comments`

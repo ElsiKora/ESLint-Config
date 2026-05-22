@@ -36,4 +36,13 @@ describe("JsonConfig", () => {
 		expect(configs[2]).toHaveProperty("rules");
 		expect(configs[2].rules).toHaveProperty("jsonc/no-bigint-literals");
 	});
+
+	it("should configure custom JSON rules", async () => {
+		const module = await import("@infrastructure/config/json.ts");
+		const loadConfig = module.default;
+
+		const configs: Array<Linter.Config> = loadConfig({});
+
+		expect(configs[3].rules).toHaveProperty("@elsikora/json/sort-keys", "error");
+	});
 });

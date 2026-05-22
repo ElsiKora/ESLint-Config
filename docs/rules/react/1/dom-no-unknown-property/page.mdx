@@ -1,0 +1,127 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/react/1/dom-no-unknown-property`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallows unknown 'DOM' properties.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ✅ Yes    |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"ignore": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				}
+			},
+			"requireDataLowercase": {
+				"type": "boolean",
+				"default": false
+			}
+		}
+	}
+]
+```
+
+Upstream default options:
+
+```json filename="default-options.json" copy
+[]
+```
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `react`       | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `react`       | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `react`       | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `react`       | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `react`       | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `react`       | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `react`       | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `react`       | 🚨 `error` | `"error"` | `2`          |
+| `all-options` | 🚨 `error` | `"error"` | `35`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```tsx filename="bad-example.tsx" copy
+export function SearchField() {
+	return (
+		<label for="query" class="field-label">
+			Search
+		</label>
+	);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```tsx filename="good-example.tsx" copy
+export function SearchField() {
+	return (
+		<label htmlFor="query" className="field-label">
+			Search
+		</label>
+	);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/react/1/dom-no-unknown-property`
+- **Documentation route:** `/docs/eslint-config/rules/react/1/dom-no-unknown-property`

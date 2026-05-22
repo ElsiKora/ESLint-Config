@@ -1,0 +1,80 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/css/no-invalid-properties`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallow invalid properties.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+This rule does not expose configurable options through its ESLint metadata schema.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                    |
+| ---------------- | ------------------------ |
+| Default scenario | `all-options`            |
+| Default target   | `CSS` (`src/styles.css`) |
+| Default severity | 🚨 `error`               |
+| Default value    | `[2]`                    |
+
+### Effective Result by File Type
+
+| Scenario      | Target | File path        | Effective severity | Effective value |
+| ------------- | ------ | ---------------- | ------------------ | --------------- |
+| `css`         | `CSS`  | `src/styles.css` | 🚨 `error`         | `[2]`           |
+| `all-options` | `CSS`  | `src/styles.css` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `css`         | 🚨 `error` | `"error"` | `0`          |
+| `all-options` | 🚨 `error` | `"error"` | `1`          |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```css filename="bad-example.css" copy
+.button {
+	colr: #1d4ed8;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```css filename="good-example.css" copy
+.button {
+	color: #1d4ed8;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/css/no-invalid-properties`
+- **Documentation route:** `/docs/eslint-config/rules/css/no-invalid-properties`

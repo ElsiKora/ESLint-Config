@@ -1,0 +1,119 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/sonar/new-operator-misuse`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+"new" should only be used with functions and classes.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `problem` |
+| Fixable            | ❌ No     |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `true`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"type": "array",
+	"minItems": 0,
+	"maxItems": 1,
+	"items": [
+		{
+			"type": "object",
+			"properties": {
+				"considerJSDoc": {
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false
+		}
+	]
+}
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2,{"considerJSDoc":false}]`   |
+
+### Effective Result by File Type
+
+| Scenario                | Target       | File path                 | Effective severity | Effective value               |
+| ----------------------- | ------------ | ------------------------- | ------------------ | ----------------------------- |
+| `sonar`                 | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `sonar`                 | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `sonar`                 | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `sonar`                 | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `sonar`                 | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `sonar`                 | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `sonar`                 | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `all-options`           | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `all-options`           | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `all-options`           | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `all-options`           | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `all-options`           | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"considerJSDoc":false}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                | Severity   | Value     | Config block |
+| ----------------------- | ---------- | --------- | ------------ |
+| `sonar`                 | 🚨 `error` | `"error"` | `0`          |
+| `javascript-with-sonar` | 🚨 `error` | `"error"` | `3`          |
+| `all-options`           | 🚨 `error` | `"error"` | `39`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const payload = request.body;
+processPayload(payload);
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const payload = schema.parse(request.body);
+processPayload(payload);
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/sonar/new-operator-misuse`
+- **Documentation route:** `/docs/eslint-config/rules/sonar/new-operator-misuse`

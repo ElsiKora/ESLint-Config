@@ -1,0 +1,144 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/check-values`
+
+<Callout type="warning" emoji="⚠️">
+	**Warning.** ElsiKora reports this rule as a warning in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+This rule checks the values for a handful of tags: `@version`, `@since`, `@license` and `@author`.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"allowedAuthors": {
+				"description": "An array of allowable author values. If absent, only non-whitespace will\nbe checked for.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"allowedLicenses": {
+				"anyOf": [
+					{
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					{
+						"type": "boolean"
+					}
+				],
+				"description": "An array of allowable license values or `true` to allow any license text.\nIf present as an array, will be used in place of [SPDX identifiers](https://spdx.org/licenses/)."
+			},
+			"licensePattern": {
+				"description": "A string to be converted into a `RegExp` (with `v` flag) and whose first\nparenthetical grouping, if present, will match the portion of the license\ndescription to check (if no grouping is present, then the whole portion\nmatched will be used). Defaults to `/([^\\n\\r]*)/gv`, i.e., the SPDX expression\nis expected before any line breaks.\n\nNote that the `/` delimiters are optional, but necessary to add flags.\n\nDefaults to using the `v` flag, so to add your own flags, encapsulate\nyour expression as a string, but like a literal, e.g., `/^mit$/vi`.",
+				"type": "string"
+			},
+			"numericOnlyVariation": {
+				"description": "Whether to enable validation that `@variation` must be a number. Defaults to\n`false`.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity  | Value    | Config block |
+| ------------- | --------- | -------- | ------------ |
+| `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Saves a user.
+ * @returns {Promise<void>} Resolves when saved.
+ * @param {User} user - User to save.
+ */
+async function saveUser(user) {
+	await repository.save(user);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Saves a user.
+ * @param {User} user - User to save.
+ * @returns {Promise<void>} Resolves when saved.
+ */
+async function saveUser(user) {
+	await repository.save(user);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/check-values`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/check-values`

@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("@eslint-react/eslint-plugin", () => ({
 	default: {
 		configs: {
-			recommended: {
+			strict: {
 				plugins: {
 					"@eslint-react": { rules: {} },
 				},
@@ -14,7 +14,7 @@ vi.mock("@eslint-react/eslint-plugin", () => ({
 					"@eslint-react/button-has-type": "error",
 				},
 			},
-			"recommended-type-checked": {
+			"strict-type-checked": {
 				plugins: {
 					"@eslint-react": { rules: {} },
 				},
@@ -22,14 +22,6 @@ vi.mock("@eslint-react/eslint-plugin", () => ({
 					"@eslint-react/prefer-usememo": "error",
 				},
 			},
-		},
-	},
-}));
-
-vi.mock("eslint-plugin-react", () => ({
-	default: {
-		rules: {
-			"jsx-no-bind": { create: () => ({}) },
 		},
 	},
 }));
@@ -71,11 +63,10 @@ describe("ReactConfig", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		expect(Array.isArray(configs)).toBe(true);
-		expect(configs.length).toBe(6);
+		expect(configs.length).toBe(5);
 	});
 
-	it("should include react settings and plugins", async () => {
-		const formatPluginNameModule = await import("@infrastructure/utility/format-plugin-name.utility");
+	it("should include react settings", async () => {
 		const module = await import("@infrastructure/config/react.ts");
 		const loadConfig = module.default;
 
@@ -83,43 +74,38 @@ describe("ReactConfig", () => {
 
 		// Check settings for React version detection
 		expect(configs[0]).toHaveProperty("settings.react.version", "detect");
-
-		// Check plugin formatting was called
-		expect(formatPluginNameModule.formatPluginName).toHaveBeenCalledWith("react");
-
-		// Check that plugins are included
-		expect(configs[1]).toHaveProperty("plugins");
-		expect(configs[1].plugins).toHaveProperty("@elsikora/react");
 	});
 
-	it("should handle conditional rules based on withNext option", async () => {
+	it("should configure explicit @eslint-react rules", async () => {
 		const formatRuleNameModule = await import("@infrastructure/utility/format-rule-name.utility");
 
 		// Mock formatRuleName to return predictable values for our test
 		vi.mocked(formatRuleNameModule.formatRuleName).mockImplementation((name) => {
-			if (name === "react/default-props-match-prop-types") return "react/default-props-match-prop-types";
-			if (name === "react/react-in-jsx-scope") return "react/react-in-jsx-scope";
-			if (name === "@eslint-react/naming-convention/filename") return "@eslint-react/naming-convention/filename";
+			if (name === "@eslint-react/use-state") return "@eslint-react/use-state";
+			if (name === "@eslint-react/dom-no-missing-button-type") return "@eslint-react/dom-no-missing-button-type";
+			if (name === "@eslint-react/dom-no-string-style-prop") return "@eslint-react/dom-no-string-style-prop";
+			if (name === "@eslint-react/dom-no-unknown-property") return "@eslint-react/dom-no-unknown-property";
+			if (name === "@eslint-react/naming-convention-context-name") return "@eslint-react/naming-convention-context-name";
+			if (name === "@eslint-react/set-state-in-effect") return "@eslint-react/set-state-in-effect";
 			return name;
 		});
 
 		const module = await import("@infrastructure/config/react.ts");
 		const loadConfig = module.default;
 
-		// Call with withNext: true
-		const configsWithNext: Array<Linter.Config> = loadConfig({ withNext: true });
-
-		// Call with withNext: false
-		const configsWithoutNext: Array<Linter.Config> = loadConfig({ withNext: false });
+		const configs: Array<Linter.Config> = loadConfig({});
 
 		// Check for formatRuleName usage
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalled();
 
-		// Test that conditional logic is called - we don't need to test the exact rule values
-		// since our mock implementation affects how the rules are actually stored
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("react/default-props-match-prop-types");
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("react/react-in-jsx-scope");
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/naming-convention/filename");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/dom-no-missing-button-type");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/dom-no-string-style-prop");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/dom-no-unknown-property");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/naming-convention-context-name");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/set-state-in-effect");
+		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@eslint-react/use-state");
+		expect(configs[2].rules).toHaveProperty("@eslint-react/naming-convention-context-name", "error");
+		expect(configs[2].rules).toHaveProperty("@eslint-react/set-state-in-effect", "error");
 	});
 
 	it("should include specific file patterns for different config sections", async () => {
@@ -129,11 +115,11 @@ describe("ReactConfig", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		// Check JS/JSX config
-		expect(configs[2]).toHaveProperty("files", ["**/*.js", "**/*.jsx"]);
-		expect(configs[2].languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
+		expect(configs[1]).toHaveProperty("files", ["**/*.js", "**/*.jsx"]);
+		expect(configs[1].languageOptions?.parserOptions).toHaveProperty("ecmaFeatures.jsx", true);
 
 		// Check TS/TSX config
-		expect(configs[5]).toHaveProperty("files", ["**/*.ts", "**/*.tsx"]);
-		expect(configs[5].languageOptions).toHaveProperty("parser");
+		expect(configs[4]).toHaveProperty("files", ["**/*.ts", "**/*.tsx"]);
+		expect(configs[4].languageOptions).toHaveProperty("parser");
 	});
 });

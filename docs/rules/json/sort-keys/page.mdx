@@ -1,0 +1,200 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/json/sort-keys`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Require object keys to be sorted.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"oneOf": [
+		{
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"pathPattern": {
+						"type": "string"
+					},
+					"hasProperties": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"order": {
+						"oneOf": [
+							{
+								"type": "array",
+								"items": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "object",
+											"properties": {
+												"keyPattern": {
+													"type": "string"
+												},
+												"order": {
+													"type": "object",
+													"properties": {
+														"type": {
+															"enum": ["asc", "desc"]
+														},
+														"caseSensitive": {
+															"type": "boolean"
+														},
+														"natural": {
+															"type": "boolean"
+														}
+													},
+													"additionalProperties": false
+												}
+											},
+											"additionalProperties": false
+										}
+									]
+								},
+								"uniqueItems": true
+							},
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"enum": ["asc", "desc"]
+									},
+									"caseSensitive": {
+										"type": "boolean"
+									},
+									"natural": {
+										"type": "boolean"
+									}
+								},
+								"additionalProperties": false
+							}
+						]
+					},
+					"minKeys": {
+						"type": "integer",
+						"minimum": 2
+					},
+					"allowLineSeparatedGroups": {
+						"type": "boolean"
+					}
+				},
+				"required": ["pathPattern", "order"],
+				"additionalProperties": false
+			},
+			"minItems": 1
+		},
+		{
+			"type": "array",
+			"items": [
+				{
+					"enum": ["asc", "desc"]
+				},
+				{
+					"type": "object",
+					"properties": {
+						"caseSensitive": {
+							"type": "boolean"
+						},
+						"natural": {
+							"type": "boolean"
+						},
+						"minKeys": {
+							"type": "integer",
+							"minimum": 2
+						},
+						"allowLineSeparatedGroups": {
+							"type": "boolean"
+						}
+					},
+					"additionalProperties": false
+				}
+			],
+			"additionalItems": false
+		}
+	]
+}
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                  |
+| ---------------- | ---------------------- |
+| Default scenario | `all-options`          |
+| Default target   | `JSON` (`config.json`) |
+| Default severity | 🚨 `error`             |
+| Default value    | `[2]`                  |
+
+### Effective Result by File Type
+
+| Scenario      | Target | File path     | Effective severity | Effective value |
+| ------------- | ------ | ------------- | ------------------ | --------------- |
+| `json`        | `JSON` | `config.json` | 🚨 `error`         | `[2]`           |
+| `all-options` | `JSON` | `config.json` | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `json`        | 🚨 `error` | `"error"` | `3`          |
+| `all-options` | 🚨 `error` | `"error"` | `16`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```json filename="bad-example.json" copy
+{
+	"version": 1,
+	"name": "service"
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```json filename="good-example.json" copy
+{
+	"name": "service",
+	"version": 1
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/json/sort-keys`
+- **Documentation route:** `/docs/eslint-config/rules/json/sort-keys`

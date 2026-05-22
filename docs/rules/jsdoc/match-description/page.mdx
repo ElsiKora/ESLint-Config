@@ -1,0 +1,220 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/match-description`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforces a regular expression pattern on descriptions.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+````json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"contexts": {
+				"description": "Set this to an array of strings representing the AST context (or an object with\noptional `context` and `comment` properties) where you wish the rule to be applied (e.g.,\n`ClassDeclaration` for ES6 classes).\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`, `FunctionDeclaration`,\n`FunctionExpression`). Set to `\"any\"` if you want the rule to apply to any\nJSDoc block throughout your files.\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"items": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"additionalProperties": false,
+							"properties": {
+								"comment": {
+									"type": "string"
+								},
+								"context": {
+									"type": "string"
+								}
+							},
+							"type": "object"
+						}
+					]
+				},
+				"type": "array"
+			},
+			"mainDescription": {
+				"description": "If you wish to override the main block description without changing the\ndefault `match-description` (which can cascade to the `tags` with `true`),\nyou may use `mainDescription`:\n\n```js\n{\n  'jsdoc/match-description': ['error', {\n    mainDescription: '[A-Z].*\\\\.',\n    tags: {\n      param: true,\n      returns: true\n    }\n  }]\n}\n```\n\nThere is no need to add `mainDescription: true`, as by default, the main\nblock description (and only the main block description) is linted, though you\nmay disable checking it by setting it to `false`.\n\nYou may also provide an object with `message`:\n\n```js\n{\n  'jsdoc/match-description': ['error', {\n    mainDescription: {\n      message: 'Capitalize first word of JSDoc block descriptions',\n      match: '[A-Z].*\\\\.'\n    },\n    tags: {\n      param: true,\n      returns: true\n    }\n  }]\n}\n```",
+				"oneOf": [
+					{
+						"format": "regex",
+						"type": "string"
+					},
+					{
+						"type": "boolean"
+					},
+					{
+						"additionalProperties": false,
+						"properties": {
+							"match": {
+								"oneOf": [
+									{
+										"format": "regex",
+										"type": "string"
+									},
+									{
+										"type": "boolean"
+									}
+								]
+							},
+							"message": {
+								"type": "string"
+							}
+						},
+						"type": "object"
+					}
+				]
+			},
+			"matchDescription": {
+				"description": "You can supply your own expression to override the default, passing a\n`matchDescription` string on the options object.\n\nDefaults to using (only) the `v` flag, so\nto add your own flags, encapsulate your expression as a string, but like a\nliteral, e.g., `/[A-Z].*\\./vi`.\n\n```js\n{\n  'jsdoc/match-description': ['error', {matchDescription: '[A-Z].*\\\\.'}]\n}\n```",
+				"format": "regex",
+				"type": "string"
+			},
+			"message": {
+				"description": "You may provide a custom default message by using the following format:\n\n```js\n{\n  'jsdoc/match-description': ['error', {\n    message: 'The default description should begin with a capital letter.'\n  }]\n}\n```\n\nThis can be overridden per tag or for the main block description by setting\n`message` within `tags` or `mainDescription`, respectively.",
+				"type": "string"
+			},
+			"nonemptyTags": {
+				"description": "If not set to `false`, will enforce that the following tags have at least\nsome content:\n\n- `@copyright`\n- `@example`\n- `@see`\n- `@todo`\n\nIf you supply your own tag description for any of the above tags in `tags`,\nyour description will take precedence.",
+				"type": "boolean"
+			},
+			"tags": {
+				"description": "If you want different regular expressions to apply to tags, you may use\nthe `tags` option object:\n\n```js\n{\n  'jsdoc/match-description': ['error', {tags: {\n    param: '\\\\- [A-Z].*\\\\.',\n    returns: '[A-Z].*\\\\.'\n  }}]\n}\n```\n\nIn place of a string, you can also add `true` to indicate that a particular\ntag should be linted with the `matchDescription` value (or the default).\n\n```js\n{\n  'jsdoc/match-description': ['error', {tags: {\n    param: true,\n    returns: true\n  }}]\n}\n```\n\nAlternatively, you may supply an object with a `message` property to indicate\nthe error message for that tag.\n\n```js\n{\n  'jsdoc/match-description': ['error', {tags: {\n    param: {message: 'Begin with a hyphen', match: '\\\\- [A-Z].*\\\\.'},\n    returns: {message: 'Capitalize for returns (the default)', match: true}\n  }}]\n}\n```\n\nThe tags `@param`/`@arg`/`@argument` and `@property`/`@prop` will be properly\nparsed to ensure that the matched \"description\" text includes only the text\nafter the name.\n\nAll other tags will treat the text following the tag name, a space, and\nan optional curly-bracketed type expression (and another space) as part of\nits \"description\" (e.g., for `@returns {someType} some description`, the\ndescription is `some description` while for `@some-tag xyz`, the description\nis `xyz`).",
+				"patternProperties": {
+					".*": {
+						"oneOf": [
+							{
+								"format": "regex",
+								"type": "string"
+							},
+							{
+								"enum": [true],
+								"type": "boolean"
+							},
+							{
+								"additionalProperties": false,
+								"properties": {
+									"match": {
+										"oneOf": [
+											{
+												"format": "regex",
+												"type": "string"
+											},
+											{
+												"enum": [true],
+												"type": "boolean"
+											}
+										]
+									},
+									"message": {
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						]
+					}
+				},
+				"type": "object"
+			}
+		},
+		"type": "object"
+	}
+]
+````
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Handles the request.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Handles the request.
+ * @param {{ id: string }} request - Request to handle.
+ * @returns {string} Request id.
+ */
+function handleRequest(request) {
+	return request.id;
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/match-description`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/match-description`

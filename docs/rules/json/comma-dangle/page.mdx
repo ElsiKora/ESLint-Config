@@ -1,0 +1,131 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/json/comma-dangle`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Require or disallow trailing commas.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value      |
+| ------------------ | ---------- |
+| Type               | `layout`   |
+| Fixable            | ✅ Yes     |
+| Has suggestions    | ❌ No      |
+| Deprecated         | ❌ No      |
+| ESLint recommended | `["json"]` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+{
+	"definitions": {
+		"value": {
+			"type": "string",
+			"enum": ["always-multiline", "always", "never", "only-multiline"]
+		},
+		"valueWithIgnore": {
+			"type": "string",
+			"enum": ["always-multiline", "always", "ignore", "never", "only-multiline"]
+		}
+	},
+	"type": "array",
+	"items": [
+		{
+			"oneOf": [
+				{
+					"$ref": "#/definitions/value"
+				},
+				{
+					"type": "object",
+					"properties": {
+						"arrays": {
+							"$ref": "#/definitions/valueWithIgnore"
+						},
+						"objects": {
+							"$ref": "#/definitions/valueWithIgnore"
+						},
+						"imports": {
+							"$ref": "#/definitions/valueWithIgnore"
+						},
+						"exports": {
+							"$ref": "#/definitions/valueWithIgnore"
+						},
+						"functions": {
+							"$ref": "#/definitions/valueWithIgnore"
+						}
+					},
+					"additionalProperties": false
+				}
+			]
+		}
+	],
+	"additionalItems": false
+}
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `Package JSON` (`package.json`) |
+| Default severity | 🚨 `error`                      |
+| Default value    | `[2]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path      | Effective severity | Effective value |
+| ------------- | -------------- | -------------- | ------------------ | --------------- |
+| `json`        | `Package JSON` | `package.json` | 🚨 `error`         | `[2]`           |
+| `json`        | `JSON`         | `config.json`  | 🚨 `error`         | `[2]`           |
+| `all-options` | `Package JSON` | `package.json` | 🚨 `error`         | `[2]`           |
+| `all-options` | `JSON`         | `config.json`  | 🚨 `error`         | `[2]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value     | Config block |
+| ------------- | ---------- | --------- | ------------ |
+| `json`        | 🚨 `error` | `"error"` | `2`          |
+| `all-options` | 🚨 `error` | `"error"` | `15`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```json filename="bad-example.json" copy
+{
+	"name": "service"
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```json filename="good-example.json" copy
+{
+	"name": "service"
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/json/comma-dangle`
+- **Documentation route:** `/docs/eslint-config/rules/json/comma-dangle`

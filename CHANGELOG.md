@@ -1,3 +1,12 @@
+## [3.10.2](https://github.com/ElsiKora/ESLint-Config/compare/v3.10.1...v3.10.2) (2026-08-07)
+
+
+### Bug Fixes
+
+* **ci:** skip hooks for release commits ([cf5d986](https://github.com/ElsiKora/ESLint-Config/commit/cf5d98669d57db6300838d3dc60f11162002bb09))
+* **deps:** pin rule inventory providers ([785a7f4](https://github.com/ElsiKora/ESLint-Config/commit/785a7f4e42ec6eb1d91b7d020c76a47e29a8e282))
+* **typescript:** distinguish readonly data from constants ([dc0d50b](https://github.com/ElsiKora/ESLint-Config/commit/dc0d50be510e38bcf994c72b1c1ac1be882a17b7))
+
 ## [3.10.1](https://github.com/ElsiKora/ESLint-Config/compare/v3.10.0...v3.10.1) (2026-05-22)
 
 # [3.10.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.9.1...v3.10.0) (2025-06-20)

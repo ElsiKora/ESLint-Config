@@ -89,9 +89,14 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 					selector: "typeLike",
 				},
 				{
-					format: ["UPPER_CASE"], // Readonly properties should use PascalCase.
+					format: ["camelCase", "UPPER_CASE"], // Readonly properties may describe either regular data or semantic constants.
 					modifiers: ["readonly"],
 					selector: "property",
+				},
+				{
+					format: ["UPPER_CASE"], // Static readonly class properties are constants and should use UPPER_CASE.
+					modifiers: ["static", "readonly"],
+					selector: "classProperty",
 				},
 				{
 					format: ["UPPER_CASE"], // Enum members should be in UPPER_CASE.

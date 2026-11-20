@@ -1,4 +1,5 @@
 import type { ESLint, Linter } from "eslint";
+import type { IConfigOptions } from "../../src";
 
 import { describe, expect, it } from "vitest";
 import { createEsLintInstance } from "./helper/create-eslint-instance.helper";
@@ -105,15 +106,23 @@ describe("FSD (Feature-Sliced Design) Configuration", () => {
 
 	describe("Feature-Sliced Design v2.1 compatibility", () => {
 		it.each([
-			["Vite-style", VITE_FIXTURE_ROOT],
-			["Next.js-style", NEXT_FIXTURE_ROOT],
-		])("should pass the %s FSD reference tree", async (_name: string, cwd: string) => {
-			const eslint: ESLint = await createEsLintInstance({ withCheckFile: true, withFsd: true, withPerfectionist: true }, undefined, cwd);
+			["Vite and TanStack Router", VITE_FIXTURE_ROOT, { withTanstack: true }],
+			["Next.js", NEXT_FIXTURE_ROOT, { withNext: true }],
+		])("should pass the %s FSD reference tree", async (_name: string, cwd: string, routerOptions: IConfigOptions) => {
+			const eslint: ESLint = await createEsLintInstance({ withCheckFile: true, withFsd: true, withPerfectionist: true, ...routerOptions }, undefined, cwd);
 
 			const results: Array<ESLint.LintResult> = await eslint.lintFiles(["**/*.js", "**/*.jsx"]);
 
 			expect(results.length).toBeGreaterThan(0);
 			expect(formatMessages(results)).toEqual([]);
+		});
+
+		it("should check folder naming in the root Next.js router of the reference tree", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withCheckFile: true, withFsd: true, withNext: true }, undefined, NEXT_FIXTURE_ROOT);
+
+			const config: Linter.Config = await eslint.calculateConfigForFile(`${NEXT_FIXTURE_ROOT}/app/(marketing)/about/page.jsx`);
+
+			expect(config.rules?.[formatRuleName("check-file/folder-naming-convention")]).toEqual([2, { "app/**": expect.any(String) }, { errorMessage: expect.stringContaining("(group)") }]);
 		});
 
 		it("should accept per-component and per-segment Shared public APIs", async () => {

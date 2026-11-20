@@ -122,8 +122,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | ---------------- | ------------------------------- |
 | Default scenario | `all-options`                   |
 | Default target   | `JavaScript` (`src/example.js`) |
-| Default severity | 🚨 `error`                      |
-| Default value    | `[2]`                           |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
 
 ### Effective Result by File Type
 
@@ -136,33 +136,33 @@ The default shown here is the first effective result produced by ESLint's own co
 | `fsd`                    | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
 | `fsd`                    | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
 | `fsd`                    | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `perfectionist-with-fsd` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `perfectionist-with-fsd` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `perfectionist-with-fsd` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `perfectionist-with-fsd` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `perfectionist-with-fsd` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `perfectionist-with-fsd` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `perfectionist-with-fsd` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `all-options`            | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `all-options`            | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`            | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `all-options`            | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`            | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`            | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `all-options`            | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `all-options`            | `Package JSON` | `package.json`            | 🚨 `error`         | `[2]`           |
-| `all-options`            | `JSON`         | `config.json`             | 🚨 `error`         | `[2]`           |
-| `all-options`            | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2]`           |
-| `all-options`            | `Markdown`     | `README.md`               | 🚨 `error`         | `[2]`           |
-| `all-options`            | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2]`           |
+| `perfectionist-with-fsd` | `JavaScript`   | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `perfectionist-with-fsd` | `JSX`          | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `perfectionist-with-fsd` | `TypeScript`   | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `perfectionist-with-fsd` | `TSX`          | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `perfectionist-with-fsd` | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `perfectionist-with-fsd` | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `perfectionist-with-fsd` | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options`            | `JavaScript`   | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options`            | `JSX`          | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`            | `TypeScript`   | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options`            | `TSX`          | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`            | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`            | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options`            | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options`            | `Package JSON` | `package.json`            | 🧭 `off`           | `[0]`           |
+| `all-options`            | `JSON`         | `config.json`             | 🧭 `off`           | `[0]`           |
+| `all-options`            | `YAML`         | `config.yaml`             | 🧭 `off`           | `[0]`           |
+| `all-options`            | `Markdown`     | `README.md`               | 🧭 `off`           | `[0]`           |
+| `all-options`            | `CSS`          | `src/styles.css`          | 🧭 `off`           | `[0]`           |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
 | Scenario                 | Severity   | Value     | Config block |
 | ------------------------ | ---------- | --------- | ------------ |
 | `fsd`                    | 🚨 `error` | `"error"` | `0`          |
-| `perfectionist-with-fsd` | 🚨 `error` | `"error"` | `0`          |
-| `all-options`            | 🚨 `error` | `"error"` | `3`          |
+| `perfectionist-with-fsd` | 🧭 `off`   | `"off"`   | `0`          |
+| `all-options`            | 🧭 `off`   | `"off"`   | `3`          |
 
 ## Examples
 

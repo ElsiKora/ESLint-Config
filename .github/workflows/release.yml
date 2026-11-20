@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     # contents, issues and pull-requests are what semantic-release needs for the release commit, tags,
-    # the GitHub release and its comments; id-token lets npm publish through trusted publishing (OIDC).
+    # the GitHub release and its comments; id-token lets npm publish through trusted publishing (OIDC),
+    # which is the only npm authentication this workflow uses.
     permissions:
       contents: write
       issues: write
@@ -44,5 +45,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HUSKY: 0
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run release

@@ -537,6 +537,60 @@ The rule exposes the following ESLint option schema:
 				"description": "Enables experimental dependency detection for sorting rules that support it.",
 				"type": "boolean"
 			},
+			"ignoreCallbackDependenciesPatterns": {
+				"oneOf": [
+					{
+						"items": {
+							"oneOf": [
+								{
+									"properties": {
+										"pattern": {
+											"description": "Regular expression pattern.",
+											"type": "string"
+										},
+										"flags": {
+											"description": "Regular expression flags.",
+											"type": "string"
+										}
+									},
+									"additionalProperties": false,
+									"required": ["pattern"],
+									"type": "object"
+								},
+								{
+									"type": "string"
+								}
+							],
+							"description": "Regular expression."
+						},
+						"type": "array"
+					},
+					{
+						"oneOf": [
+							{
+								"properties": {
+									"pattern": {
+										"description": "Regular expression pattern.",
+										"type": "string"
+									},
+									"flags": {
+										"description": "Regular expression flags.",
+										"type": "string"
+									}
+								},
+								"additionalProperties": false,
+								"required": ["pattern"],
+								"type": "object"
+							},
+							{
+								"type": "string"
+							}
+						],
+						"description": "Regular expression."
+					}
+				],
+				"description": "Regular expression."
+			},
 			"partitionByComment": {
 				"oneOf": [
 					{
@@ -749,6 +803,7 @@ Upstream default options:
 [
 	{
 		"useExperimentalDependencyDetection": true,
+		"ignoreCallbackDependenciesPatterns": [],
 		"fallbackSort": {
 			"type": "unsorted"
 		},
@@ -811,8 +866,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario                 | Severity   | Value                                             | Config block |
 | ------------------------ | ---------- | ------------------------------------------------- | ------------ |
 | `perfectionist`          | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `0`          |
-| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `3`          |
-| `all-options`            | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `30`         |
+| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `4`          |
+| `all-options`            | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `33`         |
 
 ## Examples
 

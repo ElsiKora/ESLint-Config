@@ -14,7 +14,7 @@ export default defineConfig({
 	},
 	test: {
 		environment: "node",
-		exclude: ["node_modules/**/*"],
+		exclude: ["node_modules/**/*", "test/e2e/fixture/**/*"], // Fixtures may be named like tests so that test-only rules apply to them.
 		globals: true,
 		include: ["test/e2e/**/*.test.ts"],
 		root: ".",

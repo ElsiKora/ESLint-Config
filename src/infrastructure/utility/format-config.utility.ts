@@ -19,8 +19,10 @@ export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config
 			const newPlugins: Record<string, ESLint.Plugin> = {};
 
 			for (const [oldName, newName] of getSortedPluginMapEntries()) {
-				if (config.plugins[oldName]) {
-					newPlugins[newName] = config.plugins[oldName];
+				const plugin: ESLint.Plugin | undefined = config.plugins[oldName];
+
+				if (plugin) {
+					newPlugins[newName] = plugin;
 				}
 			}
 
@@ -36,39 +38,15 @@ export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config
 		if (config.rules) {
 			const newRules: Partial<Linter.RulesRecord> = {};
 
-			for (const rule of Object.keys(config.rules)) {
-				let isReplaced: boolean = false;
-
-				for (const [oldName, newName] of getSortedPluginMapEntries()) {
-					const oldPrefix: string = `${oldName}/`;
-
-					if (rule.startsWith(oldPrefix) && !isReplaced) {
-						const newRule: string = rule.replace(oldPrefix, `${newName}/`);
-						newRules[newRule] = config.rules[rule];
-						isReplaced = true;
-
-						break;
-					}
-				}
-
-				if (!isReplaced) {
-					newRules[rule] = config.rules[rule];
-				}
+			for (const [rule, ruleConfig] of Object.entries(config.rules)) {
+				newRules[renamePrefixedName(rule) ?? rule] = ruleConfig;
 			}
 
 			newConfig.rules = newRules;
 		}
 
 		if (config.language) {
-			for (const [oldName, newName] of getSortedPluginMapEntries()) {
-				const oldPrefix: string = `${oldName}/`;
-
-				if (config.language.startsWith(oldPrefix)) {
-					newConfig.language = config.language.replace(oldPrefix, `${newName}/`);
-
-					break;
-				}
-			}
+			newConfig.language = renamePrefixedName(config.language) ?? config.language;
 		}
 
 		formattedConfigs.push(newConfig);
@@ -84,4 +62,21 @@ export function formatConfig(configs: Array<Linter.Config>): Array<Linter.Config
 function getSortedPluginMapEntries(): Array<[string, string]> {
 	// eslint-disable-next-line @elsikora/unicorn/no-array-sort
 	return Object.entries(PLUGIN_MAP).sort((a: [string, string], b: [string, string]) => b[0].length - a[0].length);
+}
+
+/**
+ * Renames a plugin-prefixed name (a rule or a language) using the longest matching PLUGIN_MAP prefix.
+ * @param {string} name - The prefixed name, for example `unicorn/no-null`
+ * @returns {null | string} The renamed name, or null when no mapped prefix matches
+ */
+function renamePrefixedName(name: string): null | string {
+	for (const [oldName, newName] of getSortedPluginMapEntries()) {
+		const oldPrefix: string = `${oldName}/`;
+
+		if (name.startsWith(oldPrefix)) {
+			return `${newName}/${name.slice(oldPrefix.length)}`;
+		}
+	}
+
+	return null;
 }

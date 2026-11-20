@@ -30,7 +30,6 @@ The rule exposes the following ESLint option schema:
 [
 	{
 		"additionalProperties": false,
-		"description": "Has the following optional keys.\n",
 		"properties": {
 			"checkAllFunctionExpressions": {
 				"default": false,
@@ -69,7 +68,7 @@ The rule exposes the following ESLint option schema:
 				"description": "A value indicating whether setters should be checked. Besides setting as a\nboolean, this option can be set to the string `\"no-getter\"` to indicate that\nsetters should be checked but only when there is no getter. This may be useful\nif one only wishes documentation on one of the two accessors. Defaults to\n`false`."
 			},
 			"contexts": {
-				"description": "Set this to an array of strings or objects representing the additional AST\ncontexts where you wish the rule to be applied (e.g., `Property` for\nproperties). If specified as an object, it should have a `context` property\nand can have an `inlineCommentBlock` property which, if set to `true`, will\nadd an inline `/** */` instead of the regular, multi-line, indented jsdoc\nblock which will otherwise be added. Defaults to an empty array. Contexts\nmay also have their own `minLineCount` property which is an integer\nindicating a minimum number of lines expected for a node in order\nfor it to require documentation.\n\nNote that you may need to disable `require` items (e.g., `MethodDefinition`)\nif you are specifying a more precise form in `contexts` (e.g., `MethodDefinition:not([accessibility=\"private\"] > FunctionExpression`).\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"description": "Set this to an array of strings or objects representing the additional AST\ncontexts where you wish the rule to be applied (e.g., `Property` for\nproperties). If specified as an object, it should have a `context` property\nand can have an `inlineCommentBlock` property which, if set to `true`, will\nadd an inline `/** */` instead of the regular, multi-line, indented jsdoc\nblock which will otherwise be added. Defaults to an empty array. Contexts\nmay also have their own `minLineCount` property which is an integer\nindicating a minimum number of lines expected for a node in order\nfor it to require documentation.\n\nNote that you may need to disable `require` items (e.g., `MethodDefinition`)\nif you are specifying a more precise form in `contexts` (e.g., `MethodDefinition:not([accessibility=\"private\"] > FunctionExpression`).\n\nSee the [\"AST and Selectors\"](../advanced.md#ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
 				"items": {
 					"anyOf": [
 						{
@@ -206,38 +205,38 @@ No upstream default options are exposed in the rule metadata.
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                           |
-| ---------------- | ------------------------------- |
-| Default scenario | `all-options`                   |
-| Default target   | `JavaScript` (`src/example.js`) |
-| Default severity | ⚠️ `warn`                       |
-| Default value    | `[1]`                           |
+| Field | Value |
+| --- | --- |
+| Default scenario | `all-options` |
+| Default target | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn` |
+| Default value | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
 
 ### Effective Result by File Type
 
-| Scenario      | Target       | File path                 | Effective severity | Effective value |
-| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
-| `jsdoc`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
-| `jsdoc`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
-| `jsdoc`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
-| `jsdoc`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
-| `jsdoc`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
-| `jsdoc`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
-| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| Scenario | Target | File path | Effective severity | Effective value |
+| --- | --- | --- | --- | --- |
+| `jsdoc` | `JavaScript` | `src/example.js` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `jsdoc` | `JSX` | `src/example.jsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `jsdoc` | `TypeScript` | `src/example.ts` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `jsdoc` | `TSX` | `src/example.tsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `jsdoc` | `Next pages` | `pages/index.jsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `jsdoc` | `Next app` | `app/page.tsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `jsdoc` | `Storybook` | `src/example.stories.tsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `all-options` | `JavaScript` | `src/example.js` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `all-options` | `JSX` | `src/example.jsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `all-options` | `TypeScript` | `src/example.ts` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `all-options` | `TSX` | `src/example.tsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `all-options` | `Next pages` | `pages/index.jsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `all-options` | `Next app` | `app/page.tsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
+| `all-options` | `Storybook` | `src/example.stories.tsx` | ⚠️ `warn` | `[1,{"checkAllFunctionExpressions":false,"enableFixer":true,"exemptEmptyConstructors":true,"exemptEmptyFunctions":false,"exemptOverloadedImplementations":false,"fixerMessage":"","skipInterveningOverloadedDeclarations":true,"checkConstructors":true,"checkGetters":true,"checkSetters":true,"require":{"ArrowFunctionExpression":false,"ClassDeclaration":false,"ClassExpression":false,"FunctionDeclaration":true,"FunctionExpression":false,"MethodDefinition":false}}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
 | Scenario      | Severity  | Value    | Config block |
 | ------------- | --------- | -------- | ------------ |
 | `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
-| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+| `all-options` | ⚠️ `warn` | `"warn"` | `14`         |
 
 ## Examples
 

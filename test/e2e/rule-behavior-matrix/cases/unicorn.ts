@@ -191,7 +191,7 @@ console.log(value);
 		[
 			"unicorn/expiring-todo-comments",
 			"test/e2e/fixture/unicorn/invalid/expiring-todo-comments.fixture.js",
-			`// TODO [2000-01-01]: remove this later
+			`// TODO [>=1.0.0]: remove this later
 const value = 1;
 console.log(value);
 `,
@@ -431,8 +431,8 @@ console.log(greet);
 `,
 		],
 		[
-			"unicorn/prefer-dom-node-dataset",
-			"test/e2e/fixture/unicorn/invalid/prefer-dom-node-dataset.fixture.js",
+			"unicorn/dom-node-dataset",
+			"test/e2e/fixture/unicorn/invalid/dom-node-dataset.fixture.js",
 			`const value = element.getAttribute("data-user-id");
 console.log(value);
 `,
@@ -641,9 +641,9 @@ console.log(decoder);
 	];
 
 	return [
-		...createCases("unicorn", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/array.fixture.js", ["unicorn/no-array-for-each", "unicorn/no-unnecessary-array-flat-depth", "unicorn/no-unnecessary-slice-end", "unicorn/prefer-array-find", "unicorn/prefer-array-flat-map", "unicorn/prefer-array-some", "unicorn/prefer-at", "unicorn/prefer-includes", "unicorn/require-array-join-separator"], arrayCode),
-		...createCases("unicorn", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/string.fixture.js", ["unicorn/no-hex-escape", "unicorn/prefer-string-replace-all", "unicorn/prefer-string-slice", "unicorn/prefer-string-trim-start-end"], stringCode),
-		...createCases("unicorn", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/error.fixture.js", ["unicorn/catch-error-name", "unicorn/error-message", "unicorn/new-for-builtins", "unicorn/prefer-optional-catch-binding", "unicorn/prevent-abbreviations", "unicorn/throw-new-error"], errorCode),
+		...createCases("unicorn", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/array.fixture.js", ["unicorn/no-for-each", "unicorn/no-unnecessary-array-flat-depth", "unicorn/no-unnecessary-slice-end", "unicorn/prefer-array-find", "unicorn/prefer-array-flat-map", "unicorn/prefer-array-some", "unicorn/prefer-at", "unicorn/prefer-includes", "unicorn/require-array-join-separator"], arrayCode),
+		...createCases("unicorn", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/string.fixture.js", ["unicorn/prefer-string-replace-all", "unicorn/prefer-string-slice", "unicorn/prefer-string-trim-start-end"], stringCode),
+		...createCases("unicorn", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/error.fixture.js", ["unicorn/catch-error-name", "unicorn/error-message", "unicorn/new-for-builtins", "unicorn/prefer-optional-catch-binding", "unicorn/name-replacements", "unicorn/throw-new-error"], errorCode),
 		...createCases("unicorn", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/dom.fixture.js", ["unicorn/prefer-add-event-listener", "unicorn/prefer-dom-node-append", "unicorn/prefer-dom-node-remove", "unicorn/prefer-dom-node-text-content", "unicorn/prefer-query-selector"], domCode),
 		createCase("unicorn", "unicorn/prefer-node-protocol", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/module.fixture.js", moduleCode),
 		...createCases("unicorn", { withUnicorn: true }, "test/e2e/fixture/unicorn/invalid/condition.fixture.js", ["unicorn/no-negated-condition", "unicorn/no-nested-ternary"], conditionCode),

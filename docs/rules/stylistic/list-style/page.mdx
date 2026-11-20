@@ -1,0 +1,252 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/stylistic/list-style`
+
+<Callout type="error" emoji="🚨">
+	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce consistent spacing and line break styles inside brackets.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value     |
+| ------------------ | --------- |
+| Type               | `layout`  |
+| Fixable            | ✅ Yes    |
+| Has suggestions    | ❌ No     |
+| Deprecated         | ❌ No     |
+| ESLint recommended | `unknown` |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"$defs": {
+			"singleLineConfig": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"spacing": {
+						"type": "string",
+						"enum": ["always", "never"]
+					},
+					"maxItems": {
+						"type": "integer",
+						"minimum": 0
+					}
+				}
+			},
+			"multiLineConfig": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"minItems": {
+						"type": "integer",
+						"minimum": 0
+					}
+				}
+			},
+			"baseConfig": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"empty": {
+						"type": "string",
+						"enum": ["ignore", "always", "never"]
+					},
+					"singleLine": {
+						"$ref": "#/items/0/$defs/singleLineConfig"
+					},
+					"multiLine": {
+						"$ref": "#/items/0/$defs/multiLineConfig"
+					}
+				}
+			},
+			"overrideConfig": {
+				"oneOf": [
+					{
+						"$ref": "#/items/0/$defs/baseConfig"
+					},
+					{
+						"type": "string",
+						"enum": ["off"]
+					}
+				]
+			}
+		},
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"empty": {
+				"type": "string",
+				"enum": ["ignore", "always", "never"]
+			},
+			"singleLine": {
+				"$ref": "#/items/0/$defs/singleLineConfig"
+			},
+			"multiLine": {
+				"$ref": "#/items/0/$defs/multiLineConfig"
+			},
+			"overrides": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"()": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"[]": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"{}": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"<>": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"ArrayExpression": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"ArrayPattern": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"ArrowFunctionExpression": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"CallExpression": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"ExportNamedDeclaration": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"FunctionDeclaration": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"FunctionExpression": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"IfStatement": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"ImportAttributes": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"ImportDeclaration": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"JSONArrayExpression": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"JSONObjectExpression": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"NewExpression": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"ObjectExpression": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"ObjectPattern": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"TSDeclareFunction": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"TSEnumBody": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"TSFunctionType": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"TSInterfaceBody": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"TSTupleType": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"TSTypeLiteral": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"TSTypeParameterDeclaration": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					},
+					"TSTypeParameterInstantiation": {
+						"$ref": "#/items/0/$defs/overrideConfig"
+					}
+				}
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                                                                                                                                                                                         |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                                                                                                                 |
+| Default target   | `JavaScript` (`src/example.js`)                                                                                                                                                               |
+| Default severity | 🚨 `error`                                                                                                                                                                                    |
+| Default value    | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+
+### Effective Result by File Type
+
+| Scenario      | Target         | File path                 | Effective severity | Effective value                                                                                                                                                                               |
+| ------------- | -------------- | ------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `stylistic`   | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,{"empty":"ignore","singleLine":{"spacing":"always","maxItems":null},"multiLine":{"minItems":0},"overrides":{"{}":{"singleLine":{"spacing":"always"}},"()":"off","[]":"off","<>":"off"}}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity   | Value                                                                                          | Config block |
+| ------------- | ---------- | ---------------------------------------------------------------------------------------------- | ------------ |
+| `stylistic`   | 🚨 `error` | `["error",{"overrides":{"()":"off","[]":"off","<>":"off"},"singleLine":{"spacing":"always"}}]` | `0`          |
+| `all-options` | 🚨 `error` | `["error",{"overrides":{"()":"off","[]":"off","<>":"off"},"singleLine":{"spacing":"always"}}]` | `49`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+const total = items.reduce((sum, item) => sum + item.price, 0);
+export { total };
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+const total = items.reduce((sum, item) => sum + item.price, 0);
+export { total };
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/stylistic/list-style`
+- **Documentation route:** `/docs/eslint-config/rules/stylistic/list-style`

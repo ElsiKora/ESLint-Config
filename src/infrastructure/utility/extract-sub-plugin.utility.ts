@@ -13,14 +13,13 @@ export function extractSubPlugin(plugin: ESLint.Plugin, subPluginName: string, s
 	const newRules: Record<string, RuleDefinition> = {};
 
 	if (newPlugin.rules) {
-		for (const key of Object.keys(newPlugin.rules)) {
+		for (const [key, rule] of Object.entries(newPlugin.rules)) {
 			let newKey: string = key;
 
 			if (skipPluginName) newKey = newKey.replace(`${skipPluginName}/`, "");
 
 			if (newKey.split("/").length > 1 && newKey.includes(subPluginName)) {
-				// @ts-ignore
-				newRules[newKey.split("/").slice(1).join("/")] = newPlugin.rules[key];
+				newRules[newKey.split("/").slice(1).join("/")] = rule;
 			}
 		}
 

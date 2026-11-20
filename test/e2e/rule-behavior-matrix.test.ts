@@ -8,18 +8,23 @@ import { RULE_BEHAVIOR_CASES, RULE_BEHAVIOR_SCENARIOS } from "./rule-behavior-ma
 import { createRuleBehaviorCaseName, getMissingRuleBehaviorCases, type IMissingRuleBehaviorCase } from "./rule-behavior-matrix.helper";
 
 describe("RuleBehaviorMatrix", () => {
-	it.each(RULE_BEHAVIOR_CASES.map((ruleCase: IRuleBehaviorCase) => [createRuleBehaviorCaseName(ruleCase), ruleCase]))("%s", async (_caseName: string, ruleCase: IRuleBehaviorCase) => {
-		const eslint: ESLint = await createEsLintInstance(ruleCase.options, ruleCase.config);
-		const [result] = ruleCase.code ? await eslint.lintText(ruleCase.code, { filePath: ruleCase.filePath }) : await eslint.lintFiles([ruleCase.filePath]);
-		const expectedRuleId: string = formatRuleName(ruleCase.ruleId);
-		const hasExpectedMessage: boolean = Boolean(result?.messages.some((message) => message.ruleId === expectedRuleId));
+	it.each(RULE_BEHAVIOR_CASES.map((ruleCase: IRuleBehaviorCase) => [createRuleBehaviorCaseName(ruleCase), ruleCase]))(
+		"%s",
+		async (_caseName: string, ruleCase: IRuleBehaviorCase) => {
+			const eslint: ESLint = await createEsLintInstance(ruleCase.options, ruleCase.config);
+			const [result] = ruleCase.code ? await eslint.lintText(ruleCase.code, { filePath: ruleCase.filePath }) : await eslint.lintFiles([ruleCase.filePath]);
+			const expectedRuleId: string = formatRuleName(ruleCase.ruleId);
+			const hasExpectedMessage: boolean = Boolean(result?.messages.some((message) => message.ruleId === expectedRuleId));
 
-		if (ruleCase.expectation === "reported") {
-			expect(hasExpectedMessage).toBe(true);
-		} else {
-			expect(hasExpectedMessage).toBe(false);
-		}
-	});
+			if (ruleCase.expectation === "reported") {
+				expect(hasExpectedMessage).toBe(true);
+			} else {
+				expect(hasExpectedMessage).toBe(false);
+			}
+		},
+		// The first Tailwind CSS case loads the Tailwind CSS 4 design system, which can take longer than the default timeout.
+		60_000,
+	);
 
 	it("should require behavior cases for every final ESLint rule", async () => {
 		const missingCases: Array<IMissingRuleBehaviorCase> = await getMissingRuleBehaviorCases(RULE_BEHAVIOR_SCENARIOS, RULE_BEHAVIOR_CASES);

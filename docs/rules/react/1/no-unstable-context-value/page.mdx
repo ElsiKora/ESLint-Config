@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## Rule Overview
 
-Prevents non-stable values (i.e., object literals) from being used as a value for 'Context.Provider'.
+Prevents non-stable values (i.e., object literals) from being used as a value for 'Context.Provider' or the '<Context>' shorthand in React 19 and above.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 
@@ -62,8 +62,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | ------------- | --------- | -------- | ------------ |
 | `react`       | ⚠️ `warn` | `"warn"` | `1`          |
 | `react`       | ⚠️ `warn` | `"warn"` | `4`          |
-| `all-options` | ⚠️ `warn` | `"warn"` | `34`         |
 | `all-options` | ⚠️ `warn` | `"warn"` | `37`         |
+| `all-options` | ⚠️ `warn` | `"warn"` | `40`         |
 
 ## Examples
 

@@ -8,7 +8,7 @@ import PLUGIN_MAP from "../constant/utility/plugin-map.constant";
 export function formatPluginName(pluginName: string): string {
 	for (const [oldName, newName] of getSortedPluginMapEntries()) {
 		if (pluginName === oldName) {
-			return pluginName.replace(pluginName, newName);
+			return newName;
 		}
 	}
 

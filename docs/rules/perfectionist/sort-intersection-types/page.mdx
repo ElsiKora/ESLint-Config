@@ -729,6 +729,9 @@ The rule exposes the following ESLint option schema:
 			"partitionByNewLine": {
 				"description": "Enables the use of newlines to separate the nodes into logical groups.",
 				"type": "boolean"
+			},
+			"ignoreCallableTypes": {
+				"type": "boolean"
 			}
 		},
 		"additionalProperties": false,
@@ -748,6 +751,7 @@ Upstream default options:
 			"type": "unsorted"
 		},
 		"newlinesInside": "newlinesBetween",
+		"ignoreCallableTypes": true,
 		"specialCharacters": "keep",
 		"newlinesBetween": "ignore",
 		"partitionByComment": false,
@@ -806,8 +810,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario                 | Severity   | Value                                             | Config block |
 | ------------------------ | ---------- | ------------------------------------------------- | ------------ |
 | `perfectionist`          | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `0`          |
-| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `3`          |
-| `all-options`            | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `30`         |
+| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `4`          |
+| `all-options`            | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `33`         |
 
 ## Examples
 

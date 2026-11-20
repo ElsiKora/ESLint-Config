@@ -30,4 +30,119 @@ describe("i18next Configuration", () => {
 			});
 		});
 	});
+
+	describe("Translatable JSX attributes", () => {
+		it.each([
+			["placeholder", `<input placeholder="Enter your name" />`],
+			["alt", `<img alt="Company logo" src="/logo.png" />`],
+			["title", `<abbr title="World Health Organization">WHO</abbr>`],
+			["aria-label", `<button aria-label="Close dialog" type="button" />`],
+			["placeholder on a component", `<TextField placeholder="Enter your name" />`],
+		])("should report an untranslated %s attribute", async (_name: string, element: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn ${element};\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages.some((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string"))).toBe(true);
+		});
+
+		it.each([
+			["a Suspense fallback", `<Suspense fallback={<div>Loading</div>}><Outlet /></Suspense>`],
+			["a route element", `<Route element={<p>Not found</p>} path="*" />`],
+			["a component slot", `<Modal footer={<Button>Cancel</Button>} />`],
+		])("should report untranslated JSX nested inside %s", async (_name: string, element: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn ${element};\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages.filter((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string")).map((msg) => msg.message)).toEqual([expect.stringMatching(/Loading|Not found|Cancel/)]);
+		});
+
+		it("should not report technical attributes", async () => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn <TextField className="field" data-testid="email-field" href="/login" id="email" key="email-field" placeholder={t("email.placeholder")} src="/icon.svg" style={{ display: "flex" }} type="email" />;\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages).toEqual([]);
+		});
+	});
+
+	describe("Technical tokens", () => {
+		it.each([
+			["an identifier prop", `<Button variant="outlined">{t("save")}</Button>`],
+			["a route path", `<Link to="/users/$id">{t("users")}</Link>`],
+			["a field name", `<TextField name="email" />`],
+			["a URL", `<Link href="https://x.test">{t("docs")}</Link>`],
+			["an event name in a handler", `<Button onClick={() => track("submit")}>{t("save")}</Button>`],
+			["an HTML entity, kept from the plugin defaults", `<span>©</span>`],
+			["an emoji, kept from the plugin defaults", `<span>👍</span>`],
+		])("should not report %s", async (_name: string, element: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn ${element};\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages).toEqual([]);
+		});
+
+		it.each([
+			["a placeholder", `<TextField placeholder="Email address" />`, "Email address"],
+			["a title", `<IconButton title="Delete" />`, "Delete"],
+			["button text", `<Button>Cancel</Button>`, "Cancel"],
+			["JSX nested in a fallback", `<Suspense fallback={<div>Loading</div>}><Outlet /></Suspense>`, "Loading"],
+		])("should still report %s", async (_name: string, element: string, text: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn ${element};\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages.filter((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string")).map((msg) => msg.message)).toEqual([expect.stringContaining(text)]);
+		});
+	});
+
+	describe("Technical strings in JSX expressions", () => {
+		it.each([
+			["a date format pattern", `<time>{format(date, "dd.MM.yyyy")}</time>`],
+			["an Intl locale", `<span>{new Intl.NumberFormat("en-US", { currency: "EUR", style: "currency" }).format(price)}</span>`],
+			["a toLocaleDateString locale", `<span>{date.toLocaleDateString("de-DE")}</span>`],
+		])("should not report %s", async (_name: string, element: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Price({ date, price }) {\n\treturn ${element};\n}\n`, { filePath: "src/shared/ui/price.jsx" });
+
+			expect(result?.messages).toEqual([]);
+		});
+	});
+
+	describe("Tests and stories", () => {
+		it.each(["form.test.jsx", "form.spec.jsx", "form.stories.jsx", "__tests__/form.jsx"])("should not report literal text in %s", async (fileName: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export const view = render(<button title="Save changes">Save</button>);\n`, { filePath: `src/shared/ui/${fileName}` });
+
+			expect(result?.messages.filter((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string"))).toEqual([]);
+		});
+
+		it("should still report the same text in source files", async () => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export const view = render(<button title="Save changes">Save</button>);\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages.filter((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string"))).toHaveLength(2);
+		});
+	});
 });

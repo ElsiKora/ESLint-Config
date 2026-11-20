@@ -194,7 +194,7 @@ The rule exposes the following ESLint option schema:
 											},
 											"modifiers": {
 												"items": {
-													"enum": ["async", "declare", "decorated", "default", "export"],
+													"enum": ["arrow", "declare", "default", "async", "decorated", "export"],
 													"type": "string"
 												},
 												"description": "Modifier filters.",
@@ -376,7 +376,7 @@ The rule exposes the following ESLint option schema:
 								},
 								"modifiers": {
 									"items": {
-										"enum": ["async", "declare", "decorated", "default", "export"],
+										"enum": ["arrow", "declare", "default", "async", "decorated", "export"],
 										"type": "string"
 									},
 									"description": "Modifier filters.",
@@ -592,6 +592,17 @@ The rule exposes the following ESLint option schema:
 					}
 				]
 			},
+			"additionalModuleBlockTypes": {
+				"description": "Specifies the node types to analyze as module blocks, in addition to the built-in ones.",
+				"items": {
+					"type": "string"
+				},
+				"type": "array"
+			},
+			"sortArrowFunctions": {
+				"description": "Enables sorting of arrow functions declared with const.",
+				"type": "boolean"
+			},
 			"useExperimentalDependencyDetection": {
 				"description": "Enables experimental dependency detection for sorting rules that support it.",
 				"type": "boolean"
@@ -805,6 +816,21 @@ The rule exposes the following ESLint option schema:
 			"partitionByNewLine": {
 				"description": "Enables the use of newlines to separate the nodes into logical groups.",
 				"type": "boolean"
+			},
+			"tsconfig": {
+				"properties": {
+					"rootDir": {
+						"description": "Specifies the tsConfig root directory.",
+						"type": "string"
+					},
+					"filename": {
+						"description": "Specifies the tsConfig filename.",
+						"type": "string"
+					}
+				},
+				"additionalProperties": false,
+				"required": ["rootDir"],
+				"type": "object"
 			}
 		},
 		"additionalProperties": false,
@@ -825,6 +851,11 @@ Upstream default options:
 			"type": "unsorted"
 		},
 		"newlinesInside": "newlinesBetween",
+		"additionalModuleBlockTypes": [],
+		"tsconfig": {
+			"rootDir": ""
+		},
+		"sortArrowFunctions": false,
 		"partitionByComment": false,
 		"partitionByNewLine": false,
 		"newlinesBetween": "ignore",

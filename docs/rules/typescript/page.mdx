@@ -56,6 +56,7 @@ Rules and nested groups documented for this preset family.
 	<Cards.Card emoji="📘" title="no-extraneous-class" href="/docs/eslint-config/rules/typescript/no-extraneous-class" />
 	<Cards.Card emoji="📘" title="no-floating-promises" href="/docs/eslint-config/rules/typescript/no-floating-promises" />
 	<Cards.Card emoji="📘" title="no-for-in-array" href="/docs/eslint-config/rules/typescript/no-for-in-array" />
+	<Cards.Card emoji="📘" title="no-generated-empty-object-type" href="/docs/eslint-config/rules/typescript/no-generated-empty-object-type" />
 	<Cards.Card emoji="📘" title="no-implied-eval" href="/docs/eslint-config/rules/typescript/no-implied-eval" />
 	<Cards.Card emoji="📘" title="no-import-type-side-effects" href="/docs/eslint-config/rules/typescript/no-import-type-side-effects" />
 	<Cards.Card emoji="📘" title="no-inferrable-types" href="/docs/eslint-config/rules/typescript/no-inferrable-types" />
@@ -87,7 +88,9 @@ Rules and nested groups documented for this preset family.
 	<Cards.Card emoji="📘" title="no-unsafe-argument" href="/docs/eslint-config/rules/typescript/no-unsafe-argument" />
 	<Cards.Card emoji="📘" title="no-unsafe-assignment" href="/docs/eslint-config/rules/typescript/no-unsafe-assignment" />
 	<Cards.Card emoji="📘" title="no-unsafe-call" href="/docs/eslint-config/rules/typescript/no-unsafe-call" />
+	<Cards.Card emoji="📘" title="no-unsafe-class-instance-assignment" href="/docs/eslint-config/rules/typescript/no-unsafe-class-instance-assignment" />
 	<Cards.Card emoji="📘" title="no-unsafe-declaration-merging" href="/docs/eslint-config/rules/typescript/no-unsafe-declaration-merging" />
+	<Cards.Card emoji="📘" title="no-unsafe-enum-assignment" href="/docs/eslint-config/rules/typescript/no-unsafe-enum-assignment" />
 	<Cards.Card emoji="📘" title="no-unsafe-enum-comparison" href="/docs/eslint-config/rules/typescript/no-unsafe-enum-comparison" />
 	<Cards.Card emoji="📘" title="no-unsafe-function-type" href="/docs/eslint-config/rules/typescript/no-unsafe-function-type" />
 	<Cards.Card emoji="📘" title="no-unsafe-member-access" href="/docs/eslint-config/rules/typescript/no-unsafe-member-access" />
@@ -189,6 +192,7 @@ Rules and nested groups documented for this preset family.
 | [`@elsikora/typescript/no-extraneous-class`](/docs/eslint-config/rules/typescript/no-extraneous-class)                                         | 🧭 `off`   | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/typescript/no-floating-promises`](/docs/eslint-config/rules/typescript/no-floating-promises)                                       | 🧭 `off`   | ❌ No   | ✅ Yes      | `problem`    |
 | [`@elsikora/typescript/no-for-in-array`](/docs/eslint-config/rules/typescript/no-for-in-array)                                                 | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/typescript/no-generated-empty-object-type`](/docs/eslint-config/rules/typescript/no-generated-empty-object-type)                   | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
 | [`@elsikora/typescript/no-implied-eval`](/docs/eslint-config/rules/typescript/no-implied-eval)                                                 | 🚨 `error` | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/typescript/no-import-type-side-effects`](/docs/eslint-config/rules/typescript/no-import-type-side-effects)                         | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
 | [`@elsikora/typescript/no-inferrable-types`](/docs/eslint-config/rules/typescript/no-inferrable-types)                                         | 🧭 `off`   | ✅ Yes  | ❌ No       | `suggestion` |
@@ -220,7 +224,9 @@ Rules and nested groups documented for this preset family.
 | [`@elsikora/typescript/no-unsafe-argument`](/docs/eslint-config/rules/typescript/no-unsafe-argument)                                           | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
 | [`@elsikora/typescript/no-unsafe-assignment`](/docs/eslint-config/rules/typescript/no-unsafe-assignment)                                       | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
 | [`@elsikora/typescript/no-unsafe-call`](/docs/eslint-config/rules/typescript/no-unsafe-call)                                                   | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/typescript/no-unsafe-class-instance-assignment`](/docs/eslint-config/rules/typescript/no-unsafe-class-instance-assignment)         | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
 | [`@elsikora/typescript/no-unsafe-declaration-merging`](/docs/eslint-config/rules/typescript/no-unsafe-declaration-merging)                     | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
+| [`@elsikora/typescript/no-unsafe-enum-assignment`](/docs/eslint-config/rules/typescript/no-unsafe-enum-assignment)                             | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
 | [`@elsikora/typescript/no-unsafe-enum-comparison`](/docs/eslint-config/rules/typescript/no-unsafe-enum-comparison)                             | 🚨 `error` | ❌ No   | ✅ Yes      | `suggestion` |
 | [`@elsikora/typescript/no-unsafe-function-type`](/docs/eslint-config/rules/typescript/no-unsafe-function-type)                                 | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
 | [`@elsikora/typescript/no-unsafe-member-access`](/docs/eslint-config/rules/typescript/no-unsafe-member-access)                                 | 🚨 `error` | ❌ No   | ❌ No       | `problem`    |
@@ -229,7 +235,7 @@ Rules and nested groups documented for this preset family.
 | [`@elsikora/typescript/no-unused-expressions`](/docs/eslint-config/rules/typescript/no-unused-expressions)                                     | 🚨 `error` | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/typescript/no-unused-vars`](/docs/eslint-config/rules/typescript/no-unused-vars)                                                   | 🧭 `off`   | ✅ Yes  | ✅ Yes      | `problem`    |
 | [`@elsikora/typescript/no-useless-constructor`](/docs/eslint-config/rules/typescript/no-useless-constructor)                                   | 🚨 `error` | ❌ No   | ✅ Yes      | `problem`    |
-| [`@elsikora/typescript/no-useless-default-assignment`](/docs/eslint-config/rules/typescript/no-useless-default-assignment)                     | 🚨 `error` | ✅ Yes  | ❌ No       | `suggestion` |
+| [`@elsikora/typescript/no-useless-default-assignment`](/docs/eslint-config/rules/typescript/no-useless-default-assignment)                     | 🚨 `error` | ❌ No   | ✅ Yes      | `suggestion` |
 | [`@elsikora/typescript/no-useless-empty-export`](/docs/eslint-config/rules/typescript/no-useless-empty-export)                                 | 🚨 `error` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/typescript/no-wrapper-object-types`](/docs/eslint-config/rules/typescript/no-wrapper-object-types)                                 | 🚨 `error` | ✅ Yes  | ❌ No       | `problem`    |
 | [`@elsikora/typescript/non-nullable-type-assertion-style`](/docs/eslint-config/rules/typescript/non-nullable-type-assertion-style)             | 🚨 `error` | ✅ Yes  | ❌ No       | `suggestion` |

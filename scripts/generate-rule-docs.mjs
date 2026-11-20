@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -5,6 +6,10 @@ import { ESLint } from "eslint";
 import prettier from "prettier";
 
 import createConfig, { createRuleDocumentationSlug } from "../dist/esm/index.js";
+
+// Rule-specific examples for rules added by plugin upgrades, keyed by the final rule id.
+// The unicorn examples are adapted from eslint-plugin-unicorn's rule documentation (MIT); the others are original.
+const RULE_EXAMPLES = JSON.parse(readFileSync(new URL("rule-examples.json", import.meta.url), "utf8"));
 
 const ALL_CONFIG_OPTIONS = {
 	withCheckFile: true,
@@ -263,6 +268,12 @@ function createExample(entry, mode) {
 }
 
 function createExamplePair(entry) {
+	const listedExample = RULE_EXAMPLES[entry.ruleId];
+
+	if (listedExample) {
+		return createExamplePairFromCode(listedExample.language, listedExample.bad, listedExample.good);
+	}
+
 	const language = getExampleLanguage(entry);
 	const family = entry.segments[0];
 
@@ -1333,6 +1344,9 @@ function createTypeScriptExamplePair(entry) {
 		case "no-floating-promises":
 			return createExamplePairFromCode("ts", "async function save(): Promise<void> {\n\tsaveUser(user);\n}\n\nexport { save };", "async function save(): Promise<void> {\n\tawait saveUser(user);\n}\n\nexport { save };");
 
+		case "no-generated-empty-object-type":
+			return createExamplePairFromCode("ts", 'interface Credentials {\n\tpassword: string;\n}\n\ntype PublicCredentials = Omit<Credentials, "password">;\n\nexport type { PublicCredentials };', 'interface Credentials {\n\tpassword: string;\n\tusername: string;\n}\n\ntype PublicCredentials = Omit<Credentials, "password">;\n\nexport type { PublicCredentials };');
+
 		case "no-misused-promises":
 			return createExamplePairFromCode("ts", "users.forEach(async (user) => {\n\tawait saveUser(user);\n});", "await Promise.all(users.map((user) => saveUser(user)));");
 
@@ -1435,8 +1449,14 @@ function createTypeScriptUnsafeExamplePair(ruleName) {
 		case "no-unsafe-call":
 			return createExamplePairFromCode("ts", "const handler = JSON.parse(payload);\nhandler();", "const handler = parseHandler(payload);\nhandler();");
 
+		case "no-unsafe-class-instance-assignment":
+			return createExamplePairFromCode("ts", "class Money {\n\tconstructor(public readonly amount: number) {}\n}\n\nconst price: Money = { amount: 10 };\nexport { price };", "class Money {\n\tconstructor(public readonly amount: number) {}\n}\n\nconst price: Money = new Money(10);\nexport { price };");
+
 		case "no-unsafe-declaration-merging":
 			return createExamplePairFromCode("ts", "interface User {}\nclass User {}\n\nexport { User };", "interface UserShape {}\nclass UserModel {}\n\nexport { UserModel };\nexport type { UserShape };");
+
+		case "no-unsafe-enum-assignment":
+			return createExamplePairFromCode("ts", "enum Priority {\n\tLow = 0,\n\tHigh = 1,\n}\n\nconst priority: Priority = 1;\nexport { priority };", "enum Priority {\n\tLow = 0,\n\tHigh = 1,\n}\n\nconst priority: Priority = Priority.High;\nexport { priority };");
 
 		case "no-unsafe-enum-comparison":
 			return createExamplePairFromCode("ts", 'enum Status {\n\tReady = "ready",\n}\n\nconst isReady = status === "ready";\nexport { isReady };', 'enum Status {\n\tReady = "ready",\n}\n\nconst isReady = status === Status.Ready;\nexport { isReady };');
@@ -3001,10 +3021,9 @@ function formatTitle(value) {
 }
 
 function createMetaFileContent(entries) {
-	const disableComment = hasPasswordLikeMetaEntry(entries) ? "/* eslint-disable @elsikora/sonar/no-hardcoded-passwords */\n" : "";
 	const properties = entries.map(([key, value]) => `\t${formatMetaObjectKey(key)}: ${JSON.stringify(value)},`).join("\n");
 
-	return `${disableComment}export default {\n${properties}\n};\n`;
+	return `export default {\n${properties}\n};\n`;
 }
 
 function formatMetaObjectKey(key) {
@@ -3013,8 +3032,4 @@ function formatMetaObjectKey(key) {
 	}
 
 	return JSON.stringify(key);
-}
-
-function hasPasswordLikeMetaEntry(entries) {
-	return entries.some(([key, value]) => `${key} ${value}`.toLowerCase().includes("password"));
 }

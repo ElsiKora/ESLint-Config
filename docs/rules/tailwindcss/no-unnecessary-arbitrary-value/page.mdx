@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## Rule Overview
 
-Forbid using arbitrary values in classnames when an equivalent preset exists.
+Avoid unjustified arbitrary classnames.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 
@@ -16,11 +16,11 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 
 | Property           | Value     |
 | ------------------ | --------- |
-| Type               | `unknown` |
+| Type               | `problem` |
 | Fixable            | ✅ Yes    |
-| Has suggestions    | ❌ No     |
+| Has suggestions    | ✅ Yes    |
 | Deprecated         | ❌ No     |
-| ESLint recommended | `true`    |
+| ESLint recommended | `unknown` |
 
 ## All Supported Options
 
@@ -30,40 +30,17 @@ The rule exposes the following ESLint option schema:
 [
 	{
 		"type": "object",
-		"properties": {
-			"callees": {
-				"type": "array",
-				"items": {
-					"type": "string",
-					"minLength": 0
-				},
-				"uniqueItems": true
-			},
-			"ignoredKeys": {
-				"type": "array",
-				"items": {
-					"type": "string",
-					"minLength": 0
-				},
-				"uniqueItems": true
-			},
-			"config": {
-				"type": ["string", "object"]
-			},
-			"tags": {
-				"type": "array",
-				"items": {
-					"type": "string",
-					"minLength": 0
-				},
-				"uniqueItems": true
-			}
-		}
+		"properties": {},
+		"additionalProperties": false
 	}
 ]
 ```
 
-No upstream default options are exposed in the rule metadata.
+Upstream default options:
+
+```json filename="default-options.json" copy
+[{}]
+```
 
 ## ElsiKora Default Setting
 
@@ -74,32 +51,33 @@ The default shown here is the first effective result produced by ESLint's own co
 | Default scenario | `all-options`                   |
 | Default target   | `JavaScript` (`src/example.js`) |
 | Default severity | ⚠️ `warn`                       |
-| Default value    | `[1]`                           |
+| Default value    | `[1,{}]`                        |
 
 ### Effective Result by File Type
 
-| Scenario       | Target         | File path                 | Effective severity | Effective value |
-| -------------- | -------------- | ------------------------- | ------------------ | --------------- |
-| `tailwind-css` | `JavaScript`   | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `JavaScript`   | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `JSX`          | `src/example.jsx`         | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `TypeScript`   | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `TSX`          | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `Next pages`   | `pages/index.jsx`         | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `Next app`     | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `Storybook`    | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `Package JSON` | `package.json`            | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `JSON`         | `config.json`             | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `YAML`         | `config.yaml`             | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `Markdown`     | `README.md`               | ⚠️ `warn`          | `[1]`           |
-| `all-options`  | `CSS`          | `src/styles.css`          | ⚠️ `warn`          | `[1]`           |
+| Scenario       | Target       | File path                 | Effective severity | Effective value |
+| -------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `tailwind-css` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1,{}]`        |
+| `tailwind-css` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `tailwind-css` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1,{}]`        |
+| `tailwind-css` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `tailwind-css` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `tailwind-css` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1,{}]`        |
+| `tailwind-css` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options`  | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options`  | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options`  | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options`  | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options`  | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options`  | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options`  | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1,{}]`        |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
 | Scenario       | Severity  | Value    | Config block |
 | -------------- | --------- | -------- | ------------ |
-| `tailwind-css` | ⚠️ `warn` | `"warn"` | `1`          |
-| `all-options`  | ⚠️ `warn` | `"warn"` | `48`         |
+| `tailwind-css` | ⚠️ `warn` | `"warn"` | `0`          |
+| `all-options`  | ⚠️ `warn` | `"warn"` | `47`         |
 
 ## Examples
 

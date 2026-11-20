@@ -34,32 +34,22 @@ The rule exposes the following ESLint option schema:
 		"properties": {
 			"enforceAssignment": {
 				"type": "boolean",
-				"default": true
+				"description": "Require the useState result to be assigned to a destructured value/setter pair."
 			},
 			"enforceLazyInitialization": {
 				"type": "boolean",
-				"default": true
+				"description": "Require expensive initializers to be wrapped in a lazy initializer function."
 			},
 			"enforceSetterName": {
 				"type": "boolean",
-				"default": true
+				"description": "Require the setter name to match the state value name."
 			}
 		}
 	}
 ]
 ```
 
-Upstream default options:
-
-```json filename="default-options.json" copy
-[
-	{
-		"enforceAssignment": true,
-		"enforceLazyInitialization": true,
-		"enforceSetterName": true
-	}
-]
-```
+No upstream default options are exposed in the rule metadata.
 
 ## ElsiKora Default Setting
 
@@ -70,26 +60,26 @@ The default shown here is the first effective result produced by ESLint's own co
 | Default scenario | `all-options`                   |
 | Default target   | `JavaScript` (`src/example.js`) |
 | Default severity | ⚠️ `warn`                       |
-| Default value    | `[1]`                           |
+| Default value    | `[1,{}]`                        |
 
 ### Effective Result by File Type
 
 | Scenario      | Target       | File path                 | Effective severity | Effective value |
 | ------------- | ------------ | ------------------------- | ------------------ | --------------- |
-| `react`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
-| `react`       | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `react`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
-| `react`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
-| `react`       | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `react`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
-| `react`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1]`           |
-| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1]`           |
+| `react`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{}]`        |
+| `react`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{}]`        |
+| `react`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{}]`        |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{}]`        |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1,{}]`        |
 
 ### Configured Entries Before ESLint Resolves Overrides
 

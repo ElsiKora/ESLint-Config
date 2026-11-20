@@ -17,7 +17,7 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 | Property           | Value        |
 | ------------------ | ------------ |
 | Type               | `suggestion` |
-| Fixable            | ❌ No        |
+| Fixable            | ✅ Yes       |
 | Has suggestions    | ❌ No        |
 | Deprecated         | ❌ No        |
 | ESLint recommended | `unknown`    |
@@ -32,7 +32,7 @@ The rule exposes the following ESLint option schema:
 		"additionalProperties": false,
 		"properties": {
 			"contexts": {
-				"description": "Set this to an array of strings representing the AST context (or an object with\n`context` and `comment` properties) where you wish the rule to be applied.\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`, `FunctionDeclaration`,\n`FunctionExpression`). Set to `\"any\"` if you want\nthe rule to apply to any JSDoc block throughout your files (as is necessary\nfor finding function blocks not attached to a function declaration or\nexpression, i.e., `@callback` or `@function` (or its aliases `@func` or\n`@method`) (including those associated with an `@interface`).\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"description": "Set this to an array of strings representing the AST context (or an object with\n`context` and `comment` properties) where you wish the rule to be applied.\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`, `FunctionDeclaration`,\n`FunctionExpression`). Set to `\"any\"` if you want\nthe rule to apply to any JSDoc block throughout your files (as is necessary\nfor finding function blocks not attached to a function declaration or\nexpression, i.e., `@callback` or `@function` (or its aliases `@func` or\n`@method`) (including those associated with an `@interface`).\n\nSee the [\"AST and Selectors\"](../advanced.md#ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
 				"items": {
 					"anyOf": [
 						{
@@ -53,6 +53,11 @@ The rule exposes the following ESLint option schema:
 					]
 				},
 				"type": "array"
+			},
+			"fix": {
+				"description": "Set to `\"remove\"` to have the fixer remove the `@implements` tag, or to\n`\"type\"` to have it change `@implements {Type}` to `@type {Type}` (not done\nwhen the block already has a `@type` tag or the tag has no type). Not set by\ndefault, so the rule only reports.",
+				"enum": ["remove", "type"],
+				"type": "string"
 			}
 		},
 		"type": "object"

@@ -1,0 +1,122 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/normalize-see-links`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Normalizes labeled links in `@see` tags to a canonical `{@link}` form.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"canonicalForm": {
+				"description": "The canonical `{@link}` form: `\"pipe\"` produces `{@link url|label}`, while `\"prefix\"` produces `[label]{@link url}`. Defaults to `\"pipe\"`.",
+				"enum": ["pipe", "prefix"],
+				"type": "string"
+			},
+			"enableFixer": {
+				"description": "Whether to enable the fixer. Defaults to `true`.",
+				"type": "boolean"
+			},
+			"wrapBareUrls": {
+				"description": "Whether to wrap an `@see` description containing only a lowercase `http:` or `https:` URL (for example, `@see https://example.com`) in a plain `{@link https://example.com}`. Defaults to `false`.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `11`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Loads a user.
+ * @see [User API](https://example.com/users)
+ */
+export function loadUser() {}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Loads a user.
+ * @see {@link https://example.com/users|User API}
+ */
+export function loadUser() {}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/normalize-see-links`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/normalize-see-links`

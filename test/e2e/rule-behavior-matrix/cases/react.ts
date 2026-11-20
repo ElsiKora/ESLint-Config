@@ -23,7 +23,6 @@ const REACT_RULE_IDS: ReadonlyArray<string> = [
 	"@elsikora/react/1/dom-no-void-elements-with-children",
 	"@elsikora/react/1/error-boundaries",
 	"@elsikora/react/1/exhaustive-deps",
-	"@elsikora/react/1/jsx-no-children-prop",
 	"@elsikora/react/1/jsx-no-children-prop-with-children",
 	"@elsikora/react/1/jsx-no-comment-textnodes",
 	"@elsikora/react/1/jsx-no-key-after-spread",
@@ -72,7 +71,6 @@ const REACT_RULE_IDS: ReadonlyArray<string> = [
 	"@elsikora/react/1/set-state-in-effect",
 	"@elsikora/react/1/set-state-in-render",
 	"@elsikora/react/1/static-components",
-	"@elsikora/react/1/unsupported-syntax",
 	"@elsikora/react/1/use-memo",
 	"@elsikora/react/1/use-state",
 	"@elsikora/react/1/web-api-no-leaked-event-listener",
@@ -84,6 +82,16 @@ const REACT_RULE_IDS: ReadonlyArray<string> = [
 
 export const RULE_BEHAVIOR_REACT_CASES: Array<IRuleBehaviorCase> = [
 	...createCases("react", { withReact: true }, REACT_RULE_BEHAVIOR_FILE_PATH, [...REACT_RULE_IDS], REACT_RULE_BEHAVIOR_CODE),
+	// eslint-react 5.30 leaves an element that also has nested children to jsx-no-children-prop-with-children.
+	createCase("react", "@elsikora/react/1/jsx-no-children-prop", { withReact: true }, REACT_RULE_BEHAVIOR_FILE_PATH, `export function Wrapper() {\n\treturn <div children={<span />} />;\n}\n`),
+	createCase("react", "@elsikora/react/1/unsupported-syntax", { withReact: true }, REACT_RULE_BEHAVIOR_FILE_PATH, `export function Formula({ expression }: { expression: string }) {\n\tconst result: unknown = eval(expression);\n\n\treturn <output>{String(result)}</output>;\n}\n`),
+	createCase(
+		"react",
+		"@elsikora/react/1/web-api-no-leaked-intersection-observer",
+		{ withReact: true },
+		REACT_RULE_BEHAVIOR_FILE_PATH,
+		`import { useEffect, useRef } from "react";\n\nexport function Lazy() {\n\tconst containerRef = useRef<HTMLDivElement>(null);\n\n\tuseEffect(() => {\n\t\tconst observer = new IntersectionObserver(() => {});\n\n\t\tif (containerRef.current) {\n\t\t\tobserver.observe(containerRef.current);\n\t\t}\n\t}, []);\n\n\treturn <div ref={containerRef} />;\n}\n`,
+	),
 	createCase("react", "@elsikora/react/1/no-direct-mutation-state", { withReact: true }, REACT_RULE_BEHAVIOR_FILE_PATH, `import React from "react";\n\nexport class Mutator extends React.Component<{}, { count: number }> {\n\tstate = { count: 0 };\n\tcomponentDidMount() {\n\t\tthis.state = { count: 1 };\n\t}\n\trender() {\n\t\treturn <div>{this.state.count}</div>;\n\t}\n}\n`),
 ];
 

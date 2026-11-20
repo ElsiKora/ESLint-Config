@@ -54,7 +54,7 @@ The rule exposes the following ESLint option schema:
 				"type": "boolean"
 			},
 			"typed": {
-				"description": "If this is set to `true`, additionally checks for tag names that are redundant when using a type checker such as TypeScript.\n\nThese tags are always unnecessary when using TypeScript or similar:\n\n```\naugments\ncallback\nclass\nenum\nimplements\nprivate\nproperty\nprotected\npublic\nreadonly\nthis\ntype\ntypedef\n```\n\nThese tags are unnecessary except when inside a TypeScript `declare` context:\n\n```\nabstract\naccess\nclass\nconstant\nconstructs\ndefault\nenum\nexport\nexports\nfunction\nglobal\ninherits\ninstance\ninterface\nmember\nmemberof\nmemberOf\nmethod\nmixes\nmixin\nmodule\nname\nnamespace\noverride\nproperty\nrequires\nstatic\nthis\n```",
+				"description": "If this is set to `true`, additionally checks for tag names that are redundant when using a type checker such as TypeScript.\n\nThese tags are always unnecessary when using TypeScript or similar:\n\n```\naugments\ncallback\nclass\nenum\nimplements\nproperty\nreadonly\nthis\ntype\ntypedef\n```\n\nThese tags are unnecessary on class members (where TypeScript has access\nmodifiers), but are allowed elsewhere (e.g., the `@public` release tag of\nTSDoc/API Extractor on an exported function):\n\n```\nprivate\nprotected\npublic\n```\n\nThese tags are unnecessary except when inside a TypeScript `declare` context:\n\n```\nabstract\naccess\nclass\nconstant\nconstructs\ndefault\nenum\nexport\nexports\nfunction\nglobal\ninherits\ninstance\ninterface\nmember\nmemberof\nmemberOf\nmethod\nmixes\nmixin\nmodule\nname\nnamespace\noverride\nproperty\nrequires\nstatic\nthis\n```",
 				"type": "boolean"
 			}
 		},

@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## Rule Overview
 
-Prefer ternary expressions over simple `if-else` statements.
+Prefer ternary expressions over simple `if` statements.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 
@@ -18,7 +18,7 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 | ------------------ | --------------- |
 | Type               | `suggestion`    |
 | Fixable            | ✅ Yes          |
-| Has suggestions    | ❌ No           |
+| Has suggestions    | ✅ Yes          |
 | Deprecated         | ❌ No           |
 | ESLint recommended | `unopinionated` |
 
@@ -31,6 +31,24 @@ The rule exposes the following ESLint option schema:
 	{
 		"enum": ["always", "only-single-line"],
 		"description": "Whether to always prefer ternary, or only for single-line expressions."
+	},
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"checkVaryingBase": {
+				"type": "boolean",
+				"description": "Also report expressions that differ only by the base of a call or member access, whose minimization moves the ternary into the base (`(test ? a : b).foo`)."
+			},
+			"checkComputedMemberAccess": {
+				"type": "boolean",
+				"description": "Whether to also report static property or method name differences on a shared receiver, including member chains, requiring computed member access."
+			},
+			"checkNestedTernaries": {
+				"type": "boolean",
+				"description": "Whether to report merges whose conditions or values contain ternary expressions."
+			}
+		}
 	}
 ]
 ```
@@ -41,52 +59,52 @@ No upstream default options are exposed in the rule metadata.
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                           |
-| ---------------- | ------------------------------- |
-| Default scenario | `all-options`                   |
-| Default target   | `JavaScript` (`src/example.js`) |
-| Default severity | 🧭 `off`                        |
-| Default value    | `[0,"always"]`                  |
+| Field            | Value                                                                                                    |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                            |
+| Default target   | `JavaScript` (`src/example.js`)                                                                          |
+| Default severity | 🧭 `off`                                                                                                 |
+| Default value    | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
 
 ### Effective Result by File Type
 
-| Scenario                         | Target       | File path                 | Effective severity | Effective value |
-| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
-| `unicorn`                        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always"]`  |
-| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always"]`  |
-| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always"]`  |
-| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always"]`  |
-| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always"]`  |
-| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always"]`  |
-| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always"]`  |
-| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always"]`  |
-| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always"]`  |
-| `all-options`                    | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always"]`  |
-| `all-options`                    | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always"]`  |
-| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always"]`  |
-| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always"]`  |
-| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always"]`  |
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                                                                                          |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"always",{"checkVaryingBase":false,"checkComputedMemberAccess":false,"checkNestedTernaries":false}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
@@ -100,8 +118,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | `typescript-with-unicorn`        | 🧭 `off`   | `"off"`   | `11`         |
 | `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
 | `typescript-strict-with-unicorn` | 🧭 `off`   | `"off"`   | `11`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
-| `all-options`                    | 🧭 `off`   | `"off"`   | `76`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
+| `all-options`                    | 🧭 `off`   | `"off"`   | `75`         |
 
 ## Examples
 

@@ -2,13 +2,16 @@ name: Run Tests
 
 on: push
 
-env:
-  NODE_VERSION: 24
-
 jobs:
   test:
-    name: Test
+    name: Test (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # 26 is what the release runs on; 22.22.2 is the package's engines floor.
+        node-version: ["26", "22.22.2"]
 
     steps:
       - name: Checkout Code
@@ -17,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: npm install
@@ -32,7 +35,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports
+          name: test-reports-node-${{ matrix.node-version }}
           path: |
             coverage/
             reports/

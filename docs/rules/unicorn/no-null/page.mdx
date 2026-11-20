@@ -32,6 +32,10 @@ The rule exposes the following ESLint option schema:
 		"type": "object",
 		"additionalProperties": false,
 		"properties": {
+			"checkArguments": {
+				"type": "boolean",
+				"description": "Whether to check `null` used as a direct function call or constructor argument."
+			},
 			"checkStrictEquality": {
 				"type": "boolean",
 				"description": "Whether to check strict equality comparisons against `null`."
@@ -47,52 +51,52 @@ No upstream default options are exposed in the rule metadata.
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                               |
-| ---------------- | ----------------------------------- |
-| Default scenario | `all-options`                       |
-| Default target   | `JavaScript` (`src/example.js`)     |
-| Default severity | 🧭 `off`                            |
-| Default value    | `[0,{"checkStrictEquality":false}]` |
+| Field            | Value                                                     |
+| ---------------- | --------------------------------------------------------- |
+| Default scenario | `all-options`                                             |
+| Default target   | `JavaScript` (`src/example.js`)                           |
+| Default severity | 🧭 `off`                                                  |
+| Default value    | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
 
 ### Effective Result by File Type
 
-| Scenario                         | Target       | File path                 | Effective severity | Effective value                     |
-| -------------------------------- | ------------ | ------------------------- | ------------------ | ----------------------------------- |
-| `unicorn`                        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `all-options`                    | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `all-options`                    | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
-| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkStrictEquality":false}]` |
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                                           |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------------------------------------------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"checkArguments":true,"checkStrictEquality":false}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
@@ -106,8 +110,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | `typescript-with-unicorn`        | 🧭 `off`   | `"off"`   | `11`         |
 | `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
 | `typescript-strict-with-unicorn` | 🧭 `off`   | `"off"`   | `11`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
-| `all-options`                    | 🧭 `off`   | `"off"`   | `76`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
+| `all-options`                    | 🧭 `off`   | `"off"`   | `75`         |
 
 ## Examples
 

@@ -34,6 +34,32 @@ The rule exposes the following ESLint option schema:
 			"requireCatchParameter": {
 				"type": "boolean",
 				"description": "Requires the catch blocks to always have the caught error parameter so it is not discarded."
+			},
+			"errorClassNames": {
+				"type": "array",
+				"description": "Additional error class names to check for cause preservation.",
+				"items": {
+					"oneOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "object",
+							"required": ["name", "argumentPosition"],
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"argumentPosition": {
+									"type": "integer",
+									"minimum": 1
+								}
+							},
+							"additionalProperties": false
+						}
+					]
+				},
+				"uniqueItems": true
 			}
 		},
 		"additionalProperties": false
@@ -47,38 +73,38 @@ No upstream default options are exposed in the rule metadata.
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                                 |
-| ---------------- | ------------------------------------- |
-| Default scenario | `all-options`                         |
-| Default target   | `JavaScript` (`src/example.js`)       |
-| Default severity | 🚨 `error`                            |
-| Default value    | `[2,{"requireCatchParameter":false}]` |
+| Field            | Value                                                      |
+| ---------------- | ---------------------------------------------------------- |
+| Default scenario | `all-options`                                              |
+| Default target   | `JavaScript` (`src/example.js`)                            |
+| Default severity | 🚨 `error`                                                 |
+| Default value    | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
 
 ### Effective Result by File Type
 
-| Scenario                | Target       | File path                 | Effective severity | Effective value                       |
-| ----------------------- | ------------ | ------------------------- | ------------------ | ------------------------------------- |
-| `javascript`            | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript`            | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript`            | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript`            | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript`            | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript`            | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript`            | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `all-options`           | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `all-options`           | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `all-options`           | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `all-options`           | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `all-options`           | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `all-options`           | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
-| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"requireCatchParameter":false}]` |
+| Scenario                | Target       | File path                 | Effective severity | Effective value                                            |
+| ----------------------- | ------------ | ------------------------- | ------------------ | ---------------------------------------------------------- |
+| `javascript`            | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript`            | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript`            | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript`            | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript`            | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript`            | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript`            | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `all-options`           | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `all-options`           | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `all-options`           | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `all-options`           | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `all-options`           | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"requireCatchParameter":false,"errorClassNames":[]}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 

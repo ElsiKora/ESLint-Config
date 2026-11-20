@@ -71,7 +71,7 @@ The rule exposes the following ESLint option schema:
 				"type": "string"
 			},
 			"contexts": {
-				"description": "Set this to an array of strings representing the AST context (or an object with\noptional `context` and `comment` properties) where you wish the rule to be applied.\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`, `FunctionDeclaration`,\n`FunctionExpression`). May be useful for adding such as\n`TSMethodSignature` in TypeScript or restricting the contexts\nwhich are checked.\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"description": "Set this to an array of strings representing the AST context (or an object with\noptional `context` and `comment` properties) where you wish the rule to be applied.\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`, `FunctionDeclaration`,\n`FunctionExpression`). May be useful for adding such as\n`TSMethodSignature` in TypeScript or restricting the contexts\nwhich are checked.\n\nSee the [\"AST and Selectors\"](../advanced.md#ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
 				"items": {
 					"anyOf": [
 						{
@@ -129,6 +129,10 @@ The rule exposes the following ESLint option schema:
 			},
 			"useDefaultObjectProperties": {
 				"description": "Set to `true` if you wish to expect documentation of properties on objects\nsupplied as default values. Defaults to `false`.",
+				"type": "boolean"
+			},
+			"useObjectTypeForDestructuredRoots": {
+				"description": "Set to `true` to have the fixer document a destructured parameter which has no\ntags at all with a single root tag whose type lists the properties, e.g.,\n`@param {{bar: any}} root0` (`*` instead of `any` outside of `typescript` mode),\ninstead of `@param root0` and `@param root0.bar`. Only applies to patterns\nwithout nested patterns or rest elements; others are fixed as before.\nDefaults to `false`.",
 				"type": "boolean"
 			}
 		},

@@ -2590,7 +2590,7 @@ ${PRESET_NOTES[entry.ruleId] ? `<Callout type="info">${PRESET_NOTES[entry.ruleId
 | Default scenario | \`${defaultOccurrence.scenarioId}\` |
 | Default target | ${formatDefaultTarget(defaultOccurrence)} |
 | Default severity | ${formatSeverityBadge(getRuleSeverity(defaultOccurrence.value))} |
-| Default value | \`${escapeTableCell(JSON.stringify(defaultOccurrence.value))}\` |
+| Default value | ${formatRuleValueCode(defaultOccurrence.value)} |
 
 ### Effective Result by File Type
 
@@ -2653,7 +2653,7 @@ ${JSON.stringify(entry.metadata.defaultOptions, null, "\t")}
 }
 
 function createConfiguredValuesTable(entry) {
-	const rows = [...getUniqueOccurrences(entry.occurrences)].map((occurrence) => `| \`${occurrence.scenarioId}\` | ${formatSeverityBadge(getRuleSeverity(occurrence.value))} | \`${escapeTableCell(JSON.stringify(occurrence.value))}\` | \`${occurrence.configIndex}\` |`).join("\n");
+	const rows = [...getUniqueOccurrences(entry.occurrences)].map((occurrence) => `| \`${occurrence.scenarioId}\` | ${formatSeverityBadge(getRuleSeverity(occurrence.value))} | ${formatRuleValueCode(occurrence.value)} | \`${occurrence.configIndex}\` |`).join("\n");
 
 	return `| Scenario | Severity | Value | Config block |
 | --- | --- | --- | --- |
@@ -2665,7 +2665,7 @@ function createEffectiveValuesTable(entry) {
 		return "This rule is configured but was not present in the representative effective configs sampled for these docs.";
 	}
 
-	const rows = [...getUniqueEffectiveOccurrences(entry.effectiveOccurrences)].map((occurrence) => `| \`${occurrence.scenarioId}\` | \`${occurrence.targetId}\` | \`${occurrence.filePath}\` | ${formatSeverityBadge(getRuleSeverity(occurrence.value))} | \`${escapeTableCell(JSON.stringify(occurrence.value))}\` |`).join("\n");
+	const rows = [...getUniqueEffectiveOccurrences(entry.effectiveOccurrences)].map((occurrence) => `| \`${occurrence.scenarioId}\` | \`${occurrence.targetId}\` | \`${occurrence.filePath}\` | ${formatSeverityBadge(getRuleSeverity(occurrence.value))} | ${formatRuleValueCode(occurrence.value)} |`).join("\n");
 
 	return `| Scenario | Target | File path | Effective severity | Effective value |
 | --- | --- | --- | --- | --- |
@@ -2978,6 +2978,13 @@ function escapeMdxAttribute(value) {
 
 function escapeTableCell(value) {
 	return String(value).replaceAll("|", "\\|");
+}
+
+// Renders a rule value as one inline code span: regular expressions keep their source, and a longer fence keeps backticks inside the span.
+function formatRuleValueCode(value) {
+	const json = escapeTableCell(JSON.stringify(value, (_key, item) => (item instanceof RegExp ? String(item) : item)));
+
+	return json.includes("`") ? `\`\` ${json} \`\`` : `\`${json}\``;
 }
 
 function formatTitle(value) {

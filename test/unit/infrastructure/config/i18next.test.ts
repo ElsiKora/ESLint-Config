@@ -80,6 +80,9 @@ describe("I18nextConfig", () => {
 					exclude: ["className", "styleName", "style", "type", "key", "id", "width", "height", "href", "src", "data-.*"],
 				},
 				mode: "jsx-only",
+				words: {
+					exclude: ["[0-9!-/:-@[-`{-~]+", "[A-Z_-]+", expect.any(RegExp), expect.any(RegExp), "[a-z/#.]\\S*"],
+				},
 			},
 		]);
 	});

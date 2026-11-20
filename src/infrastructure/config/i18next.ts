@@ -3,7 +3,11 @@ import type { Linter } from "eslint";
 
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import i18nextPlugin from "eslint-plugin-i18next";
+// @ts-ignore
+import i18nextDefaults from "eslint-plugin-i18next/lib/options/defaults.js";
 import tseslint from "typescript-eslint";
+
+const i18nextDefaultWords: Array<RegExp | string> = (i18nextDefaults as { words: { exclude: Array<RegExp | string> } }).words.exclude;
 
 // The plugin merges options shallowly, so each list below repeats the plugin's defaults before adding to them.
 const NO_LITERAL_STRING_OPTIONS: Record<string, unknown> = {
@@ -16,6 +20,10 @@ const NO_LITERAL_STRING_OPTIONS: Record<string, unknown> = {
 		exclude: ["className", "styleName", "style", "type", "key", "id", "width", "height", "href", "src", "data-.*"],
 	},
 	mode: "jsx-only",
+	words: {
+		// One token without spaces that starts lowercase or with `/`, `#` or `.` is an identifier, a kebab-case token, a path, an anchor or a URL (`https:`, `mailto:`), not copy.
+		exclude: [...i18nextDefaultWords, String.raw`[a-z/#.]\S*`],
+	},
 };
 
 // Literal text in tests and stories renders fixtures, not product copy.

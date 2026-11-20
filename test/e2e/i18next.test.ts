@@ -73,6 +73,41 @@ describe("i18next Configuration", () => {
 		});
 	});
 
+	describe("Technical tokens", () => {
+		it.each([
+			["an identifier prop", `<Button variant="outlined">{t("save")}</Button>`],
+			["a route path", `<Link to="/users/$id">{t("users")}</Link>`],
+			["a field name", `<TextField name="email" />`],
+			["a URL", `<Link href="https://x.test">{t("docs")}</Link>`],
+			["an event name in a handler", `<Button onClick={() => track("submit")}>{t("save")}</Button>`],
+			["an HTML entity, kept from the plugin defaults", `<span>©</span>`],
+			["an emoji, kept from the plugin defaults", `<span>👍</span>`],
+		])("should not report %s", async (_name: string, element: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn ${element};\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages).toEqual([]);
+		});
+
+		it.each([
+			["a placeholder", `<TextField placeholder="Email address" />`, "Email address"],
+			["a title", `<IconButton title="Delete" />`, "Delete"],
+			["button text", `<Button>Cancel</Button>`, "Cancel"],
+			["JSX nested in a fallback", `<Suspense fallback={<div>Loading</div>}><Outlet /></Suspense>`, "Loading"],
+		])("should still report %s", async (_name: string, element: string, text: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn ${element};\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages.filter((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string")).map((msg) => msg.message)).toEqual([expect.stringContaining(text)]);
+		});
+	});
+
 	describe("Technical strings in JSX expressions", () => {
 		it.each([
 			["a date format pattern", `<time>{format(date, "dd.MM.yyyy")}</time>`],

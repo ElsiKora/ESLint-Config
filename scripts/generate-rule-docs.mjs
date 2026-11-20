@@ -1333,6 +1333,9 @@ function createTypeScriptExamplePair(entry) {
 		case "no-floating-promises":
 			return createExamplePairFromCode("ts", "async function save(): Promise<void> {\n\tsaveUser(user);\n}\n\nexport { save };", "async function save(): Promise<void> {\n\tawait saveUser(user);\n}\n\nexport { save };");
 
+		case "no-generated-empty-object-type":
+			return createExamplePairFromCode("ts", 'interface Credentials {\n\tpassword: string;\n}\n\ntype PublicCredentials = Omit<Credentials, "password">;\n\nexport type { PublicCredentials };', 'interface Credentials {\n\tpassword: string;\n\tusername: string;\n}\n\ntype PublicCredentials = Omit<Credentials, "password">;\n\nexport type { PublicCredentials };');
+
 		case "no-misused-promises":
 			return createExamplePairFromCode("ts", "users.forEach(async (user) => {\n\tawait saveUser(user);\n});", "await Promise.all(users.map((user) => saveUser(user)));");
 
@@ -1435,8 +1438,14 @@ function createTypeScriptUnsafeExamplePair(ruleName) {
 		case "no-unsafe-call":
 			return createExamplePairFromCode("ts", "const handler = JSON.parse(payload);\nhandler();", "const handler = parseHandler(payload);\nhandler();");
 
+		case "no-unsafe-class-instance-assignment":
+			return createExamplePairFromCode("ts", "class Money {\n\tconstructor(public readonly amount: number) {}\n}\n\nconst price: Money = { amount: 10 };\nexport { price };", "class Money {\n\tconstructor(public readonly amount: number) {}\n}\n\nconst price: Money = new Money(10);\nexport { price };");
+
 		case "no-unsafe-declaration-merging":
 			return createExamplePairFromCode("ts", "interface User {}\nclass User {}\n\nexport { User };", "interface UserShape {}\nclass UserModel {}\n\nexport { UserModel };\nexport type { UserShape };");
+
+		case "no-unsafe-enum-assignment":
+			return createExamplePairFromCode("ts", "enum Priority {\n\tLow = 0,\n\tHigh = 1,\n}\n\nconst priority: Priority = 1;\nexport { priority };", "enum Priority {\n\tLow = 0,\n\tHigh = 1,\n}\n\nconst priority: Priority = Priority.High;\nexport { priority };");
 
 		case "no-unsafe-enum-comparison":
 			return createExamplePairFromCode("ts", 'enum Status {\n\tReady = "ready",\n}\n\nconst isReady = status === "ready";\nexport { isReady };', 'enum Status {\n\tReady = "ready",\n}\n\nconst isReady = status === Status.Ready;\nexport { isReady };');

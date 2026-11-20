@@ -1,1 +1,1 @@
-export { BlogPostPage as default } from "@/_pages/blog-post";
+export { BlogPostPage as default } from "@/pages/blog-post";

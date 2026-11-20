@@ -6,7 +6,7 @@ import checkFile from "eslint-plugin-check-file";
 
 const CAMEL_CASE: string = "+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))";
 const KEBAB_CASE: string = "+([a-z])*([a-z0-9])*(-+([a-z0-9]))";
-// A kebab-case folder, optionally wrapped in Feature-Sliced Design or file-based router syntax: `_pages`, `@x` (FSD),
+// A kebab-case folder, optionally wrapped in Feature-Sliced Design or file-based router syntax: `@x` (FSD),
 // `[id]`, `[...slug]`, `[[...slug]]`, `(group)`, `@slot`, `_private` (Next.js), `$param`, `_pathless` (TanStack Router).
 const SOURCE_FOLDER_CASE: string = String.raw`@(${KEBAB_CASE}|\_${KEBAB_CASE}|\@${CAMEL_CASE}|\(${KEBAB_CASE}\)|\[${CAMEL_CASE}\]|\[...${CAMEL_CASE}\]|\[\[...${CAMEL_CASE}\]\]|\$${CAMEL_CASE})`;
 

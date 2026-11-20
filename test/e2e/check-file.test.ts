@@ -18,8 +18,8 @@ describe("Check File Configuration", () => {
 		it.each([
 			["kebab-case slices and segments", "src/features/auth-by-email/ui/form.js"],
 			["FSD cross-import notation", "src/entities/song/@x/artist.js"],
-			["FSD Next.js layer names", "src/_pages/blog-post/index.js"],
-			["FSD Next.js app layer name", "src/_app/providers/index.js"],
+			["underscore-prefixed _pages folders", "src/_pages/blog-post/index.js"],
+			["underscore-prefixed _app folders", "src/_app/providers/index.js"],
 			["Next.js dynamic segment", "src/app/blog/[slug]/page.js"],
 			["Next.js catch-all segment", "src/app/docs/[...path]/page.js"],
 			["Next.js optional catch-all segment", "src/app/shop/[[...filters]]/page.js"],

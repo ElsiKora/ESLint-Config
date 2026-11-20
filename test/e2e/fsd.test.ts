@@ -141,10 +141,13 @@ describe("FSD (Feature-Sliced Design) Configuration", () => {
 			expect(getRuleIds(result)).toContain(formatRuleName("fsd/no-public-api-sidestep"));
 		});
 
-		it("should protect the public API of pages slices", async () => {
-			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, VITE_FIXTURE_ROOT);
+		it.each([
+			["Vite-style", VITE_FIXTURE_ROOT, "src/app/routes/editor-route.jsx", "@/pages/editor/ui/editor-page"],
+			["Next.js-style", NEXT_FIXTURE_ROOT, "src/app/layouts/about-layout.jsx", "@/pages/about/ui/about-page"],
+		])("should protect the public API of pages slices in the %s tree", async (_name: string, cwd: string, filePath: string, importPath: string) => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, cwd);
 
-			const [result] = await eslint.lintText(`import { EditorPage } from "@/pages/editor/ui/editor-page";\nexport const route = EditorPage;\n`, { filePath: `${VITE_FIXTURE_ROOT}/src/app/routes/editor-route.jsx` });
+			const [result] = await eslint.lintText(`import * as page from "${importPath}";\nexport const route = page;\n`, { filePath: `${cwd}/${filePath}` });
 
 			expect(getRuleIds(result)).toContain(formatRuleName("fsd/no-public-api-sidestep"));
 		});

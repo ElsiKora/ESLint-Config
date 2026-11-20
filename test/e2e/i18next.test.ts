@@ -30,4 +30,32 @@ describe("i18next Configuration", () => {
 			});
 		});
 	});
+
+	describe("Translatable JSX attributes", () => {
+		it.each([
+			["placeholder", `<input placeholder="Enter your name" />`],
+			["alt", `<img alt="Company logo" src="/logo.png" />`],
+			["title", `<abbr title="World Health Organization">WHO</abbr>`],
+			["aria-label", `<button aria-label="Close dialog" type="button" />`],
+			["placeholder on a component", `<TextField placeholder="Enter your name" />`],
+		])("should report an untranslated %s attribute", async (_name: string, element: string) => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn ${element};\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages.some((msg) => msg.ruleId === formatRuleName("i18next/no-literal-string"))).toBe(true);
+		});
+
+		it("should not report technical attributes", async () => {
+			const eslint: ESLint = await createEsLintInstance({
+				withI18next: true,
+			});
+
+			const [result] = await eslint.lintText(`export function Form() {\n\treturn <TextField autoComplete="email" className="field" data-testid="email-field" href="/login" name="email" placeholder={t("email.placeholder")} type="email" variant="outlined" />;\n}\n`, { filePath: "src/shared/ui/form.jsx" });
+
+			expect(result?.messages).toEqual([]);
+		});
+	});
 });

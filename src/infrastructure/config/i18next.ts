@@ -5,6 +5,14 @@ import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import i18nextPlugin from "eslint-plugin-i18next";
 import tseslint from "typescript-eslint";
 
+// JSX text and the attributes that browsers show or announce to users must be translated; other attributes hold technical values.
+const NO_LITERAL_STRING_OPTIONS: Record<string, unknown> = {
+	"jsx-attributes": {
+		include: ["alt", "aria-label", "placeholder", "title"],
+	},
+	mode: "jsx-only",
+};
+
 /**
  * Loads the ESLint configuration for i18next internationalization
  * @returns {Array<Linter.Config>} An array of ESLint configurations for i18next
@@ -24,7 +32,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				[formatPluginName("i18next")]: i18nextPlugin,
 			},
 			rules: {
-				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-text-only" }],
+				[formatRuleName("i18next/no-literal-string")]: ["error", NO_LITERAL_STRING_OPTIONS],
 			},
 		},
 		{
@@ -41,7 +49,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				[formatPluginName("i18next")]: i18nextPlugin,
 			},
 			rules: {
-				[formatRuleName("i18next/no-literal-string")]: ["error", { mode: "jsx-text-only" }],
+				[formatRuleName("i18next/no-literal-string")]: ["error", NO_LITERAL_STRING_OPTIONS],
 			},
 		},
 	];

@@ -4,6 +4,12 @@ import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 // @ts-ignore
 import checkFile from "eslint-plugin-check-file";
 
+const CAMEL_CASE: string = "+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))";
+const KEBAB_CASE: string = "+([a-z])*([a-z0-9])*(-+([a-z0-9]))";
+// A kebab-case folder, optionally wrapped in Feature-Sliced Design or file-based router syntax: `_pages`, `@x` (FSD),
+// `[id]`, `[...slug]`, `[[...slug]]`, `(group)`, `@slot`, `_private` (Next.js), `$param`, `_pathless` (TanStack Router).
+const SOURCE_FOLDER_CASE: string = String.raw`@(${KEBAB_CASE}|\_${KEBAB_CASE}|\@${CAMEL_CASE}|\(${KEBAB_CASE}\)|\[${CAMEL_CASE}\]|\[...${CAMEL_CASE}\]|\[\[...${CAMEL_CASE}\]\]|\$${CAMEL_CASE})`;
+
 /**
  * Loads the ESLint configuration for file checking rules
  * @returns {Array<Linter.Config>} An array of ESLint configurations for file checking
@@ -72,9 +78,12 @@ export default function loadConfig(): Array<Linter.Config> {
 				[formatRuleName("check-file/folder-naming-convention")]: [
 					"error",
 					{
-						"src/**": "KEBAB_CASE",
+						"src/**": SOURCE_FOLDER_CASE,
 					},
-				], // Require all files and folders under the `src` directory to use flat case naming (e.g., `my_directory`), promoting consistency in file system organization.
+					{
+						errorMessage: 'The folder "{{ target }}" does not match the kebab-case pattern (FSD and router syntax such as `_name`, `@x`, `(group)`, `[param]` and `$param` is allowed around the name)',
+					},
+				], // Require all folders under the `src` directory to use kebab-case naming (e.g., `my-directory`), allowing Feature-Sliced Design and file-based router syntax around the name.
 			},
 		},
 	] as Array<Linter.Config>;

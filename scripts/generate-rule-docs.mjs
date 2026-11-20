@@ -77,6 +77,11 @@ const SCENARIOS = [
 const DOCS_ROOT = path.resolve("docs");
 const RULES_ROOT = path.join(DOCS_ROOT, "rules");
 
+// Preset behavior that depends on another option and that the scenario tables alone do not explain.
+const PRESET_NOTES = {
+	"@elsikora/fsd/1/ordered-imports": "With `withFsd` alone this rule is on for every file. With `withPerfectionist` as well, `perfectionist/sort-imports` orders FSD layers in `.js`, `.jsx`, `.ts` and `.tsx` files and this rule is off there; it stays on for `.mjs`, `.cjs`, `.mts` and `.cts` files.",
+};
+
 const EFFECTIVE_CONFIG_TARGETS = [
 	createEffectiveConfigTarget("JavaScript", "src/example.js"),
 	createEffectiveConfigTarget("JSX", "src/example.jsx"),
@@ -2580,7 +2585,7 @@ ${createOptionsSection(entry)}
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field | Value |
+${PRESET_NOTES[entry.ruleId] ? `<Callout type="info">${PRESET_NOTES[entry.ruleId]}</Callout>\n\n` : ""}| Field | Value |
 | --- | --- |
 | Default scenario | \`${defaultOccurrence.scenarioId}\` |
 | Default target | ${formatDefaultTarget(defaultOccurrence)} |

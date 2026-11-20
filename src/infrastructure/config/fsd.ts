@@ -19,6 +19,18 @@ const ALL_FILES_OPTIONS: { testFilesPatterns: Array<string> } = { testFilesPatte
  * @returns {Array<Linter.Config>} An array of ESLint configurations for FSD
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
+	// perfectionist/sort-imports orders FSD layers in the files it covers; other extensions keep fsd/ordered-imports.
+	const importOrderingConfigs: Array<Linter.Config> = config.withPerfectionist
+		? [
+				{
+					files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+					rules: {
+						[formatRuleName("fsd/ordered-imports")]: "off",
+					},
+				},
+			]
+		: [];
+
 	return [
 		{
 			plugins: {
@@ -43,9 +55,10 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 					},
 				],
 				[formatRuleName("fsd/no-relative-imports")]: ["error", ALL_FILES_OPTIONS],
-				[formatRuleName("fsd/ordered-imports")]: config.withPerfectionist ? "off" : "error", // perfectionist/sort-imports orders FSD layers when it is enabled.
+				[formatRuleName("fsd/ordered-imports")]: "error",
 			},
 		},
+		...importOrderingConfigs,
 		{
 			files: ["**/*.ts", "**/*.tsx"],
 			languageOptions: {

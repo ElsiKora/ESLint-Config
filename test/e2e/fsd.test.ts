@@ -171,6 +171,25 @@ describe("FSD (Feature-Sliced Design) Configuration", () => {
 			expect(getRuleIds(result)).toEqual([formatRuleName("perfectionist/sort-imports")]);
 		});
 
+		it("should keep npm packages named like a layer in the external group", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true, withPerfectionist: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(`import { decode } from "entities";\nimport { Header } from "@/widgets/header";\nexport const value = [decode, Header];\n`, { filePath: `${VITE_FIXTURE_ROOT}/src/pages/editor/ui/editor-toolbar.jsx` });
+
+			expect(getRuleIds(result)).toEqual([]);
+		});
+
+		it("should keep fsd/ordered-imports for extensions perfectionist does not sort", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true, withPerfectionist: true }, undefined, VITE_FIXTURE_ROOT);
+			const imports: string = `import { UserCard } from "@/entities/user";\nimport { Header } from "@/widgets/header";\nexport const value = [Header, UserCard];\n`;
+
+			const [moduleResult] = await eslint.lintText(imports, { filePath: `${VITE_FIXTURE_ROOT}/src/pages/editor/ui/editor-toolbar.mjs` });
+			const [scriptResult] = await eslint.lintText(imports, { filePath: `${VITE_FIXTURE_ROOT}/src/pages/editor/ui/editor-toolbar.jsx` });
+
+			expect(getRuleIds(moduleResult)).toContain(formatRuleName("fsd/ordered-imports"));
+			expect(getRuleIds(scriptResult)).not.toContain(formatRuleName("fsd/ordered-imports"));
+		});
+
 		it.each([
 			["the app layer importing its own store segment", "src/app/providers/query-provider.jsx", `import { rootStore } from "@/app/store";\n`],
 			["the app layer importing a store module relatively", "src/app/providers/query-provider.jsx", `import { rootStore } from "../store/root-store";\n`],

@@ -118,6 +118,8 @@ No upstream default options are exposed in the rule metadata.
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
+<Callout type="info">With `withFsd` alone this rule is on for every file. With `withPerfectionist` as well, `perfectionist/sort-imports` orders FSD layers in `.js`, `.jsx`, `.ts` and `.tsx` files and this rule is off there; it stays on for `.mjs`, `.cjs`, `.mts` and `.cts` files.</Callout>
+
 | Field            | Value                           |
 | ---------------- | ------------------------------- |
 | Default scenario | `all-options`                   |
@@ -150,19 +152,21 @@ The default shown here is the first effective result produced by ESLint's own co
 | `all-options`            | `Next pages`   | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
 | `all-options`            | `Next app`     | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
 | `all-options`            | `Storybook`    | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
-| `all-options`            | `Package JSON` | `package.json`            | 🧭 `off`           | `[0]`           |
-| `all-options`            | `JSON`         | `config.json`             | 🧭 `off`           | `[0]`           |
-| `all-options`            | `YAML`         | `config.yaml`             | 🧭 `off`           | `[0]`           |
-| `all-options`            | `Markdown`     | `README.md`               | 🧭 `off`           | `[0]`           |
-| `all-options`            | `CSS`          | `src/styles.css`          | 🧭 `off`           | `[0]`           |
+| `all-options`            | `Package JSON` | `package.json`            | 🚨 `error`         | `[2]`           |
+| `all-options`            | `JSON`         | `config.json`             | 🚨 `error`         | `[2]`           |
+| `all-options`            | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2]`           |
+| `all-options`            | `Markdown`     | `README.md`               | 🚨 `error`         | `[2]`           |
+| `all-options`            | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2]`           |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
 | Scenario                 | Severity   | Value     | Config block |
 | ------------------------ | ---------- | --------- | ------------ |
 | `fsd`                    | 🚨 `error` | `"error"` | `0`          |
-| `perfectionist-with-fsd` | 🧭 `off`   | `"off"`   | `0`          |
-| `all-options`            | 🧭 `off`   | `"off"`   | `3`          |
+| `perfectionist-with-fsd` | 🚨 `error` | `"error"` | `0`          |
+| `perfectionist-with-fsd` | 🧭 `off`   | `"off"`   | `1`          |
+| `all-options`            | 🚨 `error` | `"error"` | `4`          |
+| `all-options`            | 🧭 `off`   | `"off"`   | `5`          |
 
 ## Examples
 

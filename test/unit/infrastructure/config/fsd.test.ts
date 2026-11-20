@@ -125,7 +125,8 @@ describe("FsdConfig", () => {
 
 		const configs: Array<Linter.Config> = loadConfig({ withPerfectionist: true });
 
-		expect(configs[0].rules).toHaveProperty("@elsikora/fsd/1/ordered-imports", "off");
+		expect(configs[0].rules).toHaveProperty("@elsikora/fsd/1/ordered-imports", "error");
+		expect(configs[1]).toEqual({ files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"], rules: { "@elsikora/fsd/1/ordered-imports": "off" } });
 	});
 
 	it("should include specific file patterns for different configs", async () => {

@@ -44,7 +44,7 @@ describe("I18nextConfig", () => {
 		const configs: Array<Linter.Config> = loadConfig({});
 
 		expect(Array.isArray(configs)).toBe(true);
-		expect(configs.length).toBe(2);
+		expect(configs.length).toBe(3);
 	});
 
 	it("should configure the i18next plugin", async () => {
@@ -73,12 +73,24 @@ describe("I18nextConfig", () => {
 		expect(firstConfig.rules).toHaveProperty("@elsikora/i18next/no-literal-string", [
 			"error",
 			{
+				callees: {
+					exclude: ["i18n(ext)?", "t", "require", "addEventListener", "removeEventListener", "postMessage", "getElementById", "dispatch", "commit", "includes", "indexOf", "endsWith", "startsWith", "format", "Intl\\..+", "toLocale(Date|Time)?String"],
+				},
 				"jsx-attributes": {
-					include: ["alt", "aria-label", "placeholder", "title"],
+					exclude: ["className", "styleName", "style", "type", "key", "id", "width", "height", "href", "src", "data-.*"],
 				},
 				mode: "jsx-only",
 			},
 		]);
+	});
+
+	it("should turn no-literal-string off for tests and stories", async () => {
+		const module = await import("@infrastructure/config/i18next.ts");
+		const loadConfig = module.default;
+
+		const configs: Array<Linter.Config> = loadConfig({});
+
+		expect(configs[2]).toEqual({ files: ["**/*.test.*", "**/*.spec.*", "**/*.stories.*", "**/__tests__/**"], rules: { "@elsikora/i18next/no-literal-string": "off" } });
 	});
 
 	it("should include specific file patterns for different configs", async () => {

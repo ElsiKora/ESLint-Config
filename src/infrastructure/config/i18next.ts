@@ -5,13 +5,21 @@ import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 import i18nextPlugin from "eslint-plugin-i18next";
 import tseslint from "typescript-eslint";
 
-// JSX text and the attributes that browsers show or announce to users must be translated; other attributes hold technical values.
+// The plugin merges options shallowly, so each list below repeats the plugin's defaults before adding to them.
 const NO_LITERAL_STRING_OPTIONS: Record<string, unknown> = {
+	callees: {
+		// Format strings, locales and other arguments of formatting calls are technical values.
+		exclude: ["i18n(ext)?", "t", "require", "addEventListener", "removeEventListener", "postMessage", "getElementById", "dispatch", "commit", "includes", "indexOf", "endsWith", "startsWith", "format", String.raw`Intl\..+`, "toLocale(Date|Time)?String"],
+	},
 	"jsx-attributes": {
-		include: ["alt", "aria-label", "placeholder", "title"],
+		// Attributes that hold technical values. Every other attribute, including JSX nested inside it, is checked.
+		exclude: ["className", "styleName", "style", "type", "key", "id", "width", "height", "href", "src", "data-.*"],
 	},
 	mode: "jsx-only",
 };
+
+// Literal text in tests and stories renders fixtures, not product copy.
+const TEST_FILES: Array<string> = ["**/*.test.*", "**/*.spec.*", "**/*.stories.*", "**/__tests__/**"];
 
 /**
  * Loads the ESLint configuration for i18next internationalization
@@ -50,6 +58,12 @@ export default function loadConfig(): Array<Linter.Config> {
 			},
 			rules: {
 				[formatRuleName("i18next/no-literal-string")]: ["error", NO_LITERAL_STRING_OPTIONS],
+			},
+		},
+		{
+			files: TEST_FILES,
+			rules: {
+				[formatRuleName("i18next/no-literal-string")]: "off",
 			},
 		},
 	];

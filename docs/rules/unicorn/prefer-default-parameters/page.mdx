@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## Rule Overview
 
-Prefer default parameters over reassignment.
+Prefer default parameters and destructuring defaults over reassignment and fallback expressions.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 
@@ -24,58 +24,75 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 
 ## All Supported Options
 
-This rule does not expose configurable options through its ESLint metadata schema.
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"checkFallbackExpressions": {
+				"type": "boolean",
+				"description": "Check fallback reads in parameters and destructured variables."
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
 
 ## ElsiKora Default Setting
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                           |
-| ---------------- | ------------------------------- |
-| Default scenario | `all-options`                   |
-| Default target   | `JavaScript` (`src/example.js`) |
-| Default severity | 🚨 `error`                      |
-| Default value    | `[2]`                           |
+| Field            | Value                                   |
+| ---------------- | --------------------------------------- |
+| Default scenario | `all-options`                           |
+| Default target   | `JavaScript` (`src/example.js`)         |
+| Default severity | 🚨 `error`                              |
+| Default value    | `[2,{"checkFallbackExpressions":true}]` |
 
 ### Effective Result by File Type
 
-| Scenario                         | Target       | File path                 | Effective severity | Effective value |
-| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
-| `unicorn`                        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `all-options`                    | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `all-options`                    | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                         |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------------------------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkFallbackExpressions":true}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
@@ -85,7 +102,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | `node-with-unicorn`              | 🚨 `error` | `"error"` | `2`          |
 | `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `10`         |
 | `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
 
 ## Examples
 

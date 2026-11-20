@@ -1,0 +1,11 @@
+{
+	"name": "sonar-dependency-fixture",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"cypress": "^15.0.0",
+		"lodash": "^4.17.21",
+		"vue": "^3.5.0",
+		"vue-class-component": "^7.2.6"
+	}
+}

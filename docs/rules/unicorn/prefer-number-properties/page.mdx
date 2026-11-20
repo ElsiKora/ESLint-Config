@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## Rule Overview
 
-Prefer `Number` static properties over global ones.
+Prefer `Number` static methods over global functions and optionally static properties over global constants.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 
@@ -51,52 +51,52 @@ No upstream default options are exposed in the rule metadata.
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                                         |
-| ---------------- | --------------------------------------------- |
-| Default scenario | `all-options`                                 |
-| Default target   | `JavaScript` (`src/example.js`)               |
-| Default severity | 🚨 `error`                                    |
-| Default value    | `[2,{"checkInfinity":false,"checkNaN":true}]` |
+| Field            | Value                                          |
+| ---------------- | ---------------------------------------------- |
+| Default scenario | `all-options`                                  |
+| Default target   | `JavaScript` (`src/example.js`)                |
+| Default severity | 🚨 `error`                                     |
+| Default value    | `[2,{"checkInfinity":false,"checkNaN":false}]` |
 
 ### Effective Result by File Type
 
-| Scenario                         | Target       | File path                 | Effective severity | Effective value                               |
-| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------------------------------------- |
-| `unicorn`                        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `all-options`                    | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `all-options`                    | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
-| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":true}]` |
+| Scenario                         | Target       | File path                 | Effective severity | Effective value                                |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ---------------------------------------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkInfinity":false,"checkNaN":false}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
@@ -106,7 +106,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | `node-with-unicorn`              | 🚨 `error` | `"error"` | `2`          |
 | `typescript-with-unicorn`        | 🚨 `error` | `"error"` | `10`         |
 | `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
 
 ## Examples
 

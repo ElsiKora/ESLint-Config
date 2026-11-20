@@ -1,0 +1,133 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/unicorn/iteration-fallback-style`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Enforce a consistent style for optional loop sources.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ✅ Yes       |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `false`      |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"enum": ["guard", "fallback"],
+		"description": "The preferred style for optional loop sources."
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0,"guard"]`                   |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"guard"]`   |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"guard"]`   |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"guard"]`   |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"guard"]`   |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"guard"]`   |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"guard"]`   |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"guard"]`   |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"guard"]`   |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"guard"]`   |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,"guard"]`   |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,"guard"]`   |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,"guard"]`   |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,"guard"]`   |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,"guard"]`   |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity | Value   | Config block |
+| -------------------------------- | -------- | ------- | ------------ |
+| `unicorn`                        | 🧭 `off` | `"off"` | `0`          |
+| `node-with-unicorn`              | 🧭 `off` | `"off"` | `2`          |
+| `typescript-with-unicorn`        | 🧭 `off` | `"off"` | `10`         |
+| `typescript-strict-with-unicorn` | 🧭 `off` | `"off"` | `10`         |
+| `all-options`                    | 🧭 `off` | `"off"` | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/* eslint unicorn/iteration-fallback-style: ['error', 'guard'] */
+
+for (const item of items || []) {
+	use(item);
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/* eslint unicorn/iteration-fallback-style: ['error', 'guard'] */
+
+if (items) {
+	for (const item of items) {
+		use(item);
+	}
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/unicorn/iteration-fallback-style`
+- **Documentation route:** `/docs/eslint-config/rules/unicorn/iteration-fallback-style`

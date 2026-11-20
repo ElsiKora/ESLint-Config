@@ -17,14 +17,31 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 | Property           | Value        |
 | ------------------ | ------------ |
 | Type               | `suggestion` |
-| Fixable            | ❌ No        |
+| Fixable            | ✅ Yes       |
 | Has suggestions    | ❌ No        |
 | Deprecated         | ❌ No        |
 | ESLint recommended | `unknown`    |
 
 ## All Supported Options
 
-This rule does not expose configurable options through its ESLint metadata schema.
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"enableFixer": {
+				"description": "Whether to enable the fixer to replace the Closure Compiler style `{type=}`\nwith `{type} [name]` on `@param` and `@property` tags, and with\n`{type|undefined}` on other tags.\nDefaults to `false`.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
 
 ## ElsiKora Default Setting
 

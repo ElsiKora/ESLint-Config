@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## Rule Overview
 
-Validates that 'useMemo' is called with a callback that returns a value.
+Validates 'useMemo' usage: the result must be used and the callback must take no parameters, not be async or a generator, not reassign outer variables, and return a value.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 

@@ -566,6 +566,11 @@ The rule exposes the following ESLint option schema:
 					}
 				]
 			},
+			"sortByValue": {
+				"description": "Specifies whether to sort enums by value.",
+				"enum": ["always", "ifNumericEnum", "never"],
+				"type": "string"
+			},
 			"useConfigurationIf": {
 				"description": "Specifies filters to match a particular options configuration for a given element to sort.",
 				"properties": {
@@ -630,11 +635,6 @@ The rule exposes the following ESLint option schema:
 				},
 				"additionalProperties": false,
 				"type": "object"
-			},
-			"sortByValue": {
-				"description": "Specifies whether to sort enums by value.",
-				"enum": ["always", "ifNumericEnum", "never"],
-				"type": "string"
 			},
 			"useExperimentalDependencyDetection": {
 				"description": "Enables experimental dependency detection for sorting rules that support it.",

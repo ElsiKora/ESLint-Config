@@ -70,6 +70,9 @@ describe("Unicorn Config", () => {
 		expect(configs[1].rules).toHaveProperty("unicorn/filename-case");
 		expect(configs[1].rules["unicorn/filename-case"]).toBe("off");
 
+		expect(configs[1].rules).toHaveProperty("unicorn/no-asterisk-prefix-in-documentation-comments");
+		expect(configs[1].rules["unicorn/no-asterisk-prefix-in-documentation-comments"]).toBe("off");
+
 		expect(configs[1].rules).toHaveProperty("unicorn/no-null");
 		expect(configs[1].rules["unicorn/no-null"]).toBe("off");
 

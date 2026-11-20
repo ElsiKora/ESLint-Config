@@ -20,7 +20,7 @@ export default function loadConfig(): Array<Linter.Config> {
 				[formatRuleName("@stylistic/comma-spacing")]: "error", // Require a space after commas for improved readability in lists, object literals, etc.
 				[formatRuleName("@stylistic/function-call-spacing")]: "error", // Enforce no space between the function name and the parentheses when calling a function for consistency.
 				[formatRuleName("@stylistic/lines-between-class-members")]: "error", // Require an empty line between class members to improve class readability and organization.
-				[formatRuleName("@stylistic/object-curly-spacing")]: ["error", "always"], // Enforce spacing inside curly braces of objects for better readability.
+				[formatRuleName("@stylistic/list-style")]: ["error", { overrides: { "()": "off", "[]": "off", "<>": "off" }, singleLine: { spacing: "always" } }], // Enforce spacing inside curly braces and consistent line breaks between their items (replaces the deprecated object-curly-spacing).
 				[formatRuleName("@stylistic/padding-line-between-statements")]: [
 					"error",
 					{ blankLine: "always", next: "switch", prev: "*" },

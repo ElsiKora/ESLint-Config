@@ -729,6 +729,9 @@ The rule exposes the following ESLint option schema:
 			"partitionByNewLine": {
 				"description": "Enables the use of newlines to separate the nodes into logical groups.",
 				"type": "boolean"
+			},
+			"ignoreCallableTypes": {
+				"type": "boolean"
 			}
 		},
 		"additionalProperties": false,
@@ -748,6 +751,7 @@ Upstream default options:
 			"type": "unsorted"
 		},
 		"newlinesInside": "newlinesBetween",
+		"ignoreCallableTypes": true,
 		"specialCharacters": "keep",
 		"newlinesBetween": "ignore",
 		"partitionByComment": false,

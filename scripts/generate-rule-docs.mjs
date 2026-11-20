@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -5,6 +6,10 @@ import { ESLint } from "eslint";
 import prettier from "prettier";
 
 import createConfig, { createRuleDocumentationSlug } from "../dist/esm/index.js";
+
+// Rule-specific examples for rules added by plugin upgrades, keyed by the final rule id.
+// The unicorn examples are adapted from eslint-plugin-unicorn's rule documentation (MIT); the others are original.
+const RULE_EXAMPLES = JSON.parse(readFileSync(new URL("rule-examples.json", import.meta.url), "utf8"));
 
 const ALL_CONFIG_OPTIONS = {
 	withCheckFile: true,
@@ -263,6 +268,12 @@ function createExample(entry, mode) {
 }
 
 function createExamplePair(entry) {
+	const listedExample = RULE_EXAMPLES[entry.ruleId];
+
+	if (listedExample) {
+		return createExamplePairFromCode(listedExample.language, listedExample.bad, listedExample.good);
+	}
+
 	const language = getExampleLanguage(entry);
 	const family = entry.segments[0];
 
@@ -3010,10 +3021,9 @@ function formatTitle(value) {
 }
 
 function createMetaFileContent(entries) {
-	const disableComment = hasPasswordLikeMetaEntry(entries) ? "/* eslint-disable @elsikora/sonar/no-hardcoded-passwords */\n" : "";
 	const properties = entries.map(([key, value]) => `\t${formatMetaObjectKey(key)}: ${JSON.stringify(value)},`).join("\n");
 
-	return `${disableComment}export default {\n${properties}\n};\n`;
+	return `export default {\n${properties}\n};\n`;
 }
 
 function formatMetaObjectKey(key) {
@@ -3022,8 +3032,4 @@ function formatMetaObjectKey(key) {
 	}
 
 	return JSON.stringify(key);
-}
-
-function hasPasswordLikeMetaEntry(entries) {
-	return entries.some(([key, value]) => `${key} ${value}`.toLowerCase().includes("password"));
 }

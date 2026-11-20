@@ -15,28 +15,27 @@ vi.mock("@infrastructure/utility/format-rule-name.utility", () => ({
 vi.mock("eslint-plugin-tailwindcss", () => ({
 	default: {
 		configs: {
-			"flat/recommended": [
-				{
-					plugins: {
-						tailwindcss: {
-							rules: {
-								"no-custom-classname": {
-									meta: { fixable: true },
-									create: () => ({}),
-								},
-								"classnames-order": {
-									meta: { fixable: true },
-									create: () => ({}),
-								},
+			// Since eslint-plugin-tailwindcss 4 the recommended preset is a single flat config object.
+			recommended: {
+				plugins: {
+					tailwindcss: {
+						rules: {
+							"no-custom-classname": {
+								meta: { fixable: true },
+								create: () => ({}),
+							},
+							"classnames-order": {
+								meta: { fixable: true },
+								create: () => ({}),
 							},
 						},
 					},
-					rules: {
-						"tailwindcss/no-custom-classname": "error",
-						"tailwindcss/classnames-order": "error",
-					},
 				},
-			],
+				rules: {
+					"tailwindcss/no-custom-classname": "error",
+					"tailwindcss/classnames-order": "error",
+				},
+			},
 		},
 	},
 }));

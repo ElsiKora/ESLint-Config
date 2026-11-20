@@ -18,7 +18,7 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 | ------------------ | ------------ |
 | Type               | `suggestion` |
 | Fixable            | ✅ Yes       |
-| Has suggestions    | ❌ No        |
+| Has suggestions    | ✅ Yes       |
 | Deprecated         | ❌ No        |
 | ESLint recommended | `unknown`    |
 
@@ -33,6 +33,14 @@ The rule exposes the following ESLint option schema:
 		"properties": {
 			"allowExtraTrailingParamDocs": {
 				"description": "If set to `true`, this option will allow extra `@param` definitions (e.g.,\nrepresenting future expected or virtual params) to be present without needing\ntheir presence within the function signature. Other inconsistencies between\n`@param`'s and present function parameters will still be reported.",
+				"type": "boolean"
+			},
+			"badParamNames": {
+				"description": "Whether to auto-fix a mismatched `@param` name to the corresponding\nfunction parameter name. A suggestion is always offered. Defaults to `false`.",
+				"type": "boolean"
+			},
+			"badParamOrder": {
+				"description": "Whether to report `@param` definitions whose names match the function\nparameters but appear in a different order. Defaults to `true`.",
 				"type": "boolean"
 			},
 			"checkDestructured": {
@@ -55,8 +63,16 @@ The rule exposes the following ESLint option schema:
 				"description": "Whether to avoid checks for missing `@param` definitions. Defaults to `false`. Change to `true` if you want to be able to omit properties.",
 				"type": "boolean"
 			},
+			"duplicateParams": {
+				"description": "Whether to report duplicate `@param` definitions. Defaults to `true`.",
+				"type": "boolean"
+			},
 			"enableFixer": {
-				"description": "Set to `true` to auto-remove `@param` duplicates (based on identical\nnames).\n\nNote that this option will remove duplicates of the same name even if\nthe definitions do not match in other ways (e.g., the second param will\nbe removed even if it has a different type or description).",
+				"description": "Set to `true` to reorder non-nested `@param` definitions to match the\nfunction signature and to auto-remove duplicates (based on identical names).\n\nNote that this option will remove duplicates of the same name even if\nthe definitions do not match in other ways (e.g., the second param will\nbe removed even if it has a different type or description).",
+				"type": "boolean"
+			},
+			"extraParams": {
+				"description": "Whether to auto-remove an `@param` that has no corresponding function\nparameter. A suggestion is always offered. Defaults to `false`.",
 				"type": "boolean"
 			},
 			"useDefaultObjectProperties": {

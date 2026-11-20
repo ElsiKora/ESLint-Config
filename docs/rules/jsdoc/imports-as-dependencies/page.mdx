@@ -24,7 +24,32 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 
 ## All Supported Options
 
-This rule does not expose configurable options through its ESLint metadata schema.
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"dependencies": {
+				"description": "Whether packages listed in `dependencies` may be imported. Defaults to `true`.",
+				"type": "boolean"
+			},
+			"devDependencies": {
+				"description": "Whether packages listed in `devDependencies` may be imported. Defaults to `true`.",
+				"type": "boolean"
+			},
+			"peerDependencies": {
+				"description": "Whether packages listed in `peerDependencies` may be imported. Defaults to\n`false`, so that a package which is only a peer dependency is reported, as\nprojects usually also list such packages in `devDependencies`.",
+				"type": "boolean"
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
 
 ## ElsiKora Default Setting
 

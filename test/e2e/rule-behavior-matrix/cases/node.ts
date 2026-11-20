@@ -1,5 +1,11 @@
+import type { Linter } from "eslint";
+
 import type { IRuleBehaviorCase } from "../types";
 import { createCase } from "../case-factory";
+
+// eslint-plugin-n reads the target Node.js version from the nearest package.json engines field.
+// This repository's floor already supports the features below, so these cases target an older Node.js explicitly.
+const NODE_20_TARGET: Linter.Config = { settings: { node: { version: ">=20.0.0" } } };
 
 export const RULE_BEHAVIOR_NODE_CASES: Array<IRuleBehaviorCase> = [...createNodeBehaviorCases()];
 
@@ -16,8 +22,8 @@ function createNodeBehaviorCases(): Array<IRuleBehaviorCase> {
 		createCase("node-with-unicorn", "n/no-process-exit", { withNode: true, withUnicorn: true }, "src/node/valid/no-process-exit-with-unicorn.fixture.js", `process.exit(1);\n`, "not-reported"),
 		createCase("node", "n/no-unpublished-import", { withNode: true }, "dist/esm/no-unpublished-import.fixture.js", `import config from "../../src/infrastructure/config/node.ts";\nconsole.log(config);\n`),
 		createCase("node", "n/no-unpublished-require", { withNode: true }, "dist/esm/no-unpublished-require.fixture.js", `/* global require */\nconst config = require("../../src/infrastructure/config/node.ts");\nconsole.log(config);\n`),
-		createCase("node", "n/no-unsupported-features/es-builtins", { withNode: true }, "src/node/invalid/no-unsupported-features-es-builtins.fixture.js", `Map.groupBy([], (value) => value);\n`),
-		createCase("node", "n/no-unsupported-features/es-syntax", { withNode: true }, "src/node/invalid/no-unsupported-features-es-syntax.fixture.js", `Promise.withResolvers();\n`),
+		createCase("node", "n/no-unsupported-features/es-builtins", { withNode: true }, "src/node/invalid/no-unsupported-features-es-builtins.fixture.js", `Map.groupBy([], (value) => value);\n`, "reported", NODE_20_TARGET),
+		createCase("node", "n/no-unsupported-features/es-syntax", { withNode: true }, "src/node/invalid/no-unsupported-features-es-syntax.fixture.js", `Promise.withResolvers();\n`, "reported", NODE_20_TARGET),
 		createCase("node", "n/no-unsupported-features/node-builtins", { withNode: true }, "src/node/invalid/no-unsupported-features-node-builtins.fixture.js", `import { getCallSites } from "node:util";\nconsole.log(getCallSites);\n`),
 		createCase("node", "n/process-exit-as-throw", { withNode: true }, "src/node/valid/process-exit-as-throw.fixture.js", `process.exit(1);\n`, "not-reported"),
 	];

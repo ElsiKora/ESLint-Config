@@ -1,0 +1,143 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/unicorn/require-frontmatter-fields`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Require configured YAML frontmatter fields.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ❌ No        |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `false`      |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"additionalProperties": false,
+		"properties": {
+			"fields": {
+				"type": "array",
+				"uniqueItems": true,
+				"items": {
+					"type": "string",
+					"minLength": 1
+				},
+				"description": "Top-level YAML frontmatter fields that are required."
+			}
+		}
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0,{"fields":[]}]`             |
+
+### Effective Result by File Type
+
+| Scenario                         | Target       | File path                 | Effective severity | Effective value     |
+| -------------------------------- | ------------ | ------------------------- | ------------------ | ------------------- |
+| `unicorn`                        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `unicorn`                        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `unicorn`                        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `unicorn`                        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `unicorn`                        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `unicorn`                        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `unicorn`                        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `node-with-unicorn`              | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `node-with-unicorn`              | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `node-with-unicorn`              | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `node-with-unicorn`              | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `node-with-unicorn`              | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `node-with-unicorn`              | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `node-with-unicorn`              | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-with-unicorn`        | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-with-unicorn`        | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-with-unicorn`        | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-with-unicorn`        | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-with-unicorn`        | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-with-unicorn`        | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-with-unicorn`        | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-strict-with-unicorn` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-strict-with-unicorn` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-strict-with-unicorn` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-strict-with-unicorn` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-strict-with-unicorn` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-strict-with-unicorn` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `typescript-strict-with-unicorn` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `all-options`                    | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `all-options`                    | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `all-options`                    | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `all-options`                    | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `all-options`                    | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `all-options`                    | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0,{"fields":[]}]` |
+| `all-options`                    | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0,{"fields":[]}]` |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario                         | Severity | Value   | Config block |
+| -------------------------------- | -------- | ------- | ------------ |
+| `unicorn`                        | 🧭 `off` | `"off"` | `0`          |
+| `node-with-unicorn`              | 🧭 `off` | `"off"` | `2`          |
+| `typescript-with-unicorn`        | 🧭 `off` | `"off"` | `10`         |
+| `typescript-strict-with-unicorn` | 🧭 `off` | `"off"` | `10`         |
+| `all-options`                    | 🧭 `off` | `"off"` | `74`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```md filename="bad-example.md" copy
+---
+description: Setup guide
+---
+
+# Setup
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```md filename="good-example.md" copy
+---
+title: Setup
+description: Setup guide
+---
+
+# Setup
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/unicorn/require-frontmatter-fields`
+- **Documentation route:** `/docs/eslint-config/rules/unicorn/require-frontmatter-fields`

@@ -77,8 +77,9 @@ describe("Stylistic Config", () => {
 		expect(configs[0].rules).toHaveProperty("@stylistic/lines-between-class-members");
 		expect(configs[0].rules["@stylistic/lines-between-class-members"]).toBe("error");
 
-		expect(configs[0].rules).toHaveProperty("@stylistic/object-curly-spacing");
-		expect(configs[0].rules["@stylistic/object-curly-spacing"]).toEqual(["error", "always"]);
+		// @stylistic 6 deprecates object-curly-spacing in favour of list-style.
+		expect(configs[0].rules).not.toHaveProperty("@stylistic/object-curly-spacing");
+		expect(configs[0].rules["@stylistic/list-style"]).toEqual(["error", { overrides: { "()": "off", "<>": "off", "[]": "off" }, singleLine: { spacing: "always" } }]);
 
 		// Check complex padding-line-between-statements rule
 		expect(configs[0].rules).toHaveProperty("@stylistic/padding-line-between-statements");

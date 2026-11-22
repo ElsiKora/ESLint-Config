@@ -1,3 +1,36 @@
+# [4.0.0](https://github.com/ElsiKora/ESLint-Config/compare/v3.10.2...v4.0.0) (2026-11-22)
+
+
+### Bug Fixes
+
+* **check-file:** allow fsd and router folder syntax ([a048018](https://github.com/ElsiKora/ESLint-Config/commit/a048018f7bcf7aa4920792b5f177c72757cf08cf))
+* **fsd:** align feature-sliced rules with fsd 2.1 ([68861b8](https://github.com/ElsiKora/ESLint-Config/commit/68861b86fbea008f78b38039ede1cfd9c89b7076))
+* **fsd:** anchor layer import groups and keep ordered-imports elsewhere ([aa562df](https://github.com/ElsiKora/ESLint-Config/commit/aa562df9f7512a7b642c2541e968ddb42721c4fc))
+* **i18next:** check jsx nested in attributes and skip technical strings ([6a34447](https://github.com/ElsiKora/ESLint-Config/commit/6a34447cdb465932a14ff8eb0f7ecfbc00d38f5d))
+* **i18next:** check translatable jsx attributes ([2bc2880](https://github.com/ElsiKora/ESLint-Config/commit/2bc28804f8632a0d777055c94cd1f01b600288f7))
+* **i18next:** exempt technical tokens by their shape ([80e95db](https://github.com/ElsiKora/ESLint-Config/commit/80e95db91ad352a02e6e1086de6ed20d697b5abb))
+
+
+### Features
+
+* **check-file:** allow router folder syntax per preset and check the next app router ([10e35ad](https://github.com/ElsiKora/ESLint-Config/commit/10e35ad0246e0b86ffbb04aee17aeaa26af2d950))
+* **deps:** update every plugin and tool to its latest release ([3b266e7](https://github.com/ElsiKora/ESLint-Config/commit/3b266e72237702dd9d6b79bd32013876f776829b))
+
+
+### BREAKING CHANGES
+
+* **deps:** Node.js ^22.22.2 || >=24.15.0 is now required, as eslint-plugin-jsdoc 65 and
+eslint-plugin-package-json 1.14 need it. The Tailwind CSS preset supports Tailwind CSS 4 only and
+reads the theme from settings.tailwindcss.cssConfigPath. The fsd/no-global-store-imports and
+fsd/no-ui-in-business-logic rule ids are removed. Rule ids removed or renamed upstream are no
+longer configured: unicorn/no-array-for-each is now unicorn/no-for-each,
+unicorn/prefer-dom-node-dataset is now unicorn/dom-node-dataset, unicorn/prevent-abbreviations
+is now unicorn/name-replacements, unicorn/better-regex, unicorn/no-hex-escape and
+unicorn/prefer-json-parse-buffer are deprecated, tailwindcss/migration-from-tailwind-2 and eleven
+sonar rules (aws-s3-bucket-server-encryption, certificate-transparency, cookies,
+dns-prefetching, encryption, no-vue-bypass-sanitization, process-argv, regular-expr, sockets,
+standard-input, xpath) are gone. The unicorn preset enables 207 new rules as errors.
+
 ## [3.10.2](https://github.com/ElsiKora/ESLint-Config/compare/v3.10.1...v3.10.2) (2026-08-07)
 
 

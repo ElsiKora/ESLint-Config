@@ -1,0 +1,1422 @@
+{
+	"@elsikora/jsdoc/no-unnecessary-type-assertion": {
+		"bad": "/**\n * @type {5}\n */\nconst limit = 5;",
+		"good": "const limit = 5;",
+		"language": "js"
+	},
+	"@elsikora/jsdoc/normalize-see-links": {
+		"bad": "/**\n * Loads a user.\n * @see [User API](https://example.com/users)\n */\nexport function loadUser() {}",
+		"good": "/**\n * Loads a user.\n * @see {@link https://example.com/users|User API}\n */\nexport function loadUser() {}",
+		"language": "js"
+	},
+	"@elsikora/jsdoc/ts-ban-ts-comment": {
+		"bad": "/**\n * Returns the user's id as a string.\n * @param {{ id: number }} user - The user to read.\n * @returns {string} The id.\n */\nexport function getId(user) {\n\t// @ts-ignore\n\treturn user.id;\n}",
+		"good": "/**\n * Returns the user's id as a string.\n * @param {{ id: number }} user - The user to read.\n * @returns {string} The id.\n */\nexport function getId(user) {\n\treturn String(user.id);\n}",
+		"language": "js"
+	},
+	"@elsikora/react/1/web-api-no-leaked-intersection-observer": {
+		"bad": "import { useEffect, useRef } from \"react\";\n\nexport function Lazy() {\n\tconst containerRef = useRef<HTMLDivElement>(null);\n\n\tuseEffect(() => {\n\t\tconst observer = new IntersectionObserver(() => {});\n\n\t\tif (containerRef.current) {\n\t\t\tobserver.observe(containerRef.current);\n\t\t}\n\t}, []);\n\n\treturn <div ref={containerRef} />;\n}",
+		"good": "import { useEffect, useRef } from \"react\";\n\nexport function Lazy() {\n\tconst containerRef = useRef<HTMLDivElement>(null);\n\n\tuseEffect(() => {\n\t\tconst observer = new IntersectionObserver(() => {});\n\n\t\tif (containerRef.current) {\n\t\t\tobserver.observe(containerRef.current);\n\t\t}\n\n\t\treturn () => observer.disconnect();\n\t}, []);\n\n\treturn <div ref={containerRef} />;\n}",
+		"language": "tsx"
+	},
+	"@elsikora/sonar/assertions-in-test-cases": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\ndescribe(\"cart\", () => {\n\texpect(createCart().items).toEqual([]);\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\ndescribe(\"cart\", () => {\n\tit(\"starts empty\", () => {\n\t\texpect(createCart().items).toEqual([]);\n\t});\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/async-test-assertions": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"loads the user\", async () => {\n\texpect(loadUser(1)).resolves.toEqual({ id: 1 });\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"loads the user\", async () => {\n\tawait expect(loadUser(1)).resolves.toEqual({ id: 1 });\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/avoid-mutating-nested-properties-of-shallow-clones": {
+		"bad": "import _ from \"lodash\";\n\nconst copy = _.clone(settings);\ncopy.theme.color = \"red\";\nexport { copy };",
+		"good": "import _ from \"lodash\";\n\nconst copy = _.cloneDeep(settings);\ncopy.theme.color = \"red\";\nexport { copy };",
+		"language": "js"
+	},
+	"@elsikora/sonar/composite-assertions": {
+		"bad": "import assert from \"node:assert\";\n\nassert.ok(user.name === \"Ada\" && user.age === 36);",
+		"good": "import assert from \"node:assert\";\n\nassert.strictEqual(user.name, \"Ada\");\nassert.strictEqual(user.age, 36);",
+		"language": "js"
+	},
+	"@elsikora/sonar/explicit-test-skip": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"uses the network\", () => {\n\tif (!process.env.NETWORK) {\n\t\treturn;\n\t}\n\n\texpect(fetchStatus()).toBe(200);\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit.skipIf(!process.env.NETWORK)(\"uses the network\", () => {\n\texpect(fetchStatus()).toBe(200);\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/hooks-before-test-cases": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\ndescribe(\"cart\", () => {\n\tit(\"starts empty\", () => {\n\t\texpect(cart.items).toEqual([]);\n\t});\n\n\tbeforeEach(() => {\n\t\tcart.clear();\n\t});\n\n\tit(\"adds an item\", () => {\n\t\tcart.add(1);\n\t\texpect(cart.items).toEqual([1]);\n\t});\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\ndescribe(\"cart\", () => {\n\tbeforeEach(() => {\n\t\tcart.clear();\n\t});\n\n\tit(\"starts empty\", () => {\n\t\texpect(cart.items).toEqual([]);\n\t});\n\n\tit(\"adds an item\", () => {\n\t\tcart.add(1);\n\t\texpect(cart.items).toEqual([1]);\n\t});\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/memoize-cache-key": {
+		"bad": "import _ from \"lodash\";\n\nconst getPrice = _.memoize((productId, currency) => fetchPrice(productId, currency));\nexport { getPrice };",
+		"good": "import _ from \"lodash\";\n\nconst getPrice = _.memoize((productId, currency) => fetchPrice(productId, currency), (productId, currency) => `${productId}:${currency}`);\nexport { getPrice };",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-debounce-throttle-in-render": {
+		"bad": "import debounce from \"lodash/debounce\";\n\nexport function Search({ onSearch }: { onSearch: (value: string) => void }) {\n\tconst search = debounce(onSearch, 300);\n\n\treturn <input onChange={(event) => search(event.target.value)} />;\n}",
+		"good": "import debounce from \"lodash/debounce\";\nimport { useMemo } from \"react\";\n\nexport function Search({ onSearch }: { onSearch: (value: string) => void }) {\n\tconst search = useMemo(() => debounce(onSearch, 300), [onSearch]);\n\n\treturn <input onChange={(event) => search(event.target.value)} />;\n}",
+		"language": "tsx"
+	},
+	"@elsikora/sonar/no-debug-commands-in-ui-tests": {
+		"bad": "import { test } from \"@playwright/test\";\n\ntest(\"opens the dashboard\", async ({ page }) => {\n\tawait page.goto(\"/dashboard\");\n\tawait page.pause();\n});",
+		"good": "import { expect, test } from \"@playwright/test\";\n\ntest(\"opens the dashboard\", async ({ page }) => {\n\tawait page.goto(\"/dashboard\");\n\tawait expect(page.getByRole(\"heading\")).toBeVisible();\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-default-utility-imports": {
+		"bad": "import lodash from \"lodash\";\n\nexport const unique = lodash.uniq(values);",
+		"good": "import uniq from \"lodash/uniq\";\n\nexport const unique = uniq(values);",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-duplicate-parameterized-test-case": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit.each([\n\t[1, 2],\n\t[1, 2],\n])(\"adds one to %i\", (input, expected) => {\n\texpect(input + 1).toBe(expected);\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit.each([\n\t[1, 2],\n\t[2, 3],\n])(\"adds one to %i\", (input, expected) => {\n\texpect(input + 1).toBe(expected);\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-duplicate-test-title": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\ndescribe(\"cart\", () => {\n\tit(\"adds an item\", () => {\n\t\texpect(add(1)).toEqual([1]);\n\t});\n\n\tit(\"adds an item\", () => {\n\t\texpect(add(2)).toEqual([2]);\n\t});\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\ndescribe(\"cart\", () => {\n\tit(\"adds the first item\", () => {\n\t\texpect(add(1)).toEqual([1]);\n\t});\n\n\tit(\"adds the second item\", () => {\n\t\texpect(add(2)).toEqual([2]);\n\t});\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-empty-parameterized-test-dataset": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit.each([])(\"formats %s\", (value) => {\n\texpect(format(value)).toBeTruthy();\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit.each([\"a\", \"b\"])(\"formats %s\", (value) => {\n\texpect(format(value)).toBeTruthy();\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-empty-test-title": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"\", () => {\n\texpect(sum(1, 2)).toBe(3);\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"adds two numbers\", () => {\n\texpect(sum(1, 2)).toBe(3);\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-fixed-wait-in-tests": {
+		"bad": "import { expect, test } from \"@playwright/test\";\n\ntest(\"saves the form\", async ({ page }) => {\n\tawait page.click(\"button\");\n\tawait page.waitForTimeout(2000);\n\tawait expect(page.getByText(\"Saved\")).toBeVisible();\n});",
+		"good": "import { expect, test } from \"@playwright/test\";\n\ntest(\"saves the form\", async ({ page }) => {\n\tawait page.click(\"button\");\n\tawait expect(page.getByText(\"Saved\")).toBeVisible();\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-floating-point-equality": {
+		"bad": "const total = 0.1 + 0.2;\n\nexport const isExact = total === 0.3;",
+		"good": "const total = 0.1 + 0.2;\n\nexport const isExact = Math.abs(total - 0.3) < Number.EPSILON;",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-forced-browser-interaction": {
+		"bad": "import { test } from \"@playwright/test\";\n\ntest(\"submits\", async ({ page }) => {\n\tawait page.getByRole(\"button\").click({ force: true });\n});",
+		"good": "import { test } from \"@playwright/test\";\n\ntest(\"submits\", async ({ page }) => {\n\tawait page.getByRole(\"button\").click();\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-incompatible-assertion-types": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"counts items\", () => {\n\tconst count: number = 3;\n\texpect(count).toBe(\"3\");\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"counts items\", () => {\n\tconst count: number = 3;\n\texpect(count).toBe(3);\n});",
+		"language": "ts"
+	},
+	"@elsikora/sonar/no-interpolation-in-inline-snapshots": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"renders the name\", () => {\n\tconst name = \"Ada\";\n\texpect(render(name)).toMatchInlineSnapshot(`\"Hello ${name}\"`);\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"renders the name\", () => {\n\texpect(render(\"Ada\")).toMatchInlineSnapshot(`\"Hello Ada\"`);\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-mixed-completion-style": {
+		"bad": "import { describe, it } from \"mocha\";\n\nit(\"loads\", async (done) => {\n\tawait load();\n\tdone();\n});",
+		"good": "import { describe, it } from \"mocha\";\n\nit(\"loads\", async () => {\n\tawait load();\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-mutate-reactive-state-in-updated-hook": {
+		"bad": "import { ref } from \"vue\";\n\nconst renders = ref(0);\n\nexport default {\n\tupdated() {\n\t\trenders.value++;\n\t},\n};",
+		"good": "import { ref } from \"vue\";\n\nconst renders = ref(0);\n\nexport default {\n\tupdated() {\n\t\tif (renders.value < 1) {\n\t\t\trenders.value++;\n\t\t}\n\t},\n};",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-networkidle-wait": {
+		"bad": "import { test } from \"@playwright/test\";\n\ntest(\"loads\", async ({ page }) => {\n\tawait page.goto(\"/\", { waitUntil: \"networkidle\" });\n});",
+		"good": "import { expect, test } from \"@playwright/test\";\n\ntest(\"loads\", async ({ page }) => {\n\tawait page.goto(\"/\");\n\tawait expect(page.getByRole(\"main\")).toBeVisible();\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-trivial-assertions": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"works\", () => {\n\texpect(true).toBe(true);\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"works\", () => {\n\texpect(isReady()).toBe(true);\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/no-vue-class-component": {
+		"bad": "import Vue from \"vue\";\nimport Component from \"vue-class-component\";\n\n@Component\nexport default class Counter extends Vue {\n\tcount = 0;\n}",
+		"good": "import { defineComponent, ref } from \"vue\";\n\nexport default defineComponent({\n\tsetup() {\n\t\treturn { count: ref(0) };\n\t},\n});",
+		"language": "ts"
+	},
+	"@elsikora/sonar/no-vue-mixins": {
+		"bad": "import { defineComponent } from \"vue\";\nimport loggerMixin from \"./logger-mixin\";\n\nexport default defineComponent({\n\tmixins: [loggerMixin],\n});",
+		"good": "import { defineComponent } from \"vue\";\nimport { useLogger } from \"./use-logger\";\n\nexport default defineComponent({\n\tsetup() {\n\t\treturn { logger: useLogger() };\n\t},\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/parameterized-tests": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"normalizes 200\", () => {\n\tconst status = normalize(200);\n\texpect(status).toBe(200);\n\texpect(status).toBeGreaterThan(199);\n});\n\nit(\"normalizes 201\", () => {\n\tconst status = normalize(201);\n\texpect(status).toBe(201);\n\texpect(status).toBeGreaterThan(199);\n});\n\nit(\"normalizes 202\", () => {\n\tconst status = normalize(202);\n\texpect(status).toBe(202);\n\texpect(status).toBeGreaterThan(199);\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit.each([200, 201, 202])(\"normalizes %i\", (code) => {\n\tconst status = normalize(code);\n\texpect(status).toBe(code);\n\texpect(status).toBeGreaterThan(199);\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/prefer-cypress-should": {
+		"bad": "cy.get(\"[data-cy=status]\").then(($status) => {\n\texpect($status.text()).to.equal(\"Ready\");\n});",
+		"good": "cy.get(\"[data-cy=status]\").should(\"have.text\", \"Ready\");",
+		"language": "js"
+	},
+	"@elsikora/sonar/prefer-native-axios-alternative": {
+		"bad": "import axios from \"axios\";\n\nexport const [users, posts] = await axios.all([axios.get(\"/users\"), axios.get(\"/posts\")]);",
+		"good": "import axios from \"axios\";\n\nexport const [users, posts] = await Promise.all([axios.get(\"/users\"), axios.get(\"/posts\")]);",
+		"language": "js"
+	},
+	"@elsikora/sonar/prefer-native-jquery-alternative": {
+		"bad": "import $ from \"jquery\";\n\nexport const isList = $.isArray(items);",
+		"good": "export const isList = Array.isArray(items);",
+		"language": "js"
+	},
+	"@elsikora/sonar/prefer-native-lodash-alternative": {
+		"bad": "import { isArray } from \"lodash\";\n\nexport const isList = isArray(items);",
+		"good": "export const isList = Array.isArray(items);",
+		"language": "js"
+	},
+	"@elsikora/sonar/prefer-specific-assertions": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"has three items\", () => {\n\texpect(items.length).toBe(3);\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"has three items\", () => {\n\texpect(items).toHaveLength(3);\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/super-linear-regex": {
+		"bad": "export const trimEnd = (value) => value.replace(/\\s+$/, \"\");",
+		"good": "export const trimEnd = (value) => value.trimEnd();",
+		"language": "js"
+	},
+	"@elsikora/sonar/synchronous-exception-assertions": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"rejects invalid input\", () => {\n\texpect(parse(\"\")).toThrow();\n});\n\nfunction parse(value: string): number {\n\treturn Number(value);\n}",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"rejects invalid input\", () => {\n\texpect(() => parse(\"\")).toThrow();\n});\n\nfunction parse(value: string): number {\n\treturn Number(value);\n}",
+		"language": "ts"
+	},
+	"@elsikora/sonar/synchronous-suite-callback": {
+		"bad": "import { describe, it } from \"mocha\";\n\ndescribe(\"users\", async () => {\n\tconst users = await loadUsers();\n\n\tit(\"loads\", () => {\n\t\tassert.equal(users.length, 2);\n\t});\n});",
+		"good": "import { describe, it } from \"mocha\";\n\ndescribe(\"users\", () => {\n\tit(\"loads\", async () => {\n\t\tconst users = await loadUsers();\n\t\tassert.equal(users.length, 2);\n\t});\n});",
+		"language": "js"
+	},
+	"@elsikora/sonar/testing-library-prefer-query-by-disappearance": {
+		"bad": "import { screen, waitForElementToBeRemoved } from \"@testing-library/react\";\nimport { it } from \"vitest\";\n\nit(\"hides the spinner\", async () => {\n\tawait waitForElementToBeRemoved(() => screen.getByText(\"Loading\"));\n});",
+		"good": "import { screen, waitForElementToBeRemoved } from \"@testing-library/react\";\nimport { it } from \"vitest\";\n\nit(\"hides the spinner\", async () => {\n\tawait waitForElementToBeRemoved(() => screen.queryByText(\"Loading\"));\n});",
+		"language": "jsx"
+	},
+	"@elsikora/sonar/testing-library-query-assertion": {
+		"bad": "import { screen } from \"@testing-library/react\";\nimport { expect, it } from \"vitest\";\n\nit(\"shows the title\", () => {\n\texpect(screen.queryByText(\"Title\")).toBeInTheDocument();\n});",
+		"good": "import { screen } from \"@testing-library/react\";\nimport { expect, it } from \"vitest\";\n\nit(\"shows the title\", () => {\n\texpect(screen.getByText(\"Title\")).toBeInTheDocument();\n});",
+		"language": "jsx"
+	},
+	"@elsikora/sonar/vitest-mock-at-module-scope": {
+		"bad": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nit(\"uses the mock\", async () => {\n\tvi.mock(\"./api\");\n\tconst { load } = await import(\"./api\");\n\texpect(load).toBeDefined();\n});",
+		"good": "import { afterEach, beforeEach, describe, expect, it, test, vi } from \"vitest\";\n\nvi.mock(\"./api\");\n\nit(\"uses the mock\", async () => {\n\tconst { load } = await import(\"./api\");\n\texpect(load).toBeDefined();\n});",
+		"language": "js"
+	},
+	"@elsikora/tailwindcss/enforces-canonical-classname": {
+		"bad": "export const Component = () => <div className=\"w-[100%]\" />;",
+		"good": "export const Component = () => <div className=\"w-full\" />;",
+		"language": "jsx"
+	},
+	"@elsikora/tailwindcss/important-modifier-suffix": {
+		"bad": "export const Component = () => <div className=\"!flex\" />;",
+		"good": "export const Component = () => <div className=\"flex!\" />;",
+		"language": "jsx"
+	},
+	"@elsikora/unicorn/better-dom-traversing": {
+		"bad": "element.childNodes[0];",
+		"good": "element.firstChild;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/class-reference-in-static-methods": {
+		"bad": "class Foo extends Bar {\n\tstatic baz() {\n\t\tFoo.qux();\n\t\tBar.qux();\n\t}\n}",
+		"good": "class Foo extends Bar {\n\tstatic baz() {\n\t\tthis.qux();\n\t\tsuper.qux();\n\t}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/comma-spacing": {
+		"bad": "[1 ,2,  3]",
+		"good": "[1, 2, 3]",
+		"language": "json"
+	},
+	"@elsikora/unicorn/comment-content": {
+		"bad": "// nodejs uses javascript.",
+		"good": "// Run `git config --list`.",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-arrow-return-style": {
+		"bad": "const getValue = () => getValueFromServer(\n\turl,\n\toptions,\n);",
+		"good": "const getValue = () => {\n\treturn getValueFromServer(\n\t\turl,\n\t\toptions,\n\t);\n};",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-boolean-name": {
+		"bad": "const completed = true;",
+		"good": "const isCompleted = true;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-class-member-order": {
+		"bad": "class Foo {\n\tconstructor() {}\n\t#privateField = 1;\n\tpublicField = 1;\n}",
+		"good": "class Foo {\n\tstatic staticField = 1;\n\t#privateField = 1;\n\tpublicField = 1;\n\n\tconstructor() {}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-compound-words": {
+		"bad": "const passWord = 'secret';",
+		"good": "const password = 'secret';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-conditional-object-spread": {
+		"bad": "const object = {...(condition ? {property} : {})};",
+		"good": "const object = {...(condition && {property})};",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-export-decorator-position": {
+		"bad": "declare function sealed<T>(target: T): T;\n\nexport @sealed class Store {}",
+		"good": "declare function sealed<T>(target: T): T;\n\n@sealed\nexport class Store {}",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/consistent-function-style": {
+		"bad": "/* eslint unicorn/consistent-function-style: [\"error\", { namedFunctions: \"declaration\" }] */\nconst parse = (value) => value;",
+		"good": "/* eslint unicorn/consistent-function-style: [\"error\", { namedFunctions: \"declaration\" }] */\nfunction parse(value) {\n\treturn value;\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-json-file-read": {
+		"bad": "const packageJson = JSON.parse(await fs.readFile('./package.json'));",
+		"good": "const packageJson = JSON.parse(await fs.readFile('./package.json', 'utf8'));",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-optional-chaining": {
+		"bad": "foo?.bar || foo.baz;",
+		"good": "foo?.bar || foo?.baz;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/consistent-tuple-labels": {
+		"bad": "type Point = [x: number, number];",
+		"good": "type Point = [x: number, y: number];",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/default-export-style": {
+		"bad": "// eslint unicorn/default-export-style: [\"error\", {functions: \"inline\"}]\n\nconst foo = () => {};\nexport default foo;",
+		"good": "// eslint unicorn/default-export-style: [\"error\", {functions: \"inline\"}]\n\nexport default function foo() {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/dom-node-dataset": {
+		"bad": "const unicorn = element.getAttribute('data-unicorn');",
+		"good": "const {unicorn} = element.dataset;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/explicit-timer-delay": {
+		"bad": "globalThis.setInterval(callback);",
+		"good": "setTimeout(() => console.log('Hello'), 0);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/id-match": {
+		"bad": "/* eslint unicorn/id-match: [\"error\", \"^[a-z]+$\"] */\nconst foo$ = 1;",
+		"good": "/* eslint unicorn/id-match: [\"error\", \"^[a-z]+$\"] */\nconst foo = 1;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/indent": {
+		"bad": "{\n  \"items\": [\n      true\n  ]\n}",
+		"good": "{\n\t\"items\": [\n\t\ttrue\n\t]\n}",
+		"language": "json"
+	},
+	"@elsikora/unicorn/iteration-fallback-style": {
+		"bad": "/* eslint unicorn/iteration-fallback-style: ['error', 'guard'] */\n\nfor (const item of items || []) {\n\tuse(item);\n}",
+		"good": "/* eslint unicorn/iteration-fallback-style: ['error', 'guard'] */\n\nif (items) {\n\tfor (const item of items) {\n\t\tuse(item);\n\t}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/key-name-casing": {
+		"bad": "{\"user_name\": 1, \"nested\": {\"OtherKey\": 2}}",
+		"good": "{\"userName\": 1, \"nested\": {\"otherKey\": 2}}",
+		"language": "jsonc"
+	},
+	"@elsikora/unicorn/logical-assignment-operators": {
+		"bad": "export function withDefaults(options) {\n\toptions.retries = options.retries ?? 3;\n\n\treturn options;\n}",
+		"good": "export function withDefaults(options) {\n\toptions.retries ??= 3;\n\n\treturn options;\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/max-nested-calls": {
+		"bad": "foo(bar(baz(qux())));",
+		"good": "const value = baz(qux());\nfoo(bar(value));",
+		"language": "js"
+	},
+	"@elsikora/unicorn/name-replacements": {
+		"bad": "const e = new Error();",
+		"good": "const error = new Error();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-accidental-bitwise-operator": {
+		"bad": "if (object & object.property) {\n\t// …\n}",
+		"good": "if (object && object.property) {\n\t// …\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-array-concat-in-loop": {
+		"bad": "let result = [];\n\nfor (const chunk of chunks) {\n\tresult = result.concat(chunk);\n}",
+		"good": "const result = [];\n\nfor (const chunk of chunks) {\n\tresult.push(...chunk);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-array-fill-with-reference-type": {
+		"bad": "new Array(3).fill({});",
+		"good": "Array.from({length: 3}, () => ({}));",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-array-from-fill": {
+		"bad": "Array.from({length: 3}).fill().map((_, index) => index);",
+		"good": "Array.from({length: 3}, (_, index) => index);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-array-front-mutation": {
+		"bad": "array.shift();",
+		"good": "for (const item of array) {\n\tprocess(item);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-array-sort-for-min-max": {
+		"bad": "const minimum = array.sort((a, b) => a - b)[0];",
+		"good": "const minimum = Math.min(...array);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-array-splice": {
+		"bad": "let array = [1, 2, 3];\narray.splice(1, 1);",
+		"good": "array = array.toSpliced(1, 1);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-asterisk-prefix-in-documentation-comments": {
+		"bad": "/**\n * Add two numbers.\n * @param {number} number1 The first number.\n * @param {number} number2 The second number.\n * @returns {number} The sum of the two numbers.\n */",
+		"good": "/**\nAdd two numbers.\n@param {number} number1 The first number.\n@param {number} number2 The second number.\n@returns {number} The sum of the two numbers.\n*/",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-async-iterator-callback": {
+		"bad": "Iterator.from(values).filter(async value => isAllowed(value));\n\nIterator.from(values).some(async value => isAllowed(value));\n\nIterator.from(values).every(async value => isAllowed(value));\n\nIterator.from(values).find(async value => isAllowed(value));\n\nIterator.from(values).forEach(async value => {\n\tawait save(value);\n});\n\nIterator.from(values).flatMap(async value => getChildren(value));",
+		"good": "Iterator.from(values).filter(value => value.isAllowed);\n\nfor (const value of values) {\n\tawait save(value);\n}\n\nconst allowedValues = [];\nfor (const value of values) {\n\tif (await isAllowed(value)) {\n\t\tallowedValues.push(value);\n\t}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-async-promise-finally": {
+		"bad": "promise.finally(async () => {\n\tawait cleanup();\n});",
+		"good": "promise.finally(() => {\n\tcleanupSynchronously();\n});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-barrel-files": {
+		"bad": "export {foo} from './foo.js';",
+		"good": "export const foo = 1;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-blob-to-file": {
+		"bad": "const blob = new Blob();\nconst file = new File([blob], 'image.jpg');\nURL.createObjectURL(file);",
+		"good": "URL.createObjectURL(blob);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-boolean-sort-comparator": {
+		"bad": "array.sort((a, b) => a > b);",
+		"good": "array.sort((a, b) => a - b);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-break-in-nested-loop": {
+		"bad": "for (const item of items) {\n\tfor (const child of item.children) {\n\t\tif (child.done) {\n\t\t\tbreak;\n\t\t}\n\t}\n}",
+		"good": "function processChildren(item) {\n\tfor (const child of item.children) {\n\t\tif (child.done) {\n\t\t\tbreak;\n\t\t}\n\t}\n}\n\nfor (const item of items) {\n\tprocessChildren(item);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-canvas-to-image": {
+		"bad": "const image = await loadImage(canvas.toDataURL());\ncontext.drawImage(image, 0, 0);",
+		"good": "context.drawImage(canvas, 0, 0);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-chained-comparison": {
+		"bad": "if (a < b < c) {}",
+		"good": "if (a < b && b < c) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-collection-bracket-access": {
+		"bad": "const map = new Map();\n\nmap['foo'] = 'bar';",
+		"good": "const map = new Map();\n\nmap.set('foo', 'bar');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-computed-property-existence-check": {
+		"bad": "if (object[key]) {}",
+		"good": "if (object[key] === true) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-conflicting-constraints": {
+		"bad": "export const Quantity = () => <input max={5} min={10} type=\"number\" />;",
+		"good": "export const Quantity = () => <input max={10} min={5} type=\"number\" />;",
+		"language": "tsx"
+	},
+	"@elsikora/unicorn/no-confusing-array-splice": {
+		"bad": "array.splice(index, 1, element);",
+		"good": "array[index] = element;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-confusing-array-with": {
+		"bad": "const result = array.with(-1, value);",
+		"good": "const result = array.length === 0 ? array : array.with(array.length - 1, value);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-constant-zero-expression": {
+		"bad": "const total = price * 0;",
+		"good": "const total = 0;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-declarations-before-early-exit": {
+		"bad": "function foo(bar) {\n\tconst result = 1;\n\tif (!bar) {\n\t\treturn;\n\t}\n\n\tconsole.log(result);\n}",
+		"good": "function foo(bar) {\n\tif (!bar) {\n\t\treturn;\n\t}\n\n\tconst result = 1;\n\tconsole.log(result);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-double-comparison": {
+		"bad": "x === y || x < y;",
+		"good": "x <= y;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-duplicate-if-branches": {
+		"bad": "if (isAdmin) {\n\tshowDashboard();\n\tloadStats();\n} else {\n\tshowDashboard();\n\tloadStats();\n}",
+		"good": "if (isAdmin) {\n\tshowDashboard();\n\tloadStats();\n} else {\n\tshowLogin();\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-duplicate-logical-operands": {
+		"bad": "if (isReady && isReady) {}",
+		"good": "if (isReady) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-duplicate-loops": {
+		"bad": "for (const value of values.map(value => value.property)) {\n\tconsole.log(value);\n}",
+		"good": "for (const value of values) {\n\tconsole.log(value.property);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-duplicate-set-values": {
+		"bad": "const set = new Set([\n\t'foo',\n\t'bar',\n\t'foo',\n]);",
+		"good": "const set = new Set([\n\t'foo',\n\t'bar',\n]);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-empty-link-text": {
+		"bad": "[](https://example.com)",
+		"good": "[Website](https://example.com)",
+		"language": "md"
+	},
+	"@elsikora/unicorn/no-error-property-assignment": {
+		"bad": "Object.assign(new Error('message'), {name});",
+		"good": "Object.assign(error, {name});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-exports-in-scripts": {
+		"bad": "#!/usr/bin/env node\nexport const version = \"1.0.0\";",
+		"good": "#!/usr/bin/env node\nconst version = \"1.0.0\";\nconsole.log(version);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-for-each": {
+		"bad": "array.forEach(element => {\n\tbar(element);\n});",
+		"good": "for (const element of array) {\n\tbar(element);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-global-object-property-assignment": {
+		"bad": "globalThis.foo = value;",
+		"good": "export const foo = value;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-impossible-length-comparison": {
+		"bad": "if (array.length < 0) {}",
+		"good": "if (array.length === 0) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-incomplete-accessor-override": {
+		"bad": "class Base {\n\tprotected stored = \"\";\n\n\tget value(): string {\n\t\treturn this.stored;\n\t}\n}\n\nexport class Child extends Base {\n\tset value(next: string) {\n\t\tthis.stored = next;\n\t}\n}",
+		"good": "class Base {\n\tprotected stored = \"\";\n\n\tget value(): string {\n\t\treturn this.stored;\n\t}\n}\n\nexport class Child extends Base {\n\tget value(): string {\n\t\treturn super.value;\n\t}\n\n\tset value(next: string) {\n\t\tthis.stored = next;\n\t}\n}",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/no-incorrect-query-selector": {
+		"bad": "document.querySelectorAll('form')[0];",
+		"good": "document.querySelector('form');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-incorrect-template-string-interpolation": {
+		"bad": "const greeting = `Hello {name}`;",
+		"good": "const greeting = `Hello ${name}`;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-ineffective-csp-directives": {
+		"bad": "export const Policy = () => <meta content=\"default-src 'self'; frame-ancestors 'none'\" httpEquiv=\"Content-Security-Policy\" />;",
+		"good": "export const Policy = () => <meta content=\"default-src 'self'\" httpEquiv=\"Content-Security-Policy\" />;",
+		"language": "tsx"
+	},
+	"@elsikora/unicorn/no-invalid-argument-count": {
+		"bad": "const sum = (first, second) => first + second;\n\nsum(1, 2, 3);",
+		"good": "function sum(first, second) {\n\treturn first + second;\n}\n\nsum(1, 2);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-boolean-attribute-value": {
+		"bad": "const button = document.createElement('button');\n\nbutton.setAttribute('disabled', 'false');\nbutton.setAttribute('disabled', false);\nbutton.setAttribute('disabled', 'true');\nbutton.setAttribute('disabled', ' disabled ');",
+		"good": "const button = document.createElement('button');\n\nbutton.removeAttribute('disabled');\nbutton.setAttribute('disabled', '');\nbutton.setAttribute('disabled', 'disabled');\nbutton.setAttribute('disabled', 'DISABLED');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-character-comparison": {
+		"bad": "'unicorn'.charAt(0) === 'ab';",
+		"good": "'unicorn'.charAt(0) === 'u';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-dom-token": {
+		"bad": "element.classList.add('primary active');",
+		"good": "element.classList.add('primary', 'active');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-file-input-accept": {
+		"bad": "export const Upload = () => <input accept=\"png\" type=\"file\" />;",
+		"good": "export const Upload = () => <input accept=\".png\" type=\"file\" />;",
+		"language": "tsx"
+	},
+	"@elsikora/unicorn/no-invalid-integrity": {
+		"bad": "export const Script = () => <script integrity=\"sha25-abc\" src=\"/app.js\" />;",
+		"good": "export const Script = () => <script integrity=\"sha256-LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=\" src=\"/app.js\" />;",
+		"language": "tsx"
+	},
+	"@elsikora/unicorn/no-invalid-intl-options": {
+		"bad": "new Intl.NumberFormat('en', {maximumFractionDigit: 2});",
+		"good": "new Intl.NumberFormat('en', {maximumFractionDigits: 2});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-property-descriptor": {
+		"bad": "Object.defineProperty(object, 'property', {\n\tget: getter,\n\twritable: false,\n});",
+		"good": "Object.defineProperty(object, 'property', {get: getter});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-response-options": {
+		"bad": "new Response('', {status: 204});\nnew Response(new Uint8Array(), {status: 205});\nResponse.json(data, {status: 304});\nResponse.json(null, {status: 204});\nnew Response(undefined, {status: 101});\nResponse.json(data, {status: 600});\nResponse.redirect(url, 200);",
+		"good": "new Response(undefined, {status: 204});\nnew Response(null, {status: 205});\nnew Response(undefined, {status: 304});\nnew Response('', {status: 200});\nResponse.json(data, {status: 200});\nResponse.redirect(url, 302);\nResponse.redirect(url);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-style-set-property": {
+		"bad": "element.style.setProperty('backgroundColor', 'red');",
+		"good": "element.style.setProperty('background-color', 'red');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-temporal-arithmetic": {
+		"bad": "Temporal.Now.instant().add({days: 1});",
+		"good": "Temporal.Now.instant().add({hours: 24});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-url-protocol-comparison": {
+		"bad": "const url = new URL('https://example.com');\nurl.protocol === 'https';\nurl.protocol !== 'HTTP:';",
+		"good": "const url = new URL('https://example.com');\nurl.protocol === 'https:';\nurl.protocol !== 'http:';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-invalid-well-known-symbol-methods": {
+		"bad": "class Resource {\n\tasync [Symbol.dispose]() {}\n}",
+		"good": "class Resource {\n\tasync [Symbol.asyncDispose]() {}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-javascript-url": {
+		"bad": "[Open](javascript:alert(1))",
+		"good": "[Open](https://example.com)",
+		"language": "md"
+	},
+	"@elsikora/unicorn/no-late-current-target-access": {
+		"bad": "element.addEventListener('click', event => {\n\tsetTimeout(() => {\n\t\tevent.currentTarget.click();\n\t});\n});",
+		"good": "element.addEventListener('click', event => {\n\tconst {currentTarget} = event;\n\tsetTimeout(() => {\n\t\tcurrentTarget.click();\n\t});\n});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-late-event-control": {
+		"bad": "element.addEventListener('click', async event => {\n\tawait save();\n\tevent.preventDefault();\n});",
+		"good": "element.addEventListener('click', async event => {\n\tevent.preventDefault();\n\tawait save();\n});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-leading-empty-lines": {
+		"bad": "\nexport const value = 1;",
+		"good": "export const value = 1;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-loop-iterable-mutation": {
+		"bad": "for (const item of items) {\n\titems.push(item.clone());\n}",
+		"good": "for (const item of [...items]) {\n\titems.push(item.clone());\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-loss-of-precision": {
+		"bad": "{\"value\": 1.23456789012345678}",
+		"good": "{\"value\": 0.30000000000000004}",
+		"language": "jsonc"
+	},
+	"@elsikora/unicorn/no-manually-wrapped-comments": {
+		"bad": "// This is a long comment but\n// I don't like long lines",
+		"good": "// This is a long comment but I don't like long lines",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-mismatched-map-key": {
+		"bad": "const value = map.has(key) ? map.get(anotherKey) : fallback;",
+		"good": "const value = map.has(key) ? map.get(key) : fallback;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-misrefactored-assignment": {
+		"bad": "a += a + b;",
+		"good": "a += b;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-missing-local-resource": {
+		"bad": "[Guide](./does-not-exist.md)",
+		"good": "[Guide](./guide.md)",
+		"language": "md"
+	},
+	"@elsikora/unicorn/no-multiple-promise-resolver-calls": {
+		"bad": "new Promise((resolve, reject) => {\n\tif (error) {\n\t\treject(error);\n\t}\n\n\tresolve(value);\n});",
+		"good": "new Promise((resolve, reject) => {\n\tif (error) {\n\t\treject(error);\n\t\treturn;\n\t}\n\n\tresolve(value);\n});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-negated-array-predicate": {
+		"bad": "const isMissing = !array.some(element => isUnicorn(element));",
+		"good": "const isMissing = array.every(element => !isUnicorn(element));",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-negated-comparison": {
+		"bad": "const isDifferent = !(a === b);",
+		"good": "const isDifferent = a !== b;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-non-function-verb-prefix": {
+		"bad": "declare const options: {setTitle: boolean; title: boolean};\n\nconst {title: setTitle} = options;",
+		"good": "const getName = () => 'Sindre';",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/no-nonstandard-builtin-properties": {
+		"bad": "Object.entires(object);",
+		"good": "Object.entries(object);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-object-methods-with-collections": {
+		"bad": "const map = new Map([\n\t['a', 1],\n\t['b', 2],\n]);\n\nObject.keys(map);",
+		"good": "Array.from(map.keys());",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-optional-chaining-on-undeclared-variable": {
+		"bad": "iDontExist?.meNeither;",
+		"good": "globalThis.iDontExist?.meNeither;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-prevent-default-in-passive-listener": {
+		"bad": "element.addEventListener('wheel', event => {\n\tevent.preventDefault();\n}, {passive: true});",
+		"good": "element.addEventListener('wheel', event => {\n\tevent.preventDefault();\n}, {passive: false});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-redundant-comparison": {
+		"bad": "export const isMatch = (a, b) => a > 0 && b > 0 && a === b;",
+		"good": "export const isMatch = (a, b) => a > 0 && a === b;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-repeated-call-wrappers": {
+		"bad": "const getWords = text => text.toLowerCase().split(' ');\nconst firstWords = new Set(getWords(first));\nconst secondWords = new Set(getWords(second));",
+		"good": "const getUniqueWords = text => new Set(text.toLowerCase().split(' '));\nconst firstWords = getUniqueWords(first);\nconst secondWords = getUniqueWords(second);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-return-array-push": {
+		"bad": "function add(item) {\n\treturn items.push(item);\n}",
+		"good": "function add(item) {\n\titems.push(item);\n\treturn;\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-selector-as-dom-name": {
+		"bad": "element.classList.add('.active');\nelement.classList.remove('.hidden');\nelement.classList.contains('.selected');\nelement.classList.toggle('.expanded');\nelement.classList.replace('.old', '.new');\ndocument.getElementsByClassName('.item');\ndocument.getElementById('#app');",
+		"good": "element.classList.add('active');\nelement.classList.remove('hidden');\nelement.classList.contains('selected');\nelement.classList.toggle('expanded');\nelement.classList.replace('old', 'new');\ndocument.getElementsByClassName('item');\ndocument.getElementById('app');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-shorthand-property-overrides": {
+		"bad": "export const Card = () => <div style={{ paddingLeft: 10, padding: 20 }} />;",
+		"good": "export const Card = () => <div style={{ padding: 20, paddingLeft: 10 }} />;",
+		"language": "tsx"
+	},
+	"@elsikora/unicorn/no-subtraction-comparison": {
+		"bad": "if (a - b > 0) {}",
+		"good": "if (a > b) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-this-outside-of-class": {
+		"bad": "function Foo(value) {\n\tthis.value = value;\n}",
+		"good": "class Foo {\n\tconstructor(value) {\n\t\tthis.value = value;\n\t}\n\n\tmethod() {\n\t\treturn this.value;\n\t}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-top-level-assignment-in-function": {
+		"bad": "let cache;\n\nfunction build() {\n\tcache = new Map();\n}",
+		"good": "function build() {\n\tconst cache = new Map();\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-top-level-side-effects": {
+		"bad": "export const version = 1;\n\nglobalThis.application = createApplication();",
+		"good": "export const version = 1;\n\nconst application = createApplication();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-transition-all": {
+		"bad": "const button: HTMLElement = document.createElement(\"button\");\nbutton.style.transition = \"all 150ms\";",
+		"good": "const button: HTMLElement = document.createElement(\"button\");\nbutton.style.transition = \"opacity 150ms\";",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/no-uncalled-method": {
+		"bad": "const sorted = array.sort;",
+		"good": "const sorted = array.sort();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-undeclared-class-members": {
+		"bad": "class Foo {\n\tgetName() {\n\t\treturn this.name;\n\t}\n}",
+		"good": "class Foo {\n\tname;\n\n\tgetName() {\n\t\treturn this.name;\n\t}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-array-flat-map": {
+		"bad": "const ids = array.flatMap(value => [value.id]);",
+		"good": "const ids = array.map(value => value.id);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-boolean-comparison": {
+		"bad": "if ((a > b) === true) {}",
+		"good": "if (a > b) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-default-arguments": {
+		"bad": "function run(always = true) {}\nrun(true);",
+		"good": "run();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-fetch-options": {
+		"bad": "await fetch('/', {});",
+		"good": "await fetch('/');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-global-this": {
+		"bad": "globalThis.Array.from(items);",
+		"good": "Array.from(items);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-nested-ternary": {
+		"bad": "a ? (b ? c : d) : d;",
+		"good": "a && b ? c : d;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-parameters": {
+		"bad": "function log(message, level) {\n\tconsole.log(level, message);\n}\n\nlog('Starting', 'info');\nlog('Finished', 'info');",
+		"good": "function log(message) {\n\tconsole.log('info', message);\n}\n\nlog('Starting');\nlog('Finished');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-splice": {
+		"bad": "array.splice(index, 0);",
+		"good": "// Remove the no-op call.",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unnecessary-string-trim": {
+		"bad": "const result = value.trim().startsWith('-');",
+		"good": "const result = value.trimStart().startsWith('-');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unreadable-for-of-expression": {
+		"bad": "for (const item of getItems(createArgument(seed))) {\n\tconsole.log(item);\n}",
+		"good": "const argument = createArgument(seed);\nfor (const item of getItems(argument)) {\n\tconsole.log(item);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unreadable-new-expression": {
+		"bad": "const bar = new Foo().getBar();",
+		"good": "const foo = new Foo();\nconst bar = foo.getBar();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unreadable-object-destructuring": {
+		"bad": "const {[key]: value} = object;",
+		"good": "const {foo} = object;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unsafe-buffer-conversion": {
+		"bad": "new Uint8Array(buffer.buffer);",
+		"good": "new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unsafe-dom-html": {
+		"bad": "element.innerHTML = html;\nelement.outerHTML = html;\niframe.srcdoc = html;\nelement.insertAdjacentHTML('beforeend', html);\nelement.setHTMLUnsafe(html);\nDocument.parseHTMLUnsafe(html);\nrange.createContextualFragment(html);\niframe.setAttribute('srcdoc', html);\ndocument.write(html);\ndocument.writeln(html);",
+		"good": "element.setHTML(html);\nDocument.parseHTML(html);\nelement.textContent = text;\nelement.insertAdjacentText('beforeend', text);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unsafe-json-serialization": {
+		"bad": "JSON.stringify({permissions: new Set(['read'])});\nJSON.stringify(new Map([['name', 'unicorn']]));\nJSON.stringify({count: 1n});\nJSON.stringify(/unicorn/gi);\nResponse.json({permissions: new Set(['read'])});",
+		"good": "JSON.stringify({permissions: Array.from(new Set(['read']))});\nJSON.stringify(Object.fromEntries(new Map([['name', 'unicorn']])));\nJSON.stringify({count: String(1n)});\nJSON.stringify({optional: undefined});\nResponse.json({permissions: Array.from(new Set(['read']))});\n\nconst pattern = /unicorn/gi;\nJSON.stringify({source: pattern.source, flags: pattern.flags});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unsafe-promise-all-settled-values": {
+		"bad": "const values = (await Promise.allSettled(promises)).map(result => result.value);",
+		"good": "const values = (await Promise.allSettled(promises))\n\t.filter(result => result.status === 'fulfilled')\n\t.map(result => result.value);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unsafe-property-key": {
+		"bad": "const key = {};\nobject[key] = value;",
+		"good": "object[String(key)] = value;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unsafe-sqlite-interpolation": {
+		"bad": "import {DatabaseSync} from 'node:sqlite';\n\nconst database = new DatabaseSync(':memory:');\n\ndatabase.exec(`SELECT * FROM users WHERE id = ${id}`);",
+		"good": "import {DatabaseSync} from 'node:sqlite';\n\nconst database = new DatabaseSync(':memory:');\n\ndatabase.exec('CREATE TABLE users (id INTEGER)');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unsafe-string-replacement": {
+		"bad": "template.replace('{url}', htmlEscape(url));",
+		"good": "template.replace('{url}', () => htmlEscape(url));",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unused-builtin-method-return": {
+		"bad": "array.map(element => transform(element));",
+		"good": "const transformed = array.map(element => transform(element));",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-unused-iterator-helper": {
+		"bad": "items.values().map(transform);\nvoid items.values().filter(predicate);\nawait items.values().flatMap(transform);",
+		"good": "const transformed = items.values().map(transform).toArray();\nconst filtered = items.values().filter(predicate);\n\nfor (const item of filtered) {\n\tconsume(item);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-url-in-search-params": {
+		"bad": "const parameters = new URLSearchParams('https://example.com/?query=hello');",
+		"good": "const parameters = new URL('https://example.com/?query=hello').searchParams;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-boolean-cast": {
+		"bad": "export const activeUsers = users.filter((user) => Boolean(user.active));",
+		"good": "export const activeUsers = users.filter((user) => user.active);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-coercion": {
+		"bad": "const a = Boolean(true);",
+		"good": "const a = true;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-compound-assignment": {
+		"bad": "let total = getTotal();\ntotal += 0;",
+		"good": "let total = getTotal();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-concat": {
+		"bad": "const message = 'Hello, ' + 'world!';",
+		"good": "const message = 'Hello, world!';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-continue": {
+		"bad": "for (const item of items) {\n\tprocess(item);\n\tcontinue;\n}",
+		"good": "for (const item of items) {\n\tprocess(item);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-delete-check": {
+		"bad": "const object = {};\n\nif (key in object) {\n\tdelete object[key];\n}",
+		"good": "delete object[key];",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-else": {
+		"bad": "if (foo) {\n\tthrow new Error();\n} else if (bar) {\n\tbaz();\n}",
+		"good": "if (foo) {\n\tthrow new Error();\n}\n\nif (bar) {\n\tbaz();\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-logical-operand": {
+		"bad": "const value = true && input;\nconst other = input && true && fallback;",
+		"good": "const value = input;\nconst other = input && fallback;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-override": {
+		"bad": "class Foo extends Bar {\n\tdoThing(a, b) {\n\t\treturn super.doThing(a, b);\n\t}\n}",
+		"good": "class Foo extends Bar {} // Inherits `doThing` from `Bar`.",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-re-export": {
+		"bad": "export * from './foo.js';\nexport {foo} from './foo.js';",
+		"good": "export * from './foo.js';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-recursion": {
+		"bad": "function foo(bar) {\n\tif (bar.baz) {\n\t\treturn foo(bar.baz);\n\t}\n\n\treturn bar;\n}",
+		"good": "function foo(bar) {\n\twhile (bar.baz) {\n\t\tbar = bar.baz;\n\t}\n\n\treturn bar;\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-set-construction": {
+		"bad": "const selected = new Set([1, 2]);\nconst records = new Map([[2, 'value']]);\nconst other = new Set([2, 3]);\n\nselected.intersection(new Set(records.keys()));\nselected.union(new Set(other));\nselected.difference(new Set(other.values()));",
+		"good": "const selected = new Set([1, 2]);\nconst records = new Map([[2, 'value']]);\nconst other = new Set([2, 3]);\n\nselected.intersection(records);\nselected.union(other);\nselected.difference(other);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-useless-template-literals": {
+		"bad": "const message = `${'Hello'}`;",
+		"good": "const message = 'Hello';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/no-using-resource-escape": {
+		"bad": "declare function acquire(): Disposable & { read(): string };\n\nexport function openResource(): Disposable {\n\tusing resource = acquire();\n\n\treturn resource;\n}",
+		"good": "declare function acquire(): Disposable & { read(): string };\n\nexport function readResource(): string {\n\tusing resource = acquire();\n\n\treturn resource.read();\n}",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/no-xor-as-exponentiation": {
+		"bad": "const kibibyte = 2 ^ 10; // 8, not 1024",
+		"good": "const kibibyte = 2 ** 10;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/operator-assignment": {
+		"bad": "foo = foo + bar;",
+		"good": "foo += bar;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-abort-signal-any": {
+		"bad": "const abortController = new AbortController();\n\nfirstSignal.addEventListener('abort', () => abortController.abort());\nsecondSignal.addEventListener('abort', () => abortController.abort());\n\nawait fetch(url, {signal: abortController.signal});",
+		"good": "const abortSignal = AbortSignal.any(signals);\n\nawait fetch(url, {signal: abortSignal});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-abort-signal-timeout": {
+		"bad": "const abortController = new AbortController();\nsetTimeout(() => abortController.abort(), 1000);\n\nawait fetch(url, {signal: abortController.signal});",
+		"good": "const abortSignal = AbortSignal.timeout(1000);\n\nawait fetch(url, {signal: abortSignal});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-add-event-listener-options": {
+		"bad": "const button: HTMLElement = document.createElement(\"button\");\nbutton.addEventListener(\"click\", () => {}, true);",
+		"good": "const button: HTMLElement = document.createElement(\"button\");\nbutton.addEventListener(\"click\", () => {}, { capture: true });",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-aggregate-error": {
+		"bad": "const errors: Error[] = [new Error('Email is required.')];\n\nif (errors.length > 0) {\n\tthrow new Error('Validation failed.');\n}",
+		"good": "const errors: Error[] = [new Error('Email is required.')];\n\nif (errors.length > 0) {\n\tthrow new AggregateError(errors, 'Validation failed.');\n}",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-array-from-async": {
+		"bad": "const result = [];\nfor await (const element of iterable) {\n\tresult.push(element);\n}",
+		"good": "const result = await Array.fromAsync(iterable);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-array-from-map": {
+		"bad": "const foo = Array.from(bar).map(element => element.id);",
+		"good": "const foo = Array.from(bar, element => element.id);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-array-from-range": {
+		"bad": "const indexes = [...Array(length).keys()];",
+		"good": "const indexes = Array.from({length}, (_, index) => index);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-array-iterable-methods": {
+		"bad": "const names: Array<string> = [\"Ada\", \"Grace\"];\n\nfor (const [, name] of names.entries()) {\n\tconsole.log(name);\n}",
+		"good": "const names: Array<string> = [\"Ada\", \"Grace\"];\n\nfor (const name of names) {\n\tconsole.log(name);\n}",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-array-last-methods": {
+		"bad": "const result = array.reverse().find(isUnicorn);",
+		"good": "const result = array.findLast(isUnicorn);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-array-slice": {
+		"bad": "const foo = process.argv.splice(2)[0];",
+		"good": "const foo = process.argv.slice(2)[0];",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-await": {
+		"bad": "promise.then(value => {\n\treturn transform(value);\n});",
+		"good": "// Use an async IIFE when the surrounding scope cannot use `await` and the work should remain fire-and-forget.\nvoid (async () => {\n\tconst value = await promise;\n\talert(value);\n})();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-block-statement-over-iife": {
+		"bad": "(() => {\n\tconst value = getValue();\n\trun(value);\n})();",
+		"good": "{\n\tconst value = getValue();\n\trun(value);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-boolean-return": {
+		"bad": "function isValid(value) {\n\tif (value > 0) {\n\t\treturn true;\n\t}\n\n\treturn false;\n}",
+		"good": "function isValid(value) {\n\treturn value > 0;\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-combined-guards": {
+		"bad": "function check(context) {\n\tif (context.finished) {\n\t\treturn;\n\t}\n\n\tif (context.cancelled) {\n\t\treturn;\n\t}\n}",
+		"good": "function check(context) {\n\tif (context.finished || context.cancelled) {\n\t\treturn;\n\t}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-continue": {
+		"bad": "for (const item of items) {\n\tdoSomethingBefore();\n\tif (item.isActive) {\n\t\tprocess(item);\n\t\tsave(item);\n\t}\n}",
+		"good": "for (const item of items) {\n\tdoSomethingBefore();\n\tif (!item.isActive) {\n\t\tcontinue;\n\t}\n\n\tprocess(item);\n\tsave(item);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-direct-iteration": {
+		"bad": "const map = new Map();\nfor (const entry of map.entries()) {}",
+		"good": "const map = new Map();\nfor (const entry of map) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-dispose": {
+		"bad": "const file = open();\ntry {\n\tread(file);\n} finally {\n\tfile.close();\n}",
+		"good": "{\n\tusing file = open();\n\tread(file);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-dom-node-html-methods": {
+		"bad": "const element: HTMLElement = document.createElement(\"div\");\n\nexport const html = element.innerHTML;",
+		"good": "const element: HTMLElement = document.createElement(\"div\");\n\nexport const html = element.getHTML();",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-dom-node-replace-children": {
+		"bad": "element.innerHTML = '';",
+		"good": "element.replaceChildren();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-early-return": {
+		"bad": "function foo() {\n\tdoSomethingBefore();\n\tif (condition) {\n\t\tdoSomething();\n\t\tdoSomethingElse();\n\t}\n}",
+		"good": "function foo() {\n\tdoSomethingBefore();\n\tif (!condition) {\n\t\treturn;\n\t}\n\n\tdoSomething();\n\tdoSomethingElse();\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-else-if": {
+		"bad": "if (foo === 1) {\n\tone();\n}\n\nif (foo === 2) {\n\ttwo();\n}",
+		"good": "if (foo === 1) {\n\tone();\n} else if (foo === 2) {\n\ttwo();\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-error-is-error": {
+		"bad": "error instanceof Error;",
+		"good": "Error.isError(error);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-escaped-irregular-whitespace": {
+		"bad": "const nonBreakingSpace = ' ';",
+		"good": "const nonBreakingSpace = '\\u{A0}';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-flat-math-min-max": {
+		"bad": "const biggest = Math.max(Math.max(a, b), c);",
+		"good": "const biggest = Math.max(a, b, c);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-get-or-insert-computed": {
+		"bad": "declare function loadUser(id: string): { id: string };\n\nconst users = new Map<string, { id: string }>();\n\nexport const user = users.getOrInsert(\"1\", loadUser(\"1\"));",
+		"good": "declare function loadUser(id: string): { id: string };\n\nconst users = new Map<string, { id: string }>();\n\nexport const user = users.getOrInsertComputed(\"1\", () => loadUser(\"1\"));",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-global-number-constants": {
+		"bad": "const foo = Number.NaN;",
+		"good": "const foo = NaN;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-group-by": {
+		"bad": "const grouped = items.reduce((groups, item) => {\n\tgroups[item.type] ??= [];\n\tgroups[item.type].push(item);\n\treturn groups;\n}, {});",
+		"good": "const grouped = Object.groupBy(items, item => item.type);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-has-check": {
+		"bad": "declare const map: Map<string, object>;\n\nif (map.get(key)) {\n\t// …\n}",
+		"good": "if (map.has(key)) {\n\t// …\n}",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-hoisting-branch-code": {
+		"bad": "if (isAdmin) {\n\tlog('access');\n\tshowDashboard();\n} else {\n\tlog('access');\n\tshowLogin();\n}",
+		"good": "log('access');\nif (isAdmin) {\n\tshowDashboard();\n} else {\n\tshowLogin();\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-https": {
+		"bad": "const url = 'http://sindresorhus.com';",
+		"good": "const url = 'https://sindresorhus.com';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-identifier-import-export-specifiers": {
+		"bad": "import {'foo' as foo} from 'foo';",
+		"good": "import {foo as foo} from 'foo';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-includes-over-repeated-comparisons": {
+		"bad": "value === 'a' || value === 'b' || value === 'c';",
+		"good": "['a', 'b', 'c'].includes(value);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-iterable-in-constructor": {
+		"bad": "const set = new Set();\nfor (const item of items) {\n\tset.add(item);\n}",
+		"good": "const set = new Set(items);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-iterator-concat": {
+		"bad": "const set = new Set([...foo, ...bar]);",
+		"good": "const set = new Set(Iterator.concat(foo, bar));",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-iterator-helpers": {
+		"bad": "[...map.values()].find(value => value.id === id);",
+		"good": "map.values().find(value => value.id === id);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-iterator-to-array": {
+		"bad": "const values = [...map.values()];",
+		"good": "const values = map.values().toArray();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-iterator-to-array-at-end": {
+		"bad": "const result = iterator.toArray().map(element => element * 2);",
+		"good": "const result = iterator.map(element => element * 2).toArray();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-iterator-zip": {
+		"bad": "for (let index = 0; index < Math.min(names.length, scores.length); index++) {\n\tsave(names[index], scores[index]);\n}",
+		"good": "for (const [name, score] of Iterator.zip([names, scores])) {\n\tsave(name, score);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-json-import": {
+		"bad": "import fs from 'node:fs';\n\nconst data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));",
+		"good": "import fs from 'node:fs';\n\nimport data from './data.json' with {type: 'json'};",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-literal-ascii": {
+		"bad": "const letter = '\\x41';\nconst word = '\\u0042\\u{43}';\nconst template = `\\u0024\\u007Bvalue}`;",
+		"good": "const letter = 'A';\nconst word = 'BC';\nconst template = `\\${value}`;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-location-assign": {
+		"bad": "export function goTo(url: string): void {\n\twindow.location.href = url;\n}",
+		"good": "export function goTo(url: string): void {\n\twindow.location.assign(url);\n}",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-map-from-entries": {
+		"bad": "const object = Object.fromEntries(Object.entries(source));\n\nif (Object.hasOwn(object, 'foo')) {\n\tconsole.log(object.foo);\n}",
+		"good": "const object = new Map(Object.entries(source));\n\nif (object.has('foo')) {\n\tconsole.log(object.get('foo'));\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-math-abs": {
+		"bad": "const absolute = value < 0 ? -value : value;",
+		"good": "const absolute = Math.abs(value);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-math-constants": {
+		"bad": "const area = 3.14 * radius ** 2;",
+		"good": "const area = Math.PI * radius ** 2;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-minimal-ternary": {
+		"bad": "const foo = test ? call(a) : call(b);",
+		"good": "const foo = call(test ? a : b);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-number-coercion": {
+		"bad": "const number = parseFloat(value);",
+		"good": "const number = Number(value);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-number-is-safe-integer": {
+		"bad": "if (!Number.isInteger(index)) {\n\tthrow new Error('Expected an integer.');\n}",
+		"good": "if (!Number.isSafeInteger(index)) {\n\tthrow new Error('Expected a safe integer.');\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-object-define-properties": {
+		"bad": "Object.defineProperty(foo, 'bar', {\n\tvalue: 1,\n\twritable: true,\n});\nObject.defineProperty(foo, 'baz', {\n\tvalue: 2,\n\twritable: true,\n});",
+		"good": "Object.defineProperties(foo, {\n\tbar: {\n\t\tvalue: 1,\n\t\twritable: true,\n\t},\n\tbaz: {\n\t\tvalue: 2,\n\t\twritable: true,\n\t},\n});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-object-destructuring-defaults": {
+		"bad": "const {foo, bar} = {\n\tfoo: false,\n\tbar: 1,\n\t...options,\n};",
+		"good": "const {foo = false, bar = 1} = {...options};",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-object-iterable-methods": {
+		"bad": "for (const key of Object.keys(object)) {\n\tfoo(object[key]);\n}",
+		"good": "for (const value of Object.values(object)) {\n\tfoo(value);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-observer-apis": {
+		"bad": "window.addEventListener('resize', () => {\n\telement.classList.toggle('is-small', element.offsetWidth < 500);\n});",
+		"good": "new ResizeObserver(entries => {\n\tfor (const entry of entries) {\n\t\tentry.target.classList.toggle('is-small', entry.contentRect.width < 500);\n\t}\n}).observe(element);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-options-parameter": {
+		"bad": "function run(input, verbose = false, options = {}) {}",
+		"good": "function run(input, {verbose = false, ...options} = {}) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-path2d": {
+		"bad": "function draw() {\n\tcontext.moveTo(220, 60);\n\tcontext.arc(170, 60, 50, 0, 2 * Math.PI);\n\tcontext.stroke();\n}\n\nfunction step() {\n\tdraw();\n\trequestAnimationFrame(step);\n}\n\nrequestAnimationFrame(step);",
+		"good": "const path = new Path2D();\npath.moveTo(220, 60);\npath.arc(170, 60, 50, 0, 2 * Math.PI);\n\nfunction step() {\n\tcontext.stroke(path);\n\trequestAnimationFrame(step);\n}\n\nrequestAnimationFrame(step);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-private-class-fields": {
+		"bad": "class Foo {\n\tstatic _PRIVATE_STATIC_FIELD;\n\t_privateField;\n\n\t_privateMethod() {\n\t\treturn 'hello world';\n\t}\n}",
+		"good": "class Foo {\n\tstatic #PRIVATE_STATIC_FIELD;\n\t#privateField;\n\n\t#privateMethod() {\n\t\treturn 'hello world';\n\t}\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-promise-static-methods": {
+		"bad": "new Promise(resolve => resolve(value));",
+		"good": "Promise.resolve(value);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-promise-try": {
+		"bad": "new Promise(resolve => resolve(fn()));",
+		"good": "Promise.try(() => fn());",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-promise-with-resolvers": {
+		"bad": "let resolve;\nconst promise = new Promise(resolve_ => {\n\tresolve = resolve_;\n});",
+		"good": "const {promise, resolve} = Promise.withResolvers();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-queue-microtask": {
+		"bad": "process.nextTick(callback);",
+		"good": "queueMicrotask(callback);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-regexp-escape": {
+		"bad": "const escaped = string.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');",
+		"good": "const escaped = RegExp.escape(string);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-regexp-exec": {
+		"bad": "const text = 'unicorn';\n\nconst match = text.match(/uni(corn)/);",
+		"good": "const text = 'unicorn';\n\nconst match = /uni(corn)/.exec(text);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-scoped-selector": {
+		"bad": "element.querySelectorAll('.outer .inner');",
+		"good": "element.querySelectorAll(':scope .outer .inner');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-set-methods": {
+		"bad": "const admins = new Set<string>([\"ada\"]);\nconst editors = new Set<string>([\"grace\"]);\n\nexport const staff = new Set([...admins, ...editors]);",
+		"good": "const admins = new Set<string>([\"ada\"]);\nconst editors = new Set<string>([\"grace\"]);\n\nexport const staff = admins.union(editors);",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-short-arrow-method": {
+		"bad": "export const api = {\n\tgetUrl() {\n\t\treturn \"https://api.example.com\";\n\t},\n};",
+		"good": "export const api = {\n\tgetUrl: () => \"https://api.example.com\",\n};",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-short-escape-sequences": {
+		"bad": "const text = \"Line one\\u000ALine two\";\nconst template = `Line one\\u000ALine two`;",
+		"good": "const text = \"Line one\\nLine two\";\nconst template = `Line one\\nLine two`;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-simple-sort-comparator": {
+		"bad": "array.sort((a, b) => {\n\tif (a > b) {\n\t\treturn 1;\n\t}\n\n\tif (a < b) {\n\t\treturn -1;\n\t}\n\n\treturn 0;\n});",
+		"good": "array.sort((a, b) => a - b);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-simplified-conditions": {
+		"bad": "if (!(key === 'y' && !isEditable(target))) {}",
+		"good": "if (key !== 'y' || isEditable(target)) {}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-single-array-predicate": {
+		"bad": "interface Message {\n\tseverity: string;\n\ttype: string;\n}\n\nconst messages: Array<Message> = [];\n\nexport const hasErrors = messages.some((message) => message.type === \"error\") || messages.some((message) => message.severity === \"critical\");",
+		"good": "interface Message {\n\tseverity: string;\n\ttype: string;\n}\n\nconst messages: Array<Message> = [];\n\nexport const hasErrors = messages.some((message) => message.type === \"error\" || message.severity === \"critical\");",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-single-object-destructuring": {
+		"bad": "const foo = {};\nconst {bar} = foo;\nconst {baz} = foo;",
+		"good": "const foo = {};\nconst {bar, baz} = foo;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-single-replace": {
+		"bad": "const slug = string.replaceAll('a', '-').replaceAll('b', '-').replaceAll('c', '-');",
+		"good": "const slug = string.replaceAll(/[abc]/g, '-');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-smaller-scope": {
+		"bad": "export function describe(isVerbose) {\n\tconst detail = \"full report\";\n\n\tif (isVerbose) {\n\t\treturn detail;\n\t}\n\n\treturn \"summary\";\n}",
+		"good": "export function describe(isVerbose) {\n\tif (isVerbose) {\n\t\tconst detail = \"full report\";\n\n\t\treturn detail;\n\t}\n\n\treturn \"summary\";\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-split-limit": {
+		"bad": "export const protocol = (url) => url.split(\":\")[0];",
+		"good": "export const protocol = (url) => url.split(\":\", 1)[0];",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-string-match-all": {
+		"bad": "const regexp = /foo/g;\nconst string = 'foofoo';\nlet match;\nwhile ((match = regexp.exec(string)) !== null) {\n\tconsole.log(match);\n}",
+		"good": "const regexp = /foo/g;\nconst string = 'foofoo';\nfor (const match of string.matchAll(regexp)) {\n\tconsole.log(match);\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-string-pad-start-end": {
+		"bad": "const padded = value + ' '.repeat(5 - value.length);",
+		"good": "const padded = value.padEnd(5, ' ');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-string-repeat": {
+		"bad": "const indentation = '    ';",
+		"good": "const indentation = ' '.repeat(4);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-temporal": {
+		"bad": "export const now = new Date();",
+		"good": "export const now = Temporal.Now.instant();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-temporal-conversion": {
+		"bad": "const zoned = Temporal.ZonedDateTime.from('2024-01-02T03:04:05.123456789+00:00[UTC]');\n\nTemporal.Instant.from(zoned);\nTemporal.Instant.fromEpochMilliseconds(zoned.epochMilliseconds);\nTemporal.Instant.fromEpochNanoseconds(zoned.epochNanoseconds);\nTemporal.PlainDate.from(zoned.toString());\nnew Temporal.PlainDate(zoned.year, zoned.month, zoned.day);",
+		"good": "const zoned = Temporal.ZonedDateTime.from('2024-01-02T03:04:05.123456789+00:00[UTC]');\n\nzoned.toInstant();\nzoned.toPlainDate();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-then-catch": {
+		"bad": "fetch(url).then(\n\tresponse => JSON.parse(response),\n\terror => {\n\t\tlog(error);\n\t},\n);",
+		"good": "fetch(url)\n\t.then(response => JSON.parse(response))\n\t.catch(error => {\n\t\tlog(error);\n\t});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-toggle-attribute": {
+		"bad": "if (element.hasAttribute('hidden')) {\n\telement.removeAttribute('hidden');\n} else {\n\telement.setAttribute('hidden', '');\n}",
+		"good": "element.toggleAttribute('hidden');",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-type-literal-last": {
+		"bad": "type ElementUnion = {\n\tfoo: string;\n} | Other;",
+		"good": "type ElementUnion = Other | {\n\tfoo: string;\n};",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/prefer-uint8array-base64": {
+		"bad": "const bytes = Buffer.fromBase64(base64);",
+		"good": "const bytes = Uint8Array.fromBase64(base64);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-uint8array-hex": {
+		"bad": "const bytes = new Uint8Array([0, 15, 255]);\n\nconst hex = [...bytes].map(byte => byte.toString(16).padStart(2, '0')).join('');",
+		"good": "const bytes = new Uint8Array([0, 15, 255]);\n\nconst hex = bytes.toHex();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-unary-minus": {
+		"bad": "const inverted = value * -1;",
+		"good": "const inverted = -value;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-unicode-code-point-escapes": {
+		"bad": "const foo = '\\xA9';\nconst bar = '\\u2661';\nconst baz = '\\uD83D\\uDCA9';",
+		"good": "const foo = '\\u{A9}';\nconst bar = '\\u{2661}';\nconst baz = '\\u{1F4A9}';",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-url-can-parse": {
+		"bad": "let valid;\ntry {\n\tnew URL(value, base);\n\tvalid = true;\n} catch {\n\tvalid = false;\n}",
+		"good": "let valid;\nvalid = URL.canParse(value, base);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-url-href": {
+		"bad": "new URL('https://example.com').toString();",
+		"good": "new URL('https://example.com').href;",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-url-search-parameters": {
+		"bad": "const parameters = Object.fromEntries(query.split('&').map(part => part.split('=')));",
+		"good": "const parameters = Object.fromEntries(new URLSearchParams(query));",
+		"language": "js"
+	},
+	"@elsikora/unicorn/prefer-while-loop-condition": {
+		"bad": "while (true) {\n\tif (!hasMore()) {\n\t\tbreak;\n\t}\n\n\tprocessNext();\n}",
+		"good": "while (hasMore()) {\n\tprocessNext();\n}",
+		"language": "js"
+	},
+	"@elsikora/unicorn/require-array-sort-compare": {
+		"bad": "const numbers: Array<number> = [3, 1, 10];\n\nexport const sorted = numbers.toSorted();",
+		"good": "const numbers: Array<number> = [3, 1, 10];\n\nexport const sorted = numbers.toSorted((left, right) => left - right);",
+		"language": "ts"
+	},
+	"@elsikora/unicorn/require-css-escape": {
+		"bad": "document.querySelector(`[data-id=\"${id}\"]`);",
+		"good": "document.querySelector(`[data-id=\"${CSS.escape(id)}\"]`);",
+		"language": "js"
+	},
+	"@elsikora/unicorn/require-frontmatter-fields": {
+		"bad": "---\ndescription: Setup guide\n---\n\n# Setup",
+		"good": "---\ntitle: Setup\ndescription: Setup guide\n---\n\n# Setup",
+		"language": "md"
+	},
+	"@elsikora/unicorn/require-passive-events": {
+		"bad": "window.addEventListener('wheel', () => {});",
+		"good": "window.addEventListener('wheel', () => {}, {passive: true});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/require-proxy-trap-boolean-return": {
+		"bad": "new Proxy(target, {\n\tset(target, property, value) {\n\t\ttarget[property] = value;\n\t}\n});",
+		"good": "new Proxy(target, {\n\tset(target, property, value) {\n\t\ttarget[property] = value;\n\t\treturn true;\n\t}\n});",
+		"language": "js"
+	},
+	"@elsikora/unicorn/require-spread-parentheses": {
+		"bad": "const options = {...enabled && overrides};",
+		"good": "const options = {...(enabled && overrides)};",
+		"language": "js"
+	},
+	"@elsikora/unicorn/require-text-decoder-streaming": {
+		"bad": "const response = await fetch(url);\nconst decoder = new TextDecoder();\nlet text = '';\n\nfor await (const chunk of response.body) {\n\ttext += decoder.decode(chunk);\n}",
+		"good": "const response = await fetch(url);\nconst decoder = new TextDecoder();\nlet text = '';\n\nfor await (const chunk of response.body) {\n\ttext += decoder.decode(chunk, {stream: true});\n}\n\ntext += decoder.decode();",
+		"language": "js"
+	},
+	"@elsikora/unicorn/single-line-block-comment-style": {
+		"bad": "/** Get the value. */\n/* Get the value. */",
+		"good": "/**\nGet the value.\n*/\n/*\nGet the value.\n*/",
+		"language": "js"
+	},
+	"@elsikora/unicorn/try-complexity": {
+		"bad": "try {\n\tif (condition) {\n\t\tdoSomething();\n\t}\n} catch (error) {\n\thandleError(error);\n}",
+		"good": "try {\n\tdoSomething();\n\tdoSomethingElse();\n} catch (error) {\n\thandleError(error);\n}",
+		"language": "js"
+	},
+	"logical-assignment-operators": {
+		"bad": "export function withDefaults(options) {\n\toptions.retries = options.retries || 3;\n\n\treturn options;\n}",
+		"good": "export function withDefaults(options) {\n\toptions.retries ||= 3;\n\n\treturn options;\n}",
+		"language": "js"
+	},
+	"no-process-exit": {
+		"bad": "if (!config) {\n\tprocess.exit(1);\n}",
+		"good": "if (!config) {\n\tprocess.exitCode = 1;\n}",
+		"language": "js"
+	}
+}

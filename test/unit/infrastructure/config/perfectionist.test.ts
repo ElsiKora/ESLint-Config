@@ -75,9 +75,9 @@ describe("Perfectionist Config", () => {
 		// Default config should have more groups
 		expect(defaultConfigs[1].rules["perfectionist/sort-imports"][1].groups.length).toBeGreaterThan(fsdConfigs[1].rules["perfectionist/sort-imports"][1].groups.length);
 
-		// FSD config should treat layer imports as internal imports.
-		expect(fsdConfigs[1].rules["perfectionist/sort-imports"][1].internalPattern).toContain("^.*entities($|/.*$)");
-		expect(fsdConfigs[1].rules["perfectionist/sort-imports"][1].internalPattern).toContain("^.*shared($|/.*$)");
+		// FSD config should group layer imports from the top layer to the bottom one.
+		expect(fsdConfigs[1].rules["perfectionist/sort-imports"][1].customGroups).toContainEqual({ elementNamePattern: "^@/entities(/|$)", groupName: "fsd-entities" });
+		expect(fsdConfigs[1].rules["perfectionist/sort-imports"][1].groups).toEqual(["builtin", "external", "fsd-app", "fsd-processes", "fsd-pages", "fsd-widgets", "fsd-features", "fsd-entities", "fsd-shared", "internal", "parent", "sibling", "index", "unknown"]);
 
 		// Check newlinesBetween differences
 		expect(defaultConfigs[1].rules["perfectionist/sort-imports"][1].newlinesBetween).toBe(1);

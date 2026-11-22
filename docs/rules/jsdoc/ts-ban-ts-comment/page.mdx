@@ -1,0 +1,212 @@
+import { Callout, Tabs } from "nextra/components";
+
+# `@elsikora/jsdoc/ts-ban-ts-comment`
+
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
+</Callout>
+
+## Rule Overview
+
+Disallows (or requires descriptions for) `@ts-<directive>` comments, mirroring `@typescript-eslint/ban-ts-comment`.
+
+This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
+
+## Rule Metadata
+
+| Property           | Value        |
+| ------------------ | ------------ |
+| Type               | `suggestion` |
+| Fixable            | ❌ No        |
+| Has suggestions    | ✅ Yes       |
+| Deprecated         | ❌ No        |
+| ESLint recommended | `unknown`    |
+
+## All Supported Options
+
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"additionalProperties": false,
+		"properties": {
+			"minimumDescriptionLength": {
+				"description": "A minimum character length for descriptions when `allow-with-description` is enabled. Defaults to `3`.",
+				"type": "integer"
+			},
+			"ts-check": {
+				"description": "Whether (and how) to allow `@ts-check` directives.",
+				"oneOf": [
+					{
+						"type": "boolean"
+					},
+					{
+						"description": "Whether to allow the directive if a description is present",
+						"enum": ["allow-with-description"],
+						"type": "string"
+					},
+					{
+						"additionalProperties": false,
+						"properties": {
+							"descriptionFormat": {
+								"description": "A regular expression indicating the format the directive should follow",
+								"type": "string"
+							}
+						},
+						"type": "object"
+					}
+				]
+			},
+			"ts-expect-error": {
+				"description": "Whether (and how) to allow `@ts-expect-error` directives.",
+				"oneOf": [
+					{
+						"type": "boolean"
+					},
+					{
+						"description": "Whether to allow the directive if a description is present",
+						"enum": ["allow-with-description"],
+						"type": "string"
+					},
+					{
+						"additionalProperties": false,
+						"properties": {
+							"descriptionFormat": {
+								"description": "A regular expression indicating the format the directive should follow",
+								"type": "string"
+							}
+						},
+						"type": "object"
+					}
+				]
+			},
+			"ts-ignore": {
+				"description": "Whether (and how) to allow `@ts-ignore` directives.",
+				"oneOf": [
+					{
+						"type": "boolean"
+					},
+					{
+						"description": "Whether to allow the directive if a description is present",
+						"enum": ["allow-with-description"],
+						"type": "string"
+					},
+					{
+						"additionalProperties": false,
+						"properties": {
+							"descriptionFormat": {
+								"description": "A regular expression indicating the format the directive should follow",
+								"type": "string"
+							}
+						},
+						"type": "object"
+					}
+				]
+			},
+			"ts-nocheck": {
+				"description": "Whether (and how) to allow `@ts-nocheck` directives.",
+				"oneOf": [
+					{
+						"type": "boolean"
+					},
+					{
+						"description": "Whether to allow the directive if a description is present",
+						"enum": ["allow-with-description"],
+						"type": "string"
+					},
+					{
+						"additionalProperties": false,
+						"properties": {
+							"descriptionFormat": {
+								"description": "A regular expression indicating the format the directive should follow",
+								"type": "string"
+							}
+						},
+						"type": "object"
+					}
+				]
+			}
+		},
+		"type": "object"
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
+
+## ElsiKora Default Setting
+
+The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
+
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
+
+### Effective Result by File Type
+
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `jsdoc`       | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `jsdoc`       | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+
+### Configured Entries Before ESLint Resolves Overrides
+
+| Scenario      | Severity | Value   | Config block |
+| ------------- | -------- | ------- | ------------ |
+| `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
+| `all-options` | 🧭 `off` | `"off"` | `14`         |
+
+## Examples
+
+<Tabs items={["❌ Avoid", "✅ Prefer"]}>
+  <Tabs.Tab>
+
+```js filename="bad-example.js" copy
+/**
+ * Returns the user's id as a string.
+ * @param {{ id: number }} user - The user to read.
+ * @returns {string} The id.
+ */
+export function getId(user) {
+	// @ts-ignore
+	return user.id;
+}
+```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+```js filename="good-example.js" copy
+/**
+ * Returns the user's id as a string.
+ * @param {{ id: number }} user - The user to read.
+ * @returns {string} The id.
+ */
+export function getId(user) {
+	return String(user.id);
+}
+```
+
+  </Tabs.Tab>
+</Tabs>
+
+## Related Reference
+
+- **Final rule id:** `@elsikora/jsdoc/ts-ban-ts-comment`
+- **Documentation route:** `/docs/eslint-config/rules/jsdoc/ts-ban-ts-comment`

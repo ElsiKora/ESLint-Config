@@ -1,8 +1,21 @@
-import type { ESLint } from "eslint";
+import type { ESLint, Linter } from "eslint";
+import type { IConfigOptions } from "../../src";
 
 import { describe, expect, it } from "vitest";
 import { createEsLintInstance } from "./helper/create-eslint-instance.helper";
+import { getFixturePath } from "./helper/get-fixture-path.helper";
 import { formatRuleName } from "../../src";
+
+const VITE_FIXTURE_ROOT: string = getFixturePath("fsd/vite");
+const NEXT_FIXTURE_ROOT: string = getFixturePath("fsd/next");
+
+function getRuleIds(result: ESLint.LintResult | undefined): Array<string | null> {
+	return result?.messages.map((message) => message.ruleId) ?? [];
+}
+
+function formatMessages(results: Array<ESLint.LintResult>): Array<string> {
+	return results.flatMap((result) => result.messages.map((message) => `${result.filePath}: ${message.ruleId}: ${message.message}`));
+}
 
 describe("FSD (Feature-Sliced Design) Configuration", () => {
 	it("should pass valid FSD code", async () => {
@@ -89,5 +102,139 @@ describe("FSD (Feature-Sliced Design) Configuration", () => {
 		);
 
 		expect(result.messages.some((msg) => msg.ruleId === formatRuleName("fsd/forbidden-imports"))).toBe(true);
+	});
+
+	describe("Feature-Sliced Design v2.1 compatibility", () => {
+		it.each([
+			["Vite and TanStack Router", VITE_FIXTURE_ROOT, { withTanstack: true }],
+			["Next.js", NEXT_FIXTURE_ROOT, { withNext: true }],
+		])("should pass the %s FSD reference tree", async (_name: string, cwd: string, routerOptions: IConfigOptions) => {
+			const eslint: ESLint = await createEsLintInstance({ withCheckFile: true, withFsd: true, withPerfectionist: true, ...routerOptions }, undefined, cwd);
+
+			const results: Array<ESLint.LintResult> = await eslint.lintFiles(["**/*.js", "**/*.jsx"]);
+
+			expect(results.length).toBeGreaterThan(0);
+			expect(formatMessages(results)).toEqual([]);
+		});
+
+		it("should check folder naming in the root Next.js router of the reference tree", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withCheckFile: true, withFsd: true, withNext: true }, undefined, NEXT_FIXTURE_ROOT);
+
+			const config: Linter.Config = await eslint.calculateConfigForFile(`${NEXT_FIXTURE_ROOT}/app/(marketing)/about/page.jsx`);
+
+			expect(config.rules?.[formatRuleName("check-file/folder-naming-convention")]).toEqual([2, { "app/**": expect.any(String) }, { errorMessage: expect.stringContaining("(group)") }]);
+		});
+
+		it("should accept per-component and per-segment Shared public APIs", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(
+				`
+					import { apiClient } from "@/shared/api";
+					import { formatDate } from "@/shared/lib/format";
+					import { Button } from "@/shared/ui/button";
+
+					export const imports = [apiClient, Button, formatDate];
+				`,
+				{ filePath: `${VITE_FIXTURE_ROOT}/src/features/auth/ui/profile-form.jsx` },
+			);
+
+			expect(getRuleIds(result)).not.toContain(formatRuleName("fsd/no-public-api-sidestep"));
+		});
+
+		it.each(["@/shared/ui/button/button", "@/shared/lib/format/format-date", "@/shared/api/client"])("should report the Shared internal module %s", async (importPath: string) => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(`import * as internal from "${importPath}";\nexport const value = internal;\n`, { filePath: `${VITE_FIXTURE_ROOT}/src/features/auth/ui/profile-form.jsx` });
+
+			expect(getRuleIds(result)).toContain(formatRuleName("fsd/no-public-api-sidestep"));
+		});
+
+		it.each([
+			["Vite-style", VITE_FIXTURE_ROOT, "src/app/routes/editor-route.jsx", "@/pages/editor/ui/editor-page"],
+			["Next.js-style", NEXT_FIXTURE_ROOT, "src/app/layouts/about-layout.jsx", "@/pages/about/ui/about-page"],
+		])("should protect the public API of pages slices in the %s tree", async (_name: string, cwd: string, filePath: string, importPath: string) => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, cwd);
+
+			const [result] = await eslint.lintText(`import * as page from "${importPath}";\nexport const route = page;\n`, { filePath: `${cwd}/${filePath}` });
+
+			expect(getRuleIds(result)).toContain(formatRuleName("fsd/no-public-api-sidestep"));
+		});
+
+		it.each([
+			["widgets before features", `import { Header } from "@/widgets/header";\nimport { LoginForm } from "@/features/auth";\n`],
+			["features before entities", `import { LoginForm } from "@/features/auth";\nimport { UserCard } from "@/entities/user";\n`],
+		])("should keep import sorting satisfiable with perfectionist for %s", async (_name: string, imports: string) => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true, withPerfectionist: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(`${imports}export const value = 1;\n`, { filePath: `${VITE_FIXTURE_ROOT}/src/pages/editor/ui/editor-toolbar.jsx` });
+
+			expect(getRuleIds(result)).toEqual([]);
+		});
+
+		it("should sort FSD imports by layer with perfectionist", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true, withPerfectionist: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(`import { UserCard } from "@/entities/user";\nimport { Header } from "@/widgets/header";\nexport const value = [Header, UserCard];\n`, { filePath: `${VITE_FIXTURE_ROOT}/src/pages/editor/ui/editor-toolbar.jsx` });
+
+			expect(getRuleIds(result)).toEqual([formatRuleName("perfectionist/sort-imports")]);
+		});
+
+		it("should keep npm packages named like a layer in the external group", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true, withPerfectionist: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(`import { decode } from "entities";\nimport { Header } from "@/widgets/header";\nexport const value = [decode, Header];\n`, { filePath: `${VITE_FIXTURE_ROOT}/src/pages/editor/ui/editor-toolbar.jsx` });
+
+			expect(getRuleIds(result)).toEqual([]);
+		});
+
+		it("should keep fsd/ordered-imports for extensions perfectionist does not sort", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true, withPerfectionist: true }, undefined, VITE_FIXTURE_ROOT);
+			const imports: string = `import { UserCard } from "@/entities/user";\nimport { Header } from "@/widgets/header";\nexport const value = [Header, UserCard];\n`;
+
+			const [moduleResult] = await eslint.lintText(imports, { filePath: `${VITE_FIXTURE_ROOT}/src/pages/editor/ui/editor-toolbar.mjs` });
+			const [scriptResult] = await eslint.lintText(imports, { filePath: `${VITE_FIXTURE_ROOT}/src/pages/editor/ui/editor-toolbar.jsx` });
+
+			expect(getRuleIds(moduleResult)).toContain(formatRuleName("fsd/ordered-imports"));
+			expect(getRuleIds(scriptResult)).not.toContain(formatRuleName("fsd/ordered-imports"));
+		});
+
+		it.each([
+			["the app layer importing its own store segment", "src/app/providers/query-provider.jsx", `import { rootStore } from "@/app/store";\n`],
+			["the app layer importing a store module relatively", "src/app/providers/query-provider.jsx", `import { rootStore } from "../store/root-store";\n`],
+			["a slice importing its own model store", "src/entities/cart/model/cart-total.js", `import { cartStore } from "./store/cart-store";\n`],
+		])("should allow %s", async (_name: string, filePath: string, imports: string) => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(`${imports}export const value = 1;\n`, { filePath: `${VITE_FIXTURE_ROOT}/${filePath}` });
+
+			expect(getRuleIds(result)).toEqual([]);
+		});
+
+		it("should still forbid lower layers from importing the app store", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(`import { rootStore } from "@/app/store";\nexport const value = rootStore;\n`, { filePath: `${VITE_FIXTURE_ROOT}/src/features/auth/model/session.js` });
+
+			expect(getRuleIds(result)).toContain(formatRuleName("fsd/forbidden-imports"));
+		});
+
+		it("should not enable fsd-lint rules that cannot report or contradict FSD", async () => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const config: Linter.Config = await eslint.calculateConfigForFile(`${VITE_FIXTURE_ROOT}/src/entities/user/model/user.js`);
+
+			expect(Object.keys(config.rules ?? {})).not.toContain(formatRuleName("fsd/no-ui-in-business-logic"));
+			expect(Object.keys(config.rules ?? {})).not.toContain(formatRuleName("fsd/no-global-store-imports"));
+		});
+
+		it.each(["login-form.test.jsx", "login-form.spec.jsx", "login-form.stories.jsx"])("should apply layer rules to %s", async (fileName: string) => {
+			const eslint: ESLint = await createEsLintInstance({ withFsd: true }, undefined, VITE_FIXTURE_ROOT);
+
+			const [result] = await eslint.lintText(`import { EditorPage } from "@/pages/editor";\nimport { createUser } from "@/entities/user/model/user";\nexport const value = [EditorPage, createUser];\n`, { filePath: `${VITE_FIXTURE_ROOT}/src/features/auth/ui/${fileName}` });
+
+			expect(getRuleIds(result)).toContain(formatRuleName("fsd/forbidden-imports"));
+			expect(getRuleIds(result)).toContain(formatRuleName("fsd/no-public-api-sidestep"));
+		});
 	});
 });

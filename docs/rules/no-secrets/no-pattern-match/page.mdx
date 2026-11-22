@@ -67,43 +67,43 @@ No upstream default options are exposed in the rule metadata.
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                                                                    |
-| ---------------- | ------------------------------------------------------------------------ |
-| Default scenario | `all-options`                                                            |
-| Default target   | `JavaScript` (`src/example.js`)                                          |
-| Default severity | 🚨 `error`                                                               |
-| Default value    | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| Field            | Value                                                                                                                                                                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default scenario | `all-options`                                                                                                                                                                                                                                                 |
+| Default target   | `JavaScript` (`src/example.js`)                                                                                                                                                                                                                               |
+| Default severity | 🚨 `error`                                                                                                                                                                                                                                                    |
+| Default value    | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
 
 ### Effective Result by File Type
 
-| Scenario      | Target         | File path                 | Effective severity | Effective value                                                          |
-| ------------- | -------------- | ------------------------- | ------------------ | ------------------------------------------------------------------------ |
-| `no-secrets`  | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `no-secrets`  | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `no-secrets`  | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `no-secrets`  | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `no-secrets`  | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `no-secrets`  | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `no-secrets`  | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
-| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` |
+| Scenario      | Target         | File path                 | Effective severity | Effective value                                                                                                                                                                                                                                               |
+| ------------- | -------------- | ------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `no-secrets`  | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `no-secrets`  | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `no-secrets`  | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `no-secrets`  | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `no-secrets`  | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `no-secrets`  | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `no-secrets`  | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `JavaScript`   | `src/example.js`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `JSX`          | `src/example.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `TypeScript`   | `src/example.ts`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `TSX`          | `src/example.tsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `Next pages`   | `pages/index.jsx`         | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `Next app`     | `app/page.tsx`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `Storybook`    | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `Package JSON` | `package.json`            | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `JSON`         | `config.json`             | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `YAML`         | `config.yaml`             | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `Markdown`     | `README.md`               | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
+| `all-options` | `CSS`          | `src/styles.css`          | 🚨 `error`         | `[2,{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
-| Scenario      | Severity   | Value                                                                          | Config block |
-| ------------- | ---------- | ------------------------------------------------------------------------------ | ------------ |
-| `no-secrets`  | 🚨 `error` | `["error",{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` | `0`          |
-| `all-options` | 🚨 `error` | `["error",{"patterns":{"ApiKey":{},"Password":{},"SecretKey":{},"Token":{}}}]` | `26`         |
+| Scenario      | Severity   | Value                                                                                                                                                                                                                                                               | Config block |
+| ------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `no-secrets`  | 🚨 `error` | `["error",{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` | `0`          |
+| `all-options` | 🚨 `error` | `["error",{"patterns":{"ApiKey":"/(?:const\|let\|var)\\s+API[-_]?KEY/i","Password":"/(?:const\|let\|var)\\s+(?:PASSWORD\|PASSWD\|PWD)/i","SecretKey":"/(?:const\|let\|var)\\s+SECRET[-_]?KEY/i","Token":"/(?:const\|let\|var)\\s+(?:TOKEN\|ACCESS[-_]?TOKEN)/i"}}]` | `29`         |
 
 ## Examples
 

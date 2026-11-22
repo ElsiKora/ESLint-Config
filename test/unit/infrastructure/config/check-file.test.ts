@@ -81,4 +81,40 @@ describe("CheckFileConfig", () => {
 		expect(Array.isArray(folderMatchRule)).toBe(true);
 		expect(folderMatchRule[0]).toBe("error");
 	});
+
+	it("should require plain kebab-case folders without router or FSD presets", async () => {
+		const module = await import("@infrastructure/config/check-file.ts");
+		const loadConfig = module.default;
+
+		const configs: Array<Linter.Config> = loadConfig({});
+
+		expect(configs[0].rules?.["@elsikora/check-file/folder-naming-convention"]).toEqual(["error", { "src/**": "+([a-z])*([a-z0-9])*(-+([a-z0-9]))" }, { errorMessage: 'The folder "{{ target }}" does not match the kebab-case pattern' }]);
+	});
+
+	it.each([
+		[{ withFsd: true }, "@x"],
+		[{ withNext: true }, "(.)intercepted"],
+		[{ withTanstack: true }, "$param"],
+	])("should allow the folder syntax of %o", async (options: Record<string, boolean>, syntax: string) => {
+		const module = await import("@infrastructure/config/check-file.ts");
+		const loadConfig = module.default;
+
+		const configs: Array<Linter.Config> = loadConfig(options);
+		const [, , { errorMessage }] = configs[0].rules?.["@elsikora/check-file/folder-naming-convention"] as [string, Record<string, string>, { errorMessage: string }];
+
+		expect(errorMessage).toContain(syntax);
+	});
+
+	it("should check the root Next.js router folder only with withNext", async () => {
+		const module = await import("@infrastructure/config/check-file.ts");
+		const loadConfig = module.default;
+
+		expect(loadConfig({})).toHaveLength(1);
+
+		const configs: Array<Linter.Config> = loadConfig({ withNext: true });
+
+		expect(configs).toHaveLength(2);
+		expect(configs[1].files).toEqual(["app/**/*"]);
+		expect(Object.keys(configs[1].rules?.["@elsikora/check-file/folder-naming-convention"][1])).toEqual(["app/**"]);
+	});
 });

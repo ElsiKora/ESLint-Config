@@ -13,12 +13,8 @@ import { builtinRules } from "eslint/use-at-your-own-risk";
 export function createVirtualEslintPlugin(configs: Array<Linter.Config>, prefix: string = "@elsikora/javascript"): Array<Linter.Config> {
 	const result: Array<Linter.Config> = [];
 
-	const virtualPluginRules: Record<string, RuleDefinition> = {};
-
 	// eslint-disable-next-line @elsikora/sonar/deprecation
-	for (const [ruleName, rule] of builtinRules) {
-		virtualPluginRules[ruleName] = rule;
-	}
+	const virtualPluginRules: Record<string, RuleDefinition> = Object.fromEntries(builtinRules);
 
 	const virtualPlugin: ESLint.Plugin = {
 		rules: virtualPluginRules,
@@ -38,7 +34,7 @@ export function createVirtualEslintPlugin(configs: Array<Linter.Config>, prefix:
 
 			for (const [ruleName, ruleValue] of Object.entries(newConfig.rules)) {
 				// eslint-disable-next-line @elsikora/sonar/deprecation
-				if (!ruleName.includes("/") && [...builtinRules.keys()].includes(ruleName)) {
+				if (!ruleName.includes("/") && builtinRules.has(ruleName)) {
 					prefixedRules[`${prefix}/${ruleName}`] = ruleValue;
 				} else {
 					prefixedRules[ruleName] = ruleValue;

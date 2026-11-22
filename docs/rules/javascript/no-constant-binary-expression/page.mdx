@@ -24,44 +24,60 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 
 ## All Supported Options
 
-This rule does not expose configurable options through its ESLint metadata schema.
+The rule exposes the following ESLint option schema:
+
+```json filename="options-schema.json" copy
+[
+	{
+		"type": "object",
+		"properties": {
+			"checkRelationalComparisons": {
+				"type": "boolean"
+			}
+		},
+		"additionalProperties": false
+	}
+]
+```
+
+No upstream default options are exposed in the rule metadata.
 
 ## ElsiKora Default Setting
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                           |
-| ---------------- | ------------------------------- |
-| Default scenario | `all-options`                   |
-| Default target   | `JavaScript` (`src/example.js`) |
-| Default severity | 🚨 `error`                      |
-| Default value    | `[2]`                           |
+| Field            | Value                                      |
+| ---------------- | ------------------------------------------ |
+| Default scenario | `all-options`                              |
+| Default target   | `JavaScript` (`src/example.js`)            |
+| Default severity | 🚨 `error`                                 |
+| Default value    | `[2,{"checkRelationalComparisons":false}]` |
 
 ### Effective Result by File Type
 
-| Scenario                | Target       | File path                 | Effective severity | Effective value |
-| ----------------------- | ------------ | ------------------------- | ------------------ | --------------- |
-| `javascript`            | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `javascript`            | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `javascript`            | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `javascript`            | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `javascript`            | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `javascript`            | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `javascript`            | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `all-options`           | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `all-options`           | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`           | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `all-options`           | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`           | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`           | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| Scenario                | Target       | File path                 | Effective severity | Effective value                            |
+| ----------------------- | ------------ | ------------------------- | ------------------ | ------------------------------------------ |
+| `javascript`            | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript`            | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript`            | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript`            | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript`            | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript`            | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript`            | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `all-options`           | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `all-options`           | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `all-options`           | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `all-options`           | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `all-options`           | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"checkRelationalComparisons":false}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
@@ -69,7 +85,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | ----------------------- | ---------- | --------- | ------------ |
 | `javascript`            | 🚨 `error` | `"error"` | `1`          |
 | `javascript-with-sonar` | 🚨 `error` | `"error"` | `1`          |
-| `all-options`           | 🚨 `error` | `"error"` | `9`          |
+| `all-options`           | 🚨 `error` | `"error"` | `12`         |
 
 ## Examples
 

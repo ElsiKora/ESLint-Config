@@ -40,6 +40,8 @@ Rules and nested groups documented for this preset family.
 	<Cards.Card emoji="📘" title="no-restricted-syntax" href="/docs/eslint-config/rules/jsdoc/no-restricted-syntax" />
 	<Cards.Card emoji="📘" title="no-types" href="/docs/eslint-config/rules/jsdoc/no-types" />
 	<Cards.Card emoji="📘" title="no-undefined-types" href="/docs/eslint-config/rules/jsdoc/no-undefined-types" />
+	<Cards.Card emoji="📘" title="no-unnecessary-type-assertion" href="/docs/eslint-config/rules/jsdoc/no-unnecessary-type-assertion" />
+	<Cards.Card emoji="📘" title="normalize-see-links" href="/docs/eslint-config/rules/jsdoc/normalize-see-links" />
 	<Cards.Card emoji="📘" title="prefer-import-tag" href="/docs/eslint-config/rules/jsdoc/prefer-import-tag" />
 	<Cards.Card emoji="📘" title="reject-any-type" href="/docs/eslint-config/rules/jsdoc/reject-any-type" />
 	<Cards.Card emoji="📘" title="reject-function-type" href="/docs/eslint-config/rules/jsdoc/reject-function-type" />
@@ -78,6 +80,7 @@ Rules and nested groups documented for this preset family.
 	<Cards.Card emoji="📘" title="sort-tags" href="/docs/eslint-config/rules/jsdoc/sort-tags" />
 	<Cards.Card emoji="📘" title="tag-lines" href="/docs/eslint-config/rules/jsdoc/tag-lines" />
 	<Cards.Card emoji="📘" title="text-escaping" href="/docs/eslint-config/rules/jsdoc/text-escaping" />
+	<Cards.Card emoji="📘" title="ts-ban-ts-comment" href="/docs/eslint-config/rules/jsdoc/ts-ban-ts-comment" />
 	<Cards.Card emoji="📘" title="ts-method-signature-style" href="/docs/eslint-config/rules/jsdoc/ts-method-signature-style" />
 	<Cards.Card emoji="📘" title="ts-no-empty-object-type" href="/docs/eslint-config/rules/jsdoc/ts-no-empty-object-type" />
 	<Cards.Card emoji="📘" title="ts-no-unnecessary-template-expression" href="/docs/eslint-config/rules/jsdoc/ts-no-unnecessary-template-expression" />
@@ -95,9 +98,9 @@ Rules and nested groups documented for this preset family.
 | [`@elsikora/jsdoc/check-examples`](/docs/eslint-config/rules/jsdoc/check-examples)                                                   | 🧭 `off`  | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/check-indentation`](/docs/eslint-config/rules/jsdoc/check-indentation)                                             | 🧭 `off`  | ❌ No   | ❌ No       | `layout`     |
 | [`@elsikora/jsdoc/check-line-alignment`](/docs/eslint-config/rules/jsdoc/check-line-alignment)                                       | 🧭 `off`  | ✅ Yes  | ❌ No       | `layout`     |
-| [`@elsikora/jsdoc/check-param-names`](/docs/eslint-config/rules/jsdoc/check-param-names)                                             | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
+| [`@elsikora/jsdoc/check-param-names`](/docs/eslint-config/rules/jsdoc/check-param-names)                                             | ⚠️ `warn` | ✅ Yes  | ✅ Yes      | `suggestion` |
 | [`@elsikora/jsdoc/check-property-names`](/docs/eslint-config/rules/jsdoc/check-property-names)                                       | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
-| [`@elsikora/jsdoc/check-syntax`](/docs/eslint-config/rules/jsdoc/check-syntax)                                                       | 🧭 `off`  | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/jsdoc/check-syntax`](/docs/eslint-config/rules/jsdoc/check-syntax)                                                       | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/check-tag-names`](/docs/eslint-config/rules/jsdoc/check-tag-names)                                                 | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/check-template-names`](/docs/eslint-config/rules/jsdoc/check-template-names)                                       | 🧭 `off`  | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/check-types`](/docs/eslint-config/rules/jsdoc/check-types)                                                         | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
@@ -105,7 +108,7 @@ Rules and nested groups documented for this preset family.
 | [`@elsikora/jsdoc/convert-to-jsdoc-comments`](/docs/eslint-config/rules/jsdoc/convert-to-jsdoc-comments)                             | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/empty-tags`](/docs/eslint-config/rules/jsdoc/empty-tags)                                                           | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/escape-inline-tags`](/docs/eslint-config/rules/jsdoc/escape-inline-tags)                                           | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
-| [`@elsikora/jsdoc/implements-on-classes`](/docs/eslint-config/rules/jsdoc/implements-on-classes)                                     | ⚠️ `warn` | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/jsdoc/implements-on-classes`](/docs/eslint-config/rules/jsdoc/implements-on-classes)                                     | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/imports-as-dependencies`](/docs/eslint-config/rules/jsdoc/imports-as-dependencies)                                 | 🧭 `off`  | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/informative-docs`](/docs/eslint-config/rules/jsdoc/informative-docs)                                               | 🧭 `off`  | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/lines-before-block`](/docs/eslint-config/rules/jsdoc/lines-before-block)                                           | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
@@ -121,6 +124,8 @@ Rules and nested groups documented for this preset family.
 | [`@elsikora/jsdoc/no-restricted-syntax`](/docs/eslint-config/rules/jsdoc/no-restricted-syntax)                                       | 🧭 `off`  | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/no-types`](/docs/eslint-config/rules/jsdoc/no-types)                                                               | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/no-undefined-types`](/docs/eslint-config/rules/jsdoc/no-undefined-types)                                           | ⚠️ `warn` | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/jsdoc/no-unnecessary-type-assertion`](/docs/eslint-config/rules/jsdoc/no-unnecessary-type-assertion)                     | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
+| [`@elsikora/jsdoc/normalize-see-links`](/docs/eslint-config/rules/jsdoc/normalize-see-links)                                         | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/prefer-import-tag`](/docs/eslint-config/rules/jsdoc/prefer-import-tag)                                             | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/reject-any-type`](/docs/eslint-config/rules/jsdoc/reject-any-type)                                                 | ⚠️ `warn` | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/reject-function-type`](/docs/eslint-config/rules/jsdoc/reject-function-type)                                       | ⚠️ `warn` | ❌ No   | ❌ No       | `suggestion` |
@@ -135,7 +140,7 @@ Rules and nested groups documented for this preset family.
 | [`@elsikora/jsdoc/require-next-type`](/docs/eslint-config/rules/jsdoc/require-next-type)                                             | ⚠️ `warn` | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/require-param`](/docs/eslint-config/rules/jsdoc/require-param)                                                     | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/require-param-description`](/docs/eslint-config/rules/jsdoc/require-param-description)                             | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
-| [`@elsikora/jsdoc/require-param-name`](/docs/eslint-config/rules/jsdoc/require-param-name)                                           | ⚠️ `warn` | ❌ No   | ❌ No       | `suggestion` |
+| [`@elsikora/jsdoc/require-param-name`](/docs/eslint-config/rules/jsdoc/require-param-name)                                           | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/require-param-type`](/docs/eslint-config/rules/jsdoc/require-param-type)                                           | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/require-property`](/docs/eslint-config/rules/jsdoc/require-property)                                               | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/require-property-description`](/docs/eslint-config/rules/jsdoc/require-property-description)                       | ⚠️ `warn` | ❌ No   | ❌ No       | `suggestion` |
@@ -159,6 +164,7 @@ Rules and nested groups documented for this preset family.
 | [`@elsikora/jsdoc/sort-tags`](/docs/eslint-config/rules/jsdoc/sort-tags)                                                             | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/tag-lines`](/docs/eslint-config/rules/jsdoc/tag-lines)                                                             | ⚠️ `warn` | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/text-escaping`](/docs/eslint-config/rules/jsdoc/text-escaping)                                                     | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
+| [`@elsikora/jsdoc/ts-ban-ts-comment`](/docs/eslint-config/rules/jsdoc/ts-ban-ts-comment)                                             | 🧭 `off`  | ❌ No   | ✅ Yes      | `suggestion` |
 | [`@elsikora/jsdoc/ts-method-signature-style`](/docs/eslint-config/rules/jsdoc/ts-method-signature-style)                             | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/ts-no-empty-object-type`](/docs/eslint-config/rules/jsdoc/ts-no-empty-object-type)                                 | ⚠️ `warn` | ❌ No   | ❌ No       | `suggestion` |
 | [`@elsikora/jsdoc/ts-no-unnecessary-template-expression`](/docs/eslint-config/rules/jsdoc/ts-no-unnecessary-template-expression)     | 🧭 `off`  | ✅ Yes  | ❌ No       | `suggestion` |

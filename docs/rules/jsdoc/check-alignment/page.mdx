@@ -31,6 +31,10 @@ The rule exposes the following ESLint option schema:
 	{
 		"additionalProperties": false,
 		"properties": {
+			"ignoreEmptyLines": {
+				"description": "Whether to ignore empty and whitespace-only lines (e.g., to allow a formatter to handle)",
+				"type": "boolean"
+			},
 			"innerIndent": {
 				"default": 1,
 				"description": "Set to 0 if you wish to avoid the normal requirement for an inner indentation of\none space. Defaults to 1 (one space of normal inner indentation).",
@@ -79,7 +83,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario      | Severity  | Value    | Config block |
 | ------------- | --------- | -------- | ------------ |
 | `jsdoc`       | ⚠️ `warn` | `"warn"` | `0`          |
-| `all-options` | ⚠️ `warn` | `"warn"` | `11`         |
+| `all-options` | ⚠️ `warn` | `"warn"` | `14`         |
 
 ## Examples
 

@@ -1,0 +1,5 @@
+type ElementUnion =
+	| {
+			foo: string;
+	  }
+	| Other;

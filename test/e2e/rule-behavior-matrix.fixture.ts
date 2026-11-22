@@ -22,11 +22,13 @@ import { RULE_BEHAVIOR_PRETTIER_CASES } from "./rule-behavior-matrix/cases/prett
 import { RULE_BEHAVIOR_REACT_CASES } from "./rule-behavior-matrix/cases/react";
 import { RULE_BEHAVIOR_REGEXP_CASES } from "./rule-behavior-matrix/cases/regexp";
 import { RULE_BEHAVIOR_SONAR_CASES } from "./rule-behavior-matrix/cases/sonar";
+import { RULE_BEHAVIOR_SONAR_EXAMPLE_CASES } from "./rule-behavior-matrix/cases/sonar-examples";
 import { RULE_BEHAVIOR_STORYBOOK_CASES } from "./rule-behavior-matrix/cases/storybook";
 import { RULE_BEHAVIOR_STYLISTIC_CASES } from "./rule-behavior-matrix/cases/stylistic";
 import { RULE_BEHAVIOR_TAILWIND_CSS_CASES } from "./rule-behavior-matrix/cases/tailwind-css";
 import { RULE_BEHAVIOR_TYPESCRIPT_CASES } from "./rule-behavior-matrix/cases/typescript";
 import { RULE_BEHAVIOR_UNICORN_CASES } from "./rule-behavior-matrix/cases/unicorn";
+import { RULE_BEHAVIOR_UNICORN_EXAMPLE_CASES } from "./rule-behavior-matrix/cases/unicorn-examples";
 import { RULE_BEHAVIOR_TANSTACK_CASES } from "./rule-behavior-matrix/cases/tanstack";
 import { RULE_BEHAVIOR_TYPEORM_CASES } from "./rule-behavior-matrix/cases/typeorm";
 import { RULE_BEHAVIOR_YAML_CASES } from "./rule-behavior-matrix/cases/yaml";
@@ -51,11 +53,13 @@ export const RULE_BEHAVIOR_CASES: Array<IRuleBehaviorCase> = [
 	...RULE_BEHAVIOR_REACT_CASES,
 	...RULE_BEHAVIOR_REGEXP_CASES,
 	...RULE_BEHAVIOR_SONAR_CASES,
+	...RULE_BEHAVIOR_SONAR_EXAMPLE_CASES,
 	...RULE_BEHAVIOR_STORYBOOK_CASES,
 	...RULE_BEHAVIOR_STYLISTIC_CASES,
 	...RULE_BEHAVIOR_TAILWIND_CSS_CASES,
 	...RULE_BEHAVIOR_TYPESCRIPT_CASES,
 	...RULE_BEHAVIOR_UNICORN_CASES,
+	...RULE_BEHAVIOR_UNICORN_EXAMPLE_CASES,
 	...RULE_BEHAVIOR_TANSTACK_CASES,
 	...RULE_BEHAVIOR_TYPEORM_CASES,
 	...RULE_BEHAVIOR_YAML_CASES,

@@ -11,7 +11,9 @@ import perfectionist from "eslint-plugin-perfectionist";
  * @returns {Array<Linter.Config>} An array of ESLint configurations for perfectionist
  */
 export default function loadConfig(config: IConfigOptions): Array<Linter.Config> {
-	const fsdInternalPatterns: Array<string> = ["^.*app($|/.*$)", "^.*processes($|/.*$)", "^.*pages($|/.*$)", "^.*widgets($|/.*$)", "^.*features($|/.*$)", "^.*entities($|/.*$)", "^.*shared($|/.*$)"];
+	// FSD layers from top to bottom, so imports read in the same order as the layer hierarchy. Only the `@/` alias marks a layer: bare names such as `entities` are npm packages.
+	const fsdLayers: Array<string> = ["app", "processes", "pages", "widgets", "features", "entities", "shared"];
+	const fsdLayerGroups: Array<{ elementNamePattern: string; groupName: string }> = fsdLayers.map((layer: string) => ({ elementNamePattern: `^@/${layer}(/|$)`, groupName: `fsd-${layer}` }));
 
 	return [
 		{
@@ -25,9 +27,9 @@ export default function loadConfig(config: IConfigOptions): Array<Linter.Config>
 					? [
 							"error",
 							{
-								groups: ["builtin", "external", "internal", "parent", "sibling", "index", "unknown"],
+								customGroups: fsdLayerGroups,
+								groups: ["builtin", "external", ...fsdLayerGroups.map(({ groupName }: { groupName: string }) => groupName), "internal", "parent", "sibling", "index", "unknown"],
 								ignoreCase: true,
-								internalPattern: fsdInternalPatterns,
 								newlinesBetween: 0,
 								order: "asc",
 								partitionByComment: false,

@@ -1,7 +1,7 @@
 name: Snyk Security Scan
 
 env:
-  NODE_VERSION: 24
+  NODE_VERSION: 26
   SNYK_GLOBAL_PACKAGES: snyk snyk-to-html
 
 on: push

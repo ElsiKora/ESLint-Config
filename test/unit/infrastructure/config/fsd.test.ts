@@ -87,30 +87,46 @@ describe("FsdConfig", () => {
 		// Check rule name formatting was called for all rules
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("fsd/forbidden-imports");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("fsd/no-cross-slice-dependency");
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("fsd/no-global-store-imports");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("fsd/no-public-api-sidestep");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("fsd/no-relative-imports");
-		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("fsd/no-ui-in-business-logic");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("fsd/ordered-imports");
 		expect(formatRuleNameModule.formatRuleName).toHaveBeenCalledWith("@conarti/feature-sliced/no-cross-segment-reexport");
+		expect(formatRuleNameModule.formatRuleName).not.toHaveBeenCalledWith("fsd/no-global-store-imports");
+		expect(formatRuleNameModule.formatRuleName).not.toHaveBeenCalledWith("fsd/no-ui-in-business-logic");
 
 		// Check rules configuration
 		const firstConfig = configs[0];
-		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/1/forbidden-imports", "error");
+		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/1/forbidden-imports", ["error", { testFilesPatterns: [] }]);
+		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/1/no-cross-slice-dependency", ["error", { testFilesPatterns: [] }]);
+		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/1/no-relative-imports", ["error", { testFilesPatterns: [] }]);
 		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/1/no-public-api-sidestep", [
 			"error",
 			{
+				ignoreImportPatterns: ["^@/?shared/[^/]+$", "^@/?shared/(ui|lib)/[^/]+$"],
 				publicApi: {
 					allowSegmentImports: false,
+					enforceForLayers: ["processes", "pages", "widgets", "features", "entities"],
 					enforceShared: true,
 				},
+				testFilesPatterns: [],
 			},
 		]);
+		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/1/ordered-imports", "error");
 		expect(firstConfig.rules).toHaveProperty("@elsikora/fsd/2/no-cross-segment-reexport", "error");
 		expect(firstConfig.rules).not.toHaveProperty("@elsikora/fsd/2/absolute-relative");
 		expect(firstConfig.rules).not.toHaveProperty("@elsikora/fsd/2/import-order");
 		expect(firstConfig.rules).not.toHaveProperty("@elsikora/fsd/2/layers-slices");
 		expect(firstConfig.rules).not.toHaveProperty("@elsikora/fsd/2/public-api");
+	});
+
+	it("should leave import ordering to perfectionist when it is enabled", async () => {
+		const module = await import("@infrastructure/config/fsd.ts");
+		const loadConfig = module.default;
+
+		const configs: Array<Linter.Config> = loadConfig({ withPerfectionist: true });
+
+		expect(configs[0].rules).toHaveProperty("@elsikora/fsd/1/ordered-imports", "error");
+		expect(configs[1]).toEqual({ files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"], rules: { "@elsikora/fsd/1/ordered-imports": "off" } });
 	});
 
 	it("should include specific file patterns for different configs", async () => {

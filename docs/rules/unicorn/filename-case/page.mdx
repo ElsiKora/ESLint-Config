@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## Rule Overview
 
-Enforce a case style for filenames.
+Enforce a case style for filenames and directory names.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 
@@ -29,57 +29,99 @@ The rule exposes the following ESLint option schema:
 ```json filename="options-schema.json" copy
 [
 	{
-		"oneOf": [
+		"description": "The rule options.",
+		"anyOf": [
 			{
+				"type": "object",
 				"properties": {
 					"case": {
-						"enum": ["camelCase", "snakeCase", "kebabCase", "pascalCase"],
-						"description": "The filename case style."
+						"enum": ["camelCase", "camelCaseWithAcronyms", "snakeCase", "kebabCase", "pascalCase"],
+						"description": "The filename and directory name case style."
 					},
 					"ignore": {
 						"type": "array",
+						"items": {
+							"type": ["string", "object"],
+							"additionalProperties": true
+						},
 						"uniqueItems": true,
-						"description": "Patterns to ignore."
+						"description": "Path segment patterns to ignore."
 					},
 					"multipleFileExtensions": {
 						"type": "boolean",
 						"description": "Whether to treat additional, dot-separated parts of a filename as file extensions."
+					},
+					"checkDirectories": {
+						"type": "boolean",
+						"description": "Whether to check directory names."
+					},
+					"directoryRoots": {
+						"type": "array",
+						"items": {
+							"type": ["string", "object"],
+							"additionalProperties": true
+						},
+						"uniqueItems": true,
+						"description": "Directory root paths or patterns, relative to the current working directory."
 					}
 				},
 				"additionalProperties": false
 			},
 			{
+				"type": "object",
 				"properties": {
 					"cases": {
+						"type": "object",
 						"properties": {
 							"camelCase": {
 								"type": "boolean",
-								"description": "Whether to allow camelCase filenames."
+								"description": "Whether to allow camelCase filenames and directory names."
+							},
+							"camelCaseWithAcronyms": {
+								"type": "boolean",
+								"description": "Whether to allow camelCase filenames and directory names with acronym segments."
 							},
 							"snakeCase": {
 								"type": "boolean",
-								"description": "Whether to allow snake_case filenames."
+								"description": "Whether to allow snake_case filenames and directory names."
 							},
 							"kebabCase": {
 								"type": "boolean",
-								"description": "Whether to allow kebab-case filenames."
+								"description": "Whether to allow kebab-case filenames and directory names."
 							},
 							"pascalCase": {
 								"type": "boolean",
-								"description": "Whether to allow PascalCase filenames."
+								"description": "Whether to allow PascalCase filenames and directory names."
 							}
 						},
 						"additionalProperties": false,
-						"description": "The allowed filename case styles."
+						"description": "The allowed filename and directory name case styles."
 					},
 					"ignore": {
 						"type": "array",
+						"items": {
+							"type": ["string", "object"],
+							"additionalProperties": true
+						},
 						"uniqueItems": true,
-						"description": "Patterns to ignore."
+						"description": "Path segment patterns to ignore."
 					},
 					"multipleFileExtensions": {
 						"type": "boolean",
 						"description": "Whether to treat additional, dot-separated parts of a filename as file extensions."
+					},
+					"checkDirectories": {
+						"type": "boolean",
+						"description": "Whether to check directory names."
+					},
+					"directoryRoots": {
+						"type": "array",
+						"items": {
+							"type": ["string", "object"],
+							"additionalProperties": true
+						},
+						"uniqueItems": true,
+						"description": "Directory root paths or patterns, relative to the current working directory."
 					}
 				},
 				"additionalProperties": false
@@ -154,8 +196,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | `typescript-with-unicorn`        | 🧭 `off`   | `"off"`   | `11`         |
 | `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `10`         |
 | `typescript-strict-with-unicorn` | 🧭 `off`   | `"off"`   | `11`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `75`         |
-| `all-options`                    | 🧭 `off`   | `"off"`   | `76`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `77`         |
+| `all-options`                    | 🧭 `off`   | `"off"`   | `78`         |
 
 ## Examples
 

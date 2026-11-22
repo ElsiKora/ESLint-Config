@@ -32,7 +32,7 @@ The rule exposes the following ESLint option schema:
 		"additionalProperties": false,
 		"properties": {
 			"ignore": {
-				"description": "An array of directives that will not be reported if present at the beginning of\na multi-comment block and at-sign `/* @`.\n\nDefaults to `['ts-check', 'ts-expect-error', 'ts-ignore', 'ts-nocheck']`\n(some directives [used by TypeScript](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html#ts-check)).",
+				"description": "An array of directives that will not be reported if present at the beginning of\na multi-comment block and at-sign `/* @`.\n\nDefaults to `['ts-check', 'ts-expect-error', 'ts-ignore', 'ts-nocheck',\n'license', 'license-end', 'licstart', 'licend', 'source',]`\n\n(directives that are either [used by TypeScript](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html#ts-check)\nor by the [LibreJS standard](https://www.gnu.org/software/librejs/free-your-javascript.html)).",
 				"items": {
 					"type": "string"
 				},
@@ -85,7 +85,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario      | Severity | Value   | Config block |
 | ------------- | -------- | ------- | ------------ |
 | `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
-| `all-options` | 🧭 `off` | `"off"` | `11`         |
+| `all-options` | 🧭 `off` | `"off"` | `14`         |
 
 ## Examples
 

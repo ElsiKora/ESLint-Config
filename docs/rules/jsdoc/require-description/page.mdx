@@ -47,7 +47,7 @@ The rule exposes the following ESLint option schema:
 				"type": "boolean"
 			},
 			"contexts": {
-				"description": "Set to an array of strings representing the AST context\nwhere you wish the rule to be applied (e.g., `ClassDeclaration` for ES6\nclasses).\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`,\n`FunctionDeclaration`, `FunctionExpression`). Set to `\"any\"` if you want\nthe rule to apply to any JSDoc block throughout your files (as is necessary\nfor finding function blocks not attached to a function declaration or\nexpression, i.e., `@callback` or `@function` (or its aliases `@func` or\n`@method`) (including those associated with an `@interface`).\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"description": "Set to an array of strings representing the AST context\nwhere you wish the rule to be applied (e.g., `ClassDeclaration` for ES6\nclasses).\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nOverrides the default contexts (`ArrowFunctionExpression`,\n`FunctionDeclaration`, `FunctionExpression`). Set to `\"any\"` if you want\nthe rule to apply to any JSDoc block throughout your files (as is necessary\nfor finding function blocks not attached to a function declaration or\nexpression, i.e., `@callback` or `@function` (or its aliases `@func` or\n`@method`) (including those associated with an `@interface`).\n\nSee the [\"AST and Selectors\"](../advanced.md#ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
 				"items": {
 					"anyOf": [
 						{
@@ -80,6 +80,34 @@ The rule exposes the following ESLint option schema:
 					"type": "string"
 				},
 				"type": "array"
+			},
+			"publicOnly": {
+				"description": "This option will insist that a missing description is only reported for\nfunctions / class declarations that are exported from the module.\nMay be a boolean or object. If set to `true`, the defaults below will be\nused. If unset, reporting will not be limited to exports.\n\nThis object supports the following optional boolean keys (`false` unless\notherwise noted):\n\n- `ancestorsOnly` - Optimization to only check node ancestors to check if node is exported\n- `esm` - ESM exports are checked (Defaults to `true`)\n- `cjs` - CommonJS exports are checked (Defaults to `true`)\n- `window` - Window global exports are checked",
+				"oneOf": [
+					{
+						"default": false,
+						"type": "boolean"
+					},
+					{
+						"additionalProperties": false,
+						"default": {},
+						"properties": {
+							"ancestorsOnly": {
+								"type": "boolean"
+							},
+							"cjs": {
+								"type": "boolean"
+							},
+							"esm": {
+								"type": "boolean"
+							},
+							"window": {
+								"type": "boolean"
+							}
+						},
+						"type": "object"
+					}
+				]
 			}
 		},
 		"type": "object"
@@ -124,7 +152,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario      | Severity | Value   | Config block |
 | ------------- | -------- | ------- | ------------ |
 | `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
-| `all-options` | 🧭 `off` | `"off"` | `11`         |
+| `all-options` | 🧭 `off` | `"off"` | `14`         |
 
 ## Examples
 

@@ -59,19 +59,33 @@ The rule exposes the following ESLint option schema:
 													"type": "string"
 												},
 												"order": {
-													"type": "object",
-													"properties": {
-														"type": {
-															"enum": ["asc", "desc"]
+													"oneOf": [
+														{
+															"type": "object",
+															"properties": {
+																"type": {
+																	"enum": ["asc", "desc"]
+																},
+																"caseSensitive": {
+																	"type": "boolean"
+																},
+																"natural": {
+																	"type": "boolean"
+																}
+															},
+															"additionalProperties": false
 														},
-														"caseSensitive": {
-															"type": "boolean"
-														},
-														"natural": {
-															"type": "boolean"
+														{
+															"type": "object",
+															"properties": {
+																"type": {
+																	"enum": ["ignore"]
+																}
+															},
+															"required": ["type"],
+															"additionalProperties": false
 														}
-													},
-													"additionalProperties": false
+													]
 												}
 											},
 											"additionalProperties": false
@@ -93,6 +107,16 @@ The rule exposes the following ESLint option schema:
 										"type": "boolean"
 									}
 								},
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"enum": ["ignore"]
+									}
+								},
+								"required": ["type"],
 								"additionalProperties": false
 							}
 						]
@@ -167,7 +191,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario      | Severity   | Value     | Config block |
 | ------------- | ---------- | --------- | ------------ |
 | `json`        | 🚨 `error` | `"error"` | `3`          |
-| `all-options` | 🚨 `error` | `"error"` | `16`         |
+| `all-options` | 🚨 `error` | `"error"` | `19`         |
 
 ## Examples
 

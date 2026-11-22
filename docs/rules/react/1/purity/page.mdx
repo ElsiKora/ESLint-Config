@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## Rule Overview
 
-Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+Validates that components and hooks are pure by checking that they do not call known-impure functions or construct known-impure objects during render.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 
@@ -62,8 +62,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | ------------- | --------- | -------- | ------------ |
 | `react`       | ⚠️ `warn` | `"warn"` | `1`          |
 | `react`       | ⚠️ `warn` | `"warn"` | `4`          |
-| `all-options` | ⚠️ `warn` | `"warn"` | `34`         |
 | `all-options` | ⚠️ `warn` | `"warn"` | `37`         |
+| `all-options` | ⚠️ `warn` | `"warn"` | `40`         |
 
 ## Examples
 

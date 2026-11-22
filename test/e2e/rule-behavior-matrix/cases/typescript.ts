@@ -105,6 +105,7 @@ export const RULE_BEHAVIOR_TYPESCRIPT_CASES: Array<IRuleBehaviorCase> = [
 		"@typescript-eslint/switch-exhaustiveness-check",
 		"@typescript-eslint/use-unknown-in-catch-callback-variable",
 	]),
+	...createCases("typescript", { withTypescript: true }, "test/e2e/fixture/typescript/invalid/typescript-instance-safety-rules.fixture.ts", ["@typescript-eslint/no-generated-empty-object-type", "@typescript-eslint/no-unsafe-class-instance-assignment", "@typescript-eslint/no-unsafe-enum-assignment"]),
 	createCase("typescript", "@typescript-eslint/no-restricted-imports", { withTypescript: true }, "test/e2e/fixture/typescript/valid/clean.fixture.ts", undefined, "not-reported"),
 	createCase("typescript-strict", "@typescript-eslint/explicit-function-return-type", { withTypescriptStrict: true }, "test/e2e/fixture/typescript/invalid/explicit-function-return-type.fixture.ts"),
 	createCase("typescript-strict", "@typescript-eslint/explicit-module-boundary-types", { withTypescriptStrict: true }, "test/e2e/fixture/typescript/invalid/explicit-function-return-type.fixture.ts"),

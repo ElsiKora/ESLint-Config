@@ -1,7 +1,7 @@
 name: Release And Publish
 
 env:
-  NODE_VERSION: 24
+  NODE_VERSION: 26
 
 on:
   push:
@@ -13,6 +13,14 @@ jobs:
   release:
     name: Release And Publish
     runs-on: ubuntu-latest
+
+    # contents, issues and pull-requests are what semantic-release needs for the release commit, tags,
+    # the GitHub release and its comments; id-token lets npm publish through trusted publishing (OIDC).
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
 
     steps:
       - name: Checkout

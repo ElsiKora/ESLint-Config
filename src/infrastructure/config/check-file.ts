@@ -1,15 +1,43 @@
+import type { IConfigOptions } from "@domain/interface";
 import type { Linter } from "eslint";
 
 import { formatPluginName, formatRuleName } from "@infrastructure/utility";
 // @ts-ignore
 import checkFile from "eslint-plugin-check-file";
 
+const CAMEL_CASE: string = "+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))";
+const KEBAB_CASE: string = "+([a-z])*([a-z0-9])*(-+([a-z0-9]))";
+
+interface IFolderSyntax {
+	description: string;
+	patterns: Array<string>;
+}
+
+// Syntax that a preset's architecture or file-based router allows around a kebab-case folder name. Route parameters stay camelCase identifiers.
+const FSD_FOLDER_SYNTAX: IFolderSyntax = {
+	description: "@x",
+	patterns: [String.raw`\@x`],
+};
+
+const NEXT_FOLDER_SYNTAX: IFolderSyntax = {
+	description: "_private, @slot, (group), (.)intercepted, [param], [...param], [[...param]]",
+	patterns: [String.raw`\_${KEBAB_CASE}`, String.raw`\@${KEBAB_CASE}`, String.raw`\(${KEBAB_CASE}\)`, String.raw`@(\(.\)|+(\(..\))|\(...\))${KEBAB_CASE}`, String.raw`\[${CAMEL_CASE}\]`, String.raw`\[...${CAMEL_CASE}\]`, String.raw`\[\[...${CAMEL_CASE}\]\]`],
+};
+
+const TANSTACK_FOLDER_SYNTAX: IFolderSyntax = {
+	description: "_pathless, (group), $param",
+	patterns: [String.raw`\_${KEBAB_CASE}`, String.raw`\(${KEBAB_CASE}\)`, String.raw`\$${CAMEL_CASE}`],
+};
+
 /**
  * Loads the ESLint configuration for file checking rules
+ * @param {IConfigOptions} config - Configuration options
  * @returns {Array<Linter.Config>} An array of ESLint configurations for file checking
  */
-export default function loadConfig(): Array<Linter.Config> {
-	return [
+export default function loadConfig(config: IConfigOptions = {}): Array<Linter.Config> {
+	const folderNaming: { errorMessage: string; pattern: string } = getFolderNaming(config);
+
+	const configs: Array<Linter.Config> = [
 		{
 			files: ["src/**/*"],
 			plugins: {
@@ -72,10 +100,67 @@ export default function loadConfig(): Array<Linter.Config> {
 				[formatRuleName("check-file/folder-naming-convention")]: [
 					"error",
 					{
-						"src/**": "KEBAB_CASE",
+						"src/**": folderNaming.pattern,
 					},
-				], // Require all files and folders under the `src` directory to use flat case naming (e.g., `my_directory`), promoting consistency in file system organization.
+					{
+						errorMessage: folderNaming.errorMessage,
+					},
+				], // Require all folders under the `src` directory to use kebab-case naming (e.g., `my-directory`), allowing the folder syntax of the enabled FSD, Next.js and TanStack Router presets around the name.
 			},
 		},
-	] as Array<Linter.Config>;
+	];
+
+	if (config.withNext) {
+		configs.push({
+			files: ["app/**/*"],
+			plugins: {
+				[formatPluginName("check-file")]: checkFile,
+			},
+			rules: {
+				[formatRuleName("check-file/folder-naming-convention")]: [
+					"error",
+					{
+						"app/**": folderNaming.pattern,
+					},
+					{
+						errorMessage: folderNaming.errorMessage,
+					},
+				], // The Next.js App Router lives in the root `app` folder, next to `src`, and follows the same folder naming.
+			},
+		});
+	}
+
+	return configs;
+}
+
+/**
+ * Builds the folder naming pattern and error message for the enabled presets
+ * @param {IConfigOptions} config - Configuration options
+ * @returns {{ errorMessage: string; pattern: string }} The folder pattern and its error message
+ */
+function getFolderNaming(config: IConfigOptions): { errorMessage: string; pattern: string } {
+	const syntaxes: Array<IFolderSyntax> = [];
+
+	if (config.withFsd) {
+		syntaxes.push(FSD_FOLDER_SYNTAX);
+	}
+
+	if (config.withNext) {
+		syntaxes.push(NEXT_FOLDER_SYNTAX);
+	}
+
+	if (config.withTanstack) {
+		syntaxes.push(TANSTACK_FOLDER_SYNTAX);
+	}
+
+	if (syntaxes.length === 0) {
+		return { errorMessage: 'The folder "{{ target }}" does not match the kebab-case pattern', pattern: KEBAB_CASE };
+	}
+
+	const patterns: Array<string> = [...new Set([KEBAB_CASE, ...syntaxes.flatMap((syntax: IFolderSyntax) => syntax.patterns)])];
+
+	return {
+		errorMessage: `The folder "{{ target }}" does not match the kebab-case pattern (allowed around the name: ${syntaxes.map((syntax: IFolderSyntax) => syntax.description).join(", ")})`,
+		pattern: `@(${patterns.join("|")})`,
+	};
 }

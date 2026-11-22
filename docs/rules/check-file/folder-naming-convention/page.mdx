@@ -35,6 +35,7 @@ The rule exposes the following ESLint option schema:
 	},
 	{
 		"type": "object",
+		"additionalProperties": false,
 		"properties": {
 			"errorMessage": {
 				"type": "string"
@@ -56,31 +57,33 @@ No upstream default options are exposed in the rule metadata.
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                           |
-| ---------------- | ------------------------------- |
-| Default scenario | `all-options`                   |
-| Default target   | `JavaScript` (`src/example.js`) |
-| Default severity | 🚨 `error`                      |
-| Default value    | `[2,{"src/**":"KEBAB_CASE"}]`   |
+| Field | Value |
+| --- | --- |
+| Default scenario | `all-options` |
+| Default target | `JavaScript` (`src/example.js`) |
+| Default severity | 🚨 `error` |
+| Default value | `[2,{"src/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` |
 
 ### Effective Result by File Type
 
-| Scenario      | Target       | File path                 | Effective severity | Effective value               |
-| ------------- | ------------ | ------------------------- | ------------------ | ----------------------------- |
-| `check-file`  | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"src/**":"KEBAB_CASE"}]` |
-| `all-options` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2,{"src/**":"KEBAB_CASE"}]` |
-| `all-options` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2,{"src/**":"KEBAB_CASE"}]` |
-| `all-options` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2,{"src/**":"KEBAB_CASE"}]` |
-| `all-options` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2,{"src/**":"KEBAB_CASE"}]` |
-| `all-options` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2,{"src/**":"KEBAB_CASE"}]` |
-| `all-options` | `CSS`        | `src/styles.css`          | 🚨 `error`         | `[2,{"src/**":"KEBAB_CASE"}]` |
+| Scenario | Target | File path | Effective severity | Effective value |
+| --- | --- | --- | --- | --- |
+| `check-file` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"src/**":"+([a-z])*([a-z0-9])*(-+([a-z0-9]))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern"}]` |
+| `all-options` | `JavaScript` | `src/example.js` | 🚨 `error` | `[2,{"src/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` |
+| `all-options` | `JSX` | `src/example.jsx` | 🚨 `error` | `[2,{"src/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` |
+| `all-options` | `TypeScript` | `src/example.ts` | 🚨 `error` | `[2,{"src/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` |
+| `all-options` | `TSX` | `src/example.tsx` | 🚨 `error` | `[2,{"src/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` |
+| `all-options` | `Next app` | `app/page.tsx` | 🚨 `error` | `[2,{"app/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` |
+| `all-options` | `Storybook` | `src/example.stories.tsx` | 🚨 `error` | `[2,{"src/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` |
+| `all-options` | `CSS` | `src/styles.css` | 🚨 `error` | `[2,{"src/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
-| Scenario      | Severity   | Value                               | Config block |
-| ------------- | ---------- | ----------------------------------- | ------------ |
-| `check-file`  | 🚨 `error` | `["error",{"src/**":"KEBAB_CASE"}]` | `0`          |
-| `all-options` | 🚨 `error` | `["error",{"src/**":"KEBAB_CASE"}]` | `0`          |
+| Scenario | Severity | Value | Config block |
+| --- | --- | --- | --- |
+| `check-file` | 🚨 `error` | `["error",{"src/**":"+([a-z])*([a-z0-9])*(-+([a-z0-9]))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern"}]` | `0` |
+| `all-options` | 🚨 `error` | `["error",{"src/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` | `0` |
+| `all-options` | 🚨 `error` | `["error",{"app/**":"@(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@x\|\\_+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\@+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\(+([a-z])*([a-z0-9])*(-+([a-z0-9]))\\)\|@(\\(.\\)\|+(\\(..\\))\|\\(...\\))+([a-z])*([a-z0-9])*(-+([a-z0-9]))\|\\[+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\|\\[\\[...+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9]))\\]\\]\|\\$+([a-z])*([a-z0-9])*([A-Z]*([a-z0-9])))"},{"errorMessage":"The folder \"{{ target }}\" does not match the kebab-case pattern (allowed around the name: @x, _private, @slot, (group), (.)intercepted, [param], [...param], [[...param]], _pathless, (group), $param)"}]` | `1` |
 
 ## Examples
 

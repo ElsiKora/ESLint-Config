@@ -43,6 +43,7 @@ export default {
 	"linebreak-style": "linebreak-style",
 	"lines-around-comment": "lines-around-comment",
 	"lines-between-class-members": "lines-between-class-members",
+	"list-style": "list-style",
 	"max-len": "max-len",
 	"max-statements-per-line": "max-statements-per-line",
 	"member-delimiter-style": "member-delimiter-style",

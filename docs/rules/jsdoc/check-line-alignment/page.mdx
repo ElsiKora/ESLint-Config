@@ -73,7 +73,7 @@ The rule exposes the following ESLint option schema:
 				"type": "boolean"
 			},
 			"tags": {
-				"description": "Use this to change the tags which are sought for alignment changes. Defaults to an array of\n`['param', 'arg', 'argument', 'property', 'prop', 'returns', 'return', 'template']`.",
+				"description": "Use this to change the tags which are sought for alignment changes. Defaults to an array of\n`['param', 'arg', 'argument', 'property', 'prop', 'returns', 'return', 'template']`.\nAdd the value \"-any\" to the array if you want alignment to apply to all tags.",
 				"items": {
 					"type": "string"
 				},
@@ -126,7 +126,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario      | Severity | Value   | Config block |
 | ------------- | -------- | ------- | ------------ |
 | `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
-| `all-options` | 🧭 `off` | `"off"` | `11`         |
+| `all-options` | 🧭 `off` | `"off"` | `14`         |
 
 ## Examples
 

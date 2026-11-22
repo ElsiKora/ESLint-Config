@@ -32,7 +32,7 @@ const FORBIDDEN_RULE_PAGE_PATTERNS: Array<RegExp> = [
 	/Controls the `[^`]+` rule in the ElsiKora ESLint configuration\./,
 	/This rule protects the codebase from patterns covered by/,
 	/\bTBD\b/i,
-	/\bplaceholder\b/i,
+	/(?<!")\bplaceholder\b(?!")/i, // A quoted "placeholder" is the JSX attribute name in a configured value, not filler text.
 ];
 const JAVASCRIPT_TYPESCRIPT_FORBIDDEN_RULE_PAGE_PATTERNS: Array<RegExp> = [/\breadMutableState\b/, /\bcreateUpdatedState\b/, /\bnormalizeRecord\(source\)/, /\brecords\.filter\(\(record\) => record\.enabled\)/, /\brecords\.some\(\(record\) => record\.enabled\)/, /const \w+Payload = JSON\.stringify\(\w+Record\);/];
 const FORBIDDEN_NEXT_LINK_IMPORT_PATTERN: RegExp = /from\s+["']next\/link["']/;

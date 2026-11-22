@@ -45,46 +45,37 @@ The rule exposes the following ESLint option schema:
 ]
 ```
 
-Upstream default options:
-
-```json filename="default-options.json" copy
-[
-	{
-		"allowEmptyFragment": false,
-		"allowExpressions": true
-	}
-]
-```
+No upstream default options are exposed in the rule metadata.
 
 ## ElsiKora Default Setting
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field            | Value                                                      |
-| ---------------- | ---------------------------------------------------------- |
-| Default scenario | `all-options`                                              |
-| Default target   | `JavaScript` (`src/example.js`)                            |
-| Default severity | ⚠️ `warn`                                                  |
-| Default value    | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Default scenario | `all-options`                   |
+| Default target   | `JavaScript` (`src/example.js`) |
+| Default severity | ⚠️ `warn`                       |
+| Default value    | `[1,{}]`                        |
 
 ### Effective Result by File Type
 
-| Scenario      | Target       | File path                 | Effective severity | Effective value                                            |
-| ------------- | ------------ | ------------------------- | ------------------ | ---------------------------------------------------------- |
-| `react`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `react`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `react`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `react`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `react`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `react`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `react`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
-| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1,{"allowEmptyFragment":false,"allowExpressions":true}]` |
+| Scenario      | Target       | File path                 | Effective severity | Effective value |
+| ------------- | ------------ | ------------------------- | ------------------ | --------------- |
+| `react`       | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1,{}]`        |
+| `react`       | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `JavaScript` | `src/example.js`          | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `JSX`        | `src/example.jsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `TypeScript` | `src/example.ts`          | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `TSX`        | `src/example.tsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `Next pages` | `pages/index.jsx`         | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `Next app`   | `app/page.tsx`            | ⚠️ `warn`          | `[1,{}]`        |
+| `all-options` | `Storybook`  | `src/example.stories.tsx` | ⚠️ `warn`          | `[1,{}]`        |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
@@ -92,8 +83,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | ------------- | --------- | -------- | ------------ |
 | `react`       | ⚠️ `warn` | `"warn"` | `1`          |
 | `react`       | ⚠️ `warn` | `"warn"` | `4`          |
-| `all-options` | ⚠️ `warn` | `"warn"` | `34`         |
 | `all-options` | ⚠️ `warn` | `"warn"` | `37`         |
+| `all-options` | ⚠️ `warn` | `"warn"` | `40`         |
 
 ## Examples
 

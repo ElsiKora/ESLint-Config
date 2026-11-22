@@ -194,7 +194,7 @@ The rule exposes the following ESLint option schema:
 											},
 											"modifiers": {
 												"items": {
-													"enum": ["async", "protected", "private", "public", "static", "abstract", "override", "readonly", "decorated", "declare", "optional"],
+													"enum": ["static", "declare", "abstract", "decorated", "override", "readonly", "protected", "private", "public", "optional", "async"],
 													"type": "string"
 												},
 												"description": "Modifier filters.",
@@ -202,7 +202,7 @@ The rule exposes the following ESLint option schema:
 											},
 											"selector": {
 												"description": "Selector filter.",
-												"enum": ["accessor-property", "index-signature", "constructor", "static-block", "get-method", "set-method", "function-property", "property", "method"],
+												"enum": ["function-property", "accessor-property", "property", "constructor", "get-method", "set-method", "method", "index-signature", "static-block"],
 												"type": "string"
 											},
 											"decoratorNamePattern": {
@@ -430,7 +430,7 @@ The rule exposes the following ESLint option schema:
 								},
 								"modifiers": {
 									"items": {
-										"enum": ["async", "protected", "private", "public", "static", "abstract", "override", "readonly", "decorated", "declare", "optional"],
+										"enum": ["static", "declare", "abstract", "decorated", "override", "readonly", "protected", "private", "public", "optional", "async"],
 										"type": "string"
 									},
 									"description": "Modifier filters.",
@@ -438,7 +438,7 @@ The rule exposes the following ESLint option schema:
 								},
 								"selector": {
 									"description": "Selector filter.",
-									"enum": ["accessor-property", "index-signature", "constructor", "static-block", "get-method", "set-method", "function-property", "property", "method"],
+									"enum": ["function-property", "accessor-property", "property", "constructor", "get-method", "set-method", "method", "index-signature", "static-block"],
 									"type": "string"
 								},
 								"decoratorNamePattern": {
@@ -1135,8 +1135,8 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario                 | Severity   | Value                                             | Config block |
 | ------------------------ | ---------- | ------------------------------------------------- | ------------ |
 | `perfectionist`          | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `0`          |
-| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `3`          |
-| `all-options`            | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `30`         |
+| `perfectionist-with-fsd` | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `4`          |
+| `all-options`            | 🚨 `error` | `["error",{"type":"alphabetical","order":"asc"}]` | `33`         |
 
 ## Examples
 

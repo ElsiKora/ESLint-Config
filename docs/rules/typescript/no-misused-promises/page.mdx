@@ -33,8 +33,25 @@ The rule exposes the following ESLint option schema:
 		"additionalProperties": false,
 		"properties": {
 			"checksConditionals": {
-				"type": "boolean",
-				"description": "Whether to warn when a Promise is provided to conditional statements."
+				"description": "Whether to warn when a Promise is provided to conditional statements.",
+				"oneOf": [
+					{
+						"type": "boolean",
+						"description": "Whether to check conditionals."
+					},
+					{
+						"type": "object",
+						"additionalProperties": false,
+						"description": "Detailed settings for conditional inspection.",
+						"properties": {
+							"flagUnions": {
+								"type": "string",
+								"description": "Configures how union types containing Promise-like types are checked.",
+								"enum": ["all", "strict", "none"]
+							}
+						}
+					}
+				]
 			},
 			"checksSpreads": {
 				"type": "boolean",
@@ -149,12 +166,12 @@ The default shown here is the first effective result produced by ESLint's own co
 | `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `2`          |
 | `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `5`          |
 | `typescript-strict-with-unicorn` | 🚨 `error` | `"error"` | `9`          |
-| `all-options`                    | 🚨 `error` | `"error"` | `57`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `60`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `64`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `67`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `70`         |
-| `all-options`                    | 🚨 `error` | `"error"` | `74`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `59`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `62`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `66`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `69`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `72`         |
+| `all-options`                    | 🚨 `error` | `"error"` | `76`         |
 
 ## Examples
 

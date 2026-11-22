@@ -72,6 +72,7 @@ export default {
 	"use-state": "use-state",
 	"web-api-no-leaked-event-listener": "web-api-no-leaked-event-listener",
 	"web-api-no-leaked-fetch": "web-api-no-leaked-fetch",
+	"web-api-no-leaked-intersection-observer": "web-api-no-leaked-intersection-observer",
 	"web-api-no-leaked-interval": "web-api-no-leaked-interval",
 	"web-api-no-leaked-resize-observer": "web-api-no-leaked-resize-observer",
 	"web-api-no-leaked-timeout": "web-api-no-leaked-timeout",

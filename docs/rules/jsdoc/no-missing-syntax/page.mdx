@@ -32,7 +32,7 @@ The rule exposes the following ESLint option schema:
 		"additionalProperties": false,
 		"properties": {
 			"contexts": {
-				"description": "Set this to an array of strings representing the AST context (or an object with\noptional `context` and `comment` properties) where you wish the rule to be applied.\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nUse the `minimum` property (defaults to 1) to indicate how many are required\nfor the rule to be reported.\n\nUse the `message` property to indicate the specific error to be shown when an\nerror is reported for that context being found missing. You may use\n`{{context}}` and `{{comment}}` with such messages. Defaults to\n`\"Syntax is required: {{context}}\"`, or with a comment, to\n`\"Syntax is required: {{context}} with {{comment}}\"`.\n\nSet to `\"any\"` if you want the rule to apply to any JSDoc block throughout\nyour files (as is necessary for finding function blocks not attached to a\nfunction declaration or expression, i.e., `@callback` or `@function` (or its\naliases `@func` or `@method`) (including those associated with an `@interface`).\n\nSee the [\"AST and Selectors\"](../#advanced-ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
+				"description": "Set this to an array of strings representing the AST context (or an object with\noptional `context` and `comment` properties) where you wish the rule to be applied.\n\n`context` defaults to `any` and `comment` defaults to no specific comment context.\n\nUse the `minimum` property (defaults to 1) to indicate how many are required\nfor the rule to be reported.\n\nUse the `message` property to indicate the specific error to be shown when an\nerror is reported for that context being found missing. You may use\n`{{context}}` and `{{comment}}` with such messages. Defaults to\n`\"Syntax is required: {{context}}\"`, or with a comment, to\n`\"Syntax is required: {{context}} with {{comment}}\"`.\n\nSet to `\"any\"` if you want the rule to apply to any JSDoc block throughout\nyour files (as is necessary for finding function blocks not attached to a\nfunction declaration or expression, i.e., `@callback` or `@function` (or its\naliases `@func` or `@method`) (including those associated with an `@interface`).\n\nSee the [\"AST and Selectors\"](../advanced.md#ast-and-selectors)\nsection of our Advanced docs for more on the expected format.",
 				"items": {
 					"anyOf": [
 						{
@@ -103,7 +103,7 @@ The default shown here is the first effective result produced by ESLint's own co
 | Scenario      | Severity | Value   | Config block |
 | ------------- | -------- | ------- | ------------ |
 | `jsdoc`       | 🧭 `off` | `"off"` | `0`          |
-| `all-options` | 🧭 `off` | `"off"` | `11`         |
+| `all-options` | 🧭 `off` | `"off"` | `14`         |
 
 ## Examples
 

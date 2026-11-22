@@ -10,7 +10,7 @@ export function formatRuleName(ruleName: string): string {
 		const oldPrefix: string = `${oldName}/`;
 
 		if (ruleName.startsWith(oldPrefix)) {
-			return ruleName.replace(oldPrefix, `${newName}/`);
+			return `${newName}/${ruleName.slice(oldPrefix.length)}`;
 		}
 	}
 

@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -5,6 +6,10 @@ import { ESLint } from "eslint";
 import prettier from "prettier";
 
 import createConfig, { createRuleDocumentationSlug } from "../dist/esm/index.js";
+
+// Rule-specific examples for rules added by plugin upgrades, keyed by the final rule id.
+// The unicorn examples are adapted from eslint-plugin-unicorn's rule documentation (MIT); the others are original.
+const RULE_EXAMPLES = JSON.parse(readFileSync(new URL("rule-examples.json", import.meta.url), "utf8"));
 
 const ALL_CONFIG_OPTIONS = {
 	withCheckFile: true,
@@ -76,6 +81,11 @@ const SCENARIOS = [
 
 const DOCS_ROOT = path.resolve("docs");
 const RULES_ROOT = path.join(DOCS_ROOT, "rules");
+
+// Preset behavior that depends on another option and that the scenario tables alone do not explain.
+const PRESET_NOTES = {
+	"@elsikora/fsd/1/ordered-imports": "With `withFsd` alone this rule is on for every file. With `withPerfectionist` as well, `perfectionist/sort-imports` orders FSD layers in `.js`, `.jsx`, `.ts` and `.tsx` files and this rule is off there; it stays on for `.mjs`, `.cjs`, `.mts` and `.cts` files.",
+};
 
 const EFFECTIVE_CONFIG_TARGETS = [
 	createEffectiveConfigTarget("JavaScript", "src/example.js"),
@@ -263,6 +273,12 @@ function createExample(entry, mode) {
 }
 
 function createExamplePair(entry) {
+	const listedExample = RULE_EXAMPLES[entry.ruleId];
+
+	if (listedExample) {
+		return createExamplePairFromCode(listedExample.language, listedExample.bad, listedExample.good);
+	}
+
 	const language = getExampleLanguage(entry);
 	const family = entry.segments[0];
 
@@ -1333,6 +1349,9 @@ function createTypeScriptExamplePair(entry) {
 		case "no-floating-promises":
 			return createExamplePairFromCode("ts", "async function save(): Promise<void> {\n\tsaveUser(user);\n}\n\nexport { save };", "async function save(): Promise<void> {\n\tawait saveUser(user);\n}\n\nexport { save };");
 
+		case "no-generated-empty-object-type":
+			return createExamplePairFromCode("ts", 'interface Credentials {\n\tpassword: string;\n}\n\ntype PublicCredentials = Omit<Credentials, "password">;\n\nexport type { PublicCredentials };', 'interface Credentials {\n\tpassword: string;\n\tusername: string;\n}\n\ntype PublicCredentials = Omit<Credentials, "password">;\n\nexport type { PublicCredentials };');
+
 		case "no-misused-promises":
 			return createExamplePairFromCode("ts", "users.forEach(async (user) => {\n\tawait saveUser(user);\n});", "await Promise.all(users.map((user) => saveUser(user)));");
 
@@ -1435,8 +1454,14 @@ function createTypeScriptUnsafeExamplePair(ruleName) {
 		case "no-unsafe-call":
 			return createExamplePairFromCode("ts", "const handler = JSON.parse(payload);\nhandler();", "const handler = parseHandler(payload);\nhandler();");
 
+		case "no-unsafe-class-instance-assignment":
+			return createExamplePairFromCode("ts", "class Money {\n\tconstructor(public readonly amount: number) {}\n}\n\nconst price: Money = { amount: 10 };\nexport { price };", "class Money {\n\tconstructor(public readonly amount: number) {}\n}\n\nconst price: Money = new Money(10);\nexport { price };");
+
 		case "no-unsafe-declaration-merging":
 			return createExamplePairFromCode("ts", "interface User {}\nclass User {}\n\nexport { User };", "interface UserShape {}\nclass UserModel {}\n\nexport { UserModel };\nexport type { UserShape };");
+
+		case "no-unsafe-enum-assignment":
+			return createExamplePairFromCode("ts", "enum Priority {\n\tLow = 0,\n\tHigh = 1,\n}\n\nconst priority: Priority = 1;\nexport { priority };", "enum Priority {\n\tLow = 0,\n\tHigh = 1,\n}\n\nconst priority: Priority = Priority.High;\nexport { priority };");
 
 		case "no-unsafe-enum-comparison":
 			return createExamplePairFromCode("ts", 'enum Status {\n\tReady = "ready",\n}\n\nconst isReady = status === "ready";\nexport { isReady };', 'enum Status {\n\tReady = "ready",\n}\n\nconst isReady = status === Status.Ready;\nexport { isReady };');
@@ -2580,12 +2605,12 @@ ${createOptionsSection(entry)}
 
 The default shown here is the first effective result produced by ESLint's own config resolver. Raw configured entries are listed separately so overrides from React, Next.js, Prettier, and other presets stay visible.
 
-| Field | Value |
+${PRESET_NOTES[entry.ruleId] ? `<Callout type="info">${PRESET_NOTES[entry.ruleId]}</Callout>\n\n` : ""}| Field | Value |
 | --- | --- |
 | Default scenario | \`${defaultOccurrence.scenarioId}\` |
 | Default target | ${formatDefaultTarget(defaultOccurrence)} |
 | Default severity | ${formatSeverityBadge(getRuleSeverity(defaultOccurrence.value))} |
-| Default value | \`${escapeTableCell(JSON.stringify(defaultOccurrence.value))}\` |
+| Default value | ${formatRuleValueCode(defaultOccurrence.value)} |
 
 ### Effective Result by File Type
 
@@ -2648,7 +2673,7 @@ ${JSON.stringify(entry.metadata.defaultOptions, null, "\t")}
 }
 
 function createConfiguredValuesTable(entry) {
-	const rows = [...getUniqueOccurrences(entry.occurrences)].map((occurrence) => `| \`${occurrence.scenarioId}\` | ${formatSeverityBadge(getRuleSeverity(occurrence.value))} | \`${escapeTableCell(JSON.stringify(occurrence.value))}\` | \`${occurrence.configIndex}\` |`).join("\n");
+	const rows = [...getUniqueOccurrences(entry.occurrences)].map((occurrence) => `| \`${occurrence.scenarioId}\` | ${formatSeverityBadge(getRuleSeverity(occurrence.value))} | ${formatRuleValueCode(occurrence.value)} | \`${occurrence.configIndex}\` |`).join("\n");
 
 	return `| Scenario | Severity | Value | Config block |
 | --- | --- | --- | --- |
@@ -2660,7 +2685,7 @@ function createEffectiveValuesTable(entry) {
 		return "This rule is configured but was not present in the representative effective configs sampled for these docs.";
 	}
 
-	const rows = [...getUniqueEffectiveOccurrences(entry.effectiveOccurrences)].map((occurrence) => `| \`${occurrence.scenarioId}\` | \`${occurrence.targetId}\` | \`${occurrence.filePath}\` | ${formatSeverityBadge(getRuleSeverity(occurrence.value))} | \`${escapeTableCell(JSON.stringify(occurrence.value))}\` |`).join("\n");
+	const rows = [...getUniqueEffectiveOccurrences(entry.effectiveOccurrences)].map((occurrence) => `| \`${occurrence.scenarioId}\` | \`${occurrence.targetId}\` | \`${occurrence.filePath}\` | ${formatSeverityBadge(getRuleSeverity(occurrence.value))} | ${formatRuleValueCode(occurrence.value)} |`).join("\n");
 
 	return `| Scenario | Target | File path | Effective severity | Effective value |
 | --- | --- | --- | --- | --- |
@@ -2975,6 +3000,13 @@ function escapeTableCell(value) {
 	return String(value).replaceAll("|", "\\|");
 }
 
+// Renders a rule value as one inline code span: regular expressions keep their source, and a longer fence keeps backticks inside the span.
+function formatRuleValueCode(value) {
+	const json = escapeTableCell(JSON.stringify(value, (_key, item) => (item instanceof RegExp ? String(item) : item)));
+
+	return json.includes("`") ? `\`\` ${json} \`\`` : `\`${json}\``;
+}
+
 function formatTitle(value) {
 	const knownTitles = {
 		css: "CSS",
@@ -3001,10 +3033,9 @@ function formatTitle(value) {
 }
 
 function createMetaFileContent(entries) {
-	const disableComment = hasPasswordLikeMetaEntry(entries) ? "/* eslint-disable @elsikora/sonar/no-hardcoded-passwords */\n" : "";
 	const properties = entries.map(([key, value]) => `\t${formatMetaObjectKey(key)}: ${JSON.stringify(value)},`).join("\n");
 
-	return `${disableComment}export default {\n${properties}\n};\n`;
+	return `export default {\n${properties}\n};\n`;
 }
 
 function formatMetaObjectKey(key) {
@@ -3013,8 +3044,4 @@ function formatMetaObjectKey(key) {
 	}
 
 	return JSON.stringify(key);
-}
-
-function hasPasswordLikeMetaEntry(entries) {
-	return entries.some(([key, value]) => `${key} ${value}`.toLowerCase().includes("password"));
 }

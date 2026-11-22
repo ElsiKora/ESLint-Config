@@ -2,13 +2,13 @@ import { Callout, Tabs } from "nextra/components";
 
 # `@elsikora/sonar/no-ip-forward`
 
-<Callout type="error" emoji="🚨">
-	**Error.** ElsiKora reports this rule as an error in at least one preset scenario.
+<Callout type="info" emoji="🧭">
+	**Disabled.** ElsiKora includes this rule as an intentional disabled override in at least one preset scenario.
 </Callout>
 
 ## Rule Overview
 
-Forwarding client IP address is security-sensitive.
+Client IP address should not be forwarded to proxies.
 
 This page describes the rule in general first, then shows the exact ElsiKora preset configuration separately.
 
@@ -19,8 +19,8 @@ This page describes the rule in general first, then shows the exact ElsiKora pre
 | Type               | `problem` |
 | Fixable            | ❌ No     |
 | Has suggestions    | ❌ No     |
-| Deprecated         | ❌ No     |
-| ESLint recommended | `true`    |
+| Deprecated         | ✅ Yes    |
+| ESLint recommended | `false`   |
 
 ## All Supported Options
 
@@ -34,42 +34,42 @@ The default shown here is the first effective result produced by ESLint's own co
 | ---------------- | ------------------------------- |
 | Default scenario | `all-options`                   |
 | Default target   | `JavaScript` (`src/example.js`) |
-| Default severity | 🚨 `error`                      |
-| Default value    | `[2]`                           |
+| Default severity | 🧭 `off`                        |
+| Default value    | `[0]`                           |
 
 ### Effective Result by File Type
 
 | Scenario                | Target       | File path                 | Effective severity | Effective value |
 | ----------------------- | ------------ | ------------------------- | ------------------ | --------------- |
-| `sonar`                 | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `sonar`                 | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `sonar`                 | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `sonar`                 | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `sonar`                 | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `sonar`                 | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `sonar`                 | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
-| `all-options`           | `JavaScript` | `src/example.js`          | 🚨 `error`         | `[2]`           |
-| `all-options`           | `JSX`        | `src/example.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`           | `TypeScript` | `src/example.ts`          | 🚨 `error`         | `[2]`           |
-| `all-options`           | `TSX`        | `src/example.tsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`           | `Next pages` | `pages/index.jsx`         | 🚨 `error`         | `[2]`           |
-| `all-options`           | `Next app`   | `app/page.tsx`            | 🚨 `error`         | `[2]`           |
-| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🚨 `error`         | `[2]`           |
+| `sonar`                 | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `sonar`                 | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `javascript-with-sonar` | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
+| `all-options`           | `JavaScript` | `src/example.js`          | 🧭 `off`           | `[0]`           |
+| `all-options`           | `JSX`        | `src/example.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`           | `TypeScript` | `src/example.ts`          | 🧭 `off`           | `[0]`           |
+| `all-options`           | `TSX`        | `src/example.tsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`           | `Next pages` | `pages/index.jsx`         | 🧭 `off`           | `[0]`           |
+| `all-options`           | `Next app`   | `app/page.tsx`            | 🧭 `off`           | `[0]`           |
+| `all-options`           | `Storybook`  | `src/example.stories.tsx` | 🧭 `off`           | `[0]`           |
 
 ### Configured Entries Before ESLint Resolves Overrides
 
-| Scenario                | Severity   | Value     | Config block |
-| ----------------------- | ---------- | --------- | ------------ |
-| `sonar`                 | 🚨 `error` | `"error"` | `0`          |
-| `javascript-with-sonar` | 🚨 `error` | `"error"` | `3`          |
-| `all-options`           | 🚨 `error` | `"error"` | `39`         |
+| Scenario                | Severity | Value   | Config block |
+| ----------------------- | -------- | ------- | ------------ |
+| `sonar`                 | 🧭 `off` | `"off"` | `0`          |
+| `javascript-with-sonar` | 🧭 `off` | `"off"` | `3`          |
+| `all-options`           | 🧭 `off` | `"off"` | `42`         |
 
 ## Examples
 
